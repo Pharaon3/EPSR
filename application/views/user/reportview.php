@@ -1,0 +1,774 @@
+<style type="text/css" media="print">
+    @page
+    {
+        size:  auto;   /* auto is the initial value */
+        margin: 10mm;  /* this affects the margin in the printer settings */
+    }
+
+</style>
+
+<style type="text/css">
+    body {
+        counter-reset: section;                     /* Устанавливает значение
+                                                 счётчика, равным 0 */
+    }
+    @media print
+    {
+        @page {
+            size: A4;
+            counter-increment: page;
+            counter-reset: page 1;
+            @top-right {
+                content: "Page " counter(page) " of " counter(pages);
+            }
+        }
+    }
+    @media print {
+        .pagebreak {
+            page-break-before: always;
+
+        }
+        tfoot { visibility: hidden; }
+        /* page-break-after works, as well */
+    }
+    @media print {
+        @page {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+        * {
+            -webkit-print-color-adjust: exact !important; /*Chrome, Safari */
+            color-adjust: exact !important;  /*Firefox*/
+        }
+    }
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    .tableone td {
+        padding: 5px 10px
+    }
+
+
+    .denifittable th {
+        padding: 10px 10px;
+        font-weight: normal;
+        border-collapse: collapse;
+        border-right: 1px solid #999;
+        border-bottom: 1px solid #999;
+    }
+
+    .denifittable td {
+        padding: 10px 10px;
+        font-weight: bold;
+        border-collapse: collapse;
+        border-left: 1px solid #999;
+    }
+
+    .mark-container {
+        width: 1000px;
+        position: relative;
+        z-index: 2;
+        margin: 0 auto;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    .pagebreak {
+        page-break-before: always;
+        counter-increment: section;
+    }
+
+    .tablemain {
+        position: relative;
+        z-index: 2
+    }
+    .bordertable,
+    .bordertable th,
+    .bordertable td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+
+    span:before {
+        content: '';
+        width: 100%;
+        height: 3em;
+        display: inline-block;
+    }
+
+    span {
+        display: inline-block; /* Can remove if span:before width doesn't matter. */
+    }
+    div.sticky {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        padding: 5px;
+        background-color: #cae8ca;
+        border: 2px solid #4CAF50;
+        bottom: 8px;
+    }
+    .bottomright {
+        position: absolute;
+        bottom: 8px;
+        right: 16px;
+        font-size: 18px;
+    }
+    div.static {
+        position: static;
+        border: 3px solid #73AD21;
+    }
+
+    div.absolute {
+        position: absolute;
+        width: 50%;
+        bottom: 10px;
+        border: 3px solid #8AC007;
+    }
+    div.fixed {
+        position: fixed;
+        width: 100%;
+        bottom: 10px;
+        border: 3px solid #8AC007;
+    }
+    div.relative {
+        position: relative;
+        width: 50%;
+        bottom: 5px;!important;
+        margin-top: 500px;
+        border: 3px solid #8AC007;
+    }
+    body{ min-height:100vh; margin:0; position:relative; }
+    header{ min-height:50px; background:lightcyan; }
+    footer{ background:PapayaWhip; }
+
+    /* Trick: */
+    body {
+        position: relative;
+        counter-reset: section;
+    }
+
+    body::after {
+        content: '';
+        display: block;
+        height: 50px; /* Set same as footer's height */
+    }
+
+    footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 50px;
+    }
+
+    span::before {
+        counter-increment: section;                 /* Increment the value of section counter by 1 */
+        content: counter(section) ": ";  /* Display counter value in default style (decimal) */
+    }
+
+</style>
+<?php
+    $pageNum = $this->session->userdata['pageNum'];
+    $period_label = '';
+    if($period['label'] == 1)
+    {
+        $period_label =  "1er Perdió";
+    }
+    else if($period['label'] == 2)
+    {
+        $period_label = "2do Perdió";
+    }
+    else if($period['label'] == 3)
+    {
+        $period_label = "3er Perdió";
+    }
+    else if($period['label'] == 4)
+    {
+        $period_label = "4to Perdió";
+    }
+    else
+    {
+        $period_label = "5to Perdió";
+    }
+    if($level == 'NIVEL PRIMARIO')
+    {
+        $level_t = 'Nivel Inicial';
+    }
+    else
+    {
+        $level_t = 'Nivel Primario';
+    }
+
+    //////////////////////--------------------------------------->
+    //Sorry.
+    //plz edit class name.
+    $class_t = '';
+    if($class == "1RO PRIMARIA VESPERTINO")
+    {
+        $class_t =  "1er Grado. Primer Ciclo";
+    }
+    else if($class == "1er Grado. Primer Ciclo Vespertino")
+    {
+        $class_t =  "1er Grado. Primer Ciclo";
+    }
+    else if($class == "2do Grado. Primer Ciclo Matutino")
+    {
+        $class_t =  "2do Grado. Primer Ciclo";
+    }
+
+    else if($class == "2do Grado. Primer Ciclo Vespertino")
+    {
+        $class_t =  "2do Grado. Primer Ciclo";
+    }
+    else if($class == "3er Grado. Primer Ciclo Matutino")
+    {
+        $class_t =  "3er Grado. Primer Ciclo";
+    }
+    else if($class == "3er Grado. Primer Ciclo Vespertino")
+    {
+        $class_t =  "3er Grado. Primer Ciclo";
+    }
+    else if($class == "4to Grado. Segundo Ciclo Matutino")
+    {
+        $class_t =  "4to Grado. Primer Ciclo";
+    }
+    else if($class == "4to Grado. Segundo Ciclo Vespertino")
+    {
+        $class_t =  "4to Grado. Primer Ciclo";
+    }
+    else if($class == "5to Grado. Segundo Ciclo Matutino")
+    {
+        $class_t =  "5to Grado. Primer Ciclo";
+    }
+    else if($class == "5to Grado. Segundo Ciclo Vespertino")
+    {
+        $class_t =  "5to Grado. Primer Ciclo";
+    }
+
+    else if($class == "6to Grado. Segundo Ciclo Matutino")
+    {
+        $class_t =  "6to Grado. Primer Ciclo";
+    }
+    else if($class == "6to Grado. Segundo Ciclo Vespertino")
+    {
+        $class_t =  "6to Grado. Primer Ciclo";
+    }
+    //////////////////////<---------------------------------------
+    $footer = $period_label." de Evaluación.".$class.".".$level_t;
+
+
+    if($pageNum % 2 == 0)
+    {
+        echo '<div class="mark-container" style="position:relative; border:solid 0px;height: 1500px;margin-top: 10px;">';
+        echo '<div style="width:100%;position:absolute;margin-top: 1470px;widht:100%;height: 30px;z-index: 1;border: solid 0px;border-top:solid 1px; ">
+                            <div style="width:80%;float:left;font-size:22px;">
+                                '.$footer.'
+                            </div>
+                            <div style="width:20%;float:right;font-size:22px;text-align: right">
+                                Pag.'.$pageNum++.'
+                            </div>
+                        </div>';
+        echo "</div>";
+        echo '<div class="pagebreak"></div>';
+    }
+    if (!empty($periodList)) {
+    foreach ($periodList as $period) {
+    if (empty($period_id) || $period['id'] == $period_id) {
+?>
+
+<div class="mark-container" style="position:relative; border:solid 0px;height: 1500px;margin-top: 10px;">
+
+    <div style = "width:1000px;position:absolute;z-index: 1000;border:solid 0px;text-align: center;">
+        <table cellpadding="0" cellspacing="0" width="100%" class="tablemain" border="0">
+            <tr><td><div style="height: 50px;"></div></td></tr>
+            <tr>
+                <td valign="top">
+                    <table cellpadding="0" cellspacing="0" width="100%" border="0">
+                        <tr>
+                            <td valign="top" align="center" width="150" id="logo">
+                                <img src="<?php echo base_url('backend/images/grading_report_logo.jpg'); ?>" width="150" height="150">
+                            </td>
+                            <td valign="top" style="padding-left: 5px">
+                                <table cellpadding="0" cellspacing="0" width="100%">
+                                    <tr>
+                                        <td valign="top" height="10" colspan="2"></td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top" style="font-size: 40px; font-weight: bold;">Escuela Parroquial Santa Rita</td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top" style="font-size: 30px; font-weight: bold;">Agustinos Recoletos</td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top" style="font-size: 20px; font-weight: bold;">Av. Libertad No. 31, San Cristóbal, R.D Tel.: 809-528-3552 Email: info@epsr.edu.do
+                                            <br>RNC: 4-1401247-2
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr>
+                <td valign="top" height="15"></td>
+            </tr>
+
+            <tr>
+                <td valign="top" >
+                    <table cellpadding="0" border="1" cellspacing="0" width="100%">
+                        <tr>
+                            <td valign="top" style="width : 31%;font-size: 21px;padding:5px;" colspan="2">
+                                <b> &nbsp;Código del centro: </b> 21002717
+                                <br>
+                                <b> &nbsp;Año Escolar: </b>  <?php echo $session ?>
+                            </td>
+                            <td valign="top" style="width : 69%;font-size: 21px;padding:5px;" colspan="3">
+                                <b> &nbsp;Regional Educativa: </b> San Cristóbal, Norte 04
+                                <br>
+                                <b> &nbsp;Distrito Educativo: </b>  San Cristóbal 04-02
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width : 31%;font-size: 21px;padding:5px;"  colspan="2"><b>&nbsp;No. Matrícula:</b> <?php echo $student['admission_no'] ?></td>
+                            <td style="width : 38%;font-size: 21px;padding:5px;" colspan="1"><b>&nbsp;Curso: </b><?php echo $class ?> </td>
+                            <td style="padding:5px;width : <?php if($student['level'] == "NIVEL INICIAL") echo "30";else echo "13"; ?>%;font-size: 21px;" colspan="
+                                    <?php if($student['level'] == "NIVEL INICIAL") echo "2";else echo "1"; ?>
+                                    "><b>&nbsp;Sección: </b> <?php echo $student['section'] ?></td>
+                            <?php if($student['level'] == "NIVEL PRIMARIO"){ ?>
+                                <td style="font-size: 21px;padding:5px;"><b>Tanda: </b> Matutina</td>
+                            <?php }?>
+                        </tr>
+                        <tr>
+                            <td  style="width : 25%;font-size: 28px;padding:5px;" colspan="1">
+                                <b>&nbsp;No. Orden: </b> <?=$order_number; ?>
+                            </td>
+                            <td style="width : 75%;font-size: 28px;padding:5px;" colspan="4">
+                                <b>&nbsp;Nombre y Apellidos: </b><?php echo $this->customlib->getFullName($student['firstname'],
+                                    $student['middlename'], $student['lastname'],
+                                    $sch_setting->middlename, $sch_setting->lastname); ?>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr>
+                <td valign="top" height="190"></td>
+            </tr>
+            <tr>
+
+
+                <?php if($level == "NIVEL INICIAL") { ?>
+                <td valign="top" colspan="5" style="height: 830px ;font-weight: bold;font-family: 'Arial Black'; font-size: 67px; text-align:center">
+                    Informes de Evaluación<br>
+                    de los Aprendizajes de<br>
+                    los Niños y Niñas del<br>
+                    Nivel Inicial<br>
+                    <?php }else{ ?>
+                <td valign="top" colspan="5" style="height: 830px ;font-weight: bold;font-family: 'Arial Black'; font-size: 55px; text-align:center">
+                    INFORME DE APRENDIZAJE<br>
+                    <br>
+                    <div style="font-weight: bold;font-size:67px;font-family: 'Arial Black'">
+                        <?php if($class == "1er Grado. Primer Ciclo Matutino")
+                        {
+                            echo "Primer Grado<br>";
+                        }
+                        else if($class == "1er Grado. Primer Ciclo Vespertino")
+                        {
+                            echo "Primer Grado<br>";
+                        }
+                        else if($class == "2do Grado. Primer Ciclo Matutino")
+                        {
+                            echo "Segundo Grado<br>";
+                        }
+
+                        else if($class == "2do Grado. Primer Ciclo Vespertino")
+                        {
+                            echo "Segundo Grado<br>";
+                        }
+
+                        else if($class == "3er Grado. Primer Ciclo Matutino")
+                        {
+                            echo "Tercer Grado<br>";
+                        }
+
+                        else if($class == "3er Grado. Primer Ciclo Vespertino")
+                        {
+                            echo "Tercer Grado<br>";
+                        }
+                        else if($class == "4to Grado. Segundo Ciclo Matutino")
+                        {
+                            echo "Cuarto Grado<br>";
+                        }
+                        else if($class == "4to Grado. Segundo Ciclo Vespertino")
+                        {
+                            echo "Cuarto Grado<br>";
+                        }
+                        else if($class == "5to Grado. Segundo Ciclo Matutino")
+                        {
+                            echo "Quinto Grado<br>";
+                        }
+                        else if($class == "5to Grado. Segundo Ciclo Vespertino")
+                        {
+                            echo "Quinto Grado<br>";
+                        }
+
+                        else if($class == "6to Grado. Segundo Ciclo Matutino")
+                        {
+                            echo "Sexto Grado<br>";
+                        }
+                        else if($class == "6to Grado. Segundo Ciclo Vespertino")
+                        {
+                            echo "Sexto Grado<br>";
+                        }
+                        ?>
+                        del Nivel Primario
+                    </div>
+                    <?php }?>
+                </td>
+            </tr>
+            <tr>
+                <td valign="top">
+                    <table cellpadding="0" cellspacing="0" width="100%" border="0">
+                        <tr>
+                            <td valign="top" style="width: 33%;font-weight: bold; font-size: 22px; text-align:center;  line-height:1.5;">
+                                <div style="text-decoration-line:overline;"><?= $class_teacher ?></div>
+                                <font size="4pt" >Maestra Guía</font>
+                            </td>
+                            <td valign="top" style="width: 34%;  font-weight: bold; font-size: 22px; text-align:center; line-height:1.5;">
+                                <div style="text-decoration-line:overline;"> P. Arturo Yax Pacheco, OAR</div>
+                                <font size="4pt">Director General</font>
+                            </td>
+                            <td valign="top" style="width: 33%; font-weight: bold; font-size: 22px; text-align:center; line-height:1.5;">
+                                <div style="text-decoration-line:overline;"><?= $level_coordinator ?></div>
+                                <font size="4pt">Coordinadora Nivel <?php if($level == "NIVEL PRIMARIO") echo "Primario"; else echo "Inicial"; ?></font>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div style="width:100%;position:absolute;margin-top: 1470px;widht:100%;height: 30px;z-index: 1;border: solid 0px; border-top:solid 1px; ">
+        <div style="width:80%;float:left;font-size:22px;">
+            <?=$footer;?>
+        </div>
+        <div style="width:20%;float:right;font-size:22px;text-align: right">
+            Pag.<?=$pageNum++;?>
+        </div>
+    </div>
+</div>
+<div class="pagebreak"></div>
+<div class="mark-container" style="position:relative; border:solid 0px;height: 1500px;margin-top: 10px;">
+    <div style = "width:1000px;position:absolute;z-index: 1000;border:solid 0px;text-align: center;">
+        <?php
+            $pagesize = 1550;
+            $currentpagesize = 0;
+            echo
+            '<table cellpadding="0" cellspacing="0" width="100%" class="tablemain" border="0">
+        <tr><td colspan="2"  style="height: 50px;"></td><tr>
+                    <tr>
+                        <td valign="top">
+
+                            <table cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td style="width:80%;padding-top: 60px;font-weight: bold; font-size: 25px; text-align:left">';
+            if($period['label'] == 1)
+            {
+                echo "PRIMER PERÍODO";
+            }
+            else if($period['label'] == 2)
+            {
+                echo "SEGUNDO PERÍODO";
+            }
+            else if($period['label'] == 3)
+            {
+                echo "TERCER PERÍODO";
+            }
+            else if($period['label'] == 4)
+            {
+                echo "CUARTO PERÍODO";
+            }
+            else
+            {
+                echo "QUINTO PERÍODO";
+            }
+            echo "(".$monthlist[$period["start_month"]]."-". $monthlist[$period["end_month"]].")";
+            echo '
+                                    </td>
+                                    <td valign="top" style="font-weight: bold; font-size: 22px; text-align:center">
+                                        <table class="bordertable" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="2" style="font-size: 20px;background-color: #afafc6">Escala de valores</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>';
+
+            foreach ($valuescaleList as $valuescale)
+            {
+                echo '
+                                                        <tr>
+                                                            <td valign="top" style="font-size: 18px; text-align:center;">'. $valuescale["symbol"] . '</td>
+                                                            <td valign="top" style="font-size: 20px; text-align:left; padding-left: 15px;">'.$valuescale["label"].'</td>
+                                                        </tr>';
+            }
+            echo'
+
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>';
+            echo '
+                    <tr>
+                        <td valign="top" height="10"></td>
+                    </tr>';
+            $currentpagesize = 100;
+            foreach ($competenceList[$period['id']] as $competence)
+            {
+                if(count($indicatorsList[$competence['id']] < 35))
+                {
+                    $currentpagesize += 43   * count($indicatorsList[$competence['id']]);
+                }
+                else
+                {
+                    $currentpagesize = (count($indicatorsList[$competence['id']]) - 35) * 43 + 50;
+                }
+                if($currentpagesize >= $pagesize)
+                {
+                    $currentpagesize = 50;
+                    echo "</table>";
+                    echo '</div>';
+                    echo '<div style="width:100%;position:absolute;margin-top: 1470px;widht:100%;height: 30px;z-index: 1;border: solid 0px;border-top:solid 1px; ">
+                            <div style="width:80%;float:left;font-size:22px;">
+                                '.$footer.'
+                            </div>
+                            <div style="width:20%;float:right;font-size:22px;text-align: right">
+                                Pag.'.$pageNum++.'
+                            </div>
+                        </div>';
+                    echo "</div>";
+                    echo '<div class="pagebreak"></div>';
+                    echo '<div class="mark-container" style="position:relative; border:solid 0px;height: 1500px;margin-top: 10px;">';
+                    echo '<div style = "width:1000px;position:absolute;z-index: 1000;border:solid 0px;text-align: center;">';
+                    echo '<table cellpadding="0" cellspacing="0" width="100%" class="tablemain" border="0">';
+                    echo '<tr><td> <div style="height: 70px;"></td><tr>';
+                    if(count($indicatorsList[$competence['id']] < 35))
+                    {
+                        $currentpagesize += 43   * count($indicatorsList[$competence['id']]);
+                    }
+                    else
+                    {
+                        $currentpagesize = (count($indicatorsList[$competence['id']]) - 35) * 43 + 50;
+                    }
+                }
+                $currentpagesize += 80;
+                echo '
+                    <tr>
+                        <td style="width:70%;font-weight: bold; font-size: 25px; text-align:left">AREA: '.$competence["name"].'</td>
+                    </tr>';
+                echo '
+                    <tr>
+                        <td valign="top" style="font-size: 24px; text-align:center">
+                            <table class="bordertable" width="100%">
+                                <thead>
+                                <tr>
+                                    <th valign="bottom" style="background-color: #afafc6; height: 40px;font-size: 24px; text-align:left; padding-left:10px">';
+                echo "INDICADORES DE LOGRO";
+                echo '
+                                    </th>';
+                foreach ($valuescaleList as $valuescale)
+                {
+                    echo '<th valign="bottom" style="background-color: #afafc6;width:40px; font-size: 18px; text-align:center">'.$valuescale["symbol"].'</th>';
+                }
+                echo  '
+                                </tr>
+                                </thead>
+                                <tbody>';
+                foreach ($indicatorsList[$competence['id']] as $indicator)
+                {
+                    echo '
+                                    <tr>
+                                        <td valign="top" style="padding: 5px 10px; font-size: 22px; text-align:left">'.$indicator["name"].'</td>';
+                    foreach ($valuescaleList as $valuescale)
+                    {
+                        echo '<td valign="top" style="padding: 5px 10px; font-size: 18px; text-align:center">';
+                        if ($indicator['marks'] == $valuescale['marks'])
+                        {
+                            echo $valuescale['symbol'];
+                        }
+                        echo '
+                                        </td>';
+                    }
+                    echo '
+                                    </tr>';
+                }
+                echo '
+                                </tbody>';
+                echo '
+                            </table>';
+                echo '
+                        </td>';
+                echo '
+                    </tr>';
+                echo '
+                    <tr>
+                        <td valign="top" height="30"></td>
+                    </tr>';
+
+            }
+            if($currentpagesize >= 1200)
+            {
+                echo "</tr></table>";
+                echo  "</div>";
+                echo '<div style="width:100%;position:absolute;margin-top: 1470px;widht:100%;height: 30px;z-index: 1;border: solid 0px;border-top:solid 1px; ">
+                            <div style="width:80%;float:left;font-size:22px;">
+                                '.$footer.'
+                            </div>
+                            <div style="width:20%;float:right;font-size:22px;text-align: right">
+                                Pag.'.$pageNum++.'
+                            </div>
+                        </div>';
+                echo '</div>';
+                echo '<div class="pagebreak"></div>';
+                echo '<div class="mark-container" style="position:relative; border:solid 0px;height: 1500px;margin-top: 10px;">';
+                echo '<div style = "width:1000px;position:absolute;z-index: 1000;border:solid 0px;text-align: center;">';
+                echo "<table width='100%'>";
+                echo '<tr><td><div style="height: 50px;"></td></tr>';
+            }
+            echo '
+                <tr>';
+            echo '
+                    <td valign="top">';
+            echo '
+                        <table cellpadding="0" cellspacing="0" width="100%">';
+            echo '
+                            <tr>
+                                <td valign="top" height="30"></td>
+                            </tr>';
+            echo '
+                            <tr>
+                                <td valign="top" style=" font-weight: bold; font-size: 24px; text-align:left">
+                                    CONTROL DE ASISTENCIA
+                                </td>
+                            </tr>';
+            echo '
+                            <tr>
+                                <td valign="top" height="30"></td>
+                            </tr>';
+            echo '
+                            <tr>';
+            echo '
+                                <td valign="top">
+                                    <table class="bordertable" width="46%">';
+            if($student['level'] == "NIVEL INICIAL")
+            {
+                echo '
+                                            <thead>';
+                echo '
+                                                <tr style="background-color: #afafc6">
+                                                    <th style="font-size: 22px; padding: 5px 5px; text-align:center">Asistencia Segundo Período</th>
+                                                    <th style="font-size: 22px; padding: 5px 5px; text-align:center">'.$monthlist[$period["start_month"]]."/".$monthlist[$period["end_month"]].'</th>
+                                                </tr>';
+                echo '
+                                            </thead>';
+                echo '
+                                            <tbody>';
+                echo '
+                                            <tr>
+                                                <td valign="top" style="font-size: 22px; text-align:left; padding: 5px 5px;">Presencias </td>
+                                                <td valign="top" style="font-size: 22px; text-align:left; padding-left: 15px;"></td>
+                                            </tr>';
+                echo '
+                                            <tr>
+                                                <td valign="top" style="font-size: 22px; text-align:left; padding: 5px 5px;">Ausencias</td>
+                                                <td valign="top" style="font-size: 22px; text-align:left; padding-left: 15px;"></td>
+                                            </tr>';
+                echo '
+                                            </tbody>';
+            }
+            else
+            {
+                echo '<thead>';
+                echo '
+                                            <tr style="background-color: #afafc6">
+                                                <th style="font-size: 22px; padding: 5px 5px; text-align:center">AUSENCIAS-TARDANZAS</th>
+                                                <th style="font-size: 22px; padding: 5px 5px; text-align:center">'. $monthlist[$period["start_month"]]."/".$monthlist[$period["end_month"]].'</th>
+                                            </tr>';
+                echo '
+                                            </thead>
+                                            <tbody>';
+                echo '
+                                            <tr>
+                                                <td valign="top" style="font-size: 22px; text-align:left; padding: 5px 5px;">Ausencias Justificadas </td>
+                                                <td valign="top" style="font-size: 22px; text-align:left; padding-left: 15px;"></td>
+                                            </tr>';
+                echo '
+                                            <tr>
+                                                <td valign="top" style="font-size: 22px; text-align:left; padding: 5px 5px;">Ausencias No Justificadas</td>
+                                                <td valign="top" style="font-size: 22px; text-align:left; padding-left: 15px;"></td>
+                                            </tr>';
+                echo '
+                                            <tr>
+                                                <td valign="top" style="font-size: 22px; text-align:left; padding: 5px 5px;">Tardanzas</td>
+                                                <td valign="top" style="font-size: 22px; text-align:left; padding-left: 15px;"></td>
+                                            </tr>';
+                echo '
+                                            </tbody>';
+            }
+            echo '
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>';
+            echo '</table>';
+
+            echo '<div style="line-height:1.5; width:100%;text-align: left;">
+            <div style="padding-top:10px;font-weight: bold; font-size: 30px;">Observaciones: </div>';
+            $i = 0;
+            $str = substr($observation,$i,99);
+            if(strlen($str) == 0)
+            {
+                echo '<div style="width:100%; height: 40px; top:45px; border-bottom: 1px solid black;"></div>';
+                echo '<div style="width:100%; height: 40px; top:45px; border-bottom: 1px solid black;"></div>';
+                echo '<div style="width:100%; height: 40px; top:45px; border-bottom: 1px solid black;"></div>';
+            }
+            else
+            {
+                while(strlen($str) != 0)
+                {
+                    echo '<div style="width:100%;font-size:25px; margin-top:10px; border-bottom: 1px solid black;">'.$str.'</div>';
+                    $i += 99;
+                    $str = substr($observation,$i,99);
+                }
+            }
+
+            echo '</div>';
+            echo '</div>';
+            echo '<div style="width:100%;position:absolute;margin-top: 1470px;widht:100%;height: 30px;z-index: 1;border: solid 0px;border-top:solid 1px; ">
+                            <div style="width:80%;float:left;font-size:22px;">
+                                '.$footer.'
+                            </div>
+                            <div style="width:20%;float:right;font-size:22px;text-align: right">
+                                Pag.'.$pageNum++.'
+                            </div>
+                        </div>';
+            echo '</div>';
+            echo '
+            <div class="pagebreak"></div>';
+
+
+            }
+            }
+            }
+            $this->session->userdata['pageNum'] = $pageNum;
+        ?>
