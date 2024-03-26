@@ -113,6 +113,59 @@ class Grading_result extends Admin_Controller
         $this->load->view('layout/footer', $data);
     }
 
+    public function newedit()
+    {
+        if (!$this->rbac->hasPrivilege('grading_report_results', 'can_view')) {
+            access_denied();
+        }
+        $this->session->set_userdata('top_menu', 'GradingReport');
+        $this->session->set_userdata('sub_menu', 'GradingReport/ReportBySubject');
+        $userdata   = $this->customlib->getUserData();
+        $role_id    = $userdata["role_id"];
+        $staff_id   = $userdata["id"];
+
+        if($role_id == 51) //primary
+        {
+            $level_id = 42;
+            $class_list = $this->Gradingreport_model->getClassByLevel($level_id);
+        }
+        else if($role_id == 52) //secondary
+        {
+            $level_id = 43;
+            $class_list = $this->Gradingreport_model->getClassByLevel($level_id);
+        }
+        else if($role_id == 53) //initial
+        {
+            $level_id = 41;
+            $class_list = $this->Gradingreport_model->getClassByLevel($level_id);
+        }
+        else
+        {
+            if($role_id == 2)
+            {
+                $level_id           = $this->Gradingreport_model->getLevelByStaffId($staff_id);
+                $class_list         = $this->class_model->get();
+            }
+            else
+            {
+                $level_id = 43;     // for admin role
+                $class_list         = $this->Gradingreport_model->getClassByLevel(0);
+            }
+        }
+        
+        // $period_list = $this->Gradingreport_model->getPeriodByLevel($level_id);   
+        ## if(admin) only 4number columns
+        //print($level_id); die;
+        $period_list = $this->Gradingreport_model->getPeriodEnabledByStaffId($staff_id, $level_id);   
+        $data['role_id']        = $role_id;
+        $data['classlist']       = $class_list;
+        $data['sch_setting']     = $this->sch_setting_detail;
+        $data['periodList'] = $period_list;
+        $this->load->view('layout/header', $data);
+        $this->load->view('admin/gradingreport/newedit', $data);
+        $this->load->view('layout/footer', $data);
+    }
+
     public function searchvalidation()
     {
         $class_id   = $this->input->post('class_id');
