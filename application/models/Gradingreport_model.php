@@ -557,6 +557,54 @@ class Gradingreport_model extends MY_model {
 
     }
 
+    public function searchReportByClassSectionSubject($class_id = null, $section_id = null, $subject_id)
+    {
+
+        $i = 1;
+        $custom_fields   = $this->customfield_model->get_custom_fields('students', 1);
+        $field_var_array = array();
+        $field_var_array_name= array();
+        if (!empty($custom_fields)) {
+            foreach ($custom_fields as $custom_fields_key => $custom_fields_value) {
+                $tb_counter = "table_custom_" . $i;
+                array_push($field_var_array, 'table_custom_' . $i . '.field_value as ' . $custom_fields_value->name);
+                $this->datatables->join('custom_field_values as ' . $tb_counter, 'students.id = ' . $tb_counter . '.belong_table_id AND ' . $tb_counter . '.custom_field_id = ' . $custom_fields_value->id, 'left');
+                array_push($field_var_array_name,'table_custom_' . $i . '.field_value');
+                $i++;
+
+            }
+        }
+        
+        $field_variable = (empty($field_var_array))? "": ",".implode(',', $field_var_array);
+        $field_name = (empty($field_var_array_name))? "": ",".implode(',', $field_var_array_name);
+
+        if ($class_id != null) {
+            $this->datatables->where('student_session.class_id', $class_id);
+        }
+        if ($section_id != null) {
+            $this->datatables->where('student_session.section_id', $section_id);
+        }
+
+         $this->datatables
+            ->select('classes.id AS `class_id`,levels.id AS `level_id`,levels.level AS `level`,student_session.id as student_session_id,students.id,classes.class,sections.id AS `section_id`,sections.section,grading_subject_reports.update_date_p1,grading_subject_reports.update_date_p2,grading_subject_reports.update_date_p3,grading_subject_reports.update_date_p4,grading_subject_reports.update_date_p5,grading_subject_reports.p1,grading_subject_reports.p2,grading_subject_reports.p3,grading_subject_reports.p4,grading_subject_reports.p5,grading_subject_reports.CPC,grading_subject_reports.CPEX,students.id,students.admission_no , students.roll_no,students.admission_date,students.firstname,students.middlename,  students.lastname,students.image,    students.mobileno, students.email ,students.state ,   students.city , students.pincode ,     students.religion,     students.dob ,students.current_address,    students.permanent_address,IFNULL(students.category_id, 0) as `category_id`,IFNULL(categories.category, "") as `category`,students.adhar_no,students.samagra_id,students.bank_account_no,students.bank_name, students.ifsc_code , students.guardian_is , students.father_phone , students.mother_phone , students.guardian_name , students.guardian_relation,students.guardian_phone,students.guardian_address,students.guardian_email,students.is_active ,students.created_at ,students.updated_at,students.father_name,students.app_key,students.parent_app_key,students.rte,students.gender'. $field_variable)
+            ->join('student_session', 'student_session.student_id = students.id')
+            ->join('classes', 'student_session.class_id = classes.id')
+            ->join('level_class', 'level_class.class_id = classes.id')
+            ->join('levels', 'levels.id = level_class.level_id')
+            ->join('sections', 'sections.id = student_session.section_id')
+            ->join('categories', 'students.category_id = categories.id', 'left')
+            ->join('grading_subject_reports', 'grading_subject_reports.student_session_id = student_session.id AND grading_subject_reports.subject_group_subjects_id =  '.$subject_id , 'left')
+            ->where('student_session.session_id', $this->current_session)
+            ->where('students.is_active', "yes")
+            ->from('students');
+
+        
+        $this->datatables->sort('students.firstname', 'asc');
+        $this->datatables->sort('students.lastname', 'asc');
+        return $this->datatables->generate('json');
+
+    }
+
     public function getStudentOrderNumber($class_id, $section_id, $student_session_id) {
         $this->db->select('student_session.id')->from('student_session');
         $this->db->join('students', 'student_session.student_id = students.id');

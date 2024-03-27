@@ -477,6 +477,196 @@ class Grading_result extends Admin_Controller
         echo json_encode($json_data);
     }
 
+    public function dtneweditstudentlist()
+    {
+
+        $class              = $this->input->post('class_id');
+        $section            = $this->input->post('section_id');
+        $subject_id         = $this->input->post('subject_id');
+        $sch_setting        = $this->sch_setting_detail;
+        $admin_session      = $this->session->userdata('admin');
+        $permission         = $this->staff_model->get_permission($admin_session['id']);
+        $resultlist         = $this->Gradingreport_model->searchReportByClassSectionSubject($class, $section, $subject_id);
+        $period_list        = [];
+        $userdata = $this->customlib->getUserData();
+        $role_id = $userdata["role_id"];
+        if($role_id == 51) //primary
+        {
+            $level_id = 42;
+            $class_list         = $this->Gradingreport_model->getClassByLevel($level_id);
+        }
+        else if($role_id == 52) //secondary
+        {
+            $level_id = 43;
+            $class_list         = $this->Gradingreport_model->getClassByLevel($level_id);
+        }
+        else if($role_id == 53) //initial
+        {
+            $level_id = 41;
+            $class_list         = $this->Gradingreport_model->getClassByLevel($level_id);
+        }
+        else
+        {
+            $level_id           = $this->Gradingreport_model->getLevelByClass($class);
+            $class_list         = $this->Gradingreport_model->getClassByLevel($level_id);
+        }
+        $staff_id = $userdata["id"];
+        $period_list = $this->Gradingreport_model->getPeriodEnabledByStaffId($staff_id, $level_id);   
+
+        $students = array();
+        $students = json_decode($resultlist);
+        $dt_data  = array();
+        $canedit = $this->rbac->hasPrivilege('grading_report_results', 'can_edit');
+        if (!empty($students->data)) {
+            foreach ($students->data as $student) {
+                $addstep = 0;
+                $row   = array();
+                $row[] = "<div data_id=" . $student->id . ">" . $student->admission_no . "</div>";
+                $row[] = '';
+                $row[] = $this->customlib->getFullName($student->firstname, $student->middlename, $student->lastname, $sch_setting->middlename, $sch_setting->lastname);
+
+                $period_results = array();
+                $period_results[] = $student->p1;
+                $period_results[] = $student->p2;
+                $period_results[] = $student->p3;
+                $period_results[] = $student->p4;
+                $period_results[] = $student->p5;
+                $update_date = array();
+                $update_date[] = $student->update_date_p1;
+                $update_date[] = $student->update_date_p2;
+                $update_date[] = $student->update_date_p3;
+                $update_date[] = $student->update_date_p4;
+                $update_date[] = $student->update_date_p5;
+                
+                $i = 0;
+                foreach ( $period_list as $period) {
+                   
+                    if( !empty($period['canedit']) )
+                    {
+                        $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $period_results[$i] . "' data_column = 'p" . ($i + 1) . "' data_stdID='" . $student->student_session_id . "' value='" . $period_results[$i] . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
+                    } else {
+                        $row[] =  "<input readonly min='0' max='100' class='td-input pr' data_org = '" . $period_results[$i] . "' data_column = 'p" . ($i + 1) . "' data_stdID='" . $student->student_session_id . "' value='" . $period_results[$i] . "'>";
+                    }
+                    $i++;
+                }
+                for ($ii = $i; $ii < 4; $ii++) {
+                    $row[] = "";
+                }
+                $CF = 0;
+                $i = 0; $cnt = 0;
+                // $CF = 0;  echo ($period_results[$i] * 1);die;
+                for ($i = 0; $i < count($period_list); $i++) {
+                    if (empty($period_results[$i]) || empty($period_results[$i] * 1)) {
+                        $CF = 0;
+                        break;
+                    } else {
+                        $CF += $period_results[$i] / count($period_list);
+                    }
+                }
+
+                if (!empty($CF)) {
+                    $CF = round($CF);
+                }
+                $row[] = "<div class='cf' data_org = '" . $CF . "' data_stdID='" . $student->student_session_id . "'>" . $CF . "</div>";
+
+                $_50PCP = '';
+                $CPC = '';
+                $_50CPC = '';
+                $CC = '';
+                $_30PCP = '';
+                $CPEX = '';
+                $_70CPEX = '';
+                $CEX = '';
+                $A = '';
+                $R = '';
+                $O1 = '';
+                $O2 = '';
+                if (empty($CF)) {
+                    $CF = 0;
+                } else {
+                    $CF = round($CF);
+                    if ($CF >= 70) {
+                        $A = 'A';
+                        $R = '';
+                    } else {
+                        $A = '';
+                        $R = 'R';
+                        if ($CF > 40) {
+                            $addstep = 1;
+                            $_50PCP = round($CF / 2);
+                            if (!empty($student->CPC * 1)) {
+                                $CPC = $student->CPC;
+                                $_50CPC = round($student->CPC / 2);
+                                $CC = $_50PCP + $_50CPC;
+                                if ($CC >= 70) {
+                                    $A = 'A';
+                                    $R = '';
+                                } else {
+                                    $addstep = 2;
+                                    $_30PCP = round($CF * 0.3);
+                                    if (!empty($student->CPEX * 1)) {
+                                        $CPEX = $student->CPEX;
+                                        $_70CPEX = round($student->CPEX * 0.7);
+                                        $CEX = $_30PCP + $_70CPEX;
+                                        if ($CEX >= 70) {
+                                            $A = 'A';
+                                            $R = '';
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            $addstep = 3;
+                            $_30PCP = round($CF * 0.3);
+                            if (!empty($student->CPEX * 1)) {
+                                $CPEX = $student->CPEX;
+                                $_70CPEX = round($student->CPEX * 0.7);
+                                $CEX = $_30PCP + $_70CPEX;
+                                if ($CEX >= 70) {
+                                    $A = 'A';
+                                    $R = '';
+                                }
+                            }
+                        }
+                    }
+                }
+                $addtest1 = $addstep < 1 || $addstep == 3 ? "disable-addtest" : "";
+                $addtest2 = $addstep < 2 ? "disable-addtest" : "";
+                $row[] = "<div class='50pcp' data_org = '" . $_50PCP . "' data_stdID='" . $student->student_session_id . "'>" . $_50PCP . "</div>";
+                if ($canedit) {
+                    $row[] = "<div class='cpc' data_org = '" . $addtest1 . "' data_stdID='" . $student->student_session_id . "'><input type='number' min='0' max='100' class='td-input " . $addtest1 . "' data_org = '" . $CPC . "' data_column = 'CPC' data_stdID='" . $student->student_session_id . "' value='" . $CPC . "'></div>";
+                } else {
+                    $row[] = $addstep < 1 || $addstep == 3 ? "" : $CPC;
+                }
+                $row[] = "<div class='50cpc' data_org = '" . $_50CPC . "' data_stdID='" . $student->student_session_id . "'>" . $_50CPC . "</div>";
+                $row[] = "<div class='cc' data_org = '" . $CC . "' data_stdID='" . $student->student_session_id . "'>" . $CC . "</div>";
+                $row[] = "<div class='30pcp' data_org = '" . $_30PCP . "' data_stdID='" . $student->student_session_id . "'>" . $_30PCP . "</div>";
+                if ($canedit) {
+                    $row[] = "<div class='cpex' data_org = '" . $addtest2 . "' data_stdID='" . $student->student_session_id . "'><input type='number' min='0' max='100' class='td-input " . $addtest2 . "' data_org = '" . $CPEX . "' data_column = 'CPEX' data_stdID='" . $student->student_session_id . "' value='" . $CPEX . "'></div>";
+                } else {
+                    $row[] = $addstep < 2 ? "" : $CPEX;
+                }
+                $row[] = "<div class='70cpex' data_org = '" . $_70CPEX . "' data_stdID='" . $student->student_session_id . "'>" . $_70CPEX . "</div>";
+                $row[] = "<div class='cex' data_org = '" . $CEX . "' data_stdID='" . $student->student_session_id . "'>" . $CEX . "</div>";
+                $row[] = "<div class='a' data_org = '" . $A . "' data_stdID='" . $student->student_session_id . "'>" . $A . "</div>";
+                $row[] = "<div class='r' data_org = '" . $R . "' data_stdID='" . $student->student_session_id . "'>" . $R . "</div>";
+                $row[] = $O1;
+                $row[] = $O2;
+
+                $dt_data[] = $row;
+            }
+        }
+
+        $json_data           = array(
+            "draw"                => intval($students->draw),
+            "recordsTotal"        => intval($students->recordsTotal),
+            "recordsFiltered"     => intval($students->recordsFiltered),
+            "data"                => $dt_data,
+        );
+
+        echo json_encode($json_data);
+    }
+
     public function dteditstudentlistforprint()
     {
 

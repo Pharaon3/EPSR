@@ -636,7 +636,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                             "processing": true,
                             "serverSide": true,
                             "ajax": {
-                                "url": baseurl + "admin/grading_result/dteditstudentlist",
+                                "url": baseurl + "admin/grading_result/dtneweditstudentlist",
                                 "dataSrc": 'data',
                                 "type": "POST",
                                 'data': response.params,
