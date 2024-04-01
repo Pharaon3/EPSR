@@ -475,6 +475,41 @@ class Gradingreport_model extends MY_model {
         return $query->row_array();
     }
 
+    public function add_subjectnewreport($data){
+        $this->db->trans_start(); # Starting Transaction
+        $this->db->trans_strict(false); # See Note 01. If you wish can remove as well
+
+        //=======================Code Start===========================
+        if (isset($data['id']) && $data['id'] != '') {
+
+            $this->db->where('id', $data['id']);
+            $query = $this->db->update('grading_subject_reports', $data);
+            $insert_id = $data['id'];
+            $message = UPDATE_RECORD_CONSTANT . " On grading_subject_reports id " . $insert_id;
+            $action = "Update";
+            $record_id = $insert_id;
+        } else {
+            $this->db->insert('grading_subject_reports', $data);
+            $insert_id = $this->db->insert_id();
+            $message = INSERT_RECORD_CONSTANT . " On grading_subject_reports id " . $insert_id;
+            $action = "Insert";
+            $record_id = $insert_id;
+        }
+
+        $this->log($message, $record_id, $action);
+
+        $this->db->trans_complete(); # Completing transaction
+        /* Optional */
+
+        if ($this->db->trans_status() === false) {
+            # Something went wrong.
+            $this->db->trans_rollback();
+            return false;
+        } else {
+            return $insert_id;
+        }
+    }
+
     public function add_subjectreport($data){
         $this->db->trans_start(); # Starting Transaction
         $this->db->trans_strict(false); # See Note 01. If you wish can remove as well
@@ -585,8 +620,91 @@ class Gradingreport_model extends MY_model {
             $this->datatables->where('student_session.section_id', $section_id);
         }
 
-         $this->datatables
-            ->select('classes.id AS `class_id`,levels.id AS `level_id`,levels.level AS `level`,student_session.id as student_session_id,students.id,classes.class,sections.id AS `section_id`,sections.section,grading_subject_reports.update_date_p1,grading_subject_reports.update_date_p2,grading_subject_reports.update_date_p3,grading_subject_reports.update_date_p4,grading_subject_reports.update_date_p5,grading_subject_reports.p1,grading_subject_reports.p2,grading_subject_reports.p3,grading_subject_reports.p4,grading_subject_reports.p5,grading_subject_reports.CPC,grading_subject_reports.CPEX,students.id,students.admission_no , students.roll_no,students.admission_date,students.firstname,students.middlename,  students.lastname,students.image,    students.mobileno, students.email ,students.state ,   students.city , students.pincode ,     students.religion,     students.dob ,students.current_address,    students.permanent_address,IFNULL(students.category_id, 0) as `category_id`,IFNULL(categories.category, "") as `category`,students.adhar_no,students.samagra_id,students.bank_account_no,students.bank_name, students.ifsc_code , students.guardian_is , students.father_phone , students.mother_phone , students.guardian_name , students.guardian_relation,students.guardian_phone,students.guardian_address,students.guardian_email,students.is_active ,students.created_at ,students.updated_at,students.father_name,students.app_key,students.parent_app_key,students.rte,students.gender'. $field_variable)
+        $this->datatables
+            ->select(`classes.id AS 'class_id',
+                        levels.id AS 'level_id',
+                        levels.level AS 'level',
+                        student_session.id as student_session_id,
+                        students.id,
+                        classes.class,
+                        sections.id AS 'section_id',
+                        sections.section,
+                        grading_subject_reports.update_date_p1,
+                        grading_subject_reports.update_date_p2,
+                        grading_subject_reports.update_date_p3,
+                        grading_subject_reports.update_date_p4,
+                        grading_subject_reports.update_date_p5,
+                        grading_subject_reports.p11,
+                        grading_subject_reports.p12,
+                        grading_subject_reports.p13,
+                        grading_subject_reports.p14,
+                        grading_subject_reports.p21,
+                        grading_subject_reports.p22,
+                        grading_subject_reports.p23,
+                        grading_subject_reports.p24,
+                        grading_subject_reports.p31,
+                        grading_subject_reports.p32,
+                        grading_subject_reports.p33,
+                        grading_subject_reports.p34,
+                        grading_subject_reports.p41,
+                        grading_subject_reports.p42,
+                        grading_subject_reports.p43,
+                        grading_subject_reports.p44,
+                        grading_subject_reports.pc1,
+                        grading_subject_reports.pc2,
+                        grading_subject_reports.pc3,
+                        grading_subject_reports.pc4,
+                        grading_subject_reports.fdac,
+                        grading_subject_reports.cf50,
+                        grading_subject_reports.cec,
+                        grading_subject_reports.cec50,
+                        grading_subject_reports.ccf,
+                        grading_subject_reports.cf30,
+                        grading_subject_reports.ceex,
+                        grading_subject_reports.ceex70,
+                        grading_subject_reports.cexf,
+                        grading_subject_reports.cf,
+                        grading_subject_reports.ce,
+                        grading_subject_reports.sfeaa,
+                        grading_subject_reports.sfear,
+                        students.id,
+                        students.admission_no , 
+                        students.roll_no,
+                        students.admission_date,
+                        students.firstname,
+                        students.middlename,
+                        students.lastname,students.image,
+                        students.mobileno,
+                        students.email,
+                        students.state,
+                        students.city ,
+                        students.pincode,
+                        students.religion,
+                        students.dob ,
+                        students.current_address,
+                        students.permanent_address,
+                        IFNULL(students.category_id, 0) as 'category_id',
+                        IFNULL(categories.category, "") as 'category',
+                        students.adhar_no,students.samagra_id,
+                        students.bank_account_no,
+                        students.bank_name,
+                        students.ifsc_code ,
+                        students.guardian_is ,
+                        students.father_phone ,
+                        students.mother_phone ,
+                        students.guardian_name ,
+                        students.guardian_relation,
+                        students.guardian_phone,
+                        students.guardian_address,
+                        students.guardian_email,
+                        students.is_active ,
+                        students.created_at ,
+                        students.updated_at,
+                        students.father_name,
+                        students.app_key,
+                        students.parent_app_key,
+                        students.rte,
+                        students.gender`. $field_variable)
             ->join('student_session', 'student_session.student_id = students.id')
             ->join('classes', 'student_session.class_id = classes.id')
             ->join('level_class', 'level_class.class_id = classes.id')

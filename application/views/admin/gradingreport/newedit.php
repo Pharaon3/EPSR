@@ -187,14 +187,14 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                 <th class="pink" colspan="4" rowspan="2">• Científica y Tecnológica <br> • Ambiental y de la Salud</th>
                                                 <th class="pink" colspan="4" rowspan="2">• Ética y Ciudadana <br> • Desarrollo Personal <br> y Espiritual</th>
                                                 <th class="pink" colspan="4" rowspan="2">PROMEDIO GRUPO <br> DE COMPETENCIAS <br> ESPECÍFICAS</th>
-                                                <th class="pink vertical-lr rotated" colspan="1" rowspan="3">CALIFICACIÓN <br> FINAL DEL ÁREA</th>
+                                                <th class="lightpink vertical-lr rotated" colspan="1" rowspan="3">CALIFICACIÓN <br> FINAL DEL ÁREA</th>
                                                 <th class="pink" colspan="4">CALIFICACIÓN <br> COMPLETIVA</th>
                                                 <th class="pink" colspan="4">CALIFICACIÓN <br> EXTRAORDINARIA</th>
                                                 <th class="pink" colspan="2">EVALUACIÓN <br> ESPECIAL</th>
                                                 <th class="pink" colspan="2" rowspan="2">SITUACIÓN <br> FINAL EN LA <br> ASIGNATURA</th>
                                             </tr>
                                             <tr>
-                                                <th class="lightpink vertical-lr rotated" rowspan="2">50% C. F.</th>
+                                                <th class="pink vertical-lr rotated" rowspan="2">50% C. F.</th>
                                                 <th class="pink vertical-lr rotated" rowspan="2">C.E.C.</th>
                                                 <th class="pink vertical-lr rotated" rowspan="2">50% C.E.C.</th>
                                                 <th class="lightpink vertical-lr rotated" rowspan="2">C.C.F.</th>
@@ -523,7 +523,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
         var $this = $('#save_report_btn');
         $.ajax({
             type: "POST",
-            url: base_url + "admin/grading_result/updatemultistudentsreport",
+            url: base_url + "admin/grading_result/updatemultistudentsnewreport",
             data: {
                 subject_group_subjects_id: subject_group_subjects_id,
                 data: data
@@ -645,9 +645,10 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                 /* Append the grade to the default row class name */
                                 $('td:eq(1)', nRow).html(iDisplayIndex + 1)
                                 var period_count = <?= count($periodList) ?> * 1;
-                                $('td:eq(' + (3 + period_count) + ')', nRow).addClass('lightblue');
-                                $('td:eq(' + (7 + period_count) + ')', nRow).addClass('lightblue');
-                                $('td:eq(' + (11 + period_count) + ')', nRow).addClass('lightblue');
+                                $('td:eq(' + (19 + period_count) + ')', nRow).addClass('lightpink');
+                                $('td:eq(' + (23 + period_count) + ')', nRow).addClass('lightpink');
+                                $('td:eq(' + (27 + period_count) + ')', nRow).addClass('lightpink');
+                                $('td:eq(' + (29 + period_count) + ')', nRow).addClass('lightpink');
 
                                 if ($('.cf', nRow).html() * 1 < 70) {
                                     $('.cf', nRow).addClass('red_text');
