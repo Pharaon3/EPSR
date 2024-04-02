@@ -526,34 +526,61 @@ class Grading_result extends Admin_Controller
                 $row[] = $this->customlib->getFullName($student->firstname, $student->middlename, $student->lastname, $sch_setting->middlename, $sch_setting->lastname);
 
                 $period_results = array();
-                $period_results[] = $student->p11;
-                $period_results[] = $student->p12;
-                $period_results[] = $student->p13;
-                $period_results[] = $student->p14;
+                $period_results[] = $student->pc1;
+                $period_results[] = $student->pc2;
+                $period_results[] = $student->pc3;
+                $period_results[] = $student->pc4;
+                // $period_results[] = $student->p21;
+                // $period_results[] = $student->p22;
+                // $period_results[] = $student->p23;
+                // $period_results[] = $student->p24;
+                // $period_results[] = $student->p31;
+                // $period_results[] = $student->p32;
+                // $period_results[] = $student->p33;
+                // $period_results[] = $student->p34;
+                // $period_results[] = $student->p41;
+                // $period_results[] = $student->p42;
+                // $period_results[] = $student->p43;
+                // $period_results[] = $student->p44;
                 $update_date = array();
                 $update_date[] = $student->update_date_p1;
                 $update_date[] = $student->update_date_p2;
                 $update_date[] = $student->update_date_p3;
                 $update_date[] = $student->update_date_p4;
-                $update_date[] = $student->update_date_p5;
                 
                 $i = 0;
                 $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p11 . "' data_column = 'p11' data_stdID='" . $student->student_session_id . "' value='" . $student->p11 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
+                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp11 . "' data_column = 'rp11' data_stdID='" . $student->student_session_id . "' value='" . $student->rp11 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
                 $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p12 . "' data_column = 'p12' data_stdID='" . $student->student_session_id . "' value='" . $student->p12 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
+                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp12 . "' data_column = 'rp12' data_stdID='" . $student->student_session_id . "' value='" . $student->rp12 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
                 $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p13 . "' data_column = 'p13' data_stdID='" . $student->student_session_id . "' value='" . $student->p13 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
+                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp13 . "' data_column = 'rp13' data_stdID='" . $student->student_session_id . "' value='" . $student->rp13 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
                 $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p14 . "' data_column = 'p14' data_stdID='" . $student->student_session_id . "' value='" . $student->p14 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
+                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp14 . "' data_column = 'rp14' data_stdID='" . $student->student_session_id . "' value='" . $student->rp14 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
                 $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p21 . "' data_column = 'p21' data_stdID='" . $student->student_session_id . "' value='" . $student->p21 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
+                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp21 . "' data_column = 'rp21' data_stdID='" . $student->student_session_id . "' value='" . $student->rp21 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
                 $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p22 . "' data_column = 'p22' data_stdID='" . $student->student_session_id . "' value='" . $student->p22 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
+                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp22 . "' data_column = 'rp22' data_stdID='" . $student->student_session_id . "' value='" . $student->rp22 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
                 $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p23 . "' data_column = 'p23' data_stdID='" . $student->student_session_id . "' value='" . $student->p23 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
+                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp23 . "' data_column = 'rp23' data_stdID='" . $student->student_session_id . "' value='" . $student->rp23 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
                 $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p24 . "' data_column = 'p24' data_stdID='" . $student->student_session_id . "' value='" . $student->p24 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
+                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp24 . "' data_column = 'rp24' data_stdID='" . $student->student_session_id . "' value='" . $student->rp24 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
                 $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p31 . "' data_column = 'p31' data_stdID='" . $student->student_session_id . "' value='" . $student->p31 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
+                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp31 . "' data_column = 'rp31' data_stdID='" . $student->student_session_id . "' value='" . $student->rp31 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
                 $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p32 . "' data_column = 'p32' data_stdID='" . $student->student_session_id . "' value='" . $student->p32 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
+                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp32 . "' data_column = 'rp32' data_stdID='" . $student->student_session_id . "' value='" . $student->rp32 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
                 $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p33 . "' data_column = 'p33' data_stdID='" . $student->student_session_id . "' value='" . $student->p33 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
+                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp33 . "' data_column = 'rp33' data_stdID='" . $student->student_session_id . "' value='" . $student->rp33 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
                 $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p34 . "' data_column = 'p34' data_stdID='" . $student->student_session_id . "' value='" . $student->p34 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
+                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp34 . "' data_column = 'rp34' data_stdID='" . $student->student_session_id . "' value='" . $student->rp34 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
                 $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p41 . "' data_column = 'p41' data_stdID='" . $student->student_session_id . "' value='" . $student->p41 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
+                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp41 . "' data_column = 'rp41' data_stdID='" . $student->student_session_id . "' value='" . $student->rp41 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
                 $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p42 . "' data_column = 'p42' data_stdID='" . $student->student_session_id . "' value='" . $student->p42 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
+                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp42 . "' data_column = 'rp42' data_stdID='" . $student->student_session_id . "' value='" . $student->rp42 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
                 $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p43 . "' data_column = 'p43' data_stdID='" . $student->student_session_id . "' value='" . $student->p43 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
+                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp43 . "' data_column = 'rp43' data_stdID='" . $student->student_session_id . "' value='" . $student->rp43 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
                 $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p44 . "' data_column = 'p44' data_stdID='" . $student->student_session_id . "' value='" . $student->p44 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
+                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp44 . "' data_column = 'rp44' data_stdID='" . $student->student_session_id . "' value='" . $student->rp44 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
                 $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->pc1 . "' data_column = 'pc1' data_stdID='" . $student->student_session_id . "' value='" . $student->pc1 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
                 $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->pc2 . "' data_column = 'pc2' data_stdID='" . $student->student_session_id . "' value='" . $student->pc2 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
                 $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->pc3 . "' data_column = 'pc3' data_stdID='" . $student->student_session_id . "' value='" . $student->pc3 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
@@ -568,18 +595,18 @@ class Grading_result extends Admin_Controller
                 //     }
                 //     $i++;
                 // }
-                for ($ii = $i; $ii < 4; $ii++) {
-                    $row[] = "";
-                }
+                // for ($ii = $i; $ii < 4; $ii++) {
+                //     $row[] = "";
+                // }
                 $CF = 0;
                 $i = 0; $cnt = 0;
                 // $CF = 0;  echo ($period_results[$i] * 1);die;
-                for ($i = 0; $i < count($period_list); $i++) {
+                for ($i = 0; $i < count($period_results); $i++) {
                     if (empty($period_results[$i]) || empty($period_results[$i] * 1)) {
                         $CF = 0;
                         break;
                     } else {
-                        $CF += $period_results[$i] / count($period_list);
+                        $CF += $period_results[$i] / count($period_results);
                     }
                 }
 
@@ -667,6 +694,8 @@ class Grading_result extends Admin_Controller
                 }
                 $row[] = "<div class='70cpex' data_org = '" . $_70CPEX . "' data_stdID='" . $student->student_session_id . "'>" . $_70CPEX . "</div>";
                 $row[] = "<div class='cex' data_org = '" . $CEX . "' data_stdID='" . $student->student_session_id . "'>" . $CEX . "</div>";
+                $row[] = "<div class='cf' data_org = '" . $CF . "' data_stdID='" . $student->student_session_id . "'>" . $CF . "</div>";
+                $row[] = "<div class='cf' data_org = '" . $CF . "' data_stdID='" . $student->student_session_id . "'>" . $CF . "</div>";
                 $row[] = "<div class='a' data_org = '" . $A . "' data_stdID='" . $student->student_session_id . "'>" . $A . "</div>";
                 $row[] = "<div class='r' data_org = '" . $R . "' data_stdID='" . $student->student_session_id . "'>" . $R . "</div>";
                 $row[] = $O1;
@@ -1391,12 +1420,20 @@ class Grading_result extends Admin_Controller
                                         'p21','p22','p23','p24',
                                         'p31','p32','p33','p34',
                                         'p41','p42','p43','p44',
+                                        'rp11','rp12','rp13','rp14',
+                                        'rp21','rp22','rp23','rp24',
+                                        'rp31','rp32','rp33','rp34',
+                                        'rp41','rp42','rp43','rp44',
                                         'pc1','pc2','pc3','pc4']))
                         $postData[$key] = empty($value) ? null : $value;
                     if(!in_array($key, ['p11','p12','p13','p14',
                                         'p21','p22','p23','p24',
                                         'p31','p32','p33','p34',
                                         'p41','p42','p43','p44',
+                                        'rp11','rp12','rp13','rp14',
+                                        'rp21','rp22','rp23','rp24',
+                                        'rp31','rp32','rp33','rp34',
+                                        'rp41','rp42','rp43','rp44',
                                         'pc1','pc2','pc3','pc4'])) continue;
                     
                     if(empty($grading_marker) || $grading_marker[$key] != $postData[$key])

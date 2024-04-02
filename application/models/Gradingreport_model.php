@@ -629,11 +629,6 @@ class Gradingreport_model extends MY_model {
                         classes.class,
                         sections.id AS 'section_id',
                         sections.section,
-                        grading_subject_reports.update_date_p1,
-                        grading_subject_reports.update_date_p2,
-                        grading_subject_reports.update_date_p3,
-                        grading_subject_reports.update_date_p4,
-                        grading_subject_reports.update_date_p5,
                         grading_subject_reports.p11,
                         grading_subject_reports.p12,
                         grading_subject_reports.p13,
@@ -650,6 +645,22 @@ class Gradingreport_model extends MY_model {
                         grading_subject_reports.p42,
                         grading_subject_reports.p43,
                         grading_subject_reports.p44,
+                        grading_subject_reports.rp11,
+                        grading_subject_reports.rp12,
+                        grading_subject_reports.rp13,
+                        grading_subject_reports.rp14,
+                        grading_subject_reports.rp21,
+                        grading_subject_reports.rp22,
+                        grading_subject_reports.rp23,
+                        grading_subject_reports.rp24,
+                        grading_subject_reports.rp31,
+                        grading_subject_reports.rp32,
+                        grading_subject_reports.rp33,
+                        grading_subject_reports.rp34,
+                        grading_subject_reports.rp41,
+                        grading_subject_reports.rp42,
+                        grading_subject_reports.rp43,
+                        grading_subject_reports.rp44,
                         grading_subject_reports.pc1,
                         grading_subject_reports.pc2,
                         grading_subject_reports.pc3,
@@ -715,12 +726,9 @@ class Gradingreport_model extends MY_model {
             ->where('student_session.session_id', $this->current_session)
             ->where('students.is_active', "yes")
             ->from('students');
-
-        
         $this->datatables->sort('students.firstname', 'asc');
         $this->datatables->sort('students.lastname', 'asc');
         return $this->datatables->generate('json');
-
     }
 
     public function getStudentOrderNumber($class_id, $section_id, $student_session_id) {

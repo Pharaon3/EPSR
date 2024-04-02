@@ -182,10 +182,10 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                             <tr>
                                                 <th class="subjectlabelth" colspan="3" rowspan="2"></th>
                                                 <!-- <th class="pink" colspan="1">COMPETENCIAS FUNDAMENTALES</th> -->
-                                                <th class="pink" colspan="4" rowspan="2">Comunicativa</th>
-                                                <th class="pink" colspan="4" rowspan="2">• Pensamiento Lógico, <br> Creativo y Crítico <br> • Resolución de Problemas</th>
-                                                <th class="pink" colspan="4" rowspan="2">• Científica y Tecnológica <br> • Ambiental y de la Salud</th>
-                                                <th class="pink" colspan="4" rowspan="2">• Ética y Ciudadana <br> • Desarrollo Personal <br> y Espiritual</th>
+                                                <th class="pink" colspan="8" rowspan="2">Comunicativa</th>
+                                                <th class="pink" colspan="8" rowspan="2">• Pensamiento Lógico, <br> Creativo y Crítico <br> • Resolución de Problemas</th>
+                                                <th class="pink" colspan="8" rowspan="2">• Científica y Tecnológica <br> • Ambiental y de la Salud</th>
+                                                <th class="pink" colspan="8" rowspan="2">• Ética y Ciudadana <br> • Desarrollo Personal <br> y Espiritual</th>
                                                 <th class="pink" colspan="4" rowspan="2">PROMEDIO GRUPO <br> DE COMPETENCIAS <br> ESPECÍFICAS</th>
                                                 <th class="lightpink vertical-lr rotated" colspan="1" rowspan="3">CALIFICACIÓN <br> FINAL DEL ÁREA</th>
                                                 <th class="pink" colspan="4">CALIFICACIÓN <br> COMPLETIVA</th>
@@ -210,21 +210,37 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                 <th><?php echo $this->lang->line('no'); ?></th>
                                                 <th><?php echo $this->lang->line('student_name'); ?></th>
                                                 <th class="lightpink">P1</th>
+                                                <th class="lightpink">RP1</th>
                                                 <th class="lightpink">P2</th>
+                                                <th class="lightpink">RP2</th>
                                                 <th class="lightpink">P3</th>
+                                                <th class="lightpink">RP3</th>
                                                 <th class="lightpink">P4</th>
+                                                <th class="lightpink">RP4</th>
                                                 <th class="lightpink">P1</th>
+                                                <th class="lightpink">RP1</th>
                                                 <th class="lightpink">P2</th>
+                                                <th class="lightpink">RP2</th>
                                                 <th class="lightpink">P3</th>
+                                                <th class="lightpink">RP3</th>
                                                 <th class="lightpink">P4</th>
+                                                <th class="lightpink">RP4</th>
                                                 <th class="lightpink">P1</th>
+                                                <th class="lightpink">RP1</th>
                                                 <th class="lightpink">P2</th>
+                                                <th class="lightpink">RP2</th>
                                                 <th class="lightpink">P3</th>
+                                                <th class="lightpink">RP3</th>
                                                 <th class="lightpink">P4</th>
+                                                <th class="lightpink">RP4</th>
                                                 <th class="lightpink">P1</th>
+                                                <th class="lightpink">RP1</th>
                                                 <th class="lightpink">P2</th>
+                                                <th class="lightpink">RP2</th>
                                                 <th class="lightpink">P3</th>
+                                                <th class="lightpink">RP3</th>
                                                 <th class="lightpink">P4</th>
+                                                <th class="lightpink">RP4</th>
                                                 <th class="lightpink">PC1</th>
                                                 <th class="lightpink">PC2</th>
                                                 <th class="lightpink">PC3</th>
@@ -234,7 +250,6 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                             </tr>
                                         </thead>
                                         <tbody>
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -630,7 +645,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                             "language": {
                                 processing: '<i class="fa fa-spinner fa-spin fa-1x fa-fw"></i><span class="sr-only">Loading...</span> '
                             },
-                            "pageLength": 100,
+                            "pageLength": 5,
                             "ordering": false,
                             "searching": false,
                             "processing": true,
@@ -645,10 +660,10 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                 /* Append the grade to the default row class name */
                                 $('td:eq(1)', nRow).html(iDisplayIndex + 1)
                                 var period_count = <?= count($periodList) ?> * 1;
-                                $('td:eq(' + (19 + period_count) + ')', nRow).addClass('lightpink');
-                                $('td:eq(' + (23 + period_count) + ')', nRow).addClass('lightpink');
-                                $('td:eq(' + (27 + period_count) + ')', nRow).addClass('lightpink');
-                                $('td:eq(' + (29 + period_count) + ')', nRow).addClass('lightpink');
+                                $('td:eq(' + (35 + period_count) + ')', nRow).addClass('lightpink');
+                                $('td:eq(' + (39 + period_count) + ')', nRow).addClass('lightpink');
+                                $('td:eq(' + (43 + period_count) + ')', nRow).addClass('lightpink');
+                                $('td:eq(' + (45 + period_count) + ')', nRow).addClass('lightpink');
 
                                 if ($('.cf', nRow).html() * 1 < 70) {
                                     $('.cf', nRow).addClass('red_text');
