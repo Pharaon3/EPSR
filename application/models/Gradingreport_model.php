@@ -214,6 +214,8 @@ class Gradingreport_model extends MY_model {
             $i++;
         }
         ksort($result);
+        $labels = array_column($result, 'label');
+        array_multisort($labels, SORT_ASC, $result);
         return $result;
     }
 
@@ -469,6 +471,16 @@ class Gradingreport_model extends MY_model {
     {
         $this->db->select('*')
             ->from('grading_subject_results')
+            ->where('student_session_id', $student_session_id)
+            ->where('subject_group_subjects_id', $subject_group_subjects_id);
+        $query = $this->db->get(); #print($this->db->last_query()); print("<br>");die;
+        return $query->row_array();
+    }
+
+    public function getNewReportByStudentAndSubject($student_session_id, $subject_group_subjects_id)
+    {
+        $this->db->select('*')
+            ->from('grading_subject_reports')
             ->where('student_session_id', $student_session_id)
             ->where('subject_group_subjects_id', $subject_group_subjects_id);
         $query = $this->db->get(); #print($this->db->last_query()); print("<br>");die;

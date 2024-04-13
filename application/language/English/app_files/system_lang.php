@@ -1739,6 +1739,7 @@ $lang['grading_competences'] ="Grading Competences";
 $lang['grading_indicators'] ="Grading Achievement Indicators";
 $lang['grading_results'] ="Grading Results";
 $lang['grading_results_by_student'] ="Grading Results By Student";
+$lang['grading_reports_by_student'] ="Grading Reports By Student";
 $lang['grading_results_by_subject'] ="Grading Results By Subject";
 $lang['grading_reports_by_subject'] ="Grading Reports By Subject";
 $lang['grading_results_by_Grading'] ="Grading Results By Grading";

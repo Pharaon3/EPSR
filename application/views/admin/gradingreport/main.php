@@ -151,9 +151,17 @@
         var period_id = $('#period_id').val();
         var class_id = $('#class_id').val();
         var section_id = $('#section_id').val();
+        var path = window.location.pathname;
+        var parts = path.split('/');
+        var lastPart = parts[parts.length - 1];
+        lastPart = lastPart.split('?')[0];
+        let url = base_url + "admin/grading_result/printCard"
+        if (lastPart == "newreport") {
+            url = base_url + "admin/grading_result/printNewCard"
+        }
         $.ajax({
             type: "POST",
-            url: base_url + "admin/grading_result/printCard",
+            url: url,
             data: {
                 id: id,
                 period_id: period_id,
@@ -230,6 +238,12 @@
 
     function viewreport(id, period = '') {
         var base_url = '<?php echo base_url() ?>';
+        var path = window.location.pathname;
+        var parts = path.split('/');
+        var lastPart = parts[parts.length - 1];
+        lastPart = lastPart.split('?')[0];
+        let url = base_url + "admin/grading_result/viewreport/" + id + "/" + period;
+        if (lastPart == "newreport") url = base_url + "admin/grading_result/viewnewreport/" + id + "/" + period;
         period = $('#period_id').val();
         if (period == undefined) period = '';
 
@@ -242,7 +256,7 @@
 
         $.ajax({
             type: "GET",
-            url: base_url + "admin/grading_result/viewreport/" + id + "/" + period,
+            url: url,
             data: {
                 alledittype: alledittype
             },
@@ -560,9 +574,17 @@
             var $this = $(this).parents('.td_subject');
             $this.find('.marklabel').show();
             $this.find('.markedit').html('');
+
+            var path = window.location.pathname;
+            var parts = path.split('/');
+            var lastPart = parts[parts.length - 1];
+            lastPart = lastPart.split('?')[0];
+            let url = base_url + "admin/grading_result/updatesubjectreport";
+            if (lastPart == "newreport") url = base_url + "admin/grading_result/updatesubjectnewreport";
+
             $.ajax({
                 type: "POST",
-                url: base_url + "admin/grading_result/updatesubjectreport",
+                url: url,
                 data: {
                     student_session_id: student_session_id,
                     subjectreportkey: name,

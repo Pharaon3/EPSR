@@ -166,6 +166,60 @@ class Grading_result extends Admin_Controller
         $this->load->view('layout/footer', $data);
     }
 
+
+    public function newreport()
+    {
+        if (!$this->rbac->hasPrivilege('grading_report_results', 'can_view')) {
+            access_denied();
+        }
+        $this->session->set_userdata('top_menu', 'GradingReport');
+        $this->session->set_userdata('sub_menu', 'GradingReport/Reports');
+        $userdata   = $this->customlib->getUserData();
+        $role_id    = $userdata["role_id"];
+        $staff_id   = $userdata["id"];
+
+        if($role_id == 51) //primary
+        {
+            $level_id = 42;
+            $class_list = $this->Gradingreport_model->getClassByLevel($level_id);
+        }
+        else if($role_id == 52) //secondary
+        {
+            $level_id = 43;
+            $class_list = $this->Gradingreport_model->getClassByLevel($level_id);
+        }
+        else if($role_id == 53) //initial
+        {
+            $level_id = 41;
+            $class_list = $this->Gradingreport_model->getClassByLevel($level_id);
+        }
+        else
+        {
+            if($role_id == 2)
+            {
+                $level_id           = $this->Gradingreport_model->getLevelByStaffId($staff_id);
+                $class_list         = $this->class_model->get();
+            }
+            else
+            {
+                $level_id = 43;     // for admin role
+                $class_list         = $this->Gradingreport_model->getClassByLevel(0);
+            }
+        }
+        
+        // $period_list = $this->Gradingreport_model->getPeriodByLevel($level_id);   
+        ## if(admin) only 4number columns
+        //print($level_id); die;
+        $period_list = $this->Gradingreport_model->getPeriodEnabledByStaffId($staff_id, $level_id);   
+        $data['role_id']        = $role_id;
+        $data['classlist']       = $class_list;
+        $data['sch_setting']     = $this->sch_setting_detail;
+        $data['periodList'] = $period_list;
+        $this->load->view('layout/header', $data);
+        $this->load->view('admin/gradingreport/main', $data);
+        $this->load->view('layout/footer', $data);
+    }
+
     public function searchvalidation()
     {
         $class_id   = $this->input->post('class_id');
@@ -530,18 +584,43 @@ class Grading_result extends Admin_Controller
                 $period_results[] = $student->pc2;
                 $period_results[] = $student->pc3;
                 $period_results[] = $student->pc4;
-                // $period_results[] = $student->p21;
-                // $period_results[] = $student->p22;
-                // $period_results[] = $student->p23;
-                // $period_results[] = $student->p24;
-                // $period_results[] = $student->p31;
-                // $period_results[] = $student->p32;
-                // $period_results[] = $student->p33;
-                // $period_results[] = $student->p34;
-                // $period_results[] = $student->p41;
-                // $period_results[] = $student->p42;
-                // $period_results[] = $student->p43;
-                // $period_results[] = $student->p44;
+
+                $period_rports = array();
+                $period_rports[] = $student->p11;
+                $period_rports[] = $student->p12;
+                $period_rports[] = $student->p13;
+                $period_rports[] = $student->p14;
+                $period_rports[] = $student->p21;
+                $period_rports[] = $student->p22;
+                $period_rports[] = $student->p23;
+                $period_rports[] = $student->p24;
+                $period_rports[] = $student->p31;
+                $period_rports[] = $student->p32;
+                $period_rports[] = $student->p33;
+                $period_rports[] = $student->p34;
+                $period_rports[] = $student->p41;
+                $period_rports[] = $student->p42;
+                $period_rports[] = $student->p43;
+                $period_rports[] = $student->p44;
+                
+                $period_rportsRP = array();
+                $period_rportsRP[] = $student->rp11;
+                $period_rportsRP[] = $student->rp12;
+                $period_rportsRP[] = $student->rp13;
+                $period_rportsRP[] = $student->rp14;
+                $period_rportsRP[] = $student->rp21;
+                $period_rportsRP[] = $student->rp22;
+                $period_rportsRP[] = $student->rp23;
+                $period_rportsRP[] = $student->rp24;
+                $period_rportsRP[] = $student->rp31;
+                $period_rportsRP[] = $student->rp32;
+                $period_rportsRP[] = $student->rp33;
+                $period_rportsRP[] = $student->rp34;
+                $period_rportsRP[] = $student->rp41;
+                $period_rportsRP[] = $student->rp42;
+                $period_rportsRP[] = $student->rp43;
+                $period_rportsRP[] = $student->rp44;
+                
                 $update_date = array();
                 $update_date[] = $student->update_date_p1;
                 $update_date[] = $student->update_date_p2;
@@ -549,67 +628,90 @@ class Grading_result extends Admin_Controller
                 $update_date[] = $student->update_date_p4;
                 
                 $i = 0;
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p11 . "' data_column = 'p11' data_stdID='" . $student->student_session_id . "' value='" . $student->p11 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp11 . "' data_column = 'rp11' data_stdID='" . $student->student_session_id . "' value='" . $student->rp11 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p12 . "' data_column = 'p12' data_stdID='" . $student->student_session_id . "' value='" . $student->p12 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp12 . "' data_column = 'rp12' data_stdID='" . $student->student_session_id . "' value='" . $student->rp12 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p13 . "' data_column = 'p13' data_stdID='" . $student->student_session_id . "' value='" . $student->p13 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp13 . "' data_column = 'rp13' data_stdID='" . $student->student_session_id . "' value='" . $student->rp13 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p14 . "' data_column = 'p14' data_stdID='" . $student->student_session_id . "' value='" . $student->p14 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp14 . "' data_column = 'rp14' data_stdID='" . $student->student_session_id . "' value='" . $student->rp14 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p21 . "' data_column = 'p21' data_stdID='" . $student->student_session_id . "' value='" . $student->p21 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp21 . "' data_column = 'rp21' data_stdID='" . $student->student_session_id . "' value='" . $student->rp21 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p22 . "' data_column = 'p22' data_stdID='" . $student->student_session_id . "' value='" . $student->p22 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp22 . "' data_column = 'rp22' data_stdID='" . $student->student_session_id . "' value='" . $student->rp22 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p23 . "' data_column = 'p23' data_stdID='" . $student->student_session_id . "' value='" . $student->p23 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp23 . "' data_column = 'rp23' data_stdID='" . $student->student_session_id . "' value='" . $student->rp23 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p24 . "' data_column = 'p24' data_stdID='" . $student->student_session_id . "' value='" . $student->p24 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp24 . "' data_column = 'rp24' data_stdID='" . $student->student_session_id . "' value='" . $student->rp24 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p31 . "' data_column = 'p31' data_stdID='" . $student->student_session_id . "' value='" . $student->p31 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp31 . "' data_column = 'rp31' data_stdID='" . $student->student_session_id . "' value='" . $student->rp31 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p32 . "' data_column = 'p32' data_stdID='" . $student->student_session_id . "' value='" . $student->p32 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp32 . "' data_column = 'rp32' data_stdID='" . $student->student_session_id . "' value='" . $student->rp32 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p33 . "' data_column = 'p33' data_stdID='" . $student->student_session_id . "' value='" . $student->p33 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp33 . "' data_column = 'rp33' data_stdID='" . $student->student_session_id . "' value='" . $student->rp33 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p34 . "' data_column = 'p34' data_stdID='" . $student->student_session_id . "' value='" . $student->p34 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp34 . "' data_column = 'rp34' data_stdID='" . $student->student_session_id . "' value='" . $student->rp34 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p41 . "' data_column = 'p41' data_stdID='" . $student->student_session_id . "' value='" . $student->p41 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp41 . "' data_column = 'rp41' data_stdID='" . $student->student_session_id . "' value='" . $student->rp41 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p42 . "' data_column = 'p42' data_stdID='" . $student->student_session_id . "' value='" . $student->p42 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp42 . "' data_column = 'rp42' data_stdID='" . $student->student_session_id . "' value='" . $student->rp42 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p43 . "' data_column = 'p43' data_stdID='" . $student->student_session_id . "' value='" . $student->p43 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp43 . "' data_column = 'rp43' data_stdID='" . $student->student_session_id . "' value='" . $student->rp43 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->p44 . "' data_column = 'p44' data_stdID='" . $student->student_session_id . "' value='" . $student->p44 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->rp44 . "' data_column = 'rp44' data_stdID='" . $student->student_session_id . "' value='" . $student->rp44 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->pc1 . "' data_column = 'pc1' data_stdID='" . $student->student_session_id . "' value='" . $student->pc1 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->pc2 . "' data_column = 'pc2' data_stdID='" . $student->student_session_id . "' value='" . $student->pc2 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->pc3 . "' data_column = 'pc3' data_stdID='" . $student->student_session_id . "' value='" . $student->pc3 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $student->pc4 . "' data_column = 'pc4' data_stdID='" . $student->student_session_id . "' value='" . $student->pc4 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                // foreach ( $period_list as $period) {
-                   
-                //     if( !empty($period['canedit']) )
-                //     {
-                //         $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $period_results[$i] . "' data_column = 'p" . ($i + 1) . "' data_stdID='" . $student->student_session_id . "' value='" . $period_results[$i] . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
-                //     } else {
-                //         $row[] =  "<input readonly min='0' max='100' class='td-input pr' data_org = '" . $period_results[$i] . "' data_column = 'p" . ($i + 1) . "' data_stdID='" . $student->student_session_id . "' value='" . $period_results[$i] . "'>";
-                //     }
-                //     $i++;
-                // }
+                
+                foreach ( $period_list as $period) {
+                    if( !empty($period['canedit']) )
+                    {
+                        $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . ($period_rports[$i] ? $period_rports[$i] : "") . "' data_column = 'p1" . ($i + 1) . "' data_stdID='" . $student->student_session_id . "' value='" . ($period_rports[$i] ? $period_rports[$i] : "") . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
+                        $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . ($period_rportsRP[$i] ? $period_rportsRP[$i] : "") . "' data_column = 'rp1" . ($i + 1) . "' data_stdID='" . $student->student_session_id . "' value='" . ($period_rportsRP[$i] ? $period_rportsRP[$i] : "") . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
+                    } else {
+                        $row[] =  "<input readonly type='number' min='0' max='100' class='td-input pr' data_org = '" . ($period_rports[$i] ? $period_rports[$i] : "") . "' data_column = 'p1" . ($i + 1) . "' data_stdID='" . $student->student_session_id . "' value='" . ($period_rports[$i] ? $period_rports[$i] : "") . "'>";
+                        $row[] =  "<input readonly type='number' min='0' max='100' class='td-input pr' data_org = '" . ($period_rportsRP[$i] ? $period_rportsRP[$i] : "") . "' data_column = 'rp1" . ($i + 1) . "' data_stdID='" . $student->student_session_id . "' value='" . ($period_rportsRP[$i] ? $period_rportsRP[$i] : "") . "'>";
+                    }
+                    $i++;
+                }
+                foreach ( $period_list as $period) {
+                    if( !empty($period['canedit']) )
+                    {
+                        $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . ($period_rports[$i] ? $period_rports[$i] : "") . "' data_column = 'p2" . ($i - 3) . "' data_stdID='" . $student->student_session_id . "' value='" . ($period_rports[$i] ? $period_rports[$i] : "") . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
+                        $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . ($period_rportsRP[$i] ? $period_rportsRP[$i] : "") . "' data_column = 'rp2" . ($i - 3) . "' data_stdID='" . $student->student_session_id . "' value='" . ($period_rportsRP[$i] ? $period_rportsRP[$i] : "") . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
+                    } else {
+                        $row[] =  "<input readonly type='number' min='0' max='100' class='td-input pr' data_org = '" . ($period_rports[$i] ? $period_rports[$i] : "") . "' data_column = 'p2" . ($i - 3) . "' data_stdID='" . $student->student_session_id . "' value='" . ($period_rports[$i] ? $period_rports[$i] : "") . "'>";
+                        $row[] =  "<input readonly type='number' min='0' max='100' class='td-input pr' data_org = '" . ($period_rportsRP[$i] ? $period_rportsRP[$i] : "") . "' data_column = 'rp2" . ($i - 3) . "' data_stdID='" . $student->student_session_id . "' value='" . ($period_rportsRP[$i] ? $period_rportsRP[$i] : "") . "'>";
+                    }
+                    $i++;
+                }
+                foreach ( $period_list as $period) {
+                    if( !empty($period['canedit']) )
+                    {
+                        $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $period_rports[$i] . "' data_column = 'p3" . ($i - 7) . "' data_stdID='" . $student->student_session_id . "' value='" . ($period_rports[$i] ? $period_rports[$i] : "") . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
+                        $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $period_rportsRP[$i] . "' data_column = 'rp3" . ($i - 7) . "' data_stdID='" . $student->student_session_id . "' value='" . ($period_rportsRP[$i] ? $period_rportsRP[$i] : "") . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
+                    } else {
+                        $row[] =  "<input readonly type='number' min='0' max='100' class='td-input pr' data_org = '" . $period_rports[$i] . "' data_column = 'p3" . ($i - 7) . "' data_stdID='" . $student->student_session_id . "' value='" . ($period_rports[$i] ? $period_rports[$i] : "") . "'>";
+                        $row[] =  "<input readonly type='number' min='0' max='100' class='td-input pr' data_org = '" . $period_rportsRP[$i] . "' data_column = 'rp3" . ($i - 7) . "' data_stdID='" . $student->student_session_id . "' value='" . ($period_rportsRP[$i] ? $period_rportsRP[$i] : "") . "'>";
+                    }
+                    $i++;
+                }
+                foreach ( $period_list as $period) {
+                    if( !empty($period['canedit']) )
+                    {
+                        $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $period_rports[$i] . "' data_column = 'p4" . ($i - 11) . "' data_stdID='" . $student->student_session_id . "' value='" . ($period_rports[$i] ? $period_rports[$i] : "") . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
+                        $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $period_rportsRP[$i] . "' data_column = 'rp4" . ($i - 11) . "' data_stdID='" . $student->student_session_id . "' value='" . ($period_rportsRP[$i] ? $period_rportsRP[$i] : "") . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
+                    } else {
+                        $row[] =  "<input readonly type='number' min='0' max='100' class='td-input pr' data_org = '" . $period_rports[$i] . "' data_column = 'p4" . ($i - 11) . "' data_stdID='" . $student->student_session_id . "' value='" . ($period_rports[$i] ? $period_rports[$i] : "") . "'>";
+                        $row[] =  "<input readonly type='number' min='0' max='100' class='td-input pr' data_org = '" . $period_rportsRP[$i] . "' data_column = 'rp4" . ($i - 11) . "' data_stdID='" . $student->student_session_id . "' value='" . ($period_rportsRP[$i] ? $period_rportsRP[$i] : "") . "'>";
+                    }
+                    $i++;
+                }
+                $pc1 = 0;
+                $pc2 = 0;
+                $pc3 = 0;
+                $pc4 = 0;
+                for ($i = 0; $i < 4; $i++) {
+                    if ($period_rports[$i] < 70) $pc1 = $pc1 + $period_rportsRP[$i] / 4;
+                    else $pc1 = $pc1 + $period_rports[$i] / 4;
+                    if ($period_rports[$i + 4] < 70) $pc2 = $pc2 + $period_rportsRP[$i + 4] / 4;
+                    else $pc2 = $pc2 + $period_rports[$i + 4] / 4;
+                    if ($period_rports[$i + 8] < 70) $pc3 = $pc3 + $period_rportsRP[$i + 8] / 4;
+                    else $pc3 = $pc3 + $period_rports[$i + 8] / 4;
+                    if ($period_rports[$i + 12] < 70) $pc4 = $pc4 + $period_rportsRP[$i + 12] / 4;
+                    else $pc4 = $pc4 + $period_rports[$i + 12] / 4;
+                }
+
+                if ($period_rports[0] == "" || $period_rports[1] == "" || $period_rports[2] == "" || $period_rports[3] == "") $pc_show1 = ""; else $pc_show1 = round($pc1);
+                if ($period_rports[4] == "" || $period_rports[5] == "" || $period_rports[6] == "" || $period_rports[7] == "") $pc_show2 = ""; else $pc_show2 = round($pc2);
+                if ($period_rports[8] == "" || $period_rports[9] == "" || $period_rports[10] == "" || $period_rports[11] == "") $pc_show3 = ""; else $pc_show3 = round($pc3);
+                if ($period_rports[12] == "" || $period_rports[13] == "" || $period_rports[14] == "" || $period_rports[15] == "") $pc_show4 = ""; else $pc_show4 = round($pc4);
+                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $pc_show1 . "' data_column = 'pc1' data_stdID='" . $student->student_session_id . "' value='" . $pc_show1 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
+                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $pc_show2 . "' data_column = 'pc2' data_stdID='" . $student->student_session_id . "' value='" . $pc_show2 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
+                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $pc_show3 . "' data_column = 'pc3' data_stdID='" . $student->student_session_id . "' value='" . $pc_show3 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
+                $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $pc_show4 . "' data_column = 'pc4' data_stdID='" . $student->student_session_id . "' value='" . $pc_show4 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
                 // for ($ii = $i; $ii < 4; $ii++) {
                 //     $row[] = "";
                 // }
-                $CF = 0;
+                // $CF = 0;
                 $i = 0; $cnt = 0;
                 // $CF = 0;  echo ($period_results[$i] * 1);die;
-                for ($i = 0; $i < count($period_results); $i++) {
-                    if (empty($period_results[$i]) || empty($period_results[$i] * 1)) {
-                        $CF = 0;
-                        break;
-                    } else {
-                        $CF += $period_results[$i] / count($period_results);
-                    }
-                }
-
+                // for ($i = 0; $i < count($period_results); $i++) {
+                //     if (empty($period_results[$i]) || empty($period_results[$i] * 1)) {
+                //         $CF = 0;
+                //         break;
+                //     } else {
+                //         $CF += $period_results[$i] / count($period_results);
+                //     }
+                // }
+                if ($pc_show1 == "" || $pc_show2 == "" || $pc_show3 == "" || $pc_show4 == "") $CF = "";
+                else $CF = ($pc1 + $pc2 + $pc3 + $pc4) / 4;
                 if (!empty($CF)) {
                     $CF = round($CF);
                 }
@@ -694,13 +796,10 @@ class Grading_result extends Admin_Controller
                 }
                 $row[] = "<div class='70cpex' data_org = '" . $_70CPEX . "' data_stdID='" . $student->student_session_id . "'>" . $_70CPEX . "</div>";
                 $row[] = "<div class='cex' data_org = '" . $CEX . "' data_stdID='" . $student->student_session_id . "'>" . $CEX . "</div>";
-                $row[] = "<div class='cf' data_org = '" . $CF . "' data_stdID='" . $student->student_session_id . "'>" . $CF . "</div>";
-                $row[] = "<div class='cf' data_org = '" . $CF . "' data_stdID='" . $student->student_session_id . "'>" . $CF . "</div>";
-                $row[] = "<div class='a' data_org = '" . $A . "' data_stdID='" . $student->student_session_id . "'>" . $A . "</div>";
-                $row[] = "<div class='r' data_org = '" . $R . "' data_stdID='" . $student->student_session_id . "'>" . $R . "</div>";
                 $row[] = $O1;
                 $row[] = $O2;
-
+                $row[] = "<div class='a' data_org = '" . $A . "' data_stdID='" . $student->student_session_id . "'>" . $A . "</div>";
+                $row[] = "<div class='r' data_org = '" . $R . "' data_stdID='" . $student->student_session_id . "'>" . $R . "</div>";
                 $dt_data[] = $row;
             }
         }
@@ -1248,6 +1347,271 @@ class Grading_result extends Admin_Controller
         $this->load->view('admin/gradingreport/grading_report', $data);
     }
 
+    public function viewnewreport($id, $period_id = null)
+    {
+
+        if (!$this->rbac->hasPrivilege('grading_report_results', 'can_view')) {
+            access_denied();
+        }
+        $student         = $this->student_model->get($id);
+        $data['student']  = $student;
+        $student_session_id = $student['student_session_id'];
+
+        $alledit = $this->input->get('alledittype');
+        $data['alledit'] = !empty($alledit);
+
+        $class_level = $this->Gradingreport_model->getClassByStudent_session_id($student_session_id);
+        
+        $userdata   = $this->customlib->getUserData();
+        $role_id    = $userdata["role_id"];
+        $staff_id   = $userdata["id"];
+       
+        $data['observationeditable'] = true;
+        if (isset($role_id) && ($userdata["role_id"] == 2)){
+            $data['observationeditable'] = false;
+            $classteachers = $this->classteacher_model->teacherByClassSection($student['class_id'], $student['section_id']);
+            if(!empty($classteachers) && $classteachers[0]['id'] == $userdata["id"]){
+                $data['observationeditable'] = true;
+            }
+        }
+       
+        $data['student_session_id'] = $student_session_id;
+        $data['class_id']  = $class_level['class_id'];
+        $data['class']        = $class_level['class'];
+        $data['level_id']  = $class_level['level_id'];
+        $data['level']        = $class_level['level'];
+        $data['observation'] = $this->Gradingreport_model->getStudentObservations($student_session_id);
+        
+        $level_id=$class_level['level_id'];
+
+        //$level_id=$this->Gradingreport_model->getLevelByStaffId($staff_id);
+        if( empty($level_id) ) $level_id=43;
+        $period_list = $this->Gradingreport_model->getPeriodEnabledByStaffId($staff_id, $level_id);
+        $data['periodList'] = $period_list;
+        $data['isPrekender'] = $class_level['level_id'] != 43 ? true : false;
+        
+        if (!$data['isPrekender']) {
+
+            $subjects = array();
+
+            $subject_groups = $this->subjectgroup_model->getGroupByClassandSection($student['class_id'], $student['section_id']);
+            
+            foreach ($subject_groups as $subject_group) {
+                
+                $groupsubjects = $this->subjectgroup_model->getGroupsubjects($subject_group['subject_group_id']);
+                
+                array_splice($subjects, count($subjects), 0, $groupsubjects);
+            }
+            
+            $grading_subject_results = array();
+            $admin_session   = $this->session->userdata('admin');
+            $permission = $this->staff_model->get_permission($admin_session['id']);
+            $role = $this->customlib->getStaffRole();
+            
+            $role_id = json_decode($role)->id;
+            //$permission_staff_ids = $this->staff_model->getpermission('Permission of Teachers');
+            $data['role_id'] = $role_id;
+            $addstep = 0;
+            $teacherCnt = 0; 
+            foreach ($subjects as $subject) {
+                $result = $this->Gradingreport_model->getNewReportByStudentAndSubject($student_session_id, $subject->id);
+                $row = array();
+                $row['subject'] = $subject->name;
+                $row['subjectId'] = $subject->id;
+                $row['period_results'] = array();
+                $row['period_resultsRP'] = array();
+                $edit_flag = [];
+                if (!empty($result)) {
+                    $row['reportId'] = $result['id'];
+					$update_date = [];
+					$update_date[] = $result['update_date_p11'];
+					$update_date[] = $result['update_date_p12'];
+					$update_date[] = $result['update_date_p13'];
+					$update_date[] = $result['update_date_p14'];
+                    $row['period_results'][] = $result['p11'];
+                    $row['period_results'][] = $result['p12'];
+                    $row['period_results'][] = $result['p13'];
+                    $row['period_results'][] = $result['p14'];
+                    $row['period_results'][] = $result['p21'];
+                    $row['period_results'][] = $result['p22'];
+                    $row['period_results'][] = $result['p23'];
+                    $row['period_results'][] = $result['p24'];
+                    $row['period_results'][] = $result['p31'];
+                    $row['period_results'][] = $result['p32'];
+                    $row['period_results'][] = $result['p33'];
+                    $row['period_results'][] = $result['p34'];
+                    $row['period_results'][] = $result['p41'];
+                    $row['period_results'][] = $result['p42'];
+                    $row['period_results'][] = $result['p43'];
+                    $row['period_results'][] = $result['p44'];
+                    
+                    $row['period_resultsRP'][] = $result['rp11'];
+                    $row['period_resultsRP'][] = $result['rp12'];
+                    $row['period_resultsRP'][] = $result['rp13'];
+                    $row['period_resultsRP'][] = $result['rp14'];
+                    $row['period_resultsRP'][] = $result['rp21'];
+                    $row['period_resultsRP'][] = $result['rp22'];
+                    $row['period_resultsRP'][] = $result['rp23'];
+                    $row['period_resultsRP'][] = $result['rp24'];
+                    $row['period_resultsRP'][] = $result['rp31'];
+                    $row['period_resultsRP'][] = $result['rp32'];
+                    $row['period_resultsRP'][] = $result['rp33'];
+                    $row['period_resultsRP'][] = $result['rp34'];
+                    $row['period_resultsRP'][] = $result['rp41'];
+                    $row['period_resultsRP'][] = $result['rp42'];
+                    $row['period_resultsRP'][] = $result['rp43'];
+                    $row['period_resultsRP'][] = $result['rp44'];
+
+
+                    // $pc1 = 
+                    
+                    $pc1 = 0;
+                    $pc2 = 0;
+                    $pc3 = 0;
+                    $pc4 = 0;
+                    for ($i = 0; $i < 4; $i++) {
+                        if ($row['period_results'][$i] < 70) $pc1 = $pc1 + $row['period_resultsRP'][$i] / 4;
+                        else $pc1 = $pc1 + $row['period_results'][$i] / 4;
+                        if ($row['period_results'][$i + 4] < 70) $pc2 = $pc2 + $row['period_resultsRP'][$i + 4] / 4;
+                        else $pc2 = $pc2 + $row['period_results'][$i + 4] / 4;
+                        if ($row['period_results'][$i + 8] < 70) $pc3 = $pc3 + $row['period_resultsRP'][$i + 8] / 4;
+                        else $pc3 = $pc3 + $row['period_results'][$i + 8] / 4;
+                        if ($row['period_results'][$i + 12] < 70) $pc4 = $pc4 + $row['period_resultsRP'][$i + 12] / 4;
+                        else $pc4 = $pc4 + $row['period_results'][$i + 12] / 4;
+                    }
+
+                    $row['period_results'][] = round($pc1);
+                    $row['period_results'][] = round($pc2);
+                    $row['period_results'][] = round($pc3);
+                    $row['period_results'][] = round($pc4);
+					$date = date("Y-m-d");
+                    if($role_id == 2)   // if Teacher is,
+                    {
+                        for($i = 0; $i < count($update_date);$i++)
+                        {
+                            $edit_flag[$i] = 0;
+                            if(substr($permission,$i,1) == 1)
+                            {
+                                $edit_flag[$i] = 1;
+                                continue;
+                            }
+                            if(substr($student['class'],0,1) == ($i + 1))
+                            {
+                                if($update_date[$i] == $date or $update_date[$i] == null)
+                                    $edit_flag[$i] = 1;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for($i = 0; $i < count($update_date);$i++)
+                            $edit_flag[$i] = 1;
+                    }
+                } else {
+                    $row['reportId'] = null;
+                    $row['period_results'] = [null, null, null, null, null];
+                    for($i = 0; $i < 5;$i++)
+                        $edit_flag[$i] = 1;
+                }
+                $row['edit_flag'] = $edit_flag;
+                $row['CF'] = 0;
+                $i = 0;
+                // foreach($period_list as $period) {
+                //     if (empty($row['period_results'][$i])) {
+                //         $row['CF'] = 0;
+                //         break;
+                //     } else {
+                //         $row['CF'] += $row['period_results'][$i];// / count($period_list);
+                //     }
+                //     $i++;
+                // }
+                if ($pc1 > 0 && $pc2 > 0 && $pc3 > 0 && $pc4 > 0) $row['CF'] = round(($pc1 + $pc2 + $pc3 + $pc4) / 4);
+                if(!empty($row['CF']) && $i>0) $row['CF'] = round($row['CF'] / $i);
+                $row['AA'] = '';
+                $row['50PCP'] = '';
+                $row['CPC'] = '';
+                $row['50CPC'] = '';
+                $row['CC'] = '';
+                $row['30PCP'] = '';
+                $row['CPEX'] = '';
+                $row['70CPEX'] = '';
+                $row['CEX'] = '';
+                $row['O1'] = '';
+                $row['O2'] = '';
+                $row['A'] = '';
+                $row['R'] = '';
+                $row['add'] = '';
+                if (empty($row['CF'])) {
+                    $row['CF'] = '';
+                } else {
+                    $row['CF'] = round($row['CF']);
+                    if ($row['CF'] >= 70) {
+                        $row['A'] = 'A';
+                        $row['R'] = '';
+                    } else {
+                        $row['A'] = '';
+                        $row['R'] = 'R';
+                        if (empty($addstep)) {
+                            $addstep = 1;
+                        }
+                        $row['add'] = 'cpc';
+                        if (!empty($result) && !empty($result['CPC'])) {
+                            $row['50PCP'] = round($row['CF'] / 2);
+                            $row['CPC'] = $result['CPC'];
+                            $row['50CPC'] = round($result['CPC'] / 2);
+                            $row['CC'] = $row['50PCP'] + $row['50CPC'];
+                            if ($row['CC'] >= 70) {
+                                $row['A'] = 'A';
+                                $row['R'] = '';
+                            } else {
+                                $row['add'] = 'cpex';
+                                $addstep = 2;
+                                if (!empty($result) && !empty($result['CPEX'])) {
+                                    $row['30PCP'] = round($row['CF'] * 0.3);
+                                    $row['CPEX'] = $result['CPEX'];
+                                    $row['70CPEX'] = round($result['CPEX'] * 0.7);
+                                    $row['CEX'] = $row['30PCP'] + $row['70CPEX'];
+                                    if ($row['CEX'] >= 70) {
+                                        $row['A'] = 'A';
+                                        $row['R'] = '';
+                                    } else {
+                                        $row['O1'] = '';
+                                        $row['O2'] = '';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                $grading_subject_results[] = $row;
+                $teacherCnt++;
+            }
+            $data['addstep'] = $addstep;
+            $data['grading_subject_results'] = $grading_subject_results;
+            
+        } else {
+
+            if (!empty($data['class_id'])) {
+
+                $data['period_id'] = '';
+                if (!empty($period_id)) {
+                    $data['period_id'] = $period_id;
+                }
+
+                $competences = $this->Gradingreport_model->getCompetences($this->sch_current_session, $data['class_id'], $period_id);
+                $data['competenceList'] = array();
+                foreach ($competences as $competence) {
+                    $reportdata = $this->Gradingreport_model->getCompetenceReport($competence['id'], $student_session_id);
+                    $competence['data'] = $reportdata;
+                    $data['competenceList'][] = $competence;
+                }
+                $valuescale = $this->Gradingreport_model->getValuescaleByClass($data['level_id']);
+                $data['valuescaleList'] = $valuescale;
+            }
+        }
+        $this->load->view('admin/gradingreport/grading_newreport', $data);
+    }
+
     function changeObservation()
     {
         $index = $this->input->post('index');
@@ -1516,6 +1880,68 @@ class Grading_result extends Admin_Controller
         }
     }
 
+    public function updatesubjectnewreport()
+    {
+        if (!$this->rbac->hasPrivilege('grading_report_results', 'can_edit')) {
+            access_denied();
+        }
+
+        if (isset($_POST)) {
+            $student_session_id = $_POST['student_session_id'];
+            $student = $this->Studentsession_model->searchStudentsBySession($student_session_id);
+
+            $postDatas = array();
+
+            if (isset($_POST['subjectreportkey']) && !empty($_POST['subjectreportkey'])) {
+                $pieces = explode("_", $_POST['subjectreportkey']);
+                if ($pieces[0] == 'secondaryreport' && ($this->rbac->hasPrivilege('grading_report_results', 'can_delete') || !empty($_POST['subjectreportvalue']))) {
+                    $subject_group_subjects_id = $pieces[1];
+                    $resultkey = $pieces[2];
+                    $postDatas[$subject_group_subjects_id][$resultkey] = empty($_POST['subjectreportvalue']) ? null : $_POST['subjectreportvalue'];
+                }
+            }
+
+            foreach ($_POST as $key => $pvalue) {
+                if ($key == "student_session_id") {
+                    continue;
+                } else {
+                    $pieces = explode("_", $key);
+                    if ($pieces[0] == 'secondaryreport' && !empty($pvalue)) {
+                        $subject_group_subjects_id = $pieces[1];
+                        $resultkey = $pieces[2];
+                        $postDatas[$subject_group_subjects_id][$resultkey] = empty($pvalue) ? null : $pvalue;
+                    }
+                }
+            }
+
+            foreach ($postDatas as $subjectkey => $postData) {
+                $role = $this->customlib->getStaffRole();
+                $role_id = json_decode($role)->id;
+                if($role_id == 2)   ///Teacher
+                {
+                    foreach($postData as $key => $value)
+                    {
+                        $postData['update_date_'.$key] = date("y-m-d");
+                    }
+                }
+                $postData['student_session_id'] = $student_session_id;
+                $postData['subject_group_subjects_id'] = $subjectkey;
+
+                $grading_marker = $this->Gradingreport_model->getReportByStudentAndSubject($student_session_id, $subjectkey);
+                //$postData['update_date_'.$subjectkey.substr(1,1)] = date("y-m-d");
+                if (empty($grading_marker)) {
+                    $this->Gradingreport_model->add_subjectnewreport($postData);
+                } else {
+                    $postData['id'] = $grading_marker['id'];
+                    $this->Gradingreport_model->add_subjectnewreport($postData);
+                }
+            }
+            echo json_encode(array('success' => true, 'message' => ''));
+        } else {
+            echo json_encode(array('success' => false, 'message' => 'faild edit grading report'));
+        }
+    }
+
     public function updateObservation(){
         $student_session_id = $this->input->post('student_session_id');
         $observation = $this->input->post('observation');
@@ -1528,7 +1954,6 @@ class Grading_result extends Admin_Controller
             json_encode(array('success' => false, 'message' => 'Faild edit observation'));
         }
     }
-
 
     public function printCard()
     {
@@ -1659,6 +2084,7 @@ class Grading_result extends Admin_Controller
                         }
                         $data['competenceList'][$period['id']] = $competences;
                     }
+                    $class_id = 0;
                     if($data['level'] == "NIVEL INICIAL")
                         $class_id = 3;
                     else
@@ -1695,13 +2121,287 @@ class Grading_result extends Admin_Controller
                             $row['reportId'] = null;
                             $row['period_results'] = [null, null, null, null, null];
                         }
-
-                        $row['CF'] = "";
+                        $row['CF'] = 0;
                         for ($i = 0; $i < count($period_list); $i++) {
                             if (empty($row['period_results'][$i])) {
-                                $row['CF'] = '';
+                                $row['CF'] = 0;
                                 break;
                             } else {
+                                $row['CF'] += $row['period_results'][$i] / count($period_list);
+                            }
+                        }
+                        $row['AA'] = '';
+                        $row['50PCP'] = '';
+                        $row['CPC'] = '';
+                        $row['50CPC'] = '';
+                        $row['CC'] = '';
+                        $row['30PCP'] = '';
+                        $row['CPEX'] = '';
+                        $row['70CPEX'] = '';
+                        $row['CEX'] = '';
+                        $row['O1'] = '';
+                        $row['O2'] = '';
+                        $row['A'] = '';
+                        $row['R'] = '';
+                        $row['add'] = '';
+                        if (empty($row['CF'])) {
+                            $row['CF'] = '';
+                        } else {
+                            $row['CF'] = round($row['CF']);
+                            if ($row['CF'] >= 70) {
+                                $row['A'] = 'A';
+                                $row['R'] = '';
+                            } else {
+                                $row['A'] = '';
+                                $row['R'] = 'R';
+                                if (empty($addstep)) {
+                                    $addstep = 1;
+                                }
+                                $row['add'] = 'cpc';
+                                if (!empty($result) && !empty($result['CPC'])) {
+                                    $row['50PCP'] = round($row['CF'] / 2);
+                                    $row['CPC'] = $result['CPC'];
+                                    $row['50CPC'] = round($result['CPC'] / 2);
+                                    $row['CC'] = $row['50PCP'] + $row['50CPC'];
+                                    if ($row['CC'] >= 70) {
+                                        $row['A'] = 'A';
+                                        $row['R'] = '';
+                                    } else {
+                                        $row['add'] = 'cpex';
+                                        $addstep = 2;
+                                        if (!empty($result) && !empty($result['CPEX'])) {
+                                            $row['30PCP'] = round($row['CF'] * 0.3);
+                                            $row['CPEX'] = $result['CPEX'];
+                                            $row['70CPEX'] = round($result['CPEX'] * 0.7);
+                                            $row['CEX'] = $row['30PCP'] + $row['70CPEX'];
+                                            if ($row['CEX'] >= 70) {
+                                                $row['A'] = 'A';
+                                                $row['R'] = '';
+                                            } else {
+                                                $row['O1'] = '';
+                                                $row['O2'] = '';
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        error_log("print card 1869.");
+                        $grading_subject_results[] = $row;
+                        error_log("print card 1871.");
+                    }
+                    error_log("print card 1873.");
+                    $data['pageNum'] = $this->session->userdata['pageNum'];
+                    $data['grading_subject_results'] = $grading_subject_results;
+                    $seconday_grading_report_cards = $this->load->view('admin/gradingreport/_secondaryreportview', $data, true);
+                    $renderprintpage .= " ". $seconday_grading_report_cards. " ";
+                    error_log("print card 1878.");
+                }
+                error_log("print card 1880.");
+            }
+            error_log("print card 1882.");
+            $array = array('status' => '1', 'error' => '', 'page' => $renderprintpage);
+            echo json_encode($array);
+        }
+    }
+
+    public function printNewCard()
+    {
+        $class           = $this->input->post('class_id');
+        $section         = $this->input->post('section_id');
+        $id = $this->input->post('id');
+        $period_id = $this->input->post('period_id');
+        $this->session->userdata['pageNum'] = 0;
+        $order_number = 1;
+        error_log("print card init finished.");
+        if (!empty($id))
+        {
+            $studentList = array();
+            if ($id == 'all') {
+                $class           = $this->input->post('class_id');
+                $section         = $this->input->post('section_id');
+                $search_text     = $this->input->post('search_text');
+                $search_type     = $this->input->post('srch_type');
+                $classlist       = $this->class_model->get();
+                $classlist       = $classlist;
+                $carray          = array();
+                
+                if (!empty($classlist)) {
+                    foreach ($classlist as $ckey => $cvalue) {
+                        $carray[] = $cvalue["id"];
+                    }
+                }
+
+                if ($search_type == "search_filter") {
+                    $resultlist = $this->student_model->searchdtByClassSection($class, $section);
+                } elseif ($search_type == "search_full") {
+                    $resultlist = $this->student_model->searchFullText($search_text, $carray);
+                }
+                $students = json_decode($resultlist,true);
+                if (!empty($students['data'])) {
+                    foreach ($students['data'] as $student) {
+                        $studentList[] = $student;
+                    }
+                }
+            } else {
+
+                $resultlist = $this->student_model->searchdtByClassSection($class, $section);
+                $students = json_decode($resultlist,true);
+
+                if (!empty($students['data'])) {
+                    $order_number = 0;
+                    foreach ($students['data'] as $student) {
+                        $order_number++;
+                        if($student['id'] == $id )
+                           break;
+                    }
+                }
+                $student = $this->student_model->get($id);
+                $studentList[] = $student;
+            }
+
+            error_log("print card 1671.");
+            $renderprintpage = '';
+            $Cnt = 0;
+            foreach ($studentList as $student) {
+                error_log("student: " . print_r($student, true));
+                $Cnt++;
+                $data = array();
+                $data['student']  = $student;
+                $student_session_id = $student['student_session_id'];
+                $class_level = $this->Gradingreport_model->getClassByStudent_session_id($student_session_id);
+                $data['order_number'] = $this->Gradingreport_model->getStudentOrderNumber($student['class_id'], $student['section_id'], $student_session_id);
+                $data['student_session_id'] = $student_session_id;
+                $data['class_id']  = $class_level['class_id'];
+                $data['class']        = $class_level['class'];
+                $data['level_id']  =  $class_level['level_id'];
+                $data['observation'] = $this->Gradingreport_model->getStudentObservations($student_session_id);
+                $data['period_id'] = $period_id;
+                $data['level_coordinator'] = '';
+                $level = $this->Level_model->getLevelList($data['level_id']);
+                error_log("print card 1690.");
+                if (!empty($level['coordinator_id'])) {
+                    $level_coordinator = $this->staff_model->get_StaffNameById($level['coordinator_id']);
+                    $data['level_coordinator'] = $level_coordinator['name'];
+                }
+
+                $data['school_director'] = '';
+                $school_director = $this->staff_model->getStaffbyrole(9);
+                if (!empty($school_director)) {
+                    $data['school_director'] = $school_director[0]['name'] . " " . $school_director[0]['surname'];
+                }
+
+                $data['class_teacher'] = '';
+                $classteachers = $this->classteacher_model->teacherByClassSection($data['class_id'], $student['section_id']);
+                if (!empty($classteachers)) {
+                    $data['class_teacher'] = $classteachers[0]['name'] . " " . $classteachers[0]['surname'];
+                }
+                error_log("print card 1707.");
+
+                $data['level']        = $class_level['level'];
+                $data['session']  = $this->setting_model->getCurrentSessionName();
+                $period_list = $this->Gradingreport_model->getPeriodByLevel($data['level_id']);
+                $data['periodList'] = $period_list;
+                $monthlist = $this->customlib->getMonthDropdown();
+				if($this->session->userdata['admin']['language']['language'] == 'English')
+				{
+					$month['January'] = "enero";
+					$month['February'] = "febrero";
+					$month['March'] = "marzo";
+					$month['April'] = "abril";
+					$month['May'] = "Mayo";
+					$month['June'] = "junio";
+					$month['July'] = "julio";
+					$month['August'] = "agosto";
+					$month['September'] = "septiembre";
+					$month['October'] = "octubre";
+					$month['November'] = "noviembre";
+					$month['December'] = "diciembre";
+					$data['monthlist'] = $month;
+				}
+				else
+				{
+					$data['monthlist'] = $monthlist;
+				}
+                error_log("print card 1730.");
+                
+                $data['sch_setting'] = $this->sch_setting_detail;
+                $data['isPrekender'] = $class_level['level_id'] != 43 ? true : false;
+
+                error_log("print card 1739.");
+                if ($data['isPrekender']) {
+                    error_log("print card 1741.");
+                    $data['competenceList'] = array();
+                    $data['indicatorsList'] = array();
+
+                    foreach ($period_list as $period) {
+                        $competences = $this->Gradingreport_model->getCompetences($this->sch_current_session, $data['class_id'], $period['id']);
+                        foreach ($competences as $competence) {
+                            $indicators = $this->Gradingreport_model->getCompetenceReport($competence['id'], $student_session_id);
+                            $data['indicatorsList'][$competence['id']] = $indicators;
+                        }
+                        $data['competenceList'][$period['id']] = $competences;
+                    }
+                    error_log("print card 1753.");
+                    $class_id = 0;
+                    if($data['level'] == "NIVEL INICIAL")
+                        $class_id = 3;
+                    else
+                        $class_id = 42;
+                    error_log("print card 1759." . $class_id);
+                    $valuescale = $this->Gradingreport_model->getValuescaleByClass($class_id);
+                    error_log("print card 1761." . print_r($valuescale, true));
+                    $data['valuescaleList'] = $valuescale;
+                    $data['order_number'] = $order_number;
+                    $student_admit_cards = $this->load->view('admin/gradingreport/newreportview', $data, true);
+                    error_log("student admit cards: " . $student_admit_cards);
+                    $renderprintpage .= " ". $student_admit_cards. " ";
+                    $order_number++;
+                    error_log("print card 1764.");
+                }
+                else
+                {
+                    error_log("print card 1768.");
+                    $subjects = array();
+                    $subject_groups = $this->subjectgroup_model->getGroupByClassandSection($student['class_id'], $student['section_id']);
+                    foreach ($subject_groups as $subject_group) {
+                        $groupsubjects = $this->subjectgroup_model->getGroupsubjects($subject_group['subject_group_id']);
+                        array_splice($subjects, count($subjects), 0, $groupsubjects);
+                    }
+                    error_log("print card 1775.");
+                    $grading_subject_results = array();
+                    foreach ($subjects as $subject) {
+                        error_log("print card 1782.");
+                        $result = $this->Gradingreport_model->getReportByStudentAndSubject($student_session_id, $subject->id);
+                        error_log("print card result. " . print_r($result, true));
+                        $row = array();
+                        $row['subject'] = $subject->name;
+                        $row['period_results'] = array();
+                        error_log("print card 1788.");
+                        if (!empty($result)) {
+                            $row['reportId'] = $result['id'];
+                            $row['period_results'][] = $result['p1'];
+                            $row['period_results'][] = $result['p2'];
+                            $row['period_results'][] = $result['p3'];
+                            $row['period_results'][] = $result['p4'];
+                            $row['period_results'][] = $result['p5'];
+                        } else {
+                            $row['reportId'] = null;
+                            $row['period_results'] = [null, null, null, null, null];
+                        }
+                        error_log("print card 1800.");
+                        error_log("print card period_list: " . print_r($period_list, true));
+                        error_log("print card period_result: " . print_r($row['period_results'], true));
+                        $row['CF'] = 0;
+                        for ($i = 0; $i < count($period_list); $i++) {
+                            error_log("print card for period_list: " . print_r($i, true));
+                            error_log("print card period_results i: " . print_r($row['period_results'][$i], true));
+                            if (empty($row['period_results'][$i])) {
+                                error_log("print card 1808.");
+                                $row['CF'] = 0;
+                                break;
+                            } else {
+                                error_log("print card 1812.");
                                 $row['CF'] += $row['period_results'][$i] / count($period_list);
                             }
                         }
@@ -1766,7 +2466,7 @@ class Grading_result extends Admin_Controller
                     }
                     $data['pageNum'] = $this->session->userdata['pageNum'];
                     $data['grading_subject_results'] = $grading_subject_results;
-                    $seconday_grading_report_cards = $this->load->view('admin/gradingreport/_secondaryreportview', $data, true);
+                    $seconday_grading_report_cards = $this->load->view('admin/gradingreport/_secondarynewreportview', $data, true);
                     $renderprintpage .= " ". $seconday_grading_report_cards. " ";
                 }
             }
