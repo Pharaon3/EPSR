@@ -12,16 +12,13 @@
         /* page-break-after works, as well */
     }
 
-   @media print {
-       #gradingResultTB th,
+    @media print {
+        #gradingResultTB th,
         .final_condition {
-!background-color: #e6e6ed !important;
+            !background-color: #e6e6ed !important;
             -webkit-print-color-adjust: exact;
         }
-
     }
-
-
 
     * {
         padding: 0;
@@ -32,14 +29,14 @@
     .front-container {
         z-index: 2;
         margin: 0 auto;
-        padding: 80px 40px 50px 40px;
+        /* padding: 80px 40px 50px 40px; */
     }
 
     .report-container {
-        width: 11in;
+        /* width: 11in; */
         height: 8.5in;
         margin: 0 auto;
-        padding: 60px 30px 50px 30px;
+        /* padding: 60px 30px 50px 30px; */
         position: relative;
     }
 
@@ -60,8 +57,8 @@
         padding-left: 3px;
         font-size: 16px;
         vertical-align: bottom;
-        text-align:center;
-        height:24px; 
+        text-align: center;
+        height: 24px;
     }
 
     #gradingResultTB .rboder {
@@ -92,195 +89,580 @@
     .pb-2 {
         padding-bottom: 8px;
     }
+
+    .CALIFICACIONES {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px;
+        width: 100%;
+        background-color: #00a09a;
+        color: white;
+        font-size: 18px;
+    }
+
+    .kanit-thin {
+        font-family: "Kanit", sans-serif;
+        font-weight: 100;
+        font-style: normal;
+    }
+
+    .kanit-extralight {
+        font-family: "Kanit", sans-serif;
+        font-weight: 200;
+        font-style: normal;
+    }
+
+    .kanit-light {
+        font-family: "Kanit", sans-serif;
+        font-weight: 300;
+        font-style: normal;
+    }
+
+    .kanit-regular {
+        font-family: "Kanit", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    .kanit-medium {
+        font-family: "Kanit", sans-serif;
+        font-weight: 500;
+        font-style: normal;
+    }
+
+    .kanit-semibold {
+        font-family: "Kanit", sans-serif;
+        font-weight: 600;
+        font-style: normal;
+    }
+
+    .kanit-bold {
+        font-family: "Kanit", sans-serif;
+        font-weight: 700;
+        font-style: normal;
+    }
+
+    .kanit-extrabold {
+        font-family: "Kanit", sans-serif;
+        font-weight: 800;
+        font-style: normal;
+    }
+
+    .kanit-black {
+        font-family: "Kanit", sans-serif;
+        font-weight: 900;
+        font-style: normal;
+    }
+
+    .kanit-thin-italic {
+        font-family: "Kanit", sans-serif;
+        font-weight: 100;
+        font-style: italic;
+    }
+
+    .kanit-extralight-italic {
+        font-family: "Kanit", sans-serif;
+        font-weight: 200;
+        font-style: italic;
+    }
+
+    .kanit-light-italic {
+        font-family: "Kanit", sans-serif;
+        font-weight: 300;
+        font-style: italic;
+    }
+
+    .kanit-regular-italic {
+        font-family: "Kanit", sans-serif;
+        font-weight: 400;
+        font-style: italic;
+    }
+
+    .kanit-medium-italic {
+        font-family: "Kanit", sans-serif;
+        font-weight: 500;
+        font-style: italic;
+    }
+
+    .kanit-semibold-italic {
+        font-family: "Kanit", sans-serif;
+        font-weight: 600;
+        font-style: italic;
+    }
+
+    .kanit-bold-italic {
+        font-family: "Kanit", sans-serif;
+        font-weight: 700;
+        font-style: italic;
+    }
+
+    .kanit-extrabold-italic {
+        font-family: "Kanit", sans-serif;
+        font-weight: 800;
+        font-style: italic;
+    }
+
+    .kanit-black-italic {
+        font-family: "Kanit", sans-serif;
+        font-weight: 900;
+        font-style: italic;
+    }
+
+    body {
+        margin: 0px;
+    }
+
+    #print-page {
+        padding: 20px 40px;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    #print-page>div {
+        width: 50%;
+    }
+
+    #left-table {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    #left-table>div {
+        width: 100%;
+    }
+
+    #FIRMA {
+        width: 100%;
+    }
+
+    #print-page table thead tr th {
+        background-color: #00a09a;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+    }
+
+    #Observaciones table thead tr th {
+        justify-content: start;
+        padding-left: 15px;
+    }
+
+    #firma-table {
+        width: 100%;
+        border-spacing: 0px;
+    }
+
+    #Observaciones-table {
+        width: 100%;
+        border-spacing: 0px;
+    }
+
+    #print-page table tbody tr td {
+        border-color: black;
+        border-width: 2px;
+        border-style: solid;
+        border-top: none;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .underlined-field {
+        min-height: 20px;
+    }
+
+    .underlined-field span {
+        display: flex;
+        border-bottom-color: black;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+    }
+
+    #right-side {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .right-info {
+        padding: 20px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    #detail-page {
+        padding: 20px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .vertical-lr {
+        writing-mode: vertical-lr;
+    }
+
+    .rotated {
+        transform: rotate(180deg);
+    }
+
+    .pink {
+        background-color: #f3a6c0 !important;
+    }
+
+    .lightpink {
+        background-color: #fad9e0 !important;
+    }
+
+    #student-detail {
+        display: flex;
+        align-items: end;
+    }
+
+    .nowrap {
+        white-space: nowrap;
+    }
+
+    .resumen-table thead tr th {
+        text-align: center;
+    }
+
+    .SITUACION {
+        display: flex;
+        gap: 10px;
+        width: 50%;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .situacion-title {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-around;
+    }
+
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
 <div class="front-container">
-
-    <table cellpadding="0" cellspacing="0" width="100%">
-        <tr>
-            <td width="50%" valign="top" style="padding-top: 30px; padding-right:80px; font-style: oblique;">
-                <div style="text-align:center; font-size:22px; font-weight:800; font-family: 'Arial Black',arial-black;">VISIÓN</div>
-                <div style="text-align: justify; text-justify: inter-word; font-size: 17px; margin-bottom:40px;">
-                    Educamos decididos a participar con capacidad, libertad y responsabilidad en la configuración de una nueva sociedad compuesta por personas más felices, fraternas y solidarias.
+    <div id="print-page">
+        <div id="left-table">
+            <div id="FIRMA">
+                <table id="firma-table">
+                    <thead>
+                        <tr>
+                            <th class="kanit-medium">FIRMA DEL PADRE, MADRE O TUTOR</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="kanit-regular" style="font-weight: bold;">Períodos de Reportes de Calificaciones</div>
+                                <div class="underlined-field kanit-light">Ago-Sept-Oct <span></span></div>
+                                <div class="underlined-field kanit-light">Nov-Dic-Ene <span></span></div>
+                                <div class="underlined-field kanit-light">Feb-Mar <span></span></div>
+                                <div class="underlined-field kanit-light">Abr-May-Jun <span></span></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="Observaciones">
+                <table id="Observaciones-table">
+                    <thead>
+                        <tr>
+                        <th class="kanit-medium">Observaciones: </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        <td style="padding-top: 20px;">
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                        </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="right-side">
+            <img src="<?php echo base_url('uploads/school_content/logo/logo.png'); ?>" style="width: 20%;">
+            <div class="kanit-light" style="text-align: center; font-size: 12px;">Viceministro de Servicios Técnicos y Pedagógicos <br> Dirección General de Educación Secundaria</div>
+            <div class="kanit-medium" style="color: #00a09a; font-size: 24px;">BOLETÍN DE CALIFICACIONES </div>
+            <img src="<?php echo base_url('uploads/school_content/logo/4grado.png'); ?>" style="width: 25%;">
+            <div class="kanit-light">
+                Año escolar: 20<span style="font-family: sans-serif;">_________</span> 20<span style="font-family: sans-serif;">_________</span>
+            </div>
+            <div class="kanit-light right-info">
+                <div style="display: flex;justify-content: space-between;">
+                <span style="width: 50%; display: flex;justify-content: space-between;"><span>Sección: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span> </span>
+                <span style="width: 50%; display: flex;justify-content: space-between;"><span style="white-space: nowrap;">úmero de orden: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span> </span>
                 </div>
-                <div style="text-align:center; font-size:22px; font-weight:0; font-family: 'Arial black',arial-black;">MISIÓN</div>
-                <div style="text-align: justify; text-justify: inter-word; font-size: 17px; margin-bottom:60px;">
-                    Somos un centro educativo católico y agustiniano que forma personas de manera integral para impactar positivamente en la sociedad
+                <div style="display: flex;justify-content: space-between;">
+                <span style="white-space: nowrap;">Nombre (s): </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span>
                 </div>
-                <div style="text-align:center; font-size:22px; font-weight:0; font-family: 'Arial black',arial-black;">VALORES</div>
-                <div style="text-align: justify; text-justify: inter-word; font-size: 17px; margin-bottom:5px;">
-                    • Interioridad  </div>
-	               <div style="text-align: justify; text-justify: inter-word; font-size: 17px; margin-bottom:5px;">
-                    • Solidaridad  </div>
-					<div style="text-align: justify; text-justify: inter-word; font-size: 17px; margin-bottom:5px;">
-                    • Libertad  </div>
-					<div style="text-align: justify; text-justify: inter-word; font-size: 17px; margin-bottom:5px;">
-                    • Verdad  </div>
-					<div style="text-align: justify; text-justify: inter-word; font-size: 17px; margin-bottom:5px;">
-                    • Responsabilidad  </div>
-					<div style="text-align: justify; text-justify: inter-word; font-size: 17px; margin-bottom:40px;">
-                    • Amistad  </div>
-							
-
+                <div style="display: flex;justify-content: space-between;">
+                <span style="white-space: nowrap;">Apellido (s): </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span>
                 </div>
-                <div style="font-size: 17px; margin-bottom:40px;">
-                    <strong>Salida Optativa del centro:</strong> Humanidades y Ciencias Sociales
+                <div style="display: flex;justify-content: space-between;">
+                <span style="white-space: nowrap;">ID estudiante (Número de identificación SIGERD): </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span>
                 </div>
-                <div style="font-size: 16px;">
-                    <strong>"Considero que soy uno de esos que escriben mientras aprenden y aprenden mientras escriben".</strong> <span style="font-style:normal">San Agustín.</span>
+                <div style="display: flex;justify-content: space-between;">
+                <span style="white-space: nowrap;">Docente: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span>
                 </div>
-            </td>
-            <td width="50%" valign="top" style="padding-left:50px">
-              <!-- <div style="text-align:center; font-size:16px; margin-bottom:20px;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
-                    <strong style="font-size: 22px;">ESCUELA PARROQUIAL SANTA RITA</strong>
-                    <p>AGUSTINOS RECOLETOS</p>
-                </div>-->
-                <div style="text-align:center; margin-bottom:70px">
-                    <img src="<?php echo base_url('uploads/school_content/logo/' . $sch_setting->image); ?>" width="260" height="260">
+                <div style="display: flex;justify-content: space-between;">
+                <span style="white-space: nowrap;">Centro educativo: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span>
                 </div>
-
-                <div style="text-align:center; font-size:22px; margin-bottom:50px;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
-                    <strong>REPORTE DE CALIFICACIONES<br>
-                        <?php if (trim($student['class'])[0] * 1 > 3) {
-                            echo 'SEGUNDO';
-                        } else {
-                            echo 'PRIMER';
-                        } ?> CICLO NIVEL SECUNDARIO<br>
-                        <?= $student['class'] ?>. Sección <?= $student['section'] ?><br>
-                        <br>
-                        Año Escolar <?php echo $session ?>
-                    </strong>
+                <div style="display: flex;justify-content: space-between;">
+                <span style="white-space: nowrap;">Código del centro: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span>
                 </div>
-                <div style="font-size: 17px;">
-                    <strong>Nombres y Apellidos: </strong><?php echo $this->customlib->getFullName($student['firstname'], $student['middlename'], $student['lastname'], $sch_setting->middlename, $sch_setting->lastname); ?><br>
-                    <strong>No. de Orden:</strong> <?php echo $order_number ?><br>
-                    <strong>Matrícula:</strong> <?php echo $student['admission_no'] ?><br>
-                    <strong>Curso y Sección:</strong> <?= $student['class'] ?>. Sección <?= $student['section'] ?><br>
-                    <strong>Dirección del centro:</strong> Av. Libertad No. 31, San Cristóbal.<br>
-                    <strong>Distrito Educativo:</strong> 02 de San Cristóbal Norte<br>
-                    <strong>Dirección Regional de Educación:</strong> 04 de San Cristóbal<br>
+                <div style="display: flex;justify-content: space-between;">
+                <span style="white-space: nowrap;">Tanda: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span>
                 </div>
-            </td>
-        </tr>
-    </table>
+                <div style="display: flex;justify-content: space-between;">
+                <span style="white-space: nowrap;">Teléfono del centro: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span>
+                </div>
+                <div style="display: flex;justify-content: space-between;">
+                <span style="white-space: nowrap;">Distrito educativo: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span>
+                </div>
+                <div style="display: flex;justify-content: space-between;">
+                <span style="white-space: nowrap;">Regional de educación: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span>
+                </div>
+                <div style="display: flex;justify-content: space-between;">
+                <span style="white-space: nowrap;">Provincia: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span>
+                </div>
+                <div style="display: flex;justify-content: space-between;">
+                <span style="white-space: nowrap;">Municipio: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="pagebreak"></div>
 <div class="report-container">
-    <div class="table-responsive" id="gradingResultTB">
-        <div style="text-transform: uppercase; text-align:center; font-size:24px; margin-bottom:10px; font-weight:bold;font-family: 'Arial Narrow', arial-narrow;">CALIFICACIONES DE RENDIMIENTO DE <?= $student['class'] ?>. Sección <?= $student['section'] ?></div>
-        <strong>No.&nbsp;&nbsp;&nbsp;&nbsp;</strong> <?php echo $order_number ?><br>
-        <strong>Alumno:</strong><?php echo $this->customlib->getFullName($student['firstname'], $student['middlename'], $student['lastname'], $sch_setting->middlename, $sch_setting->lastname); ?>
-        <div style="width:100%; border:1px solid; padding:2px; margin-top:6px;">
-            <table style="width:100%; border-collapse: collapse;font-family: 'Arial Narrow', arial-narrow;">
-                <thead>
-                    <tr>
-                        <th rowspan="3" style="min-width:200px; font-size:20px">ASIGNATURAS</th>
-                        <th colspan="<?php echo count($periodList) + 1 ?>" class="rboder">CALIFICACIONES DEL AÑO ESCOLAR</th>
-                        <th rowspan="3">% A.A</th>
-                        <th colspan="4" class="rboder">CALIFICACIÓN COMPLETIVA</th>
-                        <th colspan="4" class="rboder">CALIFICACIÓN EXTRAORDINARIA</th>
-                        <th colspan="2">SITUACIÓN FINAL</th>
-                        <th colspan="2">C.A.P.</th>
-                    </tr>
-                    <tr>
-                        <th colspan="<?php echo count($periodList) ?>">Calificaciones Parciales</th>
-                        <th rowspan="2" class="rboder">C.F.</th>
-                        <th rowspan="2">50% P.C.P.</th>
-                        <th rowspan="2">C.P.C.</th>
-                        <th rowspan="2">50% C.P.C.</th>
-                        <th rowspan="2" class="rboder">C.C.</th>
-                        <th rowspan="2">30% P.C.P.</th>
-                        <th rowspan="2">C.P.EX.</th>
-                        <th rowspan="2">70% C.P.EX.</th>
-                        <th rowspan="2" class="rboder">C.EX.</th>
-                        <th rowspan="2">A</th>
-                        <th rowspan="2">R</th>
-                        <th colspan="2">OPORTUNIDAD</th>
-                    </tr>
-                    <tr>
-                        <?php for ($i = 0; $i < count($periodList); $i++) { ?>
-                            <th><?= "P".substr($periodList[$i]['label'],0,1); ?></th>
-                        <?php } ?>
-                        <th>1</th>
-                        <th>2</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($grading_subject_results as $result) { ?>
-                        <tr>
-                            <td style="padding-left: 4px; padding-right: 4px;font-weight: 300; text-align: left;"><?php echo $result['subject'] ?></td>
-                            <?php for ($i = 0; $i < count($periodList); $i++) { ?>
-                                <td><?php echo $result['period_results'][$i] ?></td>
-                            <?php } ?>
-                                <td class="rboder"><?php echo $result['CF'] ?></td>
-                                <td><?php echo $result['AA'] ?></td>
-                                <td><?php echo $result['50PCP'] ?></td>
-                                <td><?php echo $result['CPC'] ?></td>
-                                <td><?php echo $result['50CPC'] ?></td>
-                                <td class="rboder"><?php echo $result['CC'] ?></td>
-                                <td><?php echo $result['30PCP'] ?></td>
-                                <td><?php echo $result['CPEX'] ?></td>
-                                <td><?php echo $result['70CPEX'] ?></td>
-                                <td class="rboder"><?php echo $result['CEX'] ?></td>
-                                <td><?php echo $result['A'] ?></td>
-                                <td><?php echo $result['R'] ?></td>
-                                <td><?php echo $result['O1'] ?></td>
-                                <td><?php echo $result['O2'] ?></td>
-                        </tr>
-                    <?php } ?>
-                </tbody>
+    <div id="detail-page">
+        <div id="student-detail" class="kanit-medium">
+            <span class="nowrap">Nombre(s) y apellido (s): </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span>
+            Grado:<span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span>
+            Sección: <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span>
+        </div>
+        <div class="kanit-medium CALIFICACIONES">
+            CALIFICACIONES DE RENDIMIENTO
+        </div>
+        <div>
+            <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="pink subjectlabelth" colspan="1" rowspan="2">COMPETENCIAS FUNDAMENTALES</th>
+                    <th class="pink" colspan="4" rowspan="2">Comunicativa</th>
+                    <th class="pink" colspan="4" rowspan="2">• Pensamiento Lógico, <br> Creativo y Crítico <br> • Resolución de Problemas</th>
+                    <th class="pink" colspan="4" rowspan="2">• Científica y Tecnológica <br> • Ambiental y de la Salud</th>
+                    <th class="pink" colspan="4" rowspan="2">• Ética y Ciudadana <br> • Desarrollo Personal <br> y Espiritual</th>
+                    <th class="pink" colspan="4" rowspan="2">PROMEDIO GRUPO <br> DE COMPETENCIAS <br> ESPECÍFICAS</th>
+                    <th class="lightpink vertical-lr rotated" colspan="1" rowspan="3">CALIFICACIÓN <br> FINAL DEL ÁREA</th>
+                    <th class="pink" colspan="4">CALIFICACIÓN <br> COMPLETIVA</th>
+                    <th class="pink" colspan="4">CALIFICACIÓN <br> EXTRAORDINARIA</th>
+                    <th class="pink" colspan="2">EVALUACIÓN <br> ESPECIAL</th>
+                    <th class="pink" colspan="2" rowspan="2">SITUACIÓN <br> FINAL EN LA <br> ASIGNATURA</th>
+                </tr>
+                <tr>
+                    <th class="pink vertical-lr rotated" rowspan="2">50% C. F.</th>
+                    <th class="pink vertical-lr rotated" rowspan="2">C.E.C.</th>
+                    <th class="pink vertical-lr rotated" rowspan="2">50% C.E.C.</th>
+                    <th class="lightpink vertical-lr rotated" rowspan="2">C.C.F.</th>
+                    <th class="pink vertical-lr rotated" rowspan="2">30% C.F.</th>
+                    <th class="pink vertical-lr rotated" rowspan="2">C.E. EX</th>
+                    <th class="pink vertical-lr rotated" rowspan="2">70% C.E. EX</th>
+                    <th class="lightpink vertical-lr rotated" rowspan="2">C.EX.F.</th>
+                    <th class="pink vertical-lr rotated" rowspan="2">C.F.</th>
+                    <th class="lightpink vertical-lr rotated" rowspan="2">C.E.</th>
+                </tr>
+                <tr>
+                    <th class="lightpink">PERÍODOS</th>
+                    <th class="lightpink">P1</th>
+                    <th class="lightpink">P2</th>
+                    <th class="lightpink">P3</th>
+                    <th class="lightpink">P4</th>
+                    <th class="lightpink">P1</th>
+                    <th class="lightpink">P2</th>
+                    <th class="lightpink">P3</th>
+                    <th class="lightpink">P4</th>
+                    <th class="lightpink">P1</th>
+                    <th class="lightpink">P2</th>
+                    <th class="lightpink">P3</th>
+                    <th class="lightpink">P4</th>
+                    <th class="lightpink">P1</th>
+                    <th class="lightpink">P2</th>
+                    <th class="lightpink">P3</th>
+                    <th class="lightpink">P4</th>
+                    <th class="lightpink">PC1</th>
+                    <th class="lightpink">PC2</th>
+                    <th class="lightpink">PC3</th>
+                    <th class="lightpink">PC4</th>
+                    <th class="pink">A</th>
+                    <th class="pink">R</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
             </table>
         </div>
-    </div>
-    <div style="padding-bottom:10px">
-        <table class="explain_field" style="border-collapse: collapse; font-size:14px;">
-            <tr>
-                <td class="border-right-2"><strong>C.F.</strong> = Calificación Fina</td>
-                <td><strong>%A.A.</strong> = Porciento Asistencia Anual</td>
-                <td class="border-left-2"><strong>P.C.P.</strong>= Promedio de Calificaciones Parciales</td>
-            </tr>
-            <tr>
-                <td class="border-right-2"><strong>C.P.C.</strong>= Calificación Prueba Completiva</td>
-                <td colspan="2"><strong>C.C.</strong>= Calificación Completiva igual al 50% Promedio Calificación Parcial + 50% Prueba Completiva</td>
-            </tr>
-            <tr>
-                <td class="border-right-2"><strong>C.P.EX.</strong>= Calificación Prueba Extraordinaria</td>
-                <td colspan="2"><strong>C.EX.</strong>= Calificación Extraordinaria igual al 30% Promedio Calificación Parcial + 70% Prueba Extraordinaria</td>
-            </tr>
-            <tr>
-                <td class="border-right-2 pb-2"><strong>A</strong>= Aprobado con 70 o más</td>
-                <td class="pb-2"><strong>R</strong>= Reprobado con menos de 70 puntos</td>
-                <td class="border-left-2 pb-2"><strong>C.A.P.</strong>= Calificación Asignaturas Pendientes</td>
-            </tr>
-        </table>
-        <!-- <div style="font-weight: bolder; color:black; margin-bottom:15px;">
-            <span class="final_condition" style="font-family: 'arial';padding:1px 20px 1px 10px; border:solid 1px black">CONDICIÓN FINAL:</span> &nbsp;&nbsp;&nbsp;&nbsp; Promovido &nbsp;<span style="padding:1px 15px; border:solid 1px black"></span> &nbsp;&nbsp;&nbsp;&nbsp; Reprobado &nbsp;<span style="padding:1px 15px; border:solid 1px black"></span> &nbsp;&nbsp;&nbsp;&nbsp; Promovido con asignaturas pendientes &nbsp;<span style="padding:1px 15px; border:solid 1px black"></span>
-        </div> -->
-
-        <div style="line-height:1.5; margin-bottom:20px; width:100%; position: relative">
-            <strong>Observaciones:</strong> <br>
-            <div style="width:100%; word-break: break-word;" class="observacioines_content"><?php echo $observation; ?></div>
-            <div style="width:100%; height: 25px; position: absolute; top:45px; border :solid 1px black;border-left:0px; border-right:0px;"></div>
+        <div style="display: flex; justify-content: space-between; gap: 20px;">
+            <div>
+            <table class="table table-striped table-bordered table-hover resumen-table" style="text-align: center; height: 100%;">
+                <thead>
+                <tr>
+                    <th class="pink" colspan="5">RESUMEN DE ASISTENCIA DEL/LA ESTUDIANTE</th>
+                </tr>
+                <tr>
+                    <th class="lightpink" rowspan="2">Períodos</th>
+                    <th rowspan="2">Asistencia</th>
+                    <th rowspan="2">Ausencia</th>
+                    <th colspan="2">% de Anual</th>
+                </tr>
+                <tr>
+                    <th>Asistencia</th>
+                    <th>Ausencia</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="lightpink">P1</td>
+                    <td></td>
+                    <td></td>
+                    <td rowspan="4"></td>
+                    <td rowspan="4"></td>
+                </tr>
+                <tr>
+                    <td class="lightpink">P2</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="lightpink">P3</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="lightpink">P4</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+            <div>
+            <table class="table table-striped table-bordered table-hover" style="height: 100%;">
+                <thead>
+                <tr>
+                    <th class="pink">LEYENDA:</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="display: flex; gap: 10px; padding: 10px; height: 100%;">
+                    <div>
+                        <div>(P1)</div>
+                        <div>(P2)</div>
+                        <div>(P3)</div>
+                        <div>(P4)</div>
+                        <div>(PC)</div>
+                        <div>(C.F.)</div>
+                        <div>(C.E.C.)</div>
+                        <div>(C.C.F.)</div>
+                        <div>(C.E. EX)</div>
+                        <div>(C.EX.F.)</div>
+                        <div>(C.E.)</div>
+                        <div>(A)</div>
+                        <div>(R)</div>
+                    </div>
+                    <div>
+                        <div>Período 1</div>
+                        <div>Período 2</div>
+                        <div>Período 3</div>
+                        <div>Período 4</div>
+                        <div>Promedio Grupo de Competencias Específicas</div>
+                        <div>Calificación Final</div>
+                        <div>Calificación Evaluación Completiva</div>
+                        <div>Calificación Completiva Final</div>
+                        <div>Calificación Evaluación Extraordinaria</div>
+                        <div>Calificación Extraordinaria Final</div>
+                        <div>Calificación Especial</div>
+                        <div>Aprobado</div>
+                        <div>Reprobado</div>
+                    </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+            <div class="kanit-medium SITUACION">
+            <div class="situacion-title">
+                <div class="pink kanit-bold" style="padding: 5px 30px; min-width: 300px; text-align: center;">SITUACIÓN DEL/DE LA ESTUDIANTE</div>
+                <div style="display: flex; gap: 5px;">
+                <div>Promovido/a</div>
+                <input type="radio">
+                </div>
+                <div style="display: flex; gap: 5px;">
+                <div>Repitente</div>
+                <input type="radio">
+                </div>
+                <div></div>
+            </div>
+            <table class="table table-striped table-bordered table-hover" style="height: 100%;">
+                <thead>
+                <tr>
+                    <th class="pink">CONDICIÓN FINAL DEL/DE LA ESTUDIANTE:</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="situacion-title">
+                <div>
+                <div style="width: 100%; height: 1px; background-color: black;"></div>
+                <div><i>Maestro(a) encargado(a) del grado</i></div>
+                </div>
+                <div>
+                <div style="width: 100%; height: 1px; background-color: black;"></div>
+                <div><i>Director(a) del Centro Educativo</i></div>
+                </div>
+            </div>
+            </div>
         </div>
-
-        <table width="100%" style="text-align:center; font-weight:bold; position: absolute; bottom: 30px; left: 0px">
-            <tr>
-                <td width="33%">
-                    <strong>_______________________________</strong><br>
-                    <span style="font-family:'Palatino Linotype';font-style: oblique; font-size:14px"><?= $school_director ?></span><br>
-                    Director General
-                </td>
-                <td width="33%">
-                    <strong>_______________________________</strong><br>
-                    <span style="font-family:'Palatino Linotype';font-style: oblique; font-size:14px"><?= $level_coordinator ?></span><br>
-                    Coordinadora de Secundaria
-                </td>
-                <td width="33%">
-                    <strong>_______________________________</strong><br>
-                    <span style="font-family:'Palatino Linotype';font-style: oblique; font-size:14px"><?= $class_teacher ?></span><br>
-                    Maestro Guía
-                </td>
-            </tr>
-        </table>
     </div>
 </div>
-<div class="pagebreak"> </div>
+<div class="pagebreak"></div>
