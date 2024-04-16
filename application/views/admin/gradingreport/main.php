@@ -187,9 +187,17 @@
         formdata = JSON.parse(formdata);
         formdata['id'] = 'all';
         formdata['period_id'] = period_id;
+        var path = window.location.pathname;
+        var parts = path.split('/');
+        var lastPart = parts[parts.length - 1];
+        lastPart = lastPart.split('?')[0];
+        let url = base_url + "admin/grading_result/printCard"
+        if (lastPart == "newreport") {
+            url = base_url + "admin/grading_result/printNewCard"
+        }
         $.ajax({
             type: "POST",
-            url: base_url + "admin/grading_result/printCard",
+            url: url,
             data: formdata, // serializes the form's elements.
             dataType: "JSON", // serializes the form's elements.
             beforeSend: function() {

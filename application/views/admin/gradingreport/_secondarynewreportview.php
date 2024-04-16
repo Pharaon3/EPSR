@@ -96,7 +96,6 @@
         align-items: center;
         padding: 5px;
         width: 100%;
-        background-color: #1d70b7;
         color: white;
         font-size: 18px;
     }
@@ -240,7 +239,7 @@
     }
 
     #print-page table thead tr th {
-        background-color: #1d70b7;
+        /* background-color: #1d70b7; */
         color: white;
         display: flex;
         align-items: center;
@@ -317,19 +316,74 @@
     }
 
     .pink {
-        background-color: #f3a6c0 !important;
+        background-color: <?php echo "#f3a6c0"; ?> !important;
     }
 
     .lightpink {
         background-color: #fad9e0 !important;
     }
 
+    .title-bgcolor {
+        background-color: <?php 
+                if ($student['class'] == '1er Grado') echo '#006532';
+                else if ($student['class'] == '2do Grado') echo '#1d70b7';
+                else if ($student['class'] == '3er Grado') echo '#c84730';
+                else if ($student['class'] == '4to. Grado') echo '#00a09a';
+                else if ($student['class'] == '5to. Grado') echo '#e83879';
+                else if ($student['class'] == '6to. Grado') echo '#1d3d71';
+                else echo '#006532';
+                 ?> !important;
+    }
+
+    .title-color {
+        color: <?php 
+                if ($student['class'] == '1er Grado') echo '#006532';
+                else if ($student['class'] == '2do Grado') echo '#1d70b7';
+                else if ($student['class'] == '3er Grado') echo '#c84730';
+                else if ($student['class'] == '4to. Grado') echo '#00a09a';
+                else if ($student['class'] == '5to. Grado') echo '#e83879';
+                else if ($student['class'] == '6to. Grado') echo '#1d3d71';
+                else echo '#006532';
+                 ?> !important;
+    }
+    .table-color {
+        background-color: <?php 
+                if ($student['class'] == '1er Grado') echo '#d4e4ae';
+                else if ($student['class'] == '2do Grado') echo '#89d1f5';
+                else if ($student['class'] == '3er Grado') echo '#fac9a5';
+                else if ($student['class'] == '4to. Grado') echo '#c1dcdb';
+                else if ($student['class'] == '5to. Grado') echo '#f3a6c0';
+                else if ($student['class'] == '6to. Grado') echo '#d8eefc';
+                else echo '#d4e4ae';
+                 ?> !important;
+    }
+    .table-light-color {
+        background-color: <?php 
+                if ($student['class'] == '1er Grado') echo '#eaf1d7';
+                else if ($student['class'] == '2do Grado') echo '#d8eefc';
+                else if ($student['class'] == '3er Grado') echo '#fdebdb';
+                else if ($student['class'] == '4to. Grado') echo '#d0eaee';
+                else if ($student['class'] == '5to. Grado') echo '#fad9e0';
+                else if ($student['class'] == '6to. Grado') echo '#eaf6fe';
+                else echo '#eaf1d7';
+                 ?> !important;
+    }
     .cyan {
-        background-color: #89d1f5 !important;
+        background-color: <?php echo "#89d1f5"; ?> !important;
+        background-color: <?php 
+                if ($student['class'] == '1er Grado') echo base_url('uploads/school_content/logo/1grado.png');
+                else if ($student['class'] == '2do Grado') echo base_url('uploads/school_content/logo/2grado.png');
+                else if ($student['class'] == '3er Grado') echo base_url('uploads/school_content/logo/3grado.png');
+                else if ($student['class'] == '3er Grado') echo base_url('uploads/school_content/logo/3grado.png');
+                else if ($student['class'] == '4to. Grado') echo base_url('uploads/school_content/logo/4grado.png');
+                else if ($student['class'] == '5to. Grado') echo base_url('uploads/school_content/logo/5grado.png');
+                else if ($student['class'] == '6to. Grado') echo base_url('uploads/school_content/logo/6grado.png');
+                else echo base_url('uploads/school_content/logo/4grado.png');
+                 ?> !important;
     }
 
     .lightcyan {
-        background-color: #d8eefc !important;
+        background-color: <?php echo "#d8eefc"; ?> !important;
     }
 
     .blue {
@@ -363,7 +417,9 @@
         width: 100%;
         justify-content: space-around;
     }
-
+    .subjectlabelth {
+        min-width: 200px;
+    }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -377,7 +433,7 @@
                 <table id="firma-table">
                     <thead>
                         <tr>
-                            <th class="kanit-medium">FIRMA DEL PADRE, MADRE O TUTOR</th>
+                            <th class="kanit-medium title-bgcolor">FIRMA DEL PADRE, MADRE O TUTOR</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -397,7 +453,7 @@
                 <table id="Observaciones-table" style="height: 100%;">
                     <thead>
                         <tr>
-                        <th class="kanit-medium">Observaciones: </th>
+                        <th class="kanit-medium title-bgcolor">Observaciones: </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -432,19 +488,27 @@
         <div id="right-side">
             <img src="<?php echo base_url('uploads/school_content/logo/logo.png'); ?>" style="width: 20%;">
             <div class="kanit-light" style="text-align: center; font-size: 12px;">Viceministro de Servicios Técnicos y Pedagógicos <br> Dirección General de Educación Secundaria</div>
-            <div class="kanit-medium" style="color: #1d70b7; font-size: 24px;">BOLETÍN DE CALIFICACIONES </div>
+            <div class="kanit-medium title-color" style="font-size: 24px;">BOLETÍN DE CALIFICACIONES </div>
             <!-- <img src="<?php echo base_url('uploads/school_content/logo/2grado.png'); ?>" style="width: 25%;"> -->
+            <?php echo $student['class']; ?>
             <img src="<?php 
-                if ($student['class'] == '2do Grado') echo base_url('uploads/school_content/logo/2grado.png');
+                if ($student['class'] == '1er Grado') echo base_url('uploads/school_content/logo/1grado.png');
+                else if ($student['class'] == '2do Grado') echo base_url('uploads/school_content/logo/2grado.png');
+                else if ($student['class'] == '3er Grado') echo base_url('uploads/school_content/logo/3grado.png');
+                else if ($student['class'] == '3er Grado') echo base_url('uploads/school_content/logo/3grado.png');
+                else if ($student['class'] == '4to. Grado') echo base_url('uploads/school_content/logo/4grado.png');
+                else if ($student['class'] == '5to. Grado') echo base_url('uploads/school_content/logo/5grado.png');
+                else if ($student['class'] == '6to. Grado') echo base_url('uploads/school_content/logo/6grado.png');
                 else echo base_url('uploads/school_content/logo/4grado.png');
                 ?>" style="width: 25%;">
             <div class="kanit-light">
-                Año escolar: 20<span style="font-family: sans-serif;">_________</span> 20<span style="font-family: sans-serif;">_________</span>
+                Año escolar: <?php echo $session ?></span>
+                <!-- Año escolar: 20<span style="font-family: sans-serif;">_________</span> 20<span style="font-family: sans-serif;">_________</span> -->
             </div>
             <div class="kanit-light right-info">
                 <div style="display: flex;justify-content: space-between;">
                 <span style="width: 50%; display: flex;justify-content: space-between;"><span style="white-space: nowrap; padding-right: 10px;">Sección: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;"><?= $student['section'] ?></span> </span>
-                <span style="width: 50%; display: flex;justify-content: space-between;"><span style="white-space: nowrap; padding-right: 10px;">úmero de orden: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;"><?php echo $order_number ?></span> </span>
+                <span style="width: 50%; display: flex;justify-content: space-between;"><span style="white-space: nowrap; padding-right: 10px;">Número de orden: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;"><?php echo $order_number ?></span> </span>
                 </div>
                 <div style="display: flex;justify-content: space-between;">
                     <span style="white-space: nowrap; padding-right: 10px;">Nombre (s): </span>
@@ -473,7 +537,7 @@
                 <div style="display: flex;justify-content: space-between;">
                     <span style="white-space: nowrap; padding-right: 10px;">Centro educativo: </span>
                     <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
-                        <?php echo $student['Centro_educativo']; ?>
+                        Escuela Parroquial Santa Rita
                     </span>
                 </div>
                 <div style="display: flex;justify-content: space-between;">
@@ -485,13 +549,13 @@
                 <div style="display: flex;justify-content: space-between;">
                     <span style="white-space: nowrap; padding-right: 10px;">Tanda: </span>
                     <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
-                        <?php echo $student['Tanda']; ?>
+                        Matutina
                     </span>
                 </div>
                 <div style="display: flex;justify-content: space-between;">
                     <span style="white-space: nowrap; padding-right: 10px;">Teléfono del centro: </span>
                     <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
-                        <?php echo $student['Teléfono_del_centro']; ?>
+                        809-528-3552
                     </span>
                 </div>
                 <div style="display: flex;justify-content: space-between;">
@@ -537,66 +601,67 @@
                 <?php echo $student['section'] ?>
             </span>
         </div>
-        <div class="kanit-medium CALIFICACIONES">
+        <div class="kanit-medium CALIFICACIONES title-bgcolor">
             CALIFICACIONES DE RENDIMIENTO
         </div>
         <div>
             <table class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
-                    <th class="cyan subjectlabelth" colspan="1" rowspan="2">COMPETENCIAS FUNDAMENTALES</th>
-                    <th class="cyan" colspan="4" rowspan="2">Comunicativa</th>
-                    <th class="cyan" colspan="4" rowspan="2">• Pensamiento Lógico, <br> Creativo y Crítico <br> • Resolución de Problemas</th>
-                    <th class="cyan" colspan="4" rowspan="2">• Científica y Tecnológica <br> • Ambiental y de la Salud</th>
-                    <th class="cyan" colspan="4" rowspan="2">• Ética y Ciudadana <br> • Desarrollo Personal <br> y Espiritual</th>
-                    <th class="cyan" colspan="4" rowspan="2">PROMEDIO GRUPO <br> DE COMPETENCIAS <br> ESPECÍFICAS</th>
-                    <th class="lightcyan vertical-lr rotated" colspan="1" rowspan="3">CALIFICACIÓN <br> FINAL DEL ÁREA</th>
-                    <th class="cyan" colspan="4">CALIFICACIÓN <br> COMPLETIVA</th>
-                    <th class="cyan" colspan="4">CALIFICACIÓN <br> EXTRAORDINARIA</th>
-                    <th class="cyan" colspan="2">EVALUACIÓN <br> ESPECIAL</th>
-                    <th class="cyan" colspan="2" rowspan="2">SITUACIÓN <br> FINAL EN LA <br> ASIGNATURA</th>
+                    <th class="table-color subjectlabelth" colspan="2" rowspan="2">COMPETENCIAS FUNDAMENTALES</th>
+                    <th class="table-color" colspan="4" rowspan="2">Comunicativa</th>
+                    <th class="table-color" colspan="4" rowspan="2">• Pensamiento Lógico, Creativo <br> y Crítico <br> • Resolución de Problemas</th>
+                    <th class="table-color" colspan="4" rowspan="2">• Científica y Tecnológica <br> • Ambiental y de la Salud</th>
+                    <th class="table-color" colspan="4" rowspan="2">• Ética y Ciudadana <br> • Desarrollo Personal <br> y Espiritual</th>
+                    <th class="table-color" colspan="4" rowspan="2">PROMEDIO GRUPO <br> DE COMPETENCIAS <br> ESPECÍFICAS</th>
+                    <th class="table-light-color vertical-lr rotated" colspan="1" rowspan="3">CALIFICACIÓN <br> FINAL DEL ÁREA</th>
+                    <th class="table-color" colspan="4">CALIFICACIÓN <br> COMPLETIVA</th>
+                    <th class="table-color" colspan="4">CALIFICACIÓN <br> EXTRAORDINARIA</th>
+                    <th class="table-color" colspan="2">EVALUACIÓN <br> ESPECIAL</th>
+                    <th class="table-color" colspan="2" rowspan="2">SITUACIÓN <br> FINAL EN LA <br> ASIGNATURA</th>
                 </tr>
                 <tr>
-                    <th class="cyan vertical-lr rotated" rowspan="2">50% C. F.</th>
-                    <th class="cyan vertical-lr rotated" rowspan="2">C.E.C.</th>
-                    <th class="cyan vertical-lr rotated" rowspan="2">50% C.E.C.</th>
-                    <th class="lightcyan vertical-lr rotated" rowspan="2">C.C.F.</th>
-                    <th class="cyan vertical-lr rotated" rowspan="2">30% C.F.</th>
-                    <th class="cyan vertical-lr rotated" rowspan="2">C.E. EX</th>
-                    <th class="cyan vertical-lr rotated" rowspan="2">70% C.E. EX</th>
-                    <th class="lightcyan vertical-lr rotated" rowspan="2">C.EX.F.</th>
-                    <th class="cyan vertical-lr rotated" rowspan="2">C.F.</th>
-                    <th class="lightcyan vertical-lr rotated" rowspan="2">C.E.</th>
+                    <th class="table-color vertical-lr rotated" rowspan="2">50% C. F.</th>
+                    <th class="table-color vertical-lr rotated" rowspan="2">C.E.C.</th>
+                    <th class="table-color vertical-lr rotated" rowspan="2">50% C.E.C.</th>
+                    <th class="table-light-color vertical-lr rotated" rowspan="2">C.C.F.</th>
+                    <th class="table-color vertical-lr rotated" rowspan="2">30% C.F.</th>
+                    <th class="table-color vertical-lr rotated" rowspan="2">C.E. EX</th>
+                    <th class="table-color vertical-lr rotated" rowspan="2">70% C.E. EX</th>
+                    <th class="table-light-color vertical-lr rotated" rowspan="2">C.EX.F.</th>
+                    <th class="table-color vertical-lr rotated" rowspan="2">C.F.</th>
+                    <th class="table-light-color vertical-lr rotated" rowspan="2">C.E.</th>
                 </tr>
                 <tr>
-                    <th class="lightcyan">PERÍODOS</th>
-                    <th class="lightcyan">P1</th>
-                    <th class="lightcyan">P2</th>
-                    <th class="lightcyan">P3</th>
-                    <th class="lightcyan">P4</th>
-                    <th class="lightcyan">P1</th>
-                    <th class="lightcyan">P2</th>
-                    <th class="lightcyan">P3</th>
-                    <th class="lightcyan">P4</th>
-                    <th class="lightcyan">P1</th>
-                    <th class="lightcyan">P2</th>
-                    <th class="lightcyan">P3</th>
-                    <th class="lightcyan">P4</th>
-                    <th class="lightcyan">P1</th>
-                    <th class="lightcyan">P2</th>
-                    <th class="lightcyan">P3</th>
-                    <th class="lightcyan">P4</th>
-                    <th class="lightcyan">PC1</th>
-                    <th class="lightcyan">PC2</th>
-                    <th class="lightcyan">PC3</th>
-                    <th class="lightcyan">PC4</th>
-                    <th class="cyan">A</th>
-                    <th class="cyan">R</th>
+                    <th class="table-light-color" colspan="2">PERÍODOS</th>
+                    <th class="table-light-color">P1</th>
+                    <th class="table-light-color">P2</th>
+                    <th class="table-light-color">P3</th>
+                    <th class="table-light-color">P4</th>
+                    <th class="table-light-color">P1</th>
+                    <th class="table-light-color">P2</th>
+                    <th class="table-light-color">P3</th>
+                    <th class="table-light-color">P4</th>
+                    <th class="table-light-color">P1</th>
+                    <th class="table-light-color">P2</th>
+                    <th class="table-light-color">P3</th>
+                    <th class="table-light-color">P4</th>
+                    <th class="table-light-color">P1</th>
+                    <th class="table-light-color">P2</th>
+                    <th class="table-light-color">P3</th>
+                    <th class="table-light-color">P4</th>
+                    <th class="table-light-color">PC1</th>
+                    <th class="table-light-color">PC2</th>
+                    <th class="table-light-color">PC3</th>
+                    <th class="table-light-color">PC4</th>
+                    <th class="table-color">A</th>
+                    <th class="table-color">R</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($grading_subject_results as $result) { ?>
+                <?php foreach ($grading_subject_results as $index => $result) { ?>
                     <tr>
+                    <?php if ($index == 0) { ?> <td rowspan="<?php echo count($grading_subject_results); ?>" class="vertical-lr rotated" style="text-align: center;">ÁREAS CURRICULARES</td> <?php } ?>
                         <td style="padding-left: 4px; padding-right: 4px;font-weight: 300; text-align: left;"><?php echo $result['subject'] ?></td>
                         <?php for ($i = 0; $i < count($periodList) * 5; $i++) { ?>
                             <td><?php echo $result['period_results'][$i] ? $result['period_results'][$i] : "" ?></td>
@@ -624,10 +689,10 @@
             <table class="table table-striped table-bordered table-hover resumen-table" style="text-align: center; height: 100%;">
                 <thead>
                 <tr>
-                    <th class="cyan" colspan="5">RESUMEN DE ASISTENCIA DEL/LA ESTUDIANTE</th>
+                    <th class="table-color" colspan="5">RESUMEN DE ASISTENCIA DEL/LA ESTUDIANTE</th>
                 </tr>
                 <tr>
-                    <th class="lightcyan" rowspan="2">Períodos</th>
+                    <th class="table-light-color" rowspan="2">Períodos</th>
                     <th rowspan="2">Asistencia</th>
                     <th rowspan="2">Ausencia</th>
                     <th colspan="2">% de Anual</th>
@@ -639,24 +704,24 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td class="lightcyan">P1</td>
+                    <td class="table-light-color">P1</td>
                     <td></td>
                     <td></td>
                     <td rowspan="4"></td>
                     <td rowspan="4"></td>
                 </tr>
                 <tr>
-                    <td class="lightcyan">P2</td>
+                    <td class="table-light-color">P2</td>
                     <td></td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td class="lightcyan">P3</td>
+                    <td class="table-light-color">P3</td>
                     <td></td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td class="lightcyan">P4</td>
+                    <td class="table-light-color">P4</td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -667,42 +732,46 @@
             <table class="table table-striped table-bordered table-hover" style="height: 100%;">
                 <thead>
                 <tr>
-                    <th class="cyan">LEYENDA:</th>
+                    <th class="table-color">LEYENDA:</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <td style="display: flex; gap: 10px; padding: 10px; height: 100%;">
-                    <div>
-                        <div>(P1)</div>
-                        <div>(P2)</div>
-                        <div>(P3)</div>
-                        <div>(P4)</div>
-                        <div>(PC)</div>
-                        <div>(C.F.)</div>
-                        <div>(C.E.C.)</div>
-                        <div>(C.C.F.)</div>
-                        <div>(C.E. EX)</div>
-                        <div>(C.EX.F.)</div>
-                        <div>(C.E.)</div>
-                        <div>(A)</div>
-                        <div>(R)</div>
-                    </div>
-                    <div>
-                        <div>Período 1</div>
-                        <div>Período 2</div>
-                        <div>Período 3</div>
-                        <div>Período 4</div>
-                        <div>Promedio Grupo de Competencias Específicas</div>
-                        <div>Calificación Final</div>
-                        <div>Calificación Evaluación Completiva</div>
-                        <div>Calificación Completiva Final</div>
-                        <div>Calificación Evaluación Extraordinaria</div>
-                        <div>Calificación Extraordinaria Final</div>
-                        <div>Calificación Especial</div>
-                        <div>Aprobado</div>
-                        <div>Reprobado</div>
-                    </div>
+                        <div>
+                            <div>(P1)</div>
+                            <div>(P2)</div>
+                            <div>(P3)</div>
+                            <div>(P4)</div>
+                            <div>(PC)</div>
+                            <div>(C.F.)</div>
+                            <div>(C.E.C.)</div>
+                        </div>
+                        <div>
+                            <div>Período 1</div>
+                            <div>Período 2</div>
+                            <div>Período 3</div>
+                            <div>Período 4</div>
+                            <div>Promedio Grupo de Competencias Específicas</div>
+                            <div>Calificación Final</div>
+                            <div>Calificación Evaluación Completiva</div>
+                        </div>
+                        <div>
+                            <div>(C.C.F.)</div>
+                            <div>(C.E. EX)</div>
+                            <div>(C.EX.F.)</div>
+                            <div>(C.E.)</div>
+                            <div>(A)</div>
+                            <div>(R)</div>
+                        </div>
+                        <div>
+                            <div>Calificación Completiva Final</div>
+                            <div>Calificación Evaluación Extraordinaria</div>
+                            <div>Calificación Extraordinaria Final</div>
+                            <div>Calificación Especial</div>
+                            <div>Aprobado</div>
+                            <div>Reprobado</div>
+                        </div>
                     </td>
                 </tr>
                 </tbody>
@@ -710,7 +779,7 @@
             </div>
             <div class="kanit-medium SITUACION">
             <div class="situacion-title">
-                <div class="cyan kanit-bold" style="padding: 5px 30px; min-width: 300px; text-align: center;">SITUACIÓN DEL/DE LA ESTUDIANTE</div>
+                <div class="table-color kanit-bold" style="padding: 5px 30px; min-width: 300px; text-align: center;">SITUACIÓN DEL/DE LA ESTUDIANTE</div>
                 <div style="display: flex; gap: 5px;">
                 <div>Promovido/a</div>
                 <input type="radio">
@@ -724,7 +793,7 @@
             <table class="table table-striped table-bordered table-hover" style="height: 100%;">
                 <thead>
                 <tr>
-                    <th class="cyan">CONDICIÓN FINAL DEL/DE LA ESTUDIANTE:</th>
+                    <th class="table-color">CONDICIÓN FINAL DEL/DE LA ESTUDIANTE:</th>
                 </tr>
                 </thead>
                 <tbody>

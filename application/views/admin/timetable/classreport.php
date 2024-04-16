@@ -1,28 +1,28 @@
 
 <style>
-#customers {
-  font-family: Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
+    #customers {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    }
 
-#customers td, #customers th {
-  border: 1px solid #ddd;
-  text-align: center;
-  padding: 8px;
-}
+    #customers td, #customers th {
+    border: 1px solid #ddd;
+    text-align: center;
+    padding: 8px;
+    }
 
-#customers tr:nth-child(even){background-color: #f2f2f2;text-align: center;}
+    #customers tr:nth-child(even){background-color: #f2f2f2;text-align: center;}
 
-#customers tr:hover {background-color: #ddd;}
+    #customers tr:hover {background-color: #ddd;}
 
-#customers th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: center;
-  background-color: #44AA6D;
-  color: white;
-}
+    #customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #44AA6D;
+    color: white;
+    }
 </style>
 <div class="content-wrapper" style="min-height: 946px;">
     <!-- Content Header (Page header) -->
