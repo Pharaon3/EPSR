@@ -2371,41 +2371,119 @@ class Grading_result extends Admin_Controller
                     error_log("print card 1775.");
                     $grading_subject_results = array();
                     foreach ($subjects as $subject) {
-                        error_log("print card 1782.");
-                        $result = $this->Gradingreport_model->getReportByStudentAndSubject($student_session_id, $subject->id);
-                        error_log("print card result. " . print_r($result, true));
+                        $result = $this->Gradingreport_model->getNewReportByStudentAndSubject($student_session_id, $subject->id);
                         $row = array();
                         $row['subject'] = $subject->name;
+                        $row['subjectId'] = $subject->id;
                         $row['period_results'] = array();
-                        error_log("print card 1788.");
+                        $row['period_resultsRP'] = array();
+                        $edit_flag = [];
                         if (!empty($result)) {
                             $row['reportId'] = $result['id'];
-                            $row['period_results'][] = $result['p1'];
-                            $row['period_results'][] = $result['p2'];
-                            $row['period_results'][] = $result['p3'];
-                            $row['period_results'][] = $result['p4'];
-                            $row['period_results'][] = $result['p5'];
+                            $update_date = [];
+                            $update_date[] = $result['update_date_p11'];
+                            $update_date[] = $result['update_date_p12'];
+                            $update_date[] = $result['update_date_p13'];
+                            $update_date[] = $result['update_date_p14'];
+                            $row['period_results'][] = $result['p11'];
+                            $row['period_results'][] = $result['p12'];
+                            $row['period_results'][] = $result['p13'];
+                            $row['period_results'][] = $result['p14'];
+                            $row['period_results'][] = $result['p21'];
+                            $row['period_results'][] = $result['p22'];
+                            $row['period_results'][] = $result['p23'];
+                            $row['period_results'][] = $result['p24'];
+                            $row['period_results'][] = $result['p31'];
+                            $row['period_results'][] = $result['p32'];
+                            $row['period_results'][] = $result['p33'];
+                            $row['period_results'][] = $result['p34'];
+                            $row['period_results'][] = $result['p41'];
+                            $row['period_results'][] = $result['p42'];
+                            $row['period_results'][] = $result['p43'];
+                            $row['period_results'][] = $result['p44'];
+                            
+                            $row['period_resultsRP'][] = $result['rp11'];
+                            $row['period_resultsRP'][] = $result['rp12'];
+                            $row['period_resultsRP'][] = $result['rp13'];
+                            $row['period_resultsRP'][] = $result['rp14'];
+                            $row['period_resultsRP'][] = $result['rp21'];
+                            $row['period_resultsRP'][] = $result['rp22'];
+                            $row['period_resultsRP'][] = $result['rp23'];
+                            $row['period_resultsRP'][] = $result['rp24'];
+                            $row['period_resultsRP'][] = $result['rp31'];
+                            $row['period_resultsRP'][] = $result['rp32'];
+                            $row['period_resultsRP'][] = $result['rp33'];
+                            $row['period_resultsRP'][] = $result['rp34'];
+                            $row['period_resultsRP'][] = $result['rp41'];
+                            $row['period_resultsRP'][] = $result['rp42'];
+                            $row['period_resultsRP'][] = $result['rp43'];
+                            $row['period_resultsRP'][] = $result['rp44'];
+        
+        
+                            // $pc1 = 
+                            
+                            $pc1 = 0;
+                            $pc2 = 0;
+                            $pc3 = 0;
+                            $pc4 = 0;
+                            for ($i = 0; $i < 4; $i++) {
+                                if ($row['period_results'][$i] < 70) $pc1 = $pc1 + $row['period_resultsRP'][$i] / 4;
+                                else $pc1 = $pc1 + $row['period_results'][$i] / 4;
+                                if ($row['period_results'][$i + 4] < 70) $pc2 = $pc2 + $row['period_resultsRP'][$i + 4] / 4;
+                                else $pc2 = $pc2 + $row['period_results'][$i + 4] / 4;
+                                if ($row['period_results'][$i + 8] < 70) $pc3 = $pc3 + $row['period_resultsRP'][$i + 8] / 4;
+                                else $pc3 = $pc3 + $row['period_results'][$i + 8] / 4;
+                                if ($row['period_results'][$i + 12] < 70) $pc4 = $pc4 + $row['period_resultsRP'][$i + 12] / 4;
+                                else $pc4 = $pc4 + $row['period_results'][$i + 12] / 4;
+                            }
+        
+                            $row['period_results'][] = round($pc1);
+                            $row['period_results'][] = round($pc2);
+                            $row['period_results'][] = round($pc3);
+                            $row['period_results'][] = round($pc4);
+                            $date = date("Y-m-d");
+                            if($role_id == 2)   // if Teacher is,
+                            {
+                                for($i = 0; $i < count($update_date);$i++)
+                                {
+                                    $edit_flag[$i] = 0;
+                                    if(substr($permission,$i,1) == 1)
+                                    {
+                                        $edit_flag[$i] = 1;
+                                        continue;
+                                    }
+                                    if(substr($student['class'],0,1) == ($i + 1))
+                                    {
+                                        if($update_date[$i] == $date or $update_date[$i] == null)
+                                            $edit_flag[$i] = 1;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                for($i = 0; $i < count($update_date);$i++)
+                                    $edit_flag[$i] = 1;
+                            }
                         } else {
                             $row['reportId'] = null;
                             $row['period_results'] = [null, null, null, null, null];
+                            for($i = 0; $i < 5;$i++)
+                                $edit_flag[$i] = 1;
                         }
-                        error_log("print card 1800.");
-                        error_log("print card period_list: " . print_r($period_list, true));
-                        error_log("print card period_result: " . print_r($row['period_results'], true));
+                        $row['edit_flag'] = $edit_flag;
                         $row['CF'] = 0;
-                        for ($i = 0; $i < count($period_list); $i++) {
-                            error_log("print card for period_list: " . print_r($i, true));
-                            error_log("print card period_results i: " . print_r($row['period_results'][$i], true));
-                            if (empty($row['period_results'][$i])) {
-                                error_log("print card 1808.");
-                                $row['CF'] = 0;
-                                break;
-                            } else {
-                                error_log("print card 1812.");
-                                $row['CF'] += $row['period_results'][$i] / count($period_list);
-                            }
-                        }
-
+                        $i = 0;
+                        // foreach($period_list as $period) {
+                        //     if (empty($row['period_results'][$i])) {
+                        //         $row['CF'] = 0;
+                        //         break;
+                        //     } else {
+                        //         $row['CF'] += $row['period_results'][$i];// / count($period_list);
+                        //     }
+                        //     $i++;
+                        // }
+                        if ($pc1 > 0 && $pc2 > 0 && $pc3 > 0 && $pc4 > 0) $row['CF'] = round(($pc1 + $pc2 + $pc3 + $pc4) / 4);
+                        if(!empty($row['CF']) && $i>0) $row['CF'] = round($row['CF'] / $i);
                         $row['AA'] = '';
                         $row['50PCP'] = '';
                         $row['CPC'] = '';

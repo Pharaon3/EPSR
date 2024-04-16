@@ -96,7 +96,7 @@
         align-items: center;
         padding: 5px;
         width: 100%;
-        background-color: #00a09a;
+        background-color: #1d70b7;
         color: white;
         font-size: 18px;
     }
@@ -240,7 +240,7 @@
     }
 
     #print-page table thead tr th {
-        background-color: #00a09a;
+        background-color: #1d70b7;
         color: white;
         display: flex;
         align-items: center;
@@ -301,11 +301,11 @@
     }
 
     #detail-page {
-        padding: 20px;
+        padding: 10px;
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 10px;
     }
 
     .vertical-lr {
@@ -322,6 +322,18 @@
 
     .lightpink {
         background-color: #fad9e0 !important;
+    }
+
+    .cyan {
+        background-color: #89d1f5 !important;
+    }
+
+    .lightcyan {
+        background-color: #d8eefc !important;
+    }
+
+    .blue {
+        background-color: #1d70b7 !important;
     }
 
     #student-detail {
@@ -381,8 +393,8 @@
                     </tbody>
                 </table>
             </div>
-            <div id="Observaciones">
-                <table id="Observaciones-table">
+            <div id="Observaciones" style="height: 100%;">
+                <table id="Observaciones-table" style="height: 100%;">
                     <thead>
                         <tr>
                         <th class="kanit-medium">Observaciones: </th>
@@ -390,7 +402,10 @@
                     </thead>
                     <tbody>
                         <tr>
-                        <td style="padding-top: 20px;">
+                        <td style="padding-top: 20px; height: 100%;">
+                        <!-- <?php echo print_r($student, true); ?> -->
+                        <?php echo $observation; ?>
+                            <!-- <div class="underlined-field kanit-light"><span></span></div>
                             <div class="underlined-field kanit-light"><span></span></div>
                             <div class="underlined-field kanit-light"><span></span></div>
                             <div class="underlined-field kanit-light"><span></span></div>
@@ -407,8 +422,7 @@
                             <div class="underlined-field kanit-light"><span></span></div>
                             <div class="underlined-field kanit-light"><span></span></div>
                             <div class="underlined-field kanit-light"><span></span></div>
-                            <div class="underlined-field kanit-light"><span></span></div>
-                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div> -->
                         </td>
                         </tr>
                     </tbody>
@@ -418,51 +432,91 @@
         <div id="right-side">
             <img src="<?php echo base_url('uploads/school_content/logo/logo.png'); ?>" style="width: 20%;">
             <div class="kanit-light" style="text-align: center; font-size: 12px;">Viceministro de Servicios Técnicos y Pedagógicos <br> Dirección General de Educación Secundaria</div>
-            <div class="kanit-medium" style="color: #00a09a; font-size: 24px;">BOLETÍN DE CALIFICACIONES </div>
-            <img src="<?php echo base_url('uploads/school_content/logo/4grado.png'); ?>" style="width: 25%;">
+            <div class="kanit-medium" style="color: #1d70b7; font-size: 24px;">BOLETÍN DE CALIFICACIONES </div>
+            <!-- <img src="<?php echo base_url('uploads/school_content/logo/2grado.png'); ?>" style="width: 25%;"> -->
+            <img src="<?php 
+                if ($student['class'] == '2do Grado') echo base_url('uploads/school_content/logo/2grado.png');
+                else echo base_url('uploads/school_content/logo/4grado.png');
+                ?>" style="width: 25%;">
             <div class="kanit-light">
                 Año escolar: 20<span style="font-family: sans-serif;">_________</span> 20<span style="font-family: sans-serif;">_________</span>
             </div>
             <div class="kanit-light right-info">
                 <div style="display: flex;justify-content: space-between;">
-                <span style="width: 50%; display: flex;justify-content: space-between;"><span>Sección: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span> </span>
-                <span style="width: 50%; display: flex;justify-content: space-between;"><span style="white-space: nowrap;">úmero de orden: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span> </span>
+                <span style="width: 50%; display: flex;justify-content: space-between;"><span style="white-space: nowrap; padding-right: 10px;">Sección: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;"><?= $student['section'] ?></span> </span>
+                <span style="width: 50%; display: flex;justify-content: space-between;"><span style="white-space: nowrap; padding-right: 10px;">úmero de orden: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;"><?php echo $order_number ?></span> </span>
                 </div>
                 <div style="display: flex;justify-content: space-between;">
-                <span style="white-space: nowrap;">Nombre (s): </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span>
+                    <span style="white-space: nowrap; padding-right: 10px;">Nombre (s): </span>
+                    <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
+                        <?php echo $student['firstname']; ?>
+                    </span>
                 </div>
                 <div style="display: flex;justify-content: space-between;">
-                <span style="white-space: nowrap;">Apellido (s): </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span>
+                    <span style="white-space: nowrap; padding-right: 10px;">Apellido (s): </span>
+                    <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
+                        <?php echo $student['lastname']; ?>
+                    </span>
                 </div>
                 <div style="display: flex;justify-content: space-between;">
-                <span style="white-space: nowrap;">ID estudiante (Número de identificación SIGERD): </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span>
+                    <span style="white-space: nowrap; padding-right: 10px;">ID estudiante (Número de identificación SIGERD): </span>
+                    <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
+                        <?php echo $student['roll_no']; ?>
+                    </span>
                 </div>
                 <div style="display: flex;justify-content: space-between;">
-                <span style="white-space: nowrap;">Docente: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span>
+                    <span style="white-space: nowrap; padding-right: 10px;">Docente: </span>
+                    <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
+                        <?= $class_teacher ?>
+                    </span>
                 </div>
                 <div style="display: flex;justify-content: space-between;">
-                <span style="white-space: nowrap;">Centro educativo: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span>
+                    <span style="white-space: nowrap; padding-right: 10px;">Centro educativo: </span>
+                    <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
+                        <?php echo $student['Centro_educativo']; ?>
+                    </span>
                 </div>
                 <div style="display: flex;justify-content: space-between;">
-                <span style="white-space: nowrap;">Código del centro: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span>
+                    <span style="white-space: nowrap; padding-right: 10px;">Código del centro: </span>
+                    <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
+                        21002717
+                    </span>
                 </div>
                 <div style="display: flex;justify-content: space-between;">
-                <span style="white-space: nowrap;">Tanda: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span>
+                    <span style="white-space: nowrap; padding-right: 10px;">Tanda: </span>
+                    <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
+                        <?php echo $student['Tanda']; ?>
+                    </span>
                 </div>
                 <div style="display: flex;justify-content: space-between;">
-                <span style="white-space: nowrap;">Teléfono del centro: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span>
+                    <span style="white-space: nowrap; padding-right: 10px;">Teléfono del centro: </span>
+                    <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
+                        <?php echo $student['Teléfono_del_centro']; ?>
+                    </span>
                 </div>
                 <div style="display: flex;justify-content: space-between;">
-                <span style="white-space: nowrap;">Distrito educativo: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span>
+                    <span style="white-space: nowrap; padding-right: 10px;">Distrito educativo: </span>
+                    <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
+                        San Cristóbal 04-02
+                    </span>
                 </div>
                 <div style="display: flex;justify-content: space-between;">
-                <span style="white-space: nowrap;">Regional de educación: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span>
+                    <span style="white-space: nowrap; padding-right: 10px;">Regional de educación: </span>
+                    <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
+                        San Cristóbal, Norte 04
+                    </span>
                 </div>
                 <div style="display: flex;justify-content: space-between;">
-                <span style="white-space: nowrap;">Provincia: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span>
+                    <span style="white-space: nowrap; padding-right: 10px;">Provincia: </span>
+                    <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
+                        San Cristóbal
+                    </span>
                 </div>
                 <div style="display: flex;justify-content: space-between;">
-                <span style="white-space: nowrap;">Municipio: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span>
+                    <span style="white-space: nowrap; padding-right: 10px;">Municipio: </span>
+                    <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
+                        San Cristóbal
+                    </span>
                 </div>
             </div>
         </div>
@@ -472,9 +526,16 @@
 <div class="report-container">
     <div id="detail-page">
         <div id="student-detail" class="kanit-medium">
-            <span class="nowrap">Nombre(s) y apellido (s): </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span>
-            Grado:<span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span>
-            Sección: <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px;"></span>
+            <span class="nowrap">Nombre(s) y apellido (s): </span>
+            <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
+                <?php echo $this->customlib->getFullName($student['firstname'], $student['middlename'], $student['lastname'], $sch_setting->middlename, $sch_setting->lastname); ?>
+            </span>
+            Grado:<span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
+                <?php echo $student['class'] ?>
+            </span>
+            Sección: <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
+                <?php echo $student['section'] ?>
+            </span>
         </div>
         <div class="kanit-medium CALIFICACIONES">
             CALIFICACIONES DE RENDIMIENTO
@@ -483,57 +544,78 @@
             <table class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
-                    <th class="pink subjectlabelth" colspan="1" rowspan="2">COMPETENCIAS FUNDAMENTALES</th>
-                    <th class="pink" colspan="4" rowspan="2">Comunicativa</th>
-                    <th class="pink" colspan="4" rowspan="2">• Pensamiento Lógico, <br> Creativo y Crítico <br> • Resolución de Problemas</th>
-                    <th class="pink" colspan="4" rowspan="2">• Científica y Tecnológica <br> • Ambiental y de la Salud</th>
-                    <th class="pink" colspan="4" rowspan="2">• Ética y Ciudadana <br> • Desarrollo Personal <br> y Espiritual</th>
-                    <th class="pink" colspan="4" rowspan="2">PROMEDIO GRUPO <br> DE COMPETENCIAS <br> ESPECÍFICAS</th>
-                    <th class="lightpink vertical-lr rotated" colspan="1" rowspan="3">CALIFICACIÓN <br> FINAL DEL ÁREA</th>
-                    <th class="pink" colspan="4">CALIFICACIÓN <br> COMPLETIVA</th>
-                    <th class="pink" colspan="4">CALIFICACIÓN <br> EXTRAORDINARIA</th>
-                    <th class="pink" colspan="2">EVALUACIÓN <br> ESPECIAL</th>
-                    <th class="pink" colspan="2" rowspan="2">SITUACIÓN <br> FINAL EN LA <br> ASIGNATURA</th>
+                    <th class="cyan subjectlabelth" colspan="1" rowspan="2">COMPETENCIAS FUNDAMENTALES</th>
+                    <th class="cyan" colspan="4" rowspan="2">Comunicativa</th>
+                    <th class="cyan" colspan="4" rowspan="2">• Pensamiento Lógico, <br> Creativo y Crítico <br> • Resolución de Problemas</th>
+                    <th class="cyan" colspan="4" rowspan="2">• Científica y Tecnológica <br> • Ambiental y de la Salud</th>
+                    <th class="cyan" colspan="4" rowspan="2">• Ética y Ciudadana <br> • Desarrollo Personal <br> y Espiritual</th>
+                    <th class="cyan" colspan="4" rowspan="2">PROMEDIO GRUPO <br> DE COMPETENCIAS <br> ESPECÍFICAS</th>
+                    <th class="lightcyan vertical-lr rotated" colspan="1" rowspan="3">CALIFICACIÓN <br> FINAL DEL ÁREA</th>
+                    <th class="cyan" colspan="4">CALIFICACIÓN <br> COMPLETIVA</th>
+                    <th class="cyan" colspan="4">CALIFICACIÓN <br> EXTRAORDINARIA</th>
+                    <th class="cyan" colspan="2">EVALUACIÓN <br> ESPECIAL</th>
+                    <th class="cyan" colspan="2" rowspan="2">SITUACIÓN <br> FINAL EN LA <br> ASIGNATURA</th>
                 </tr>
                 <tr>
-                    <th class="pink vertical-lr rotated" rowspan="2">50% C. F.</th>
-                    <th class="pink vertical-lr rotated" rowspan="2">C.E.C.</th>
-                    <th class="pink vertical-lr rotated" rowspan="2">50% C.E.C.</th>
-                    <th class="lightpink vertical-lr rotated" rowspan="2">C.C.F.</th>
-                    <th class="pink vertical-lr rotated" rowspan="2">30% C.F.</th>
-                    <th class="pink vertical-lr rotated" rowspan="2">C.E. EX</th>
-                    <th class="pink vertical-lr rotated" rowspan="2">70% C.E. EX</th>
-                    <th class="lightpink vertical-lr rotated" rowspan="2">C.EX.F.</th>
-                    <th class="pink vertical-lr rotated" rowspan="2">C.F.</th>
-                    <th class="lightpink vertical-lr rotated" rowspan="2">C.E.</th>
+                    <th class="cyan vertical-lr rotated" rowspan="2">50% C. F.</th>
+                    <th class="cyan vertical-lr rotated" rowspan="2">C.E.C.</th>
+                    <th class="cyan vertical-lr rotated" rowspan="2">50% C.E.C.</th>
+                    <th class="lightcyan vertical-lr rotated" rowspan="2">C.C.F.</th>
+                    <th class="cyan vertical-lr rotated" rowspan="2">30% C.F.</th>
+                    <th class="cyan vertical-lr rotated" rowspan="2">C.E. EX</th>
+                    <th class="cyan vertical-lr rotated" rowspan="2">70% C.E. EX</th>
+                    <th class="lightcyan vertical-lr rotated" rowspan="2">C.EX.F.</th>
+                    <th class="cyan vertical-lr rotated" rowspan="2">C.F.</th>
+                    <th class="lightcyan vertical-lr rotated" rowspan="2">C.E.</th>
                 </tr>
                 <tr>
-                    <th class="lightpink">PERÍODOS</th>
-                    <th class="lightpink">P1</th>
-                    <th class="lightpink">P2</th>
-                    <th class="lightpink">P3</th>
-                    <th class="lightpink">P4</th>
-                    <th class="lightpink">P1</th>
-                    <th class="lightpink">P2</th>
-                    <th class="lightpink">P3</th>
-                    <th class="lightpink">P4</th>
-                    <th class="lightpink">P1</th>
-                    <th class="lightpink">P2</th>
-                    <th class="lightpink">P3</th>
-                    <th class="lightpink">P4</th>
-                    <th class="lightpink">P1</th>
-                    <th class="lightpink">P2</th>
-                    <th class="lightpink">P3</th>
-                    <th class="lightpink">P4</th>
-                    <th class="lightpink">PC1</th>
-                    <th class="lightpink">PC2</th>
-                    <th class="lightpink">PC3</th>
-                    <th class="lightpink">PC4</th>
-                    <th class="pink">A</th>
-                    <th class="pink">R</th>
+                    <th class="lightcyan">PERÍODOS</th>
+                    <th class="lightcyan">P1</th>
+                    <th class="lightcyan">P2</th>
+                    <th class="lightcyan">P3</th>
+                    <th class="lightcyan">P4</th>
+                    <th class="lightcyan">P1</th>
+                    <th class="lightcyan">P2</th>
+                    <th class="lightcyan">P3</th>
+                    <th class="lightcyan">P4</th>
+                    <th class="lightcyan">P1</th>
+                    <th class="lightcyan">P2</th>
+                    <th class="lightcyan">P3</th>
+                    <th class="lightcyan">P4</th>
+                    <th class="lightcyan">P1</th>
+                    <th class="lightcyan">P2</th>
+                    <th class="lightcyan">P3</th>
+                    <th class="lightcyan">P4</th>
+                    <th class="lightcyan">PC1</th>
+                    <th class="lightcyan">PC2</th>
+                    <th class="lightcyan">PC3</th>
+                    <th class="lightcyan">PC4</th>
+                    <th class="cyan">A</th>
+                    <th class="cyan">R</th>
                 </tr>
             </thead>
             <tbody>
+                <?php foreach ($grading_subject_results as $result) { ?>
+                    <tr>
+                        <td style="padding-left: 4px; padding-right: 4px;font-weight: 300; text-align: left;"><?php echo $result['subject'] ?></td>
+                        <?php for ($i = 0; $i < count($periodList) * 5; $i++) { ?>
+                            <td><?php echo $result['period_results'][$i] ? $result['period_results'][$i] : "" ?></td>
+                        <?php } ?>
+                            <td class="rboder"><?php echo $result['CF'] ?></td>
+                            <td><?php echo $result['50PCP'] ?></td>
+                            <td><?php echo $result['CPC'] ?></td>
+                            <td><?php echo $result['50CPC'] ?></td>
+                            <td class="rboder"><?php echo $result['CC'] ?></td>
+                            <td><?php echo $result['30PCP'] ?></td>
+                            <td><?php echo $result['CPEX'] ?></td>
+                            <td><?php echo $result['70CPEX'] ?></td>
+                            <td class="rboder"><?php echo $result['CEX'] ?></td>
+                            <td><?php echo $result['O1'] ?></td>
+                            <td><?php echo $result['O2'] ?></td>
+                            <td><?php echo $result['A'] ?></td>
+                            <td><?php echo $result['R'] ?></td>
+                    </tr>
+                <?php } ?>
             </tbody>
             </table>
         </div>
@@ -542,10 +624,10 @@
             <table class="table table-striped table-bordered table-hover resumen-table" style="text-align: center; height: 100%;">
                 <thead>
                 <tr>
-                    <th class="pink" colspan="5">RESUMEN DE ASISTENCIA DEL/LA ESTUDIANTE</th>
+                    <th class="cyan" colspan="5">RESUMEN DE ASISTENCIA DEL/LA ESTUDIANTE</th>
                 </tr>
                 <tr>
-                    <th class="lightpink" rowspan="2">Períodos</th>
+                    <th class="lightcyan" rowspan="2">Períodos</th>
                     <th rowspan="2">Asistencia</th>
                     <th rowspan="2">Ausencia</th>
                     <th colspan="2">% de Anual</th>
@@ -557,24 +639,24 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td class="lightpink">P1</td>
+                    <td class="lightcyan">P1</td>
                     <td></td>
                     <td></td>
                     <td rowspan="4"></td>
                     <td rowspan="4"></td>
                 </tr>
                 <tr>
-                    <td class="lightpink">P2</td>
+                    <td class="lightcyan">P2</td>
                     <td></td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td class="lightpink">P3</td>
+                    <td class="lightcyan">P3</td>
                     <td></td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td class="lightpink">P4</td>
+                    <td class="lightcyan">P4</td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -585,7 +667,7 @@
             <table class="table table-striped table-bordered table-hover" style="height: 100%;">
                 <thead>
                 <tr>
-                    <th class="pink">LEYENDA:</th>
+                    <th class="cyan">LEYENDA:</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -628,7 +710,7 @@
             </div>
             <div class="kanit-medium SITUACION">
             <div class="situacion-title">
-                <div class="pink kanit-bold" style="padding: 5px 30px; min-width: 300px; text-align: center;">SITUACIÓN DEL/DE LA ESTUDIANTE</div>
+                <div class="cyan kanit-bold" style="padding: 5px 30px; min-width: 300px; text-align: center;">SITUACIÓN DEL/DE LA ESTUDIANTE</div>
                 <div style="display: flex; gap: 5px;">
                 <div>Promovido/a</div>
                 <input type="radio">
@@ -642,7 +724,7 @@
             <table class="table table-striped table-bordered table-hover" style="height: 100%;">
                 <thead>
                 <tr>
-                    <th class="pink">CONDICIÓN FINAL DEL/DE LA ESTUDIANTE:</th>
+                    <th class="cyan">CONDICIÓN FINAL DEL/DE LA ESTUDIANTE:</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -653,10 +735,12 @@
             </table>
             <div class="situacion-title">
                 <div>
+                    <?= $class_teacher ?>
                 <div style="width: 100%; height: 1px; background-color: black;"></div>
                 <div><i>Maestro(a) encargado(a) del grado</i></div>
                 </div>
                 <div>
+                    <?= $school_director ?>
                 <div style="width: 100%; height: 1px; background-color: black;"></div>
                 <div><i>Director(a) del Centro Educativo</i></div>
                 </div>

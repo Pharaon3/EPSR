@@ -1258,7 +1258,7 @@ class Student_model extends MY_Model
         return $query->result_array();
     }
 
-       public function searchNonPromotedStudents($class_id = null, $section_id = null, $promoted_session_id = null,$promoted_class_id = null, $promoted_section_id = null)
+    public function searchNonPromotedStudents($class_id = null, $section_id = null, $promoted_session_id = null,$promoted_class_id = null, $promoted_section_id = null)
     {
         $sql="SELECT promoted_students.id as `promoted_student_id`,`classes`.`id` AS `class_id`, `student_session`.`id` as `student_session_id`, `students`.`id`, `classes`.`class`, `sections`.`id` AS `section_id`, `sections`.`section`, `students`.`id`, `students`.`admission_no`, `students`.`roll_no`, `students`.`admission_date`, `students`.`firstname`, `students`.`middlename`, `students`.`lastname`, `students`.`image`, `students`.`mobileno`, `students`.`email`, `students`.`state`, `students`.`city`, `students`.`pincode`, `students`.`religion`, `students`.`dob`, `students`.`current_address`, `students`.`permanent_address`, IFNULL(students.category_id, 0) as `category_id`, IFNULL(categories.category, '') as `category`, `students`.`adhar_no`, `students`.`samagra_id`, `students`.`bank_account_no`, `students`.`bank_name`, `students`.`ifsc_code`, `students`.`guardian_name`, `students`.`guardian_relation`, `students`.`guardian_phone`, `students`.`guardian_address`, `students`.`is_active`, `students`.`created_at`, `students`.`updated_at`, `students`.`father_name`, `students`.`rte`, `students`.`gender` FROM `students` JOIN `student_session` ON `student_session`.`student_id` = `students`.`id` JOIN `classes` ON `student_session`.`class_id` = `classes`.`id` JOIN `sections` ON `sections`.`id` = `student_session`.`section_id` LEFT JOIN `categories` ON `students`.`category_id` = `categories`.`id` LEFT join (select * from student_session WHERE session_id=".$promoted_session_id." and class_id=".$promoted_class_id." and section_id=".$promoted_section_id.") as promoted_students on promoted_students.student_id=students.id WHERE `student_session`.`session_id` = ".$this->current_session." AND `students`.`is_active` = 'yes' AND `student_session`.`class_id` = ".$class_id." AND `student_session`.`section_id` = ".$section_id." and promoted_students.id IS NULL ORDER BY `students`.`firstname`, `students`.`lastname`";
                $query = $this->db->query($sql);
@@ -1940,7 +1940,6 @@ class Student_model extends MY_Model
 
     public function searchdtByClassSection($class_id = null, $section_id = null)
     {
-
         $i = 1;
         $custom_fields   = $this->customfield_model->get_custom_fields('students', 1);
         $field_var_array = array();
@@ -1966,10 +1965,10 @@ class Student_model extends MY_Model
             $this->datatables->where('student_session.section_id', $section_id);
         }
 
-         $this->datatables
+        $this->datatables
             ->select('classes.id AS `class_id`,levels.id AS `level_id`,levels.level AS `level`,student_session.id as student_session_id,students.id,classes.class,sections.id AS `section_id`,sections.section,students.id,students.admission_no , students.roll_no,students.admission_date,students.firstname,students.middlename,  students.lastname,students.image,    students.mobileno, students.email ,students.state ,   students.city , students.pincode ,     students.religion,     students.dob ,students.current_address,    students.permanent_address,IFNULL(students.category_id, 0) as `category_id`,IFNULL(categories.category, "") as `category`,students.adhar_no,students.samagra_id,students.bank_account_no,students.bank_name, students.ifsc_code , students.guardian_is , students.father_phone , students.mother_phone , students.guardian_name , students.guardian_relation,students.guardian_phone,students.guardian_address,students.guardian_email,students.is_active ,students.created_at ,students.updated_at,students.father_name,students.app_key,students.parent_app_key,students.rte,students.gender'. $field_variable)
             ->searchable('students.admission_no,students.firstname,classes.class,students.father_name,students.dob,students.admission_date,students.gender,categories.category,students.mobileno'.$field_variable)
-             ->join('student_session', 'student_session.student_id = students.id')
+            ->join('student_session', 'student_session.student_id = students.id')
             ->join('classes', 'student_session.class_id = classes.id')
             ->join('level_class', 'level_class.class_id = classes.id')
             ->join('levels', 'levels.id = level_class.level_id')
@@ -2030,7 +2029,7 @@ class Student_model extends MY_Model
 
     }
 
-       public function getUndefinedStudent() {
+    public function getUndefinedStudent() {
         $sql="SELECT students.id FROM `students` LEFT join student_session on student_session.student_id=students.id WHERE student_session.id IS NULL";
         $query = $this->db->query($sql);
         $result = $query->result();
