@@ -523,7 +523,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
             };
             $(this).find('.td-input').each(function() {
                 var name = $(this).attr('data_column');
-                var value = $(this).hasClass('disable-addtest') ? '' : $(this).val();
+                var value = $(this).hasClass('disable-addtest') ? '' : Math.max(Math.min($(this).val(), 100), 0);
                 student_report.report.push({
                     name: name,
                     value: value

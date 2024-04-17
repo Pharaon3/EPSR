@@ -576,7 +576,7 @@
         $(document).on('blur', '.td_subject input', function(e) {
 
             var name = $(this).attr('name');
-            var val = $(this).val();
+            var val = Math.min(Math.max($(this).val(), 0), 100);
             var student_session_id = $('input[name="student_session_id"]').val();
 
             var $this = $(this).parents('.td_subject');

@@ -78,6 +78,14 @@
     .right-red {
         border-right-color: red !important;
     }
+
+    .td-input {
+        border: none !important;
+        background: transparent !important;
+        max-width: 30px !important;
+        text-align: center;
+        outline: unset !important;
+    }
     
 </style>
 <section class="content">
@@ -359,88 +367,39 @@
                                                 <?php $i = 0;
                                                 foreach( $periodList as $per) {  ?>
                                                     <td class="td_subject">
-                                                        <div class="marklabel" canedit="<?php echo $period['canedit']; ?>">
-                                                            <?php echo $result['period_results'][$i] ? $result['period_results'][$i] : "" ?>
-                                                        </div>
-														<?php  if( !empty($per['canedit']) ) { // $result['edit_flag'][$i] == 1 &&   ?>
-                                                        <div class="markedit" data_innerhtml='<input type="number" min="0" max="100" style="width:60px;" name="secondaryreport_<?= $result['subjectId'] ?>_p1<?= $i + 1 ?>" value="<?= $result['period_results'][$i] ?>">'>
-														<?php } ?>
-                                                        </div>
+                                                        <input type="number" min="0" max="100" class="td-input pr" style="width:60px;" name="secondaryreport_<?= $result['subjectId'] ?>_p1<?= $i + 1 ?>" value="<?= $result['period_results'][$i] == 0 ? "" : $result['period_results'][$i] ?>" onfocus="style.background='LightYellow';" onblur="this.style.background='';">
                                                     </td>
                                                     <td class="td_subject <?php if ($i % 4 == 3) echo 'right-red' ?> ">
-                                                        <div class="marklabel" canedit="<?php echo $period['canedit']; ?>">
-                                                            <?php echo $result['period_resultsRP'][$i] ? $result['period_resultsRP'][$i] : "" ?>
-                                                        </div>
-														<?php  if( !empty($per['canedit']) ) { // $result['edit_flag'][$i] == 1 &&   ?>
-                                                        <div class="markedit" data_innerhtml='<input type="number" min="0" max="100" style="width:60px;" name="secondaryreport_<?= $result['subjectId'] ?>_rp1<?= $i + 1 ?>" value="<?= $result['period_resultsRP'][$i] ?>">'>
-														<?php } ?>
-                                                        </div>
+                                                        <input type="number" min="0" max="100" class="td-input pr" style="width:60px;" name="secondaryreport_<?= $result['subjectId'] ?>_rp1<?= $i + 1 ?>" value="<?= $result['period_resultsRP'][$i] == 0 ? "" : $result['period_resultsRP'][$i] ?>">
                                                     </td>
                                                 <?php $i++;
                                                 } ?>
                                                 <?php
                                                 foreach( $periodList as $per) {  ?>
                                                     <td class="td_subject">
-                                                        <div class="marklabel" canedit="<?php echo $period['canedit']; ?>">
-                                                        <?php echo $result['period_results'][$i] ? $result['period_results'][$i] : "" ?>
-                                                        </div>
-														<?php  if( !empty($per['canedit']) ) { // $result['edit_flag'][$i] == 1 &&   ?>
-                                                        <div class="markedit" data_innerhtml='<input type="number" min="0" max="100" style="width:60px;" name="secondaryreport_<?= $result['subjectId'] ?>_p2<?= $i - 3 ?>" value="<?= $result['period_results'][$i] ?>">'>
-														<?php } ?>
-                                                        </div>
+                                                        <input type="number" min="0" max="100" class="td-input pr" style="width:60px;" name="secondaryreport_<?= $result['subjectId'] ?>_p2<?= $i - 3 ?>" value="<?= $result['period_results'][$i] == 0 ? "" : $result['period_results'][$i] ?>" onfocus="style.background='LightYellow';" onblur="this.style.background='';">
                                                     </td>
                                                     <td class="td_subject <?php if ($i % 4 == 3) echo 'right-red' ?> ">
-                                                        <div class="marklabel" canedit="<?php echo $period['canedit']; ?>">
-                                                            <?php echo $result['period_resultsRP'][$i] ? $result['period_resultsRP'][$i] : "" ?>
-                                                        </div>
-														<?php  if( !empty($per['canedit']) ) { // $result['edit_flag'][$i] == 1 &&   ?>
-                                                        <div class="markedit" data_innerhtml='<input type="number" min="0" max="100" style="width:60px;" name="secondaryreport_<?= $result['subjectId'] ?>_rp2<?= $i - 3 ?>" value="<?= $result['period_resultsRP'][$i] ?>">'>
-														<?php } ?>
-                                                        </div>
+                                                        <input type="number" min="0" max="100" class="td-input pr" style="width:60px;" name="secondaryreport_<?= $result['subjectId'] ?>_rp2<?= $i - 3 ?>" value="<?= $result['period_resultsRP'][$i] == 0 ? "" : $result['period_resultsRP'][$i] ?>">
                                                     </td>
                                                 <?php $i++;
                                                 } ?>
                                                 <?php
                                                 foreach( $periodList as $per) {  ?>
                                                     <td class="td_subject">
-                                                        <div class="marklabel" canedit="<?php echo $period['canedit']; ?>">
-                                                        <?php echo $result['period_results'][$i] ? $result['period_results'][$i] : "" ?>
-                                                        </div>
-														<?php  if( !empty($per['canedit']) ) { // $result['edit_flag'][$i] == 1 &&   ?>
-                                                        <div class="markedit" data_innerhtml='<input type="number" min="0" max="100" style="width:60px;" name="secondaryreport_<?= $result['subjectId'] ?>_p3<?= $i - 7 ?>" value="<?= $result['period_results'][$i] ?>">'>
-														<?php } ?>
-                                                        </div>
+                                                        <input type="number" min="0" max="100" class="td-input pr" style="width:60px;" name="secondaryreport_<?= $result['subjectId'] ?>_p3<?= $i - 7 ?>" value="<?= $result['period_results'][$i] == 0 ? "" : $result['period_results'][$i] ?>" onfocus="style.background='LightYellow';" onblur="this.style.background='';">
                                                     </td>
                                                     <td class="td_subject <?php if ($i % 4 == 3) echo 'right-red' ?> ">
-                                                        <div class="marklabel" canedit="<?php echo $period['canedit']; ?>">
-                                                            <?php echo $result['period_resultsRP'][$i] ? $result['period_resultsRP'][$i] : "" ?>
-                                                        </div>
-														<?php  if( !empty($per['canedit']) ) { // $result['edit_flag'][$i] == 1 &&   ?>
-                                                        <div class="markedit" data_innerhtml='<input type="number" min="0" max="100" style="width:60px;" name="secondaryreport_<?= $result['subjectId'] ?>_rp3<?= $i - 7 ?>" value="<?= $result['period_resultsRP'][$i] ?>">'>
-														<?php } ?>
-                                                        </div>
+                                                        <input type="number" min="0" max="100" class="td-input pr" style="width:60px;" name="secondaryreport_<?= $result['subjectId'] ?>_rp3<?= $i - 7 ?>" value="<?= $result['period_resultsRP'][$i] == 0 ? "" : $result['period_resultsRP'][$i] ?>">
                                                     </td>
                                                 <?php $i++;
                                                 } ?>
                                                 <?php
                                                 foreach( $periodList as $per) {  ?>
-                                                    <td class="td_subject">
-                                                        <div class="marklabel" canedit="<?php echo $period['canedit']; ?>">
-                                                        <?php echo $result['period_results'][$i] ? $result['period_results'][$i] : "" ?>
-                                                        </div>
-														<?php  if( !empty($per['canedit']) ) { // $result['edit_flag'][$i] == 1 &&   ?>
-                                                        <div class="markedit" data_innerhtml='<input type="number" min="0" max="100" style="width:60px;" name="secondaryreport_<?= $result['subjectId'] ?>_p4<?= $i - 11 ?>" value="<?= $result['period_results'][$i] ?>">'>
-														<?php } ?>
-                                                        </div>
+                                                    <td class="td_subject"><input type="number" min="0" max="100" class="td-input pr" style="width:60px;" name="secondaryreport_<?= $result['subjectId'] ?>_p4<?= $i - 11 ?>" value="<?= $result['period_results'][$i] == 0 ? "" : $result['period_results'][$i] ?>" onfocus="style.background='LightYellow';" onblur="this.style.background='';">
                                                     </td>
                                                     <td class="td_subject <?php if ($i % 4 == 3) echo 'right-red' ?> ">
-                                                        <div class="marklabel" canedit="<?php echo $period['canedit']; ?>">
-                                                            <?php echo $result['period_resultsRP'][$i] ? $result['period_resultsRP'][$i] : "" ?>
-                                                        </div>
-														<?php  if( !empty($per['canedit']) ) { // $result['edit_flag'][$i] == 1 &&   ?>
-                                                        <div class="markedit" data_innerhtml='<input type="number" min="0" max="100" style="width:60px;" name="secondaryreport_<?= $result['subjectId'] ?>_rp4<?= $i - 11 ?>" value="<?= $result['period_resultsRP'][$i] ?>">'>
-														<?php } ?>
-                                                        </div>
+                                                        <input type="number" min="0" max="100" class="td-input pr" style="width:60px;" name="secondaryreport_<?= $result['subjectId'] ?>_rp4<?= $i - 11 ?>" value="<?= $result['period_resultsRP'][$i] == 0 ? "" : $result['period_resultsRP'][$i] ?>">
                                                     </td>
                                                 <?php $i++;
                                                 } ?>
