@@ -526,6 +526,8 @@ class Grading_result extends Admin_Controller
             "recordsTotal"        => intval($students->recordsTotal),
             "recordsFiltered"     => intval($students->recordsFiltered),
             "data"                => $dt_data,
+            "students"            => $students,
+            "class_section_subject_id" => [$class, $section, $subject_id],
         );
 
         echo json_encode($json_data);
@@ -809,6 +811,8 @@ class Grading_result extends Admin_Controller
             "recordsTotal"        => intval($students->recordsTotal),
             "recordsFiltered"     => intval($students->recordsFiltered),
             "data"                => $dt_data,
+            "students"            => $students,
+            "class_section_subject_id" => [$class, $section, $subject_id],
         );
 
         echo json_encode($json_data);
@@ -1478,12 +1482,23 @@ class Grading_result extends Admin_Controller
                         else $pc3 = $pc3 + $row['period_results'][$i + 8] / 4;
                         if ($row['period_results'][$i + 12] < 70) $pc4 = $pc4 + $row['period_resultsRP'][$i + 12] / 4;
                         else $pc4 = $pc4 + $row['period_results'][$i + 12] / 4;
+                        if (!$row['period_resultsRP'][$i] && !$row['period_results'][$i]) $flag1 = 1;
+                        if (!$row['period_resultsRP'][$i + 4] && !$row['period_results'][$i + 4]) $flag2 = 1;
+                        if (!$row['period_resultsRP'][$i + 8] && !$row['period_results'][$i + 8]) $flag3 = 1;
+                        if (!$row['period_resultsRP'][$i + 12] && !$row['period_results'][$i + 12]) $flag4 = 1;
                     }
-
-                    $row['period_results'][] = round($pc1);
-                    $row['period_results'][] = round($pc2);
-                    $row['period_results'][] = round($pc3);
-                    $row['period_results'][] = round($pc4);
+                    if ($flag1 == 1) $pc_show1 = "";
+                    else $pc_show1 = round($pc1);
+                    if ($flag2 == 1) $pc_show2 = "";
+                    else $pc_show2 = round($pc2);
+                    if ($flag3 == 1) $pc_show3 = "";
+                    else $pc_show3 = round($pc3);
+                    if ($flag4 == 1) $pc_show4 = "";
+                    else $pc_show4 = round($pc4);
+                    $row['period_results'][] = $pc_show1;
+                    $row['period_results'][] = $pc_show2;
+                    $row['period_results'][] = $pc_show3;
+                    $row['period_results'][] = $pc_show4;
 					$date = date("Y-m-d");
                     if($role_id == 2)   // if Teacher is,
                     {
@@ -1775,7 +1790,7 @@ class Grading_result extends Admin_Controller
                 $postData = [];
                 $postData['student_session_id'] = $student_session_id;
                 $postData['subject_group_subjects_id'] = $subject_group_subjects_id;
-                $grading_marker = $this->Gradingreport_model->getReportByStudentAndSubject($student_session_id, $subject_group_subjects_id);
+                $grading_marker = $this->Gradingreport_model->getNewReportByStudentAndSubject($student_session_id, $subject_group_subjects_id);
                 foreach ($reports as $report) {
                     $key = $report['name'];
                     $value = $report['value'];
@@ -1812,7 +1827,12 @@ class Grading_result extends Admin_Controller
                     $this->Gradingreport_model->add_subjectnewreport($postData);
                 }
             }
-            echo json_encode(array('success' => true, 'msg' => 'Grading report has been saved successfully.'));
+            echo json_encode(array(
+                'success' => true, 
+                'msg' => 'Grading report has been saved successfully.',
+                'postData' => $postData,
+                'grading_marker' => $grading_marker
+            ));
         } else {
             echo json_encode(array('success' => false, 'msg' => 'Faild edit grading report'));
         }
@@ -2426,6 +2446,10 @@ class Grading_result extends Admin_Controller
                             $pc2 = 0;
                             $pc3 = 0;
                             $pc4 = 0;
+                            $flag1 = 0;
+                            $flag2 = 0;
+                            $flag3 = 0;
+                            $flag4 = 0;
                             for ($i = 0; $i < 4; $i++) {
                                 if ($row['period_results'][$i] < 70) $pc1 = $pc1 + $row['period_resultsRP'][$i] / 4;
                                 else $pc1 = $pc1 + $row['period_results'][$i] / 4;
@@ -2435,12 +2459,23 @@ class Grading_result extends Admin_Controller
                                 else $pc3 = $pc3 + $row['period_results'][$i + 8] / 4;
                                 if ($row['period_results'][$i + 12] < 70) $pc4 = $pc4 + $row['period_resultsRP'][$i + 12] / 4;
                                 else $pc4 = $pc4 + $row['period_results'][$i + 12] / 4;
+                                if (!$row['period_resultsRP'][$i] && !$row['period_results'][$i]) $flag1 = 1;
+                                if (!$row['period_resultsRP'][$i + 4] && !$row['period_results'][$i + 4]) $flag2 = 1;
+                                if (!$row['period_resultsRP'][$i + 8] && !$row['period_results'][$i + 8]) $flag3 = 1;
+                                if (!$row['period_resultsRP'][$i + 12] && !$row['period_results'][$i + 12]) $flag4 = 1;
                             }
-        
-                            $row['period_results'][] = round($pc1);
-                            $row['period_results'][] = round($pc2);
-                            $row['period_results'][] = round($pc3);
-                            $row['period_results'][] = round($pc4);
+                            if ($flag1 == 1) $pc_show1 = "";
+                            else $pc_show1 = round($pc1);
+                            if ($flag2 == 1) $pc_show2 = "";
+                            else $pc_show2 = round($pc2);
+                            if ($flag3 == 1) $pc_show3 = "";
+                            else $pc_show3 = round($pc3);
+                            if ($flag4 == 1) $pc_show4 = "";
+                            else $pc_show4 = round($pc4);
+                            $row['period_results'][] = $pc_show1;
+                            $row['period_results'][] = $pc_show2;
+                            $row['period_results'][] = $pc_show3;
+                            $row['period_results'][] = $pc_show4;
                             $date = date("Y-m-d");
                             if($role_id == 2)   // if Teacher is,
                             {

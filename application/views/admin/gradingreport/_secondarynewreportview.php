@@ -459,26 +459,7 @@
                     <tbody>
                         <tr>
                         <td style="padding-top: 20px; height: 100%;">
-                        <!-- <?php echo print_r($student, true); ?> -->
                         <?php echo $observation; ?>
-                            <!-- <div class="underlined-field kanit-light"><span></span></div>
-                            <div class="underlined-field kanit-light"><span></span></div>
-                            <div class="underlined-field kanit-light"><span></span></div>
-                            <div class="underlined-field kanit-light"><span></span></div>
-                            <div class="underlined-field kanit-light"><span></span></div>
-                            <div class="underlined-field kanit-light"><span></span></div>
-                            <div class="underlined-field kanit-light"><span></span></div>
-                            <div class="underlined-field kanit-light"><span></span></div>
-                            <div class="underlined-field kanit-light"><span></span></div>
-                            <div class="underlined-field kanit-light"><span></span></div>
-                            <div class="underlined-field kanit-light"><span></span></div>
-                            <div class="underlined-field kanit-light"><span></span></div>
-                            <div class="underlined-field kanit-light"><span></span></div>
-                            <div class="underlined-field kanit-light"><span></span></div>
-                            <div class="underlined-field kanit-light"><span></span></div>
-                            <div class="underlined-field kanit-light"><span></span></div>
-                            <div class="underlined-field kanit-light"><span></span></div>
-                            <div class="underlined-field kanit-light"><span></span></div> -->
                         </td>
                         </tr>
                     </tbody>
@@ -489,7 +470,6 @@
             <img src="<?php echo base_url('uploads/school_content/logo/logo.png'); ?>" style="width: 20%;">
             <div class="kanit-light" style="text-align: center; font-size: 12px;">Viceministro de Servicios Técnicos y Pedagógicos <br> Dirección General de Educación Secundaria</div>
             <div class="kanit-medium title-color" style="font-size: 24px;">BOLETÍN DE CALIFICACIONES </div>
-            <!-- <img src="<?php echo base_url('uploads/school_content/logo/2grado.png'); ?>" style="width: 25%;"> -->
             <?php echo $student['class']; ?>
             <img src="<?php 
                 if ($student['class'] == '1er Grado') echo base_url('uploads/school_content/logo/1grado.png');
@@ -503,7 +483,6 @@
                 ?>" style="width: 25%;">
             <div class="kanit-light">
                 Año escolar: <?php echo $session ?></span>
-                <!-- Año escolar: 20<span style="font-family: sans-serif;">_________</span> 20<span style="font-family: sans-serif;">_________</span> -->
             </div>
             <div class="kanit-light right-info">
                 <div style="display: flex;justify-content: space-between;">

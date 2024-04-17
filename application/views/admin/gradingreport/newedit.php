@@ -645,7 +645,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                             "language": {
                                 processing: '<i class="fa fa-spinner fa-spin fa-1x fa-fw"></i><span class="sr-only">Loading...</span> '
                             },
-                            "pageLength": 5,
+                            "pageLength": 100,
                             "ordering": false,
                             "searching": false,
                             "processing": true,

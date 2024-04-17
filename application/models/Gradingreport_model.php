@@ -584,7 +584,7 @@ class Gradingreport_model extends MY_model {
             $this->datatables->where('student_session.section_id', $section_id);
         }
 
-         $this->datatables
+        $this->datatables
             ->select('classes.id AS `class_id`,levels.id AS `level_id`,levels.level AS `level`,student_session.id as student_session_id,students.id,classes.class,sections.id AS `section_id`,sections.section,grading_subject_results.update_date_p1,grading_subject_results.update_date_p2,grading_subject_results.update_date_p3,grading_subject_results.update_date_p4,grading_subject_results.update_date_p5,grading_subject_results.p1,grading_subject_results.p2,grading_subject_results.p3,grading_subject_results.p4,grading_subject_results.p5,grading_subject_results.CPC,grading_subject_results.CPEX,students.id,students.admission_no , students.roll_no,students.admission_date,students.firstname,students.middlename,  students.lastname,students.image,    students.mobileno, students.email ,students.state ,   students.city , students.pincode ,     students.religion,     students.dob ,students.current_address,    students.permanent_address,IFNULL(students.category_id, 0) as `category_id`,IFNULL(categories.category, "") as `category`,students.adhar_no,students.samagra_id,students.bank_account_no,students.bank_name, students.ifsc_code , students.guardian_is , students.father_phone , students.mother_phone , students.guardian_name , students.guardian_relation,students.guardian_phone,students.guardian_address,students.guardian_email,students.is_active ,students.created_at ,students.updated_at,students.father_name,students.app_key,students.parent_app_key,students.rte,students.gender'. $field_variable)
             ->join('student_session', 'student_session.student_id = students.id')
             ->join('classes', 'student_session.class_id = classes.id')
@@ -633,13 +633,13 @@ class Gradingreport_model extends MY_model {
         }
 
         $this->datatables
-            ->select(`classes.id AS 'class_id',
-                        levels.id AS 'level_id',
-                        levels.level AS 'level',
+            ->select('classes.id AS `class_id`,
+                        levels.id AS `level_id`,
+                        levels.level AS `level`,
                         student_session.id as student_session_id,
                         students.id,
                         classes.class,
-                        sections.id AS 'section_id',
+                        sections.id AS `section_id`,
                         sections.section,
                         grading_subject_reports.p11,
                         grading_subject_reports.p12,
@@ -691,7 +691,7 @@ class Gradingreport_model extends MY_model {
                         grading_subject_reports.sfeaa,
                         grading_subject_reports.sfear,
                         students.id,
-                        students.admission_no , 
+                        students.admission_no,
                         students.roll_no,
                         students.admission_date,
                         students.firstname,
@@ -700,22 +700,23 @@ class Gradingreport_model extends MY_model {
                         students.mobileno,
                         students.email,
                         students.state,
-                        students.city ,
+                        students.city,
                         students.pincode,
                         students.religion,
                         students.dob ,
                         students.current_address,
                         students.permanent_address,
-                        IFNULL(students.category_id, 0) as 'category_id',
-                        IFNULL(categories.category, "") as 'category',
-                        students.adhar_no,students.samagra_id,
+                        IFNULL(students.category_id, 0) as `category_id`,
+                        IFNULL(categories.category, "") as `category`,
+                        students.adhar_no,
+                        students.samagra_id,
                         students.bank_account_no,
                         students.bank_name,
-                        students.ifsc_code ,
-                        students.guardian_is ,
-                        students.father_phone ,
-                        students.mother_phone ,
-                        students.guardian_name ,
+                        students.ifsc_code,
+                        students.guardian_is,
+                        students.father_phone,
+                        students.mother_phone,
+                        students.guardian_name,
                         students.guardian_relation,
                         students.guardian_phone,
                         students.guardian_address,
@@ -727,7 +728,7 @@ class Gradingreport_model extends MY_model {
                         students.app_key,
                         students.parent_app_key,
                         students.rte,
-                        students.gender`. $field_variable)
+                        students.gender'. $field_variable)
             ->join('student_session', 'student_session.student_id = students.id')
             ->join('classes', 'student_session.class_id = classes.id')
             ->join('level_class', 'level_class.class_id = classes.id')
