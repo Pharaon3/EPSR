@@ -98,6 +98,20 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
         .rotated {
             transform: rotate(180deg);
         }
+        .fixTableHead { 
+            overflow-y: auto; 
+            height: 510px; 
+        } 
+        .fixTableHead thead { 
+            position: sticky; 
+            top: 0; 
+            background-color: white;
+            z-index: 1000;
+        } 
+        table { 
+            border-collapse: collapse;		 
+            width: 100%; 
+        } 
     </style>
     <!-- Main content -->
     <section class="content">
@@ -175,7 +189,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
-                                <div class="table-responsive" id="transfee">
+                                <div class="table-responsive fixTableHead" id="transfee">
                                     
                                     <table class="table table-striped table-bordered table-hover student-list" data-export-title="<?php echo $this->lang->line('student') . " " . $this->lang->line('list'); ?>">
                                         <thead>
@@ -275,60 +289,79 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                     padding: 5px;
                 }
             </style>
-            <table class="print-table" data-export-title="<?php echo $this->lang->line('student') . " " . $this->lang->line('list'); ?>">
+            <table class="table table-striped table-bordered table-hover print-table" data-export-title="<?php echo $this->lang->line('student') . " " . $this->lang->line('list'); ?>">
                 <thead>
                     <tr>
                         <th class="subjectlabelth" colspan="3" rowspan="2"></th>
-                        <th class="darksalmon" colspan="<?php echo count($periodList) + 1 ?>">CALIFICACIONES DEL AÑO ESCOLAR</th>
-                        <?php //if ($addstep > 0) { 
-                        ?>
-                        <th class="lightgreen" colspan="4">CALIFICACIÓN COMPLETIVA</th>
-                        <?php //} 
-                        ?>
-                        <?php //if ($addstep > 1) { 
-                        ?>
-                        <th class="yellow" colspan="4">CALIFICACIÓN EXTRAORDINARIA</th>
-                        <?php //} 
-                        ?>
-                        <th colspan="2">SITUACIÓN FINAL</th>
-                        <th colspan="2">C.A.P.</th>
+                        <!-- <th class="pink" colspan="1">COMPETENCIAS FUNDAMENTALES</th> -->
+                        <th class="pink" colspan="8" rowspan="2">Comunicativa</th>
+                        <th class="pink" colspan="8" rowspan="2">• Pensamiento Lógico, <br> Creativo y Crítico <br> • Resolución de Problemas</th>
+                        <th class="pink" colspan="8" rowspan="2">• Científica y Tecnológica <br> • Ambiental y de la Salud</th>
+                        <th class="pink" colspan="8" rowspan="2">• Ética y Ciudadana <br> • Desarrollo Personal <br> y Espiritual</th>
+                        <th class="pink" colspan="4" rowspan="2">PROMEDIO GRUPO <br> DE COMPETENCIAS <br> ESPECÍFICAS</th>
+                        <th class="lightpink vertical-lr rotated" colspan="1" rowspan="3">CALIFICACIÓN <br> FINAL DEL ÁREA</th>
+                        <th class="pink" colspan="4">CALIFICACIÓN <br> COMPLETIVA</th>
+                        <th class="pink" colspan="4">CALIFICACIÓN <br> EXTRAORDINARIA</th>
+                        <th class="pink" colspan="2">EVALUACIÓN <br> ESPECIAL</th>
+                        <th class="pink" colspan="2" rowspan="2">SITUACIÓN <br> FINAL EN LA <br> ASIGNATURA</th>
                     </tr>
                     <tr>
-                        <th colspan="<?php echo count($periodList) ?>">Calificaciones Parciales</th>
-                        <th class="lightblue" rowspan="2">C.F.</th>
-                        <?php //if ($addstep > 0) { 
-                        ?>
-                        <th rowspan="2">50% P.C.P.</th>
-                        <th rowspan="2">C.P.C.</th>
-                        <th rowspan="2">50% C.P.C.</th>
-                        <th class="lightblue" rowspan="2">C.C.</th>
-                        <?php //} 
-                        ?>
-                        <?php //if ($addstep > 1) { 
-                        ?>
-                        <th rowspan="2">30% P.C.P.</th>
-                        <th rowspan="2">C.P.EX.</th>
-                        <th rowspan="2">70% C.P.EX.</th>
-                        <th class="lightblue" rowspan="2">C.EX.</th>
-                        <?php //} 
-                        ?>
-                        <th rowspan="2">A</th>
-                        <th rowspan="2">R</th>
-                        <th colspan="2">OPORTUNIDAD</th>
+                        <th class="pink vertical-lr rotated" rowspan="2">50% C. F.</th>
+                        <th class="pink vertical-lr rotated" rowspan="2">C.E.C.</th>
+                        <th class="pink vertical-lr rotated" rowspan="2">50% C.E.C.</th>
+                        <th class="lightpink vertical-lr rotated" rowspan="2">C.C.F.</th>
+                        <th class="pink vertical-lr rotated" rowspan="2">30% C.F.</th>
+                        <th class="pink vertical-lr rotated" rowspan="2">C.E. EX</th>
+                        <th class="pink vertical-lr rotated" rowspan="2">70% C.E. EX</th>
+                        <th class="lightpink vertical-lr rotated" rowspan="2">C.EX.F.</th>
+                        <th class="pink vertical-lr rotated" rowspan="2">C.F.</th>
+                        <th class="lightpink vertical-lr rotated" rowspan="2">C.E.</th>
                     </tr>
                     <tr>
                         <th><?php echo $this->lang->line('admission_no'); ?></th>
                         <th><?php echo $this->lang->line('no'); ?></th>
                         <th><?php echo $this->lang->line('student_name'); ?></th>
-                        <?php  foreach($periodList as $key=>$value) { ?>
-                            <th><?php echo $value['label']; ?></th>
-                        <?php } ?>
-                        <th>1</th>
-                        <th>2</th>
+                        <th class="lightpink">P1</th>
+                        <th class="lightpink">RP1</th>
+                        <th class="lightpink">P2</th>
+                        <th class="lightpink">RP2</th>
+                        <th class="lightpink">P3</th>
+                        <th class="lightpink">RP3</th>
+                        <th class="lightpink">P4</th>
+                        <th class="lightpink">RP4</th>
+                        <th class="lightpink">P1</th>
+                        <th class="lightpink">RP1</th>
+                        <th class="lightpink">P2</th>
+                        <th class="lightpink">RP2</th>
+                        <th class="lightpink">P3</th>
+                        <th class="lightpink">RP3</th>
+                        <th class="lightpink">P4</th>
+                        <th class="lightpink">RP4</th>
+                        <th class="lightpink">P1</th>
+                        <th class="lightpink">RP1</th>
+                        <th class="lightpink">P2</th>
+                        <th class="lightpink">RP2</th>
+                        <th class="lightpink">P3</th>
+                        <th class="lightpink">RP3</th>
+                        <th class="lightpink">P4</th>
+                        <th class="lightpink">RP4</th>
+                        <th class="lightpink">P1</th>
+                        <th class="lightpink">RP1</th>
+                        <th class="lightpink">P2</th>
+                        <th class="lightpink">RP2</th>
+                        <th class="lightpink">P3</th>
+                        <th class="lightpink">RP3</th>
+                        <th class="lightpink">P4</th>
+                        <th class="lightpink">RP4</th>
+                        <th class="lightpink">PC1</th>
+                        <th class="lightpink">PC2</th>
+                        <th class="lightpink">PC3</th>
+                        <th class="lightpink">PC4</th>
+                        <th class="pink">A</th>
+                        <th class="pink">R</th>
                     </tr>
                 </thead>
                 <tbody>
-
                 </tbody>
             </table>
         </div>
@@ -573,7 +606,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                     "processing": true,
                     "serverSide": true,
                     "ajax": {
-                        "url": baseurl + "admin/grading_result/dteditstudentlistforprint",
+                        "url": baseurl + "admin/grading_result/dtneweditstudentlistforprint",
                         "dataSrc": 'data',
                         "type": "POST",
                         'data': data,
@@ -698,7 +731,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                             "processing": true,
                             "serverSide": true,
                             "ajax": {
-                                "url": baseurl + "admin/grading_result/dteditstudentlistforprint",
+                                "url": baseurl + "admin/grading_result/dtneweditstudentlistforprint",
                                 "dataSrc": 'data',
                                 "type": "POST",
                                 'data': response.params,
