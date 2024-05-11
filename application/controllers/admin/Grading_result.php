@@ -679,16 +679,26 @@ class Grading_result extends Admin_Controller
                 $pc2 = 0;
                 $pc3 = 0;
                 $pc4 = 0;
+
+                $pt1 = 0;
+                $pt2 = 0;
+                $pt3 = 0;
+                $pt4 = 0;
+                
                 for ($i = 0; $i < 4; $i++) {
-                    if ($period_rports[$i] < 70) $pc1 = $pc1 + $period_rportsRP[$i] / 4;
-                    else $pc1 = $pc1 + $period_rports[$i] / 4;
-                    if ($period_rports[$i + 4] < 70) $pc2 = $pc2 + $period_rportsRP[$i + 4] / 4;
+                    if ($period_rports[$i] < 70 ) $pc1 = $pc1 + $period_rportsRP[$i] / 4; 
+                    else $pc1 = $pc1 + $period_rports[$i] / 4; 
+                    if ($period_rports[$i + 4] < 70 ) $pc2 = $pc2 + $period_rportsRP[$i + 4] / 4;
                     else $pc2 = $pc2 + $period_rports[$i + 4] / 4;
-                    if ($period_rports[$i + 8] < 70) $pc3 = $pc3 + $period_rportsRP[$i + 8] / 4;
+                    if ($period_rports[$i + 8] < 70  ) $pc3 = $pc3 + $period_rportsRP[$i + 8] / 4;
                     else $pc3 = $pc3 + $period_rports[$i + 8] / 4;
                     if ($period_rports[$i + 12] < 70) $pc4 = $pc4 + $period_rportsRP[$i + 12] / 4;
                     else $pc4 = $pc4 + $period_rports[$i + 12] / 4;
                 }
+                // var_dump($pc1);
+                // print_r($pc1);
+                
+                // exit();
 
                 if ($period_rports[0] == "" || $period_rports[1] == "" || $period_rports[2] == "" || $period_rports[3] == "") $pc_show1 = ""; else $pc_show1 = round($pc1);
                 if ($period_rports[4] == "" || $period_rports[5] == "" || $period_rports[6] == "" || $period_rports[7] == "") $pc_show2 = ""; else $pc_show2 = round($pc2);
@@ -713,7 +723,11 @@ class Grading_result extends Admin_Controller
                 //     }
                 // }
                 if ($pc_show1 == "" || $pc_show2 == "" || $pc_show3 == "" || $pc_show4 == "") $CF = "";
-                else $CF = ($pc1 + $pc2 + $pc3 + $pc4) / 4;
+
+                if($pc_show1 > 69 && $pc_show2 > 69 && $pc_show3 > 69 && $pc_show4 > 69 ) {
+
+                    $CF = ($pc1 + $pc2 + $pc3 + $pc4) / 4;
+                } 
                 if (!empty($CF)) {
                     $CF = round($CF);
                 }
@@ -1605,7 +1619,6 @@ class Grading_result extends Admin_Controller
 
     public function viewnewreport($id, $period_id = null)
     {
-
         if (!$this->rbac->hasPrivilege('grading_report_results', 'can_view')) {
             access_denied();
         }
@@ -1725,6 +1738,10 @@ class Grading_result extends Admin_Controller
                     $pc2 = 0;
                     $pc3 = 0;
                     $pc4 = 0;
+                    $flag1 = 0;
+                    $flag2 = 0;
+                    $flag3 = 0;
+                    $flag4 = 0;
                     for ($i = 0; $i < 4; $i++) {
                         if ($row['period_results'][$i] < 70) $pc1 = $pc1 + $row['period_resultsRP'][$i] / 4;
                         else $pc1 = $pc1 + $row['period_results'][$i] / 4;
@@ -1739,14 +1756,16 @@ class Grading_result extends Admin_Controller
                         if (!$row['period_resultsRP'][$i + 8] && !$row['period_results'][$i + 8]) $flag3 = 1;
                         if (!$row['period_resultsRP'][$i + 12] && !$row['period_results'][$i + 12]) $flag4 = 1;
                     }
+
                     if ($flag1 == 1) $pc_show1 = "";
-                    else $pc_show1 = round($pc1);
+                    else $pc_show1 = round($pc1, 1);
                     if ($flag2 == 1) $pc_show2 = "";
-                    else $pc_show2 = round($pc2);
+                    else $pc_show2 = round($pc2, 1);
                     if ($flag3 == 1) $pc_show3 = "";
-                    else $pc_show3 = round($pc3);
+                    else $pc_show3 = round($pc3, 1);
                     if ($flag4 == 1) $pc_show4 = "";
-                    else $pc_show4 = round($pc4);
+                    else $pc_show4 = round($pc4, 1);
+
                     $row['period_results'][] = $pc_show1;
                     $row['period_results'][] = $pc_show2;
                     $row['period_results'][] = $pc_show3;
@@ -1792,8 +1811,7 @@ class Grading_result extends Admin_Controller
                 //     }
                 //     $i++;
                 // }
-                if ($pc1 > 0 && $pc2 > 0 && $pc3 > 0 && $pc4 > 0) $row['CF'] = round(($pc1 + $pc2 + $pc3 + $pc4) / 4);
-                if(!empty($row['CF']) && $i>0) $row['CF'] = round($row['CF'] / $i);
+                if ($pc1 > 69 && $pc2 > 69 && $pc3 > 69 && $pc4 > 69 && $pc_show1 && $pc_show2 && $pc_show3 && $pc_show4) $row['CF'] = round(($pc1 + $pc2 + $pc3 + $pc4) / 4);
                 $row['AA'] = '';
                 $row['50PCP'] = '';
                 $row['CPC'] = '';
@@ -2716,14 +2734,15 @@ class Grading_result extends Admin_Controller
                                 if (!$row['period_resultsRP'][$i + 8] && !$row['period_results'][$i + 8]) $flag3 = 1;
                                 if (!$row['period_resultsRP'][$i + 12] && !$row['period_results'][$i + 12]) $flag4 = 1;
                             }
+
                             if ($flag1 == 1) $pc_show1 = "";
-                            else $pc_show1 = round($pc1);
+                            else $pc_show1 = round($pc1, 1);
                             if ($flag2 == 1) $pc_show2 = "";
-                            else $pc_show2 = round($pc2);
+                            else $pc_show2 = round($pc2, 1);
                             if ($flag3 == 1) $pc_show3 = "";
-                            else $pc_show3 = round($pc3);
+                            else $pc_show3 = round($pc3, 1);
                             if ($flag4 == 1) $pc_show4 = "";
-                            else $pc_show4 = round($pc4);
+                            else $pc_show4 = round($pc4, 1);
                             $row['period_results'][] = $pc_show1;
                             $row['period_results'][] = $pc_show2;
                             $row['period_results'][] = $pc_show3;
@@ -2769,7 +2788,7 @@ class Grading_result extends Admin_Controller
                         //     }
                         //     $i++;
                         // }
-                        if ($pc1 > 0 && $pc2 > 0 && $pc3 > 0 && $pc4 > 0) $row['CF'] = round(($pc1 + $pc2 + $pc3 + $pc4) / 4);
+                        if ($pc1 > 69 && $pc2 > 69 && $pc3 > 69 && $pc4 > 69 && $pc_show1 && $pc_show2 && $pc_show3 && $pc_show4) $row['CF'] = round(($pc1 + $pc2 + $pc3 + $pc4) / 4);
                         if(!empty($row['CF']) && $i>0) $row['CF'] = round($row['CF'] / $i);
                         $row['AA'] = '';
                         $row['50PCP'] = '';

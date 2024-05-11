@@ -56,7 +56,7 @@
                             </div>
                         </div>
                         <div class="box-body table-responsive" id="transfee">
-                            <table class="table table-hover teacher-list" id="headerTable" data-export-title="<?php echo $this->lang->line('teacher') . " " . $this->lang->line('list') ?>" id="headerTable">
+                            <table class="table table-hover teacher-list" id="headerTable" data-export-title="<?php echo $this->lang->line('teacher') . " " . $this->lang->line('list') ?>">
                                 <thead>
                                     <tr>
 									<th><?php echo $this->lang->line('name'); ?></th>
@@ -87,8 +87,8 @@
             
         </div>
         <div class="row">
-            <div class="col-md-12">
-            </div>
+            <!-- <div class="col-md-12">
+            </div> -->
         </div>
     </section>
 

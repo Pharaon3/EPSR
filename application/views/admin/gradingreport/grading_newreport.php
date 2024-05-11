@@ -86,6 +86,18 @@
         text-align: center;
         outline: unset !important;
     }
+    .table-score {
+        height: 300px;
+    }
+    table thead tr:first-child  th:first-child,
+    table tbody tr td:first-child {
+        position: sticky;
+        width: 100px;
+        left: 0;
+        z-index: 20;
+        background: #fff;
+        /*border: 1px solid black;*/
+    }
     
 </style>
 <section class="content">
@@ -291,7 +303,7 @@
                         <div class="table-responsive" id="gradingResultTB">
                             <form id="update_subject_report">
                                 <input type="hidden" name="student_session_id" value="<?php echo $student_session_id ?>">
-                                <table class="table table-striped table-bordered table-hover competence-<?php echo $competence['id'] ?>" data-export-title="<?php echo $this->lang->line('student') . " " . $this->lang->line('list'); ?>">
+                                <table class="table table-score table-striped table-bordered table-hover competence-<?php echo $competence['id'] ?>" data-export-title="<?php echo $this->lang->line('student') . " " . $this->lang->line('list'); ?>">
                                     <thead>
                                         <tr>
                                             <th class="subjectlabelth right-red" colspan="1" rowspan="3">ASIGNATURAS</th>
@@ -489,5 +501,6 @@
                 },
             });
         });
+        console.log("data: ", `<?php echo print_r($grading_subject_results, true); ?>`)
     });
 </script>
