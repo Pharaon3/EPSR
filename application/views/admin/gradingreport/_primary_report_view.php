@@ -1,0 +1,670 @@
+<style type="text/css">
+    @page {
+        size: 11.0in 8.5in;
+        margin: 0;
+    }
+
+    @media print {
+        .pagebreak {
+            page-break-before: always;
+        }
+
+        /* page-break-after works, as well */
+    }
+
+    @media print {
+        #gradingResultTB th,
+        .final_condition {
+            !background-color: #e6e6ed !important;
+            -webkit-print-color-adjust: exact;
+        }
+    }
+
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    .title-color {
+        color: <?php 
+            if (strpos($student['class'], '1er') !== false) echo '#f7941d';
+            else if (strpos($student['class'], '2do') !== false) echo '#1075bb';
+            else if (strpos($student['class'], '3er') !== false) echo '#1f9186';
+            else if (strpos($student['class'], '4to') !== false) echo '#f183aa';
+            else if (strpos($student['class'], '5to') !== false) echo '#ae9d40';
+            else if (strpos($student['class'], '6to') !== false) echo '#7b3500';
+            else echo '#f183aa';
+            ?> !important;
+    }
+    .title-bgcolor {
+        background-color: <?php 
+            if (strpos($student['class'], '1er') !== false) echo '#f7941d';
+            else if (strpos($student['class'], '2do') !== false) echo '#1075bb';
+            else if (strpos($student['class'], '3er') !== false) echo '#1f9186';
+            else if (strpos($student['class'], '4to') !== false) echo '#f183aa';
+            else if (strpos($student['class'], '5to') !== false) echo '#ae9d40';
+            else if (strpos($student['class'], '6to') !== false) echo '#7b3500';
+            else echo '#f183aa';
+            ?> !important;
+    }
+    .table-color {
+        background-color: <?php 
+            if (strpos($student['class'], '1er') !== false) echo '#fce1cb';
+            else if (strpos($student['class'], '2do') !== false) echo '#b9e6fb';
+            else if (strpos($student['class'], '3er') !== false) echo '#8ad3d8';
+            else if (strpos($student['class'], '4to') !== false) echo '#facad9';
+            else if (strpos($student['class'], '5to') !== false) echo '#fef3bc';
+            else if (strpos($student['class'], '6to') !== false) echo '#fcc39d';
+            else echo '#facad9';
+            ?> !important;
+        color: black;
+    }
+    .table-light-color {
+        background-color: <?php 
+            if (strpos($student['class'], '1er') !== false) echo '#faf0e8';
+            else if (strpos($student['class'], '2do') !== false) echo '#dcf2fd';
+            else if (strpos($student['class'], '3er') !== false) echo '#c3e7eb';
+            else if (strpos($student['class'], '4to') !== false) echo '#fbdfe9';
+            else if (strpos($student['class'], '5to') !== false) echo '#fef9dd';
+            else if (strpos($student['class'], '6to') !== false) echo '#fce6d3';
+            else echo '#fbdfe9';
+            ?> !important;
+        color: black;
+    }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+<style>
+    .kanit-thin {
+    font-family: "Kanit", sans-serif;
+    font-weight: 100;
+    font-style: normal;
+    }
+
+    .kanit-extralight {
+    font-family: "Kanit", sans-serif;
+    font-weight: 200;
+    font-style: normal;
+    }
+
+    .kanit-light {
+    font-family: "Kanit", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    }
+
+    .kanit-regular {
+    font-family: "Kanit", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    }
+
+    .kanit-medium {
+    font-family: "Kanit", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    }
+
+    .kanit-semibold {
+    font-family: "Kanit", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    }
+
+    .kanit-bold {
+    font-family: "Kanit", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    }
+
+    .kanit-extrabold {
+    font-family: "Kanit", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+    }
+
+    .kanit-black {
+    font-family: "Kanit", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+    }
+
+    .kanit-thin-italic {
+    font-family: "Kanit", sans-serif;
+    font-weight: 100;
+    font-style: italic;
+    }
+
+    .kanit-extralight-italic {
+    font-family: "Kanit", sans-serif;
+    font-weight: 200;
+    font-style: italic;
+    }
+
+    .kanit-light-italic {
+    font-family: "Kanit", sans-serif;
+    font-weight: 300;
+    font-style: italic;
+    }
+
+    .kanit-regular-italic {
+    font-family: "Kanit", sans-serif;
+    font-weight: 400;
+    font-style: italic;
+    }
+
+    .kanit-medium-italic {
+    font-family: "Kanit", sans-serif;
+    font-weight: 500;
+    font-style: italic;
+    }
+
+    .kanit-semibold-italic {
+    font-family: "Kanit", sans-serif;
+    font-weight: 600;
+    font-style: italic;
+    }
+
+    .kanit-bold-italic {
+    font-family: "Kanit", sans-serif;
+    font-weight: 700;
+    font-style: italic;
+    }
+
+    .kanit-extrabold-italic {
+    font-family: "Kanit", sans-serif;
+    font-weight: 800;
+    font-style: italic;
+    }
+
+    .kanit-black-italic {
+    font-family: "Kanit", sans-serif;
+    font-weight: 900;
+    font-style: italic;
+    }
+
+</style>
+<style>
+    #print-page {
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    }
+    #print-page> div {
+    width: 50%;
+    }
+    #left-table {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    }
+    #left-table> div {
+    width: 100%;
+    }
+    #FIRMA {
+    width: 100%;
+    }
+    #print-page table thead tr th {
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    }
+    #print-page table {
+        border-width: 2px;
+        border-style: solid;
+        border-color: black;
+    }
+    #Observaciones table thead tr th {
+    justify-content: start;
+    padding-left: 15px;
+    }
+    #firma-table {
+    width: 100%;
+    border-spacing: 0px;
+    }
+    #Observaciones-table {
+    width: 100%;
+    border-spacing: 0px;
+    }
+    #print-page table tbody tr td {
+    border-color: black;
+    /* border-width: 2px; */
+    border-style: solid;
+    border-top: none;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    }
+    .underlined-field {
+    min-height: 20px;
+    }
+    .underlined-field span{
+    display: flex;
+    border-bottom-color: black;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    }
+    #right-side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    }
+    .right-info {
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    }
+</style>
+<div id="print-page">
+    <div id="left-table">
+        <div id="FIRMA">
+            <table id="firma-table">
+            <thead>
+                <tr>
+                <th class="kanit-medium title-bgcolor">FIRMA DEL PADRE, MADRE O TUTOR</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td>
+                    <div class="kanit-regular" style="font-weight: bold;">Períodos de Reportes de Calificaciones</div>
+                    <div class="underlined-field kanit-light">Ago-Sept-Oct <span></span></div>
+                    <div class="underlined-field kanit-light">Nov-Dic-Ene <span></span></div>
+                    <div class="underlined-field kanit-light">Feb-Mar <span></span></div>
+                    <div class="underlined-field kanit-light">Abr-May-Jun <span></span></div>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        <div id="Observaciones">
+            <table id="Observaciones-table">
+            <thead>
+                <tr>
+                <th class="kanit-medium table-color" style="color: black;">Información sobre el nivel de avance de los aprendizajes y los apoyos
+                    que necesita para la mejora de sus aprendizajes. </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td style="padding-top: 20px;">
+                    <div class="underlined-field kanit-light"><span></span></div>
+                    <div class="underlined-field kanit-light"><span></span></div>
+                    <div class="underlined-field kanit-light"><span></span></div>
+                    <div class="underlined-field kanit-light"><span></span></div>
+                    <div class="underlined-field kanit-light"><span></span></div>
+                    <div class="underlined-field kanit-light"><span></span></div>
+                    <div class="underlined-field kanit-light"><span></span></div>
+                    <div class="underlined-field kanit-light"><span></span></div>
+                    <div class="underlined-field kanit-light"><span></span></div>
+                    <div class="underlined-field kanit-light"><span></span></div>
+                    <div class="underlined-field kanit-light"><span></span></div>
+                    <div class="underlined-field kanit-light"><span></span></div>
+                    <div class="underlined-field kanit-light"><span></span></div>
+                    <div class="underlined-field kanit-light"><span></span></div>
+                    <div class="underlined-field kanit-light"><span></span></div>
+                    <div class="underlined-field kanit-light"><span></span></div>
+                    <div class="underlined-field kanit-light"><span></span></div>
+                    <div class="underlined-field kanit-light"><span></span></div>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        <div class="situacion-title">
+            <div>
+            <div style="width: 100%; height: 1px; background-color: black;"></div>
+            <div><i>Maestro(a) encargado(a) del grado</i></div>
+            </div>
+            <div>
+            <div style="width: 100%; height: 1px; background-color: black;"></div>
+            <div><i>Director(a) del Centro Educativo</i></div>
+            </div>
+        </div>
+    </div>
+    <div id="right-side">
+        <img src="<?php echo base_url('uploads/school_content/logo/logo.png'); ?>" style="width: 20%;">
+        <div class="kanit-light" style="text-align: center; font-size: 12px;">Viceministro de Servicios Técnicos y Pedagógicos <br> Dirección General de Educación Secundaria</div>
+        <div class="kanit-medium title-color" style="font-size: 24px;">INFORME DE APRENDIZAJE</div>
+        <? $student['class'] ?>
+        <img src="<?php echo base_url('uploads/school_content/logo/primarylogo/' . $student['class']) . '.png';?>" style="width: 25%;">
+        <div class="kanit-light">
+            Año escolar: <?php echo $session ?></span>
+        </div>
+        <div class="kanit-light right-info">
+            <div style="display: flex;justify-content: space-between;">
+            <span style="width: 50%; display: flex;justify-content: space-between;"><span style="white-space: nowrap; padding-right: 10px;">Sección: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;"><?= $student['section'] ?></span> </span>
+            <span style="width: 50%; display: flex;justify-content: space-between;"><span style="white-space: nowrap; padding-right: 10px;">Número de orden: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;"><?php echo $order_number ?></span> </span>
+            </div>
+            <div style="display: flex;justify-content: space-between;">
+                <span style="white-space: nowrap; padding-right: 10px;">Nombre (s): </span>
+                <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
+                    <?php echo $student['firstname']; ?>
+                </span>
+            </div>
+            <div style="display: flex;justify-content: space-between;">
+                <span style="white-space: nowrap; padding-right: 10px;">Apellido (s): </span>
+                <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
+                    <?php echo $student['lastname']; ?>
+                </span>
+            </div>
+            <div style="display: flex;justify-content: space-between;">
+                <span style="white-space: nowrap; padding-right: 10px;">ID estudiante (Número de identificación SIGERD): </span>
+                <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
+                    <?php echo $student['roll_no']; ?>
+                </span>
+            </div>
+            <div style="display: flex;justify-content: space-between;">
+                <span style="white-space: nowrap; padding-right: 10px;">Docente: </span>
+                <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
+                    <?= $class_teacher ?>
+                </span>
+            </div>
+            <div style="display: flex;justify-content: space-between;">
+                <span style="white-space: nowrap; padding-right: 10px;">Centro educativo: </span>
+                <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
+                    Escuela Parroquial Santa Rita
+                </span>
+            </div>
+            <div style="display: flex;justify-content: space-between;">
+                <span style="white-space: nowrap; padding-right: 10px;">Código del centro: </span>
+                <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
+                    21002717
+                </span>
+            </div>
+            <div style="display: flex;justify-content: space-between;">
+                <span style="white-space: nowrap; padding-right: 10px;">Tanda: </span>
+                <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
+                    Matutina
+                </span>
+            </div>
+            <div style="display: flex;justify-content: space-between;">
+                <span style="white-space: nowrap; padding-right: 10px;">Teléfono del centro: </span>
+                <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
+                    809-528-3552
+                </span>
+            </div>
+            <div style="display: flex;justify-content: space-between;">
+                <span style="white-space: nowrap; padding-right: 10px;">Distrito educativo: </span>
+                <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
+                    San Cristóbal 04-02
+                </span>
+            </div>
+            <div style="display: flex;justify-content: space-between;">
+                <span style="white-space: nowrap; padding-right: 10px;">Regional de educación: </span>
+                <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
+                    San Cristóbal, Norte 04
+                </span>
+            </div>
+            <div style="display: flex;justify-content: space-between;">
+                <span style="white-space: nowrap; padding-right: 10px;">Provincia: </span>
+                <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
+                    San Cristóbal
+                </span>
+            </div>
+            <div style="display: flex;justify-content: space-between;">
+                <span style="white-space: nowrap; padding-right: 10px;">Municipio: </span>
+                <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
+                    San Cristóbal
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    #detail-page {
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    }
+    .vertical-lr {
+    writing-mode: vertical-lr;
+    }
+
+    .rotated {
+    transform: rotate(180deg);
+    }
+    .pink {
+    background-color: #f3a6c0 !important;
+    }
+
+    .lightpink {
+    background-color: #fad9e0 !important;
+    }
+    #student-detail {
+    display: flex;
+    align-items: end;
+    }
+    .nowrap {
+    white-space: nowrap;
+    }
+    .CALIFICACIONES {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    width: 100%;
+    background-color: #00a09a;
+    color: white;
+    font-size: 18px;
+    }
+    .resumen-table thead tr th {
+    text-align: center;
+    }
+    .SITUACION {
+    display: flex; 
+    gap: 10px; 
+    width: 50%;
+    flex-direction: column;
+    justify-content: space-between;
+    }
+    .situacion-title {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 20px;
+    }
+</style>
+<div class="pagebreak"></div>
+<div id="detail-page">
+    <div class="kanit-medium CALIFICACIONES title-bgcolor"> DESEMPEÑO INDIVIDUAL DEL/LA ESTUDIANTE </div>
+    <div>
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="subjectlabelth table-color" colspan="2" rowspan="1">COMPETENCIAS FUNDAMENTALES</th>
+                    <th class="table-color" colspan="4" rowspan="1">Comunicativa</th>
+                    <th class="table-color" colspan="4" rowspan="1">• Pensamiento Lógico, Creativo y  <br> Crítico • Resolución de Problemas <br> • Científica y Tecnológica</th>
+                    <th class="table-color" colspan="4" rowspan="1">• Ética y Ciudadana • Desarrollo <br> Personal y Espiritual <br> • Ambiental y de la Salud</th>
+                    <th class="table-color" colspan="3" rowspan="1"> Calificación final <br> por competencia</th>
+                    <th class="table-color vertical-lr rotated" colspan="1" rowspan="2">CALIFICACIÓN <br> FINAL DEL ÁREA</th>
+                    <th class="table-color vertical-lr rotated" colspan="1" rowspan="2">CALIFICACIÓN <br> RECUPERACIÓN <br> FINAL</th>
+                </tr>
+                <tr>
+                    <th class="table-light-color subjectlabelth" colspan="2" rowspan="1">PERÍODOS</th>
+                    <th class="table-light-color">P1</th>
+                    <th class="table-light-color">P2</th>
+                    <th class="table-light-color">P3</th>
+                    <th class="table-light-color">P4</th>
+                    <th class="table-light-color">P1</th>
+                    <th class="table-light-color">P2</th>
+                    <th class="table-light-color">P3</th>
+                    <th class="table-light-color">P4</th>
+                    <th class="table-light-color">P1</th>
+                    <th class="table-light-color">P2</th>
+                    <th class="table-light-color">P3</th>
+                    <th class="table-light-color">P4</th>
+                    <th class="table-light-color">C1</th>
+                    <th class="table-light-color">C2</th>
+                    <th class="table-light-color">C3</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($grading_subject_results as $index => $result) { ?>
+                    <tr>
+                    <?php if ($index == 0) { ?> <td rowspan="<?php echo count($grading_subject_results); ?>" class="vertical-lr rotated table-color" style="text-align: center;">ÁREAS CURRICULARES</td> <?php } ?>
+                        <td style="padding-left: 4px; padding-right: 4px;font-weight: 300; text-align: left;"><?php echo $result['subject'] ?></td>
+                        <?php for ($i = 0; $i < count($periodList) * 3 + 3; $i++) { ?>
+                            <td><?php echo $result['period_results'][$i] ? $result['period_results'][$i] : "" ?></td>
+                        <?php } ?>
+                            <td class="rboder"><?php echo $result['CF'] ? $result['CF'] : "";  ?></td>
+                            <td class="rboder"><?php echo $result['CF'] ? $result['CF'] : "";  ?></td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+    <table class="table table-striped table-bordered table-hover resumen-table" style="text-align: center; height: 100%;">
+        <thead>
+        </thead>
+        <tbody>
+            <tr>
+            <td class="table-color vertical-lr rotated" rowspan="5">OBSERVACIONES</td>
+            </tr>
+            <tr>
+            <td class="table-light-color">P1</td>
+            <td style="width: 90%;"></td>
+            </tr>
+            <tr>
+            <td class="table-light-color">P2</td>
+            <td></td>
+            </tr>
+            <tr>
+            <td class="table-light-color">P3</td>
+            <td></td>
+            </tr>
+            <tr>
+            <td class="table-light-color">P4</td>
+            <td></td>
+            </tr>
+        </tbody>
+    </table>
+    <div style="display: flex; justify-content: space-between; gap: 20px;">
+    <div>
+        <table class="table table-striped table-bordered table-hover resumen-table" style="text-align: center; height: 100%;">
+        <thead>
+            <tr>
+            <th class="table-color" colspan="5">RESUMEN DE ASISTENCIA DEL/LA ESTUDIANTE</th>
+            </tr>
+            <tr>
+            <th class="table-light-color" rowspan="2">Períodos</th>
+            <th rowspan="2">Asistencia</th>
+            <th rowspan="2">Ausencia</th>
+            <th colspan="2">% de Anual</th>
+            </tr>
+            <tr>
+            <th>Asistencia</th>
+            <th>Ausencia</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <td class="table-light-color">P1</td>
+            <td></td>
+            <td></td>
+            <td rowspan="4"></td>
+            <td rowspan="4"></td>
+            </tr>
+            <tr>
+            <td class="table-light-color">P2</td>
+            <td></td>
+            <td></td>
+            </tr>
+            <tr>
+            <td class="table-light-color">P3</td>
+            <td></td>
+            <td></td>
+            </tr>
+            <tr>
+            <td class="table-light-color">P4</td>
+            <td></td>
+            <td></td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+    <div>
+        <table class="table table-striped table-bordered table-hover" style="height: 100%;">
+        <thead>
+            <tr>
+            <th class="table-color">LEYENDA:</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <td style="display: flex; gap: 10px; padding: 10px; height: 100%;">
+                <div>
+                <div>(P1)</div>
+                <div>(P2)</div>
+                <div>(P3)</div>
+                <div>(P4)</div>
+                <div style="height: 10px;"></div>
+                <div>(C1)</div>
+                <div>(C2)</div>
+                <div>(C3)</div>
+                </div>
+                <div>
+                <div>Período 1</div>
+                <div>Período 2</div>
+                <div>Período 3</div>
+                <div>Período 4</div>
+                <div style="height: 10px;"></div>
+                <div>Competencia 1</div>
+                <div>Competencia 2</div>
+                <div>Competencia 3</div>
+                </div>
+            </td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+    <div class="kanit-regular SITUACION">
+        <table class="table table-striped table-bordered table-hover resumen-table" style="text-align: left; height: 100%;">
+        <thead>
+            <tr>
+            <th class="table-color">Escala numérica</th>
+            <th class="table-color">Descripción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <td style="text-align: left; height: 100%;">89-100</td>
+            <td>Evidencia que el estudiante ha alcanzado un desempeño <b>destacado</b> con relación a los aspectos
+                evaluados de las competencias de cada área, durante los períodos y al finalizar el año escolar.</td>
+            </tr>
+            <tr>
+            <td style="text-align: left; height: 100%;">77-88</td>
+            <td>Evidencia que el estudiante ha <b>logrado</b>, en general, los aprendizajes esperados con relación a los
+                aspectos evaluados de las competencias de cada área, durante los períodos y al finalizar el año escolar.</td>
+            </tr>
+            <tr>
+            <td style="text-align: left; height: 100%;">65-76 </td>
+            <td>Evidencia que el estudiante aún se encuentra <b>en proceso</b> con relación a los aspectos evaluados de las
+                competencias de cada área, durante los períodos y al finalizar el año escolar, mostrando un logro muy
+                básico.</td>
+            </tr>
+            <tr>
+            <td style="text-align: left; height: 100%;">Menos de 65</td>
+            <td>Evidencia que el estudiante ha alcanzado un desempeño <b>insuficiente</b> con relación a los aspectos
+                evaluados de las competencias de cada área, durante los períodos y al finalizar el año escolar.</td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+    </div>
+</div>
+<div class="pagebreak"></div>

@@ -488,38 +488,43 @@ class Gradingreport_model extends MY_model {
     }
 
     public function add_subjectnewreport($data){
-        $this->db->trans_start(); # Starting Transaction
-        $this->db->trans_strict(false); # See Note 01. If you wish can remove as well
+        try {
+            $this->db->trans_start(); # Starting Transaction
+            $this->db->trans_strict(false); # See Note 01. If you wish can remove as well
 
-        //=======================Code Start===========================
-        if (isset($data['id']) && $data['id'] != '') {
+            //=======================Code Start===========================
+            if (isset($data['id']) && $data['id'] != '') {
 
-            $this->db->where('id', $data['id']);
-            $query = $this->db->update('grading_subject_reports', $data);
-            $insert_id = $data['id'];
-            $message = UPDATE_RECORD_CONSTANT . " On grading_subject_reports id " . $insert_id;
-            $action = "Update";
-            $record_id = $insert_id;
-        } else {
-            $this->db->insert('grading_subject_reports', $data);
-            $insert_id = $this->db->insert_id();
-            $message = INSERT_RECORD_CONSTANT . " On grading_subject_reports id " . $insert_id;
-            $action = "Insert";
-            $record_id = $insert_id;
-        }
+                $this->db->where('id', $data['id']);
+                $query = $this->db->update('grading_subject_reports', $data);
+                $insert_id = $data['id'];
+                $message = UPDATE_RECORD_CONSTANT . " On grading_subject_reports id " . $insert_id;
+                $action = "Update";
+                $record_id = $insert_id;
+            } else {
+                $this->db->insert('grading_subject_reports', $data);
+                $insert_id = $this->db->insert_id();
+                $message = INSERT_RECORD_CONSTANT . " On grading_subject_reports id " . $insert_id;
+                $action = "Insert";
+                $record_id = $insert_id;
+            }
 
-        $this->log($message, $record_id, $action);
+            $this->log($message, $record_id, $action);
 
-        $this->db->trans_complete(); # Completing transaction
-        /* Optional */
+            $this->db->trans_complete(); # Completing transaction
+            /* Optional */
 
-        if ($this->db->trans_status() === false) {
-            # Something went wrong.
-            $this->db->trans_rollback();
-            return false;
-        } else {
-            return $insert_id;
-        }
+            if ($this->db->trans_status() === false) {
+                # Something went wrong.
+                $this->db->trans_rollback();
+                return false;
+            } else {
+                return $insert_id;
+            }
+
+        }catch(Exception $e){
+            echo $e;
+            }
     }
 
     public function add_subjectreport($data){

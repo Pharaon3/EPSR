@@ -1984,8 +1984,17 @@ class Student_model extends MY_Model
         $this->datatables->sort('students.firstname');
         $this->datatables->sort('students.lastname');
         return $this->datatables->generate('json');
-
     }
+
+    public function get_students_by_class_id($class_id){
+        $this->db->select('student_id');
+        $student_ids = $this->db->get_where('student_session', ['class_id' => $class_id])->result_array();
+        echo '<pre>';
+        print_r($student_ids);
+        echo '</pre>';
+    }
+
+
     /* function to get record for login credential report */
     public function getdtforlogincredential($class_id = null, $section_id = null)
     {

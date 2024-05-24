@@ -15,7 +15,7 @@
    @media print {
        #gradingResultTB th,
         .final_condition {
-!background-color: #e6e6ed !important;
+            !background-color: #e6e6ed !important;
             -webkit-print-color-adjust: exact;
         }
 
