@@ -2916,7 +2916,6 @@ class Grading_result extends Admin_Controller
             $period_id = $this->input->post('period_id');
             $this->session->userdata['pageNum'] = 0;
             $order_number = 1;
-            error_log("print card init finished.");
             if (!empty($id)) {
                 $studentList = array();
                 if ($id == 'all') {
@@ -2962,11 +2961,9 @@ class Grading_result extends Admin_Controller
                     $studentList[] = $student;
                 }
 
-                error_log("print card 1671.");
                 $renderprintpage = '';
                 $Cnt = 0;
                 foreach ($studentList as $student) {
-                    error_log("student: " . print_r($student, true));
                     $Cnt++;
                     $data = array();
                     $data['student'] = $student;
@@ -2981,7 +2978,6 @@ class Grading_result extends Admin_Controller
                     $data['period_id'] = $period_id;
                     $data['level_coordinator'] = '';
                     $level = $this->Level_model->getLevelList($data['level_id']);
-                    error_log("print card 1690.");
                     if (!empty($level['coordinator_id'])) {
                         $level_coordinator = $this->staff_model->get_StaffNameById($level['coordinator_id']);
                         $data['level_coordinator'] = $level_coordinator['name'];
@@ -2998,7 +2994,6 @@ class Grading_result extends Admin_Controller
                     if (!empty($classteachers)) {
                         $data['class_teacher'] = $classteachers[0]['name'] . " " . $classteachers[0]['surname'];
                     }
-                    error_log("print card 1707.");
 
                     $data['level'] = $class_level['level'];
                     $data['session'] = $this->setting_model->getCurrentSessionName();
@@ -3022,15 +3017,12 @@ class Grading_result extends Admin_Controller
                     } else {
                         $data['monthlist'] = $monthlist;
                     }
-                    error_log("print card 1730.");
 
                     $data['sch_setting'] = $this->sch_setting_detail;
                     $data['isPrekender'] = $class_level['level_id'] != 43 ? true : false;
                     $data['is_primary'] = $class_level['level_id'] == 42 ? true : false;
 
-                    error_log("print card 1739.");
                     if ($data['isPrekender'] && !$data['is_primary']) {
-                        error_log("print card 1741.");
                         $data['competenceList'] = array();
                         $data['indicatorsList'] = array();
 
@@ -3070,6 +3062,9 @@ class Grading_result extends Admin_Controller
                             $row['period_results'] = array();
                             $row['period_resultsRP'] = array();
                             $edit_flag = [];
+                            $pc1 = 0;
+                            $pc2 = 0;
+                            $pc3 = 0;
                             if (!empty($result)) {
                                 $row['reportId'] = $result['id'];
                                 $update_date = [];
@@ -3145,15 +3140,6 @@ class Grading_result extends Admin_Controller
                             $row['edit_flag'] = $edit_flag;
                             $row['CF'] = 0;
                             $i = 0;
-                            // foreach($period_list as $period) {
-                            //     if (empty($row['period_results'][$i])) {
-                            //         $row['CF'] = 0;
-                            //         break;
-                            //     } else {
-                            //         $row['CF'] += $row['period_results'][$i];// / count($period_list);
-                            //     }
-                            //     $i++;
-                            // }
                             if ($pc1 > 64 && $pc2 > 64 && $pc3 > 64 && $pc_show1 && $pc_show2 && $pc_show3) $row['CF'] = round(($pc1 + $pc2 + $pc3) / 3);
                             if (!empty($row['CF']) && $i > 0) $row['CF'] = round($row['CF'] / $i);
                             $grading_subject_results[] = $row;
@@ -3163,14 +3149,12 @@ class Grading_result extends Admin_Controller
                         $seconday_grading_report_cards = $this->load->view('admin/gradingreport/_primary_report_view', $data, true);
                         $renderprintpage .= " " . $seconday_grading_report_cards . " ";
                     } else {
-                        error_log("print card 1768.");
                         $subjects = array();
                         $subject_groups = $this->subjectgroup_model->getGroupByClassandSection($student['class_id'], $student['section_id']);
                         foreach ($subject_groups as $subject_group) {
                             $groupsubjects = $this->subjectgroup_model->getGroupsubjects($subject_group['subject_group_id']);
                             array_splice($subjects, count($subjects), 0, $groupsubjects);
                         }
-                        error_log("print card 1775.");
                         $grading_subject_results = array();
                         foreach ($subjects as $subject) {
                             $result = $this->Gradingreport_model->getNewReportByStudentAndSubject($student_session_id, $subject->id);
@@ -3260,29 +3244,6 @@ class Grading_result extends Admin_Controller
                                 $row['period_results'][] = $pc_show3;
                                 $row['period_results'][] = $pc_show4;
                                 $date = date("Y-m-d");
-                                //                            $role_id = json_decode($role)->id;
-                                //                            if($role_id == 2)   // if Teacher is,
-                                //                            {
-                                //                                for($i = 0; $i < count($update_date);$i++)
-                                //                                {
-                                //                                    $edit_flag[$i] = 0;
-                                //                                    if(substr($permission,$i,1) == 1)
-                                //                                    {
-                                //                                        $edit_flag[$i] = 1;
-                                //                                        continue;
-                                //                                    }
-                                //                                    if(substr($student['class'],0,1) == ($i + 1))
-                                //                                    {
-                                //                                        if($update_date[$i] == $date or $update_date[$i] == null)
-                                //                                            $edit_flag[$i] = 1;
-                                //                                    }
-                                //                                }
-                                //                            }
-                                //                            else
-                                //                            {
-                                //                                for($i = 0; $i < count($update_date);$i++)
-                                //                                    $edit_flag[$i] = 1;
-                                //                            }
                             } else {
                                 $row['reportId'] = null;
                                 $row['period_results'] = [null, null, null, null, null];
@@ -3292,15 +3253,6 @@ class Grading_result extends Admin_Controller
                             $row['edit_flag'] = $edit_flag;
                             $row['CF'] = 0;
                             $i = 0;
-                            // foreach($period_list as $period) {
-                            //     if (empty($row['period_results'][$i])) {
-                            //         $row['CF'] = 0;
-                            //         break;
-                            //     } else {
-                            //         $row['CF'] += $row['period_results'][$i];// / count($period_list);
-                            //     }
-                            //     $i++;
-                            // }
                             if ($pc1 > 69 && $pc2 > 69 && $pc3 > 69 && $pc4 > 69 && $pc_show1 && $pc_show2 && $pc_show3 && $pc_show4) $row['CF'] = round(($pc1 + $pc2 + $pc3 + $pc4) / 4);
                             if (!empty($row['CF']) && $i > 0) $row['CF'] = round($row['CF'] / $i);
                             $row['AA'] = '';

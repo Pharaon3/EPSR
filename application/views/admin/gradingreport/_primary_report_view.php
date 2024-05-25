@@ -336,7 +336,7 @@
     <div id="right-side">
         <img src="<?php echo base_url('uploads/school_content/logo/logo.png'); ?>" style="width: 20%;">
         <div class="kanit-light" style="text-align: center; font-size: 12px;">Viceministro de Servicios Técnicos y Pedagógicos <br> Dirección General de Educación Secundaria</div>
-        <div class="kanit-medium title-color" style="font-size: 24px;">INFORME DE APRENDIZAJE</div>
+        <!-- <div class="kanit-medium title-color" style="font-size: 24px;">INFORME DE APRENDIZAJE</div> -->
         <? $student['class'] ?>
         <img src="<?php echo base_url('uploads/school_content/logo/primarylogo/' . $student['class']) . '.png';?>" style="width: 25%;">
         <div class="kanit-light">
@@ -640,7 +640,7 @@
             <th class="table-color">Descripción</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody style="font-size: 12px;">
             <tr>
             <td style="text-align: left; height: 100%;">89-100</td>
             <td>Evidencia que el estudiante ha alcanzado un desempeño <b>destacado</b> con relación a los aspectos
