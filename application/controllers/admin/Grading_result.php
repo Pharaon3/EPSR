@@ -321,7 +321,7 @@ class Grading_result extends Admin_Controller
             $number = 1;
             foreach ($students->data as $student_key => $student) {
                 $row   = array();
-                $row[] = "<div data_id=" . $student->id . ">" . $student->admission_no . "</div>";
+                $row[] = "<div data_id=" . $student->id . ">" . $student->roll_no . "</div>";
                 $row[] = "$number";
                 $row[] = $this->customlib->getFullName($student->firstname, $student->middlename, $student->lastname, $sch_setting->middlename, $sch_setting->lastname);
                 $row[] = "<i class='fa fa-angle-double-right'></i>";
@@ -532,18 +532,22 @@ class Grading_result extends Admin_Controller
 
         echo json_encode($json_data);
     }
-
+    // This function retrieves student data for displaying in a data table
     public function dtneweditstudentlist()
     {
-
+        // Retrieve class, section, and subject ID from the POST request
         $class              = $this->input->post('class_id');
         $section            = $this->input->post('section_id');
         $subject_id         = $this->input->post('subject_id');
+        // Fetch school settings, admin session, and permissions
         $sch_setting        = $this->sch_setting_detail;
         $admin_session      = $this->session->userdata('admin');
         $permission         = $this->staff_model->get_permission($admin_session['id']);
+		
+        // Retrieve student data based on class, section, and subject
         $resultlist         = $this->Gradingreport_model->searchReportByClassSectionSubject($class, $section, $subject_id);
         $period_list        = [];
+        // Determine the user's role and fetch class list accordingly
         $userdata = $this->customlib->getUserData();
         $role_id = $userdata["role_id"];
         if($role_id == 51) //primary
@@ -563,22 +567,30 @@ class Grading_result extends Admin_Controller
         }
         else
         {
+			// Fetch level and class list based on the user's class
             $level_id           = $this->Gradingreport_model->getLevelByClass($class);
             $class_list         = $this->Gradingreport_model->getClassByLevel($level_id);
         }
+		 // Fetch the list of periods enabled for the staff member
         $staff_id = $userdata["id"];
-        $period_list = $this->Gradingreport_model->getPeriodEnabledByStaffId($staff_id, $level_id);   
-
+        $period_list = $this->Gradingreport_model->getPeriodEnabledByStaffId($staff_id, $level_id);
+		
+        // Initialize arrays for student data and data table
         $students = array();
         $students = json_decode($resultlist);
         $dt_data  = array();
+        // Check if user has editing privilege
         $canedit = $this->rbac->hasPrivilege('grading_report_results', 'can_edit');
+		
+        // Process student data if available
         if (!empty($students->data)) {
             foreach ($students->data as $student) {
                 if ($class < 24) {
+                    // Initialize variables and arrays for each student
                     $addstep = 0;
                     $row   = array();
-                    $row[] = "<div data_id=" . $student->id . ">" . $student->admission_no . "</div>";
+                    // Populate student data into table rows
+                    $row[] = "<div data_id=" . $student->id . ">" . $student->roll_no . "</div>";
                     $row[] = '';
                     $row[] = $this->customlib->getFullName($student->firstname, $student->middlename, $student->lastname, $sch_setting->middlename, $sch_setting->lastname);
 
@@ -726,11 +738,13 @@ class Grading_result extends Admin_Controller
                     }
                     $row[] = "<div class='cf' data_org = '" . $CF . "' data_stdID='" . $student->student_session_id . "'>" . $CF . "</div>";
                     $row[] = "<div class='cf' data_org = '" . $CF . "' data_stdID='" . $student->student_session_id . "'>" . $CF . "</div>";
-
+                    // Add the row to the data array
                     $dt_data[] = $row;
                 } else {
+                    // Initialize variables and arrays for each student
                     $addstep = 0;
                     $row   = array();
+                    // Populate student data into table rows
                     $row[] = "<div data_id=" . $student->id . ">" . $student->admission_no . "</div>";
                     $row[] = '';
                     $row[] = $this->customlib->getFullName($student->firstname, $student->middlename, $student->lastname, $sch_setting->middlename, $sch_setting->lastname);
@@ -954,11 +968,12 @@ class Grading_result extends Admin_Controller
                     $row[] = $O2;
                     $row[] = "<div class='a' data_org = '" . $A . "' data_stdID='" . $student->student_session_id . "'>" . $A . "</div>";
                     $row[] = "<div class='r' data_org = '" . $R . "' data_stdID='" . $student->student_session_id . "'>" . $R . "</div>";
+                    // Add the row to the data array
                     $dt_data[] = $row;
                 }
             }
         }
-
+        // Prepare JSON response for the data table
         $json_data           = array(
             "draw"                => intval($students->draw),
             "recordsTotal"        => intval($students->recordsTotal),
@@ -967,7 +982,7 @@ class Grading_result extends Admin_Controller
             "students"            => $students,
             "class_section_subject_id" => [$class, $section, $subject_id],
         );
-
+        // Output JSON response for the data table
         echo json_encode($json_data);
     }
 
@@ -1021,7 +1036,7 @@ class Grading_result extends Admin_Controller
             foreach ($students->data as $student) {
                 $addstep = 0;
                 $row   = array();
-                $row[] = "<div data_id=" . $student->id . ">" . $student->admission_no . "</div>";
+                $row[] = "<div data_id=" . $student->id . ">" . $student->roll_no . "</div>";
                 $row[] = $index;
                 $index++;
                 $row[] = $this->customlib->getFullName($student->firstname, $student->middlename, $student->lastname, $sch_setting->middlename, $sch_setting->lastname);
@@ -1398,6 +1413,7 @@ class Grading_result extends Admin_Controller
                         if ($period_rports[$i + 12] < 70) $pc4 = $pc4 + $period_rportsRP[$i + 12] / 4;
                         else $pc4 = $pc4 + $period_rports[$i + 12] / 4;
                     }
+                    //teachers deliverable grading reports to coordinator;
 
                     if ($period_rports[0] == "" || $period_rports[1] == "" || $period_rports[2] == "" || $period_rports[3] == "") $pc_show1 = ""; else $pc_show1 = round($pc1);
                     if ($period_rports[4] == "" || $period_rports[5] == "" || $period_rports[6] == "" || $period_rports[7] == "") $pc_show2 = ""; else $pc_show2 = round($pc2);
@@ -2288,7 +2304,6 @@ class Grading_result extends Admin_Controller
                     $data['valuescaleList'] = $valuescale;
                 }
             }
-            // echo json_encode($data);
             $this->load->view('admin/gradingreport/grading_newreport', $data);
         }
         catch (Exception $e){
@@ -2576,7 +2591,7 @@ class Grading_result extends Admin_Controller
         }
 
         if (isset($_POST)) {
-            $student_session_id = $_POST['student_session_id'];
+            $student_session_id = (int)$_POST['student_session_id'];
             $student = $this->Studentsession_model->searchStudentsBySession($student_session_id);
 
             $postDatas = array();
@@ -2616,7 +2631,7 @@ class Grading_result extends Admin_Controller
                 $postData['student_session_id'] = $student_session_id;
                 $postData['subject_group_subjects_id'] = $subjectkey;
 
-                $grading_marker = $this->Gradingreport_model->getReportByStudentAndSubject($student_session_id, $subjectkey);
+                $grading_marker = $this->Gradingreport_model->getNewReportByStudentAndSubject($student_session_id, $subjectkey);
                 //$postData['update_date_'.$subjectkey.substr(1,1)] = date("y-m-d");
                 if (empty($grading_marker)) {
                     $this->Gradingreport_model->add_subjectnewreport($postData);
@@ -2737,30 +2752,25 @@ class Grading_result extends Admin_Controller
                 $period_list = $this->Gradingreport_model->getPeriodByLevel($data['level_id']);
                 $data['periodList'] = $period_list;
                 $monthlist = $this->customlib->getMonthDropdown();
-				if($this->session->userdata['admin']['language']['language'] == 'English')
-				{
-					$month['January'] = "enero";
-					$month['February'] = "febrero";
-					$month['March'] = "marzo";
-					$month['April'] = "abril";
-					$month['May'] = "Mayo";
-					$month['June'] = "junio";
-					$month['July'] = "julio";
-					$month['August'] = "agosto";
-					$month['September'] = "septiembre";
-					$month['October'] = "octubre";
-					$month['November'] = "noviembre";
-					$month['December'] = "diciembre";
-					$data['monthlist'] = $month;
-				}
-				else
-				{
-					$data['monthlist'] = $monthlist;
-				}
-                
+                if($this->session->userdata['admin']['language']['language'] == 'English')
+                {
+                    $month['January'] = "Enero";
+                    $month['February'] = "Febrero";
+                    $month['March'] = "Marzo";
+                    $month['April'] = "Abril";
+                    $month['May'] = "Mayo";
+                    $month['June'] = "Junio";
+                    $month['July'] = "Julio";
+                    $month['August'] = "Agosto";
+                    $month['September'] = "Septiembre";
+                    $month['October'] = "Octubre";
+                    $month['November'] = "Noviembre";
+                    $month['December'] = "Diciembre";
+                    $data['monthlist'] = $month;
+                }
+
                 $data['sch_setting'] = $this->sch_setting_detail;
                 $data['isPrekender'] = $class_level['level_id'] != 43 ? true : false;
-
                 if ($data['isPrekender']) {
                     $data['competenceList'] = array();
                     $data['indicatorsList'] = array();
@@ -3035,28 +3045,22 @@ class Grading_result extends Admin_Controller
                         error_log("print card 1753.");
                         $class_id = 0;
                         if ($data['level'] == "NIVEL INICIAL")
-                            $class_id = 3;
+                            $class_id = 41;
                         else
                             $class_id = 42;
-                        error_log("print card 1759." . $class_id);
                         $valuescale = $this->Gradingreport_model->getValuescaleByClass($class_id);
-                        error_log("print card 1761." . print_r($valuescale, true));
                         $data['valuescaleList'] = $valuescale;
                         $data['order_number'] = $order_number;
                         $student_admit_cards = $this->load->view('admin/gradingreport/newreportview', $data, true);
-                        error_log("student admit cards: " . $student_admit_cards);
                         $renderprintpage .= " " . $student_admit_cards . " ";
                         $order_number++;
-                        error_log("print card 1764.");
                     } else if ($data['is_primary']) {
-                        error_log("print card 1768.");
                         $subjects = array();
                         $subject_groups = $this->subjectgroup_model->getGroupByClassandSection($student['class_id'], $student['section_id']);
                         foreach ($subject_groups as $subject_group) {
                             $groupsubjects = $this->subjectgroup_model->getGroupsubjects($subject_group['subject_group_id']);
                             array_splice($subjects, count($subjects), 0, $groupsubjects);
                         }
-                        error_log("print card 1775.");
                         $grading_subject_results = array();
                         foreach ($subjects as $subject) {
                             $result = $this->Gradingreport_model->getNewReportByStudentAndSubject($student_session_id, $subject->id);

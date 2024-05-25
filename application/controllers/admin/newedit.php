@@ -7,8 +7,6 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
             <i class="fa fa-user-plus"></i> <?php echo $this->lang->line('student_information'); ?> <small><?php echo $this->lang->line('student1'); ?></small>
         </h1>
     </section>
-	
-	
     <style type="text/css">
         @media (min-width: 1024px) {
             .row-eq-height {
@@ -32,31 +30,15 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
             padding-left: 4px;
         }
 
-        .student-list-primary th,
-        .student-list-primary td {
+        .student-list th,
+        .student-list td {
             border: 1px solid #ddd !important;
             text-align: center !important;
             vertical-align: bottom !important;
         }
 
-        .student-list-primaryR th,
-        .student-list-primaryR td {
-            border: 1px solid #ddd !important;
-            text-align: center !important;
-            vertical-align: bottom !important;
-        }
-        .student-list-secondary th,
-        .student-list-secondary td {
-            border: 1px solid #ddd !important;
-            text-align: center !important;
-            vertical-align: bottom !important;
-        }
         .darksalmon {
             background-color: darksalmon !important;
-        }
-
-           .PaleGreen {
-            background-color: PaleGreen !important;
         }
 
         .lightgreen {
@@ -66,19 +48,11 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
         .yellow {
             background-color: yellow !important;
         }
-		
-		 .CornflowerBlue {
-            background-color: CornflowerBlue !important;
-        }
 
         .lightblue {
             background-color: lightblue !important;
         }
 
-
-        .lightyellow {
-            background-color: lightyellow !important;
-        }
         .pink {
             background-color: #f3a6c0 !important;
         }
@@ -104,9 +78,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
 
         .subjectlabelth {
             font-weight: bold;
-            font-size: 12px;
-			top: 0;
-			position: sticky;
+            font-size: 16px;
         }
 
         input::-webkit-outer-spin-button,
@@ -126,22 +98,6 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
         .rotated {
             transform: rotate(180deg);
         }
-        .fixTableHead { 
-            overflow-y: auto; 
-            height: 510px; 
-        } 
-        .fixTableHead thead { 
-            position: sticky; 
-            top: 0; 
-            background-color: white;
-            z-index: 1000;
-        } 
-        table { 
-            border-collapse: collapse;		 
-            width: 100%; 
-        } 
-		
-		
     </style>
     <!-- Main content -->
     <section class="content">
@@ -219,16 +175,17 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
-                                <div class="table-responsive fixTableHead" id="transfee">
-                                    <table class="table table-striped table-bordered table-hover student-list-secondary" data-export-title="<?php echo $this->lang->line('student') . " " . $this->lang->line('list'); ?>">
+                                <div class="table-responsive" id="transfee">
+                                    
+                                    <table class="table table-striped table-bordered table-hover student-list" data-export-title="<?php echo $this->lang->line('student') . " " . $this->lang->line('list'); ?>">
                                         <thead>
                                             <tr>
-					
                                                 <th class="subjectlabelth" colspan="3" rowspan="2"></th>
+                                                <!-- <th class="pink" colspan="1">COMPETENCIAS FUNDAMENTALES</th> -->
                                                 <th class="pink" colspan="8" rowspan="2">Comunicativa</th>
-                                                <th class="CornflowerBlue" colspan="8" rowspan="2">• Pensamiento Lógico, <br> Creativo y Crítico <br> • Resolución de Problemas</th>
+                                                <th class="yellow" colspan="8" rowspan="2">• Pensamiento Lógico, <br> Creativo y Crítico <br> • Resolución de Problemas</th>
                                                 <th class="lightgreen" colspan="8" rowspan="2">• Científica y Tecnológica <br> • Ambiental y de la Salud</th>
-                                                <th class="yellow" colspan="8" rowspan="2">• Ética y Ciudadana <br> • Desarrollo Personal <br> y Espiritual</th>
+                                                <th class="lightblue" colspan="8" rowspan="2">• Ética y Ciudadana <br> • Desarrollo Personal <br> y Espiritual</th>
                                                 <th class="pink" colspan="4" rowspan="2">PROMEDIO GRUPO <br> DE COMPETENCIAS <br> ESPECÍFICAS</th>
                                                 <th class="lightpink vertical-lr rotated" colspan="1" rowspan="3">CALIFICACIÓN <br> FINAL DEL ÁREA</th>
                                                 <th class="pink" colspan="4">CALIFICACIÓN <br> COMPLETIVA</th>
@@ -260,93 +217,6 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                 <th class="lightpink">RP3</th>
                                                 <th class="lightpink">P4</th>
                                                 <th class="lightpink">RP4</th>
-                                                <th class="lightblue">P1</th>
-                                                <th class="lightblue">RP1</th>
-                                                <th class="lightblue">P2</th>
-                                                <th class="lightblue">RP2</th>
-                                                <th class="lightblue">P3</th>
-                                                <th class="lightblue">RP3</th>
-                                                <th class="lightblue">P4</th>
-                                                <th class="lightblue">RP4</th>
-                                                <th class="PaleGreen">P1</th>
-                                                <th class="PaleGreen">RP1</th>
-                                                <th class="PaleGreen">P2</th>
-                                                <th class="PaleGreen">RP2</th>
-                                                <th class="PaleGreen">P3</th>
-                                                <th class="PaleGreen">RP3</th>
-                                                <th class="PaleGreen">P4</th>
-                                                <th class="PaleGreen">RP4</th>
-                                                <th class="lightyellow">P1</th>
-                                                <th class="lightyellow">RP1</th>
-                                                <th class="lightyellow">P2</th>
-                                                <th class="lightyellow">RP2</th>
-                                                <th class="lightyellow">P3</th>
-                                                <th class="lightyellow">RP3</th>
-                                                <th class="lightyellow">P4</th>
-                                                <th class="lightyellow">RP4</th>
-                                                <th class="lightpink">PC1</th>
-                                                <th class="lightpink">PC2</th>
-                                                <th class="lightpink">PC3</th>
-                                                <th class="lightpink">PC4</th>
-                                                <th class="pink">A</th>
-                                                <th class="pink">R</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                    <table class="table table-striped table-bordered table-hover student-list-primary" data-export-title="<?php echo $this->lang->line('student') . " " . $this->lang->line('list'); ?>" style="display: none;">
-                                        <thead>
-                                            <tr>
-                                                <th class="subjectlabelth" colspan="3" rowspan="1"></th>
-                                                <!-- <th class="pink" colspan="1">COMPETENCIAS FUNDAMENTALES</th> -->
-                                                <th class="pink" colspan="4" rowspan="1">Comunicativa</th>
-                                                <th class="CornflowerBlue" colspan="4" rowspan="1">• Pensamiento Lógico, Creativo y  <br> Crítico • Resolución de Problemas <br> • Científica y Tecnológica</th>
-                                                <th class="lightgreen" colspan="4" rowspan="1">• Ética y Ciudadana • Desarrollo <br> Personal y Espiritual <br> • Ambiental y de la Salud</th>
-                                                <th class="pink" colspan="3" rowspan="1"> Calificación final <br> por competencia</th>
-                                                <th class="lightpink vertical-lr rotated" colspan="1" rowspan="2">CALIFICACIÓN <br> FINAL DEL ÁREA</th>
-                                                <th class="lightpink vertical-lr rotated" colspan="1" rowspan="2">CALIFICACIÓN <br> RECUPERACIÓN <br> FINAL</th>
-                                            </tr>
-                                            <tr>
-                                                <th><?php echo $this->lang->line('roll_no'); ?></th>
-                                                <th><?php echo $this->lang->line('no'); ?></th>
-                                                <th><?php echo $this->lang->line('student_name'); ?></th>
-                                                <th class="lightpink">P1</th>
-                                                <th class="lightpink">P2</th>
-                                                <th class="lightpink">P3</th>
-                                                <th class="lightpink">P4</th>
-                                                <th class="lightblue">P1</th>
-                                                <th class="lightblue">P2</th>
-                                                <th class="lightblue">P3</th>
-                                                <th class="lightblue">P4</th>
-                                                <th class="PaleGreen">P1</th>
-                                                <th class="PaleGreen">P2</th>
-                                                <th class="PaleGreen">P3</th>
-                                                <th class="PaleGreen">P4</th>
-                                                <th class="lightpink">C1</th>
-                                                <th class="lightpink">C2</th>
-                                                <th class="lightpink">C3</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                    <table class="table table-striped table-bordered table-hover student-list-primaryR" data-export-title="<?php echo $this->lang->line('student') . " " . $this->lang->line('list'); ?>" style="display: none;">
-                                        <thead>
-                                            <tr>
-                                                <th class="subjectlabelth" colspan="3" rowspan="1"></th>
-                                                <!-- <th class="pink" colspan="1">COMPETENCIAS FUNDAMENTALES</th> -->
-                                                <th class="pink" colspan="8" rowspan="1">Comunicativa</th>
-                                                <th class="CornflowerBlue" colspan="8" rowspan="1">• Pensamiento Lógico, Creativo y  <br> Crítico • Resolución de Problemas <br> • Científica y Tecnológica</th>
-                                                <th class="lightgreen" colspan="8" rowspan="1">• Ética y Ciudadana • Desarrollo <br> Personal y Espiritual <br> • Ambiental y de la Salud</th>
-                                                <th class="pink" colspan="3" rowspan="1"> Calificación final <br> por competencia</th>
-                                                <th class="lightpink vertical-lr rotated" colspan="1" rowspan="2">CALIFICACIÓN <br> FINAL DEL ÁREA</th>
-                                                <th class="lightpink vertical-lr rotated" colspan="1" rowspan="2">CALIFICACIÓN <br> RECUPERACIÓN <br> FINAL</th>
-                                            </tr>
-                                            <tr>
-                                                <th><?php echo $this->lang->line('roll_no'); ?></th>
-                                                <th><?php echo $this->lang->line('no'); ?></th>
-                                                <th><?php echo $this->lang->line('student_name'); ?></th>
                                                 <th class="lightpink">P1</th>
                                                 <th class="lightpink">RP1</th>
                                                 <th class="lightpink">P2</th>
@@ -355,25 +225,28 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                 <th class="lightpink">RP3</th>
                                                 <th class="lightpink">P4</th>
                                                 <th class="lightpink">RP4</th>
-                                                <th class="lightblue">P1</th>
-                                                <th class="lightblue">RP1</th>
-                                                <th class="lightblue">P2</th>
-                                                <th class="lightblue">RP2</th>
-                                                <th class="lightblue">P3</th>
-                                                <th class="lightblue">RP3</th>
-                                                <th class="lightblue">P4</th>
-                                                <th class="lightblue">RP4</th>
-                                                <th class="PaleGreen">P1</th>
-                                                <th class="PaleGreen">RP1</th>
-                                                <th class="PaleGreen">P2</th>
-                                                <th class="PaleGreen">RP2</th>
-                                                <th class="PaleGreen">P3</th>
-                                                <th class="PaleGreen">RP3</th>
-                                                <th class="PaleGreen">P4</th>
-                                                <th class="PaleGreen">RP4</th>
-                                                <th class="lightpink">C1</th>
-                                                <th class="lightpink">C2</th>
-                                                <th class="lightpink">C3</th>
+                                                <th class="lightpink">P1</th>
+                                                <th class="lightpink">RP1</th>
+                                                <th class="lightpink">P2</th>
+                                                <th class="lightpink">RP2</th>
+                                                <th class="lightpink">P3</th>
+                                                <th class="lightpink">RP3</th>
+                                                <th class="lightpink">P4</th>
+                                                <th class="lightpink">RP4</th>
+                                                <th class="lightpink">P1</th>
+                                                <th class="lightpink">RP1</th>
+                                                <th class="lightpink">P2</th>
+                                                <th class="lightpink">RP2</th>
+                                                <th class="lightpink">P3</th>
+                                                <th class="lightpink">RP3</th>
+                                                <th class="lightpink">P4</th>
+                                                <th class="lightpink">RP4</th>
+                                                <th class="lightpink">PC1</th>
+                                                <th class="lightpink">PC2</th>
+                                                <th class="lightpink">PC3</th>
+                                                <th class="lightpink">PC4</th>
+                                                <th class="pink">A</th>
+                                                <th class="pink">R</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -391,193 +264,71 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
             <strong><?php echo $this->lang->line('subject');?>:</strong> <span id="subjectnameforprint"></span><br>
             <strong><?php echo $this->lang->line('teacher');?>:</strong> <?php echo $this->customlib->getUserData()['name'] . " " . $this->customlib->getUserData()['surname']; ?><br>
             <style type="text/css">
-                .print-table-primary{
+                .print-table{
                     width: 100% !important;
                     border-collapse: collapse;
                 }
-                .print-table-primary th, .print-table-primary td{
-                    border: 1px solid #ddd !important;
-                    text-align: center !important;
-                    vertical-align: bottom !important;
-                    padding: 5px;
-                }
-                .print-table-primaryR{
-                    width: 100% !important;
-                    border-collapse: collapse;
-                }
-                .print-table-primaryR th, .print-table-primaryR td{
-                    border: 1px solid #ddd !important;
-                    text-align: center !important;
-                    vertical-align: bottom !important;
-                    padding: 5px;
-                }
-                .print-table-secondary{
-                    width: 100% !important;
-                    border-collapse: collapse;
-                }
-                .print-table-secondary th, .print-table-secondary td{
+                .print-table th, .print-table td{
                     border: 1px solid #ddd !important;
                     text-align: center !important;
                     vertical-align: bottom !important;
                     padding: 5px;
                 }
             </style>
-            <table class="table table-striped table-bordered table-hover print-table-secondary" data-export-title="<?php echo $this->lang->line('student') . " " . $this->lang->line('list'); ?>">
+            <table class="print-table" data-export-title="<?php echo $this->lang->line('student') . " " . $this->lang->line('list'); ?>">
                 <thead>
                     <tr>
                         <th class="subjectlabelth" colspan="3" rowspan="2"></th>
-                        <!-- <th class="pink" colspan="1">COMPETENCIAS FUNDAMENTALES</th> -->
-                        <th class="pink" colspan="8" rowspan="2">Comunicativa</th>
-                        <th class="pink" colspan="8" rowspan="2">• Pensamiento Lógico, <br> Creativo y Crítico <br> • Resolución de Problemas</th>
-                        <th class="pink" colspan="8" rowspan="2">• Científica y Tecnológica <br> • Ambiental y de la Salud</th>
-                        <th class="pink" colspan="8" rowspan="2">• Ética y Ciudadana <br> • Desarrollo Personal <br> y Espiritual</th>
-                        <th class="pink" colspan="4" rowspan="2">PROMEDIO GRUPO <br> DE COMPETENCIAS <br> ESPECÍFICAS</th>
-                        <th class="lightpink vertical-lr rotated" colspan="1" rowspan="3">CALIFICACIÓN <br> FINAL DEL ÁREA</th>
-                        <th class="pink" colspan="4">CALIFICACIÓN <br> COMPLETIVA</th>
-                        <th class="pink" colspan="4">CALIFICACIÓN <br> EXTRAORDINARIA</th>
-                        <th class="pink" colspan="2">EVALUACIÓN <br> ESPECIAL</th>
-                        <th class="pink" colspan="2" rowspan="2">SITUACIÓN <br> FINAL EN LA <br> ASIGNATURA</th>
+                        <th class="darksalmon" colspan="<?php echo count($periodList) + 1 ?>">CALIFICACIONES DEL AÑO ESCOLAR</th>
+                        <?php //if ($addstep > 0) { 
+                        ?>
+                        <th class="lightgreen" colspan="4">CALIFICACIÓN COMPLETIVA</th>
+                        <?php //} 
+                        ?>
+                        <?php //if ($addstep > 1) { 
+                        ?>
+                        <th class="yellow" colspan="4">CALIFICACIÓN EXTRAORDINARIA</th>
+                        <?php //} 
+                        ?>
+                        <th colspan="2">SITUACIÓN FINAL</th>
+                        <th colspan="2">C.A.P.</th>
                     </tr>
                     <tr>
-                        <th class="pink vertical-lr rotated" rowspan="2">50% C. F.</th>
-                        <th class="pink vertical-lr rotated" rowspan="2">C.E.C.</th>
-                        <th class="pink vertical-lr rotated" rowspan="2">50% C.E.C.</th>
-                        <th class="lightpink vertical-lr rotated" rowspan="2">C.C.F.</th>
-                        <th class="pink vertical-lr rotated" rowspan="2">30% C.F.</th>
-                        <th class="pink vertical-lr rotated" rowspan="2">C.E. EX</th>
-                        <th class="pink vertical-lr rotated" rowspan="2">70% C.E. EX</th>
-                        <th class="lightpink vertical-lr rotated" rowspan="2">C.EX.F.</th>
-                        <th class="pink vertical-lr rotated" rowspan="2">C.F.</th>
-                        <th class="lightpink vertical-lr rotated" rowspan="2">C.E.</th>
+                        <th colspan="<?php echo count($periodList) ?>">Calificaciones Parciales</th>
+                        <th class="lightblue" rowspan="2">C.F.</th>
+                        <?php //if ($addstep > 0) { 
+                        ?>
+                        <th rowspan="2">50% P.C.P.</th>
+                        <th rowspan="2">C.P.C.</th>
+                        <th rowspan="2">50% C.P.C.</th>
+                        <th class="lightblue" rowspan="2">C.C.</th>
+                        <?php //} 
+                        ?>
+                        <?php //if ($addstep > 1) { 
+                        ?>
+                        <th rowspan="2">30% P.C.P.</th>
+                        <th rowspan="2">C.P.EX.</th>
+                        <th rowspan="2">70% C.P.EX.</th>
+                        <th class="lightblue" rowspan="2">C.EX.</th>
+                        <?php //} 
+                        ?>
+                        <th rowspan="2">A</th>
+                        <th rowspan="2">R</th>
+                        <th colspan="2">OPORTUNIDAD</th>
                     </tr>
                     <tr>
-                        <th><?php echo $this->lang->line('roll_no'); ?></th>
+                        <th><?php echo $this->lang->line('admission_no'); ?></th>
                         <th><?php echo $this->lang->line('no'); ?></th>
                         <th><?php echo $this->lang->line('student_name'); ?></th>
-                        <th class="lightpink">P1</th>
-                        <th class="lightpink">RP1</th>
-                        <th class="lightpink">P2</th>
-                        <th class="lightpink">RP2</th>
-                        <th class="lightpink">P3</th>
-                        <th class="lightpink">RP3</th>
-                        <th class="lightpink">P4</th>
-                        <th class="lightpink">RP4</th>
-                        <th class="lightpink">P1</th>
-                        <th class="lightpink">RP1</th>
-                        <th class="lightpink">P2</th>
-                        <th class="lightpink">RP2</th>
-                        <th class="lightpink">P3</th>
-                        <th class="lightpink">RP3</th>
-                        <th class="lightpink">P4</th>
-                        <th class="lightpink">RP4</th>
-                        <th class="lightpink">P1</th>
-                        <th class="lightpink">RP1</th>
-                        <th class="lightpink">P2</th>
-                        <th class="lightpink">RP2</th>
-                        <th class="lightpink">P3</th>
-                        <th class="lightpink">RP3</th>
-                        <th class="lightpink">P4</th>
-                        <th class="lightpink">RP4</th>
-                        <th class="lightpink">P1</th>
-                        <th class="lightpink">RP1</th>
-                        <th class="lightpink">P2</th>
-                        <th class="lightpink">RP2</th>
-                        <th class="lightpink">P3</th>
-                        <th class="lightpink">RP3</th>
-                        <th class="lightpink">P4</th>
-                        <th class="lightpink">RP4</th>
-                        <th class="lightpink">PC1</th>
-                        <th class="lightpink">PC2</th>
-                        <th class="lightpink">PC3</th>
-                        <th class="lightpink">PC4</th>
-                        <th class="pink">A</th>
-                        <th class="pink">R</th>
-                    </tr>
-                </thead>
-                </tbody>
-            </table>
-            <table class="table table-striped table-bordered table-hover print-table-primary" data-export-title="<?php echo $this->lang->line('student') . " " . $this->lang->line('list'); ?>" style="display: none;">
-                <thead>
-                    <tr>
-                        <th class="subjectlabelth" colspan="3" rowspan="1"></th>
-                        <!-- <th class="pink" colspan="1">COMPETENCIAS FUNDAMENTALES</th> -->
-                        <th class="pink" colspan="4" rowspan="1">Comunicativa</th>
-                        <th class="pink" colspan="4" rowspan="1">• Pensamiento Lógico, Creativo y  <br> Crítico • Resolución de Problemas <br> • Científica y Tecnológica</th>
-                        <th class="pink" colspan="4" rowspan="1">• Ética y Ciudadana • Desarrollo <br> Personal y Espiritual <br> • Ambiental y de la Salud</th>
-                        <th class="pink" colspan="3" rowspan="1"> Calificación final <br> por competencia</th>
-                        <th class="lightpink vertical-lr rotated" colspan="1" rowspan="2">CALIFICACIÓN <br> FINAL DEL ÁREA</th>
-                        <th class="lightpink vertical-lr rotated" colspan="1" rowspan="2">Calificación <br> recuperación <br> final</th>
-                    </tr>
-                    <tr>
-                        <th><?php echo $this->lang->line('roll_no'); ?></th>
-                        <th><?php echo $this->lang->line('no'); ?></th>
-                        <th><?php echo $this->lang->line('student_name'); ?></th>
-                        <th class="lightpink">P1</th>
-                        <th class="lightpink">P2</th>
-                        <th class="lightpink">P3</th>
-                        <th class="lightpink">P4</th>
-                        <th class="lightpink">P1</th>
-                        <th class="lightpink">P2</th>
-                        <th class="lightpink">P3</th>
-                        <th class="lightpink">P4</th>
-                        <th class="lightpink">P1</th>
-                        <th class="lightpink">P2</th>
-                        <th class="lightpink">P3</th>
-                        <th class="lightpink">P4</th>
-                        <th class="lightpink">C1</th>
-                        <th class="lightpink">C2</th>
-                        <th class="lightpink">C3</th>
+                        <?php  foreach($periodList as $key=>$value) { ?>
+                            <th><?php echo $value['label']; ?></th>
+                        <?php } ?>
+                        <th>1</th>
+                        <th>2</th>
                     </tr>
                 </thead>
                 <tbody>
-                </tbody>
-            </table>
-            <table class="table table-striped table-bordered table-hover print-table-primaryR" data-export-title="<?php echo $this->lang->line('student') . " " . $this->lang->line('list'); ?>" style="display: none;">
-                <thead>
-                    <tr>
-                        <th class="subjectlabelth" colspan="3" rowspan="1"></th>
-                        <!-- <th class="pink" colspan="1">COMPETENCIAS FUNDAMENTALES</th> -->
-                        <th class="pink" colspan="8" rowspan="1">Comunicativa</th>
-                        <th class="pink" colspan="8" rowspan="1">• Pensamiento Lógico, Creativo y  <br> Crítico • Resolución de Problemas <br> • Científica y Tecnológica</th>
-                        <th class="pink" colspan="8" rowspan="1">• Ética y Ciudadana • Desarrollo <br> Personal y Espiritual <br> • Ambiental y de la Salud</th>
-                        <th class="pink" colspan="3" rowspan="1"> Calificación final <br> por competencia</th>
-                        <th class="lightpink vertical-lr rotated" colspan="1" rowspan="2">CALIFICACIÓN <br> FINAL DEL ÁREA</th>
-                        <th class="lightpink vertical-lr rotated" colspan="1" rowspan="2">Calificación <br> recuperación <br> final</th>
-                    </tr>
-                    <tr>
-                        <th><?php echo $this->lang->line('roll_no'); ?></th>
-                        <th><?php echo $this->lang->line('no'); ?></th>
-                        <th><?php echo $this->lang->line('student_name'); ?></th>
-                        <th class="lightpink">P1</th>
-                        <th class="lightpink">RP1</th>
-                        <th class="lightpink">P2</th>
-                        <th class="lightpink">RP2</th>
-                        <th class="lightpink">P3</th>
-                        <th class="lightpink">RP3</th>
-                        <th class="lightpink">P4</th>
-                        <th class="lightpink">RP4</th>
-                        <th class="lightpink">P1</th>
-                        <th class="lightpink">RP1</th>
-                        <th class="lightpink">P2</th>
-                        <th class="lightpink">RP2</th>
-                        <th class="lightpink">P3</th>
-                        <th class="lightpink">RP3</th>
-                        <th class="lightpink">P4</th>
-                        <th class="lightpink">RP4</th>
-                        <th class="lightpink">P1</th>
-                        <th class="lightpink">RP1</th>
-                        <th class="lightpink">P2</th>
-                        <th class="lightpink">RP2</th>
-                        <th class="lightpink">P3</th>
-                        <th class="lightpink">RP3</th>
-                        <th class="lightpink">P4</th>
-                        <th class="lightpink">RP4</th>
-                        <th class="lightpink">C1</th>
-                        <th class="lightpink">C2</th>
-                        <th class="lightpink">C3</th>
-                    </tr>
-                </thead>
-                <tbody>
+
                 </tbody>
             </table>
         </div>
@@ -764,11 +515,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
 
     function saveSecondaryEdit() {
         var data = [];
-        let class_id = $("#searchclassid").val();
-        let tableClass = ".student-list-secondary";
-        if (class_id > 8 && class_id < 16) tableClass = ".student-list-primary"
-        if (class_id > 15 && class_id < 24) tableClass = ".student-list-primaryR"
-        $(tableClass + ' tbody tr').each(function() {
+        $('.student-list tbody tr').each(function() {
             var student_session_id = $(this).find('.td-input').attr('data_stdID');
             student_report = {
                 student_session_id: student_session_id,
@@ -776,7 +523,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
             };
             $(this).find('.td-input').each(function() {
                 var name = $(this).attr('data_column');
-                var value = $(this).hasClass('disable-addtest') ? '' : Math.max(Math.min($(this).val(), 100), 0);
+                var value = $(this).hasClass('disable-addtest') ? '' : $(this).val();
                 student_report.report.push({
                     name: name,
                     value: value
@@ -802,19 +549,17 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
             },
             success: function(response) {
                 if (response.success) {
+                    if ($.fn.DataTable.isDataTable('.print-table')) { // if exist datatable it will destrory first
+                        $('.print-table').DataTable().destroy();
+                    }
+                    
                     var data =
                     {
                         "class_id":$('#searchclassid').val(), 
                         "section_id":$('#secid').val(),
                         "subject_id":$('#subid').val(),
                     };
-                    let printTableName = ".print-table-secondary";
-                    if (class_id > 8 && class_id < 16) printTableName = ".print-table-primary"
-                    if (class_id > 15 && class_id < 24) printTableName = ".print-table-primaryR"
-                    if ($.fn.DataTable.isDataTable(printTableName)) { // if exist datatable it will destrory first
-                        $(printTableName).DataTable().destroy();
-                    }
-                    ptable = $(printTableName).DataTable({
+                ptable = $('.print-table').DataTable({
                     // "scrollX": true,
                     dom: 'Bfrtip',
                     buttons: [],
@@ -828,7 +573,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                     "processing": true,
                     "serverSide": true,
                     "ajax": {
-                        "url": baseurl + "admin/grading_result/dtneweditstudentlistforprint",
+                        "url": baseurl + "admin/grading_result/dteditstudentlistforprint",
                         "dataSrc": 'data',
                         "type": "POST",
                         'data': data,
@@ -851,9 +596,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
 
     $(document).ready(function() {
 
-        emptyDatatable('student-list-primary', 'data');
-        emptyDatatable('student-list-primaryR', 'data');
-        emptyDatatable('student-list-secondary', 'data');
+        emptyDatatable('student-list', 'data');
 
         $(document).on('submit', '.class_search_subject_form', function(e) {
             e.preventDefault(); // avoid to execute the actual submit of the form.
@@ -865,34 +608,6 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                 name: 'search_type',
                 value: 'search_edit'
             });
-            console.log("form_data: ", form_data);
-            let class_id = 0;
-            for (let i = 0; i < form_data.length; i ++) {
-                if (form_data[i]['name'] == "class_id") class_id = form_data[i]["value"];
-            }
-            console.log("class id: ", class_id);
-            if (class_id > 8 && class_id < 16) {
-                $(".student-list-primary").css("display", "");
-                $(".student-list-primaryR").css("display", "none");
-                $(".student-list-secondary").css("display", "none");
-                $(".print-table-primary").css("display", "");
-                $(".print-table-primaryR").css("display", "none");
-                $(".print-table-secondary").css("display", "none");
-            } else if (class_id > 15 && class_id < 24) {
-                $(".student-list-primary").css("display", "none");
-                $(".student-list-primaryR").css("display", "");
-                $(".student-list-secondary").css("display", "none");
-                $(".print-table-primary").css("display", "none");
-                $(".print-table-primaryR").css("display", "");
-                $(".print-table-secondary").css("display", "none");
-            } else {
-                $(".student-list-primary").css("display", "none");
-                $(".student-list-primaryR").css("display", "none");
-                $(".student-list-secondary").css("display", "");
-                $(".print-table-primary").css("display", "none");
-                $(".print-table-primaryR").css("display", "none");
-                $(".print-table-secondary").css("display", "");
-            }
             $.ajax({
                 url: url,
                 type: "POST",
@@ -920,13 +635,10 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
 
                         $('.subjectlabelth').text($('#subid option[value="' + $('#subid').val() + '"]').html());
 
-                        let tableClass = ".student-list-secondary";
-                        if (class_id > 8 && class_id < 16) tableClass = ".student-list-primary"
-                        if (class_id > 15 && class_id < 24) tableClass = ".student-list-primaryR"
-                        if ($.fn.DataTable.isDataTable(tableClass)) { // if exist datatable it will destrory first
-                            $(tableClass).DataTable().destroy();
+                        if ($.fn.DataTable.isDataTable('.student-list')) { // if exist datatable it will destrory first
+                            $('.student-list').DataTable().destroy();
                         }
-                        table = $(tableClass).DataTable({
+                        table = $('.student-list').DataTable({
                             // "scrollX": true,
                             dom: 'Bfrtip',
                             buttons: [],
@@ -948,13 +660,10 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                 /* Append the grade to the default row class name */
                                 $('td:eq(1)', nRow).html(iDisplayIndex + 1)
                                 var period_count = <?= count($periodList) ?> * 1;
-                                if (class_id > 8 && class_id < 24);
-                                else {
-                                    $('td:eq(' + (35 + period_count) + ')', nRow).addClass('lightpink');
-                                    $('td:eq(' + (39 + period_count) + ')', nRow).addClass('lightpink');
-                                    $('td:eq(' + (43 + period_count) + ')', nRow).addClass('lightpink');
-                                    $('td:eq(' + (45 + period_count) + ')', nRow).addClass('lightpink');
-                                }
+                                $('td:eq(' + (35 + period_count) + ')', nRow).addClass('lightpink');
+                                $('td:eq(' + (39 + period_count) + ')', nRow).addClass('lightpink');
+                                $('td:eq(' + (43 + period_count) + ')', nRow).addClass('lightpink');
+                                $('td:eq(' + (45 + period_count) + ')', nRow).addClass('lightpink');
 
                                 if ($('.cf', nRow).html() * 1 < 70) {
                                     $('.cf', nRow).addClass('red_text');
@@ -971,13 +680,11 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
 
                         });
 
-                        let printTableName = ".print-table-secondary";
-                        if (class_id > 8 && class_id < 16) printTableName = ".print-table-primary"
-                        if (class_id > 15 && class_id < 24) printTableName = ".print-table-primaryR"
-                        if ($.fn.DataTable.isDataTable(printTableName)) { // if exist datatable it will destrory first
-                            $(printTableName).DataTable().destroy();
+                        
+                        if ($.fn.DataTable.isDataTable('.print-table')) { // if exist datatable it will destrory first
+                            $('.print-table').DataTable().destroy();
                         }
-                        ptable = $(printTableName).DataTable({
+                        ptable = $('.print-table').DataTable({
                             // "scrollX": true,
                             dom: 'Bfrtip',
                             buttons: [],
@@ -991,7 +698,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                             "processing": true,
                             "serverSide": true,
                             "ajax": {
-                                "url": baseurl + "admin/grading_result/dtneweditstudentlistforprint",
+                                "url": baseurl + "admin/grading_result/dteditstudentlistforprint",
                                 "dataSrc": 'data',
                                 "type": "POST",
                                 'data': response.params,

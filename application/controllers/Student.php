@@ -2173,7 +2173,7 @@ class Student extends Admin_Controller
                 }
 
                 $row   = array();
-                $row[] = $student->admission_no;
+                $row[] = $student->roll_no;
                 $row[] = "<a href='" . base_url() . "student/view/" . $student->id . "'>" . $this->customlib->getFullName($student->firstname, $student->middlename, $student->lastname, $sch_setting->middlename, $sch_setting->lastname) . "</a>";
                 $row[] = $student->class . "(" . $student->section . ")";
                 if ($sch_setting->father_name) {
