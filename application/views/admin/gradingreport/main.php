@@ -270,6 +270,9 @@
             },
             success: function(response) {
                 $('.grading_report_panel_body').html(response);
+                setTimeout(() => {
+                    makeLowGradeRed();
+                }, 200);
             },
             error: function(xhr) { // if error occured
                 console.log(xhr);
@@ -278,6 +281,31 @@
         });
     }
 
+    function makeLowGradeRed() {
+        let classId = $("#class_id").val();
+        let compareValue = classId > 23 ? 70 : 65;
+        // Assuming you have already selected the table using jQuery
+        let gradeTable = $(".table-score");
+
+        // Loop through each row in the table
+        gradeTable.find("tr").each(function() {
+        // Loop through each cell in the row
+        $(this).find("td").each(function() {
+            // Check if the cell contains an input tag
+            let cellValue = $(this).find("input").val();
+            if (cellValue === undefined) {
+            // If no input tag, get the text content of the cell
+            cellValue = $(this).text();
+            }
+            
+            // Check if the value is below 70 and set the color to red
+            if (parseFloat(cellValue) < compareValue) {
+            $(this).css("color", "red");
+            }
+        });
+});
+
+    }
     function resetFields(search_type) {
         if (search_type == "search_full") {
             $('#class_id').prop('selectedIndex', 0);

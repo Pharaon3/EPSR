@@ -729,7 +729,7 @@ class Grading_result extends Admin_Controller
                     $i = 0; $cnt = 0;
                     if ($pc_show1 == "" || $pc_show2 == "" || $pc_show3 == "") $CF = "";
 
-                    if($pc_show1 > 69 && $pc_show2 > 69 && $pc_show3 > 69) {
+                    if($pc_show1 > 64 && $pc_show2 > 64 && $pc_show3 > 64) {
 
                         $CF = ($pc1 + $pc2 + $pc3) / 3;
                     }
@@ -737,7 +737,7 @@ class Grading_result extends Admin_Controller
                         $CF = round($CF);
                     }
                     $row[] = "<div class='cf' data_org = '" . $CF . "' data_stdID='" . $student->student_session_id . "'>" . $CF . "</div>";
-                    $row[] = "<div class='cf' data_org = '" . $CF . "' data_stdID='" . $student->student_session_id . "'>" . $CF . "</div>";
+                    $row[] = "";
                     // Add the row to the data array
                     $dt_data[] = $row;
                 } else {
@@ -2027,10 +2027,10 @@ class Grading_result extends Admin_Controller
                             else $pc3 = $pc3 + $row['period_results'][$i + 8] / 4;
                             if ($row['period_results'][$i + 12] < 70) $pc4 = $pc4 + $row['period_resultsRP'][$i + 12] / 4;
                             else $pc4 = $pc4 + $row['period_results'][$i + 12] / 4;
-                            if (!$row['period_resultsRP'][$i] && !$row['period_results'][$i]) $flag1 = 1;
-                            if (!$row['period_resultsRP'][$i + 4] && !$row['period_results'][$i + 4]) $flag2 = 1;
-                            if (!$row['period_resultsRP'][$i + 8] && !$row['period_results'][$i + 8]) $flag3 = 1;
-                            if (!$row['period_resultsRP'][$i + 12] && !$row['period_results'][$i + 12]) $flag4 = 1;
+                            if (!$row['period_resultsRP'][$i] && $row['period_results'][$i] < 70) $flag1 = 1;
+                            if (!$row['period_resultsRP'][$i + 4] && $row['period_results'][$i + 4] < 70) $flag2 = 1;
+                            if (!$row['period_resultsRP'][$i + 8] && $row['period_results'][$i + 8] < 70) $flag3 = 1;
+                            if (!$row['period_resultsRP'][$i + 12] && $row['period_results'][$i + 12] < 70) $flag4 = 1;
                         }
 
                         if ($flag1 == 1) $pc_show1 = "";
@@ -2225,15 +2225,15 @@ class Grading_result extends Admin_Controller
                         $flag2 = 0;
                         $flag3 = 0;
                         for ($i = 0; $i < 4; $i++) {
-                            if ($row['period_results'][$i] < 65) $pc1 = $pc1 + $row['period_resultsRP'][$i] / 4;
+                            if ($row['period_results'][$i] < 65 && $row['period_resultsRP'][$i]) $pc1 = $pc1 + $row['period_resultsRP'][$i] / 4;
                             else $pc1 = $pc1 + $row['period_results'][$i] / 4;
-                            if ($row['period_results'][$i + 4] < 65) $pc2 = $pc2 + $row['period_resultsRP'][$i + 4] / 4;
+                            if ($row['period_results'][$i + 4] < 65 && $row['period_resultsRP'][$i + 4]) $pc2 = $pc2 + $row['period_resultsRP'][$i + 4] / 4;
                             else $pc2 = $pc2 + $row['period_results'][$i + 4] / 4;
-                            if ($row['period_results'][$i + 8] < 65) $pc3 = $pc3 + $row['period_resultsRP'][$i + 8] / 4;
+                            if ($row['period_results'][$i + 8] < 65 && $row['period_resultsRP'][$i + 8]) $pc3 = $pc3 + $row['period_resultsRP'][$i + 8] / 4;
                             else $pc3 = $pc3 + $row['period_results'][$i + 8] / 4;
-                            if (!$row['period_resultsRP'][$i] && !$row['period_results'][$i]) $flag1 = 1;
-                            if (!$row['period_resultsRP'][$i + 4] && !$row['period_results'][$i + 4]) $flag2 = 1;
-                            if (!$row['period_resultsRP'][$i + 8] && !$row['period_results'][$i + 8]) $flag3 = 1;
+                            if (!$row['period_results'][$i]) $flag1 = 1;
+                            if (!$row['period_results'][$i + 4]) $flag2 = 1;
+                            if (!$row['period_results'][$i + 8]) $flag3 = 1;
                         }
 
                         if ($flag1 == 1) $pc_show1 = "";
@@ -2278,7 +2278,7 @@ class Grading_result extends Admin_Controller
                     $row['edit_flag'] = $edit_flag;
                     $row['CF'] = 0;
                     $i = 0;
-                    if ($pc1 > 69 && $pc2 > 69 && $pc3 > 69 && $pc_show1 && $pc_show2 && $pc_show3) $row['CF'] = round(($pc1 + $pc2 + $pc3) / 3);
+                    if ($pc1 > 64 && $pc2 > 64 && $pc3 > 64 && $pc_show1 && $pc_show2 && $pc_show3) $row['CF'] = round(($pc1 + $pc2 + $pc3) / 3);
                     $grading_subject_results[] = $row;
                     $teacherCnt++;
                 }
@@ -2989,6 +2989,11 @@ class Grading_result extends Admin_Controller
                         $data['school_director'] = $school_director[0]['name'] . " " . $school_director[0]['surname'];
                     }
 
+                    $data['Coordinadora'] = '';
+                    $Coordinadora = $this->staff_model->getStaffbyrole(51);
+                    if (!empty($Coordinadora)) {
+                        $data['Coordinadora'] = $Coordinadora[0]['name'] . " " . $Coordinadora[0]['surname'];
+                    }
                     $data['class_teacher'] = '';
                     $classteachers = $this->classteacher_model->teacherByClassSection($data['class_id'], $student['section_id']);
                     if (!empty($classteachers)) {
@@ -3110,15 +3115,15 @@ class Grading_result extends Admin_Controller
                                 $flag3 = 0;
                                 $flag4 = 0;
                                 for ($i = 0; $i < 4; $i++) {
-                                    if ($row['period_results'][$i] < 65) $pc1 = $pc1 + $row['period_resultsRP'][$i] / 4;
+                                    if ($row['period_results'][$i] < 65 && $row['period_resultsRP'][$i]) $pc1 = $pc1 + $row['period_resultsRP'][$i] / 4;
                                     else $pc1 = $pc1 + $row['period_results'][$i] / 4;
-                                    if ($row['period_results'][$i + 4] < 65) $pc2 = $pc2 + $row['period_resultsRP'][$i + 4] / 4;
+                                    if ($row['period_results'][$i + 4] < 65 && $row['period_resultsRP'][$i + 4]) $pc2 = $pc2 + $row['period_resultsRP'][$i + 4] / 4;
                                     else $pc2 = $pc2 + $row['period_results'][$i + 4] / 4;
-                                    if ($row['period_results'][$i + 8] < 65) $pc3 = $pc3 + $row['period_resultsRP'][$i + 8] / 4;
+                                    if ($row['period_results'][$i + 8] < 65 && $row['period_resultsRP'][$i + 8]) $pc3 = $pc3 + $row['period_resultsRP'][$i + 8] / 4;
                                     else $pc3 = $pc3 + $row['period_results'][$i + 8] / 4;
-                                    if (!$row['period_resultsRP'][$i] && !$row['period_results'][$i]) $flag1 = 1;
-                                    if (!$row['period_resultsRP'][$i + 4] && !$row['period_results'][$i + 4]) $flag2 = 1;
-                                    if (!$row['period_resultsRP'][$i + 8] && !$row['period_results'][$i + 8]) $flag3 = 1;
+                                    if (!$row['period_results'][$i]) $flag1 = 1;
+                                    if (!$row['period_results'][$i + 4]) $flag2 = 1;
+                                    if (!$row['period_results'][$i + 8]) $flag3 = 1;
                                 }
 
                                 if ($flag1 == 1) $pc_show1 = "";
@@ -3225,10 +3230,10 @@ class Grading_result extends Admin_Controller
                                     else $pc3 = $pc3 + $row['period_results'][$i + 8] / 4;
                                     if ($row['period_results'][$i + 12] < 70) $pc4 = $pc4 + $row['period_resultsRP'][$i + 12] / 4;
                                     else $pc4 = $pc4 + $row['period_results'][$i + 12] / 4;
-                                    if (!$row['period_resultsRP'][$i] && !$row['period_results'][$i]) $flag1 = 1;
-                                    if (!$row['period_resultsRP'][$i + 4] && !$row['period_results'][$i + 4]) $flag2 = 1;
-                                    if (!$row['period_resultsRP'][$i + 8] && !$row['period_results'][$i + 8]) $flag3 = 1;
-                                    if (!$row['period_resultsRP'][$i + 12] && !$row['period_results'][$i + 12]) $flag4 = 1;
+                                    if (!$row['period_resultsRP'][$i] && $row['period_results'][$i] < 70) $flag1 = 1;
+                                    if (!$row['period_resultsRP'][$i + 4] && $row['period_results'][$i + 4] < 70) $flag2 = 1;
+                                    if (!$row['period_resultsRP'][$i + 8] && $row['period_results'][$i + 8] < 70) $flag3 = 1;
+                                    if (!$row['period_resultsRP'][$i + 12] && $row['period_results'][$i + 12] < 70) $flag4 = 1;
                                 }
 
                                 if ($flag1 == 1) $pc_show1 = "";
@@ -3319,7 +3324,7 @@ class Grading_result extends Admin_Controller
                         $renderprintpage .= " " . $seconday_grading_report_cards . " ";
                     }
                 }
-                $array = array('status' => '1', 'error' => '', 'page' => $renderprintpage);
+                $array = array('status' => '1', 'error' => '', 'page' => $renderprintpage, 'students' => $studentList);
                 echo json_encode($array);
             }
         }

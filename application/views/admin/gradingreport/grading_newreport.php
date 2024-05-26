@@ -722,7 +722,7 @@
                                                     <td>&nbsp;</td>
                                                     <?php } ?>
                                                     <td><?php echo $result['CF'] ? $result['CF'] : "" ?></td>
-                                                    <td class="right-red"><?php echo $result['CF'] ? $result['CF'] : "" ?></td>
+                                                    <td class="right-red"></td>
                                                 </tr>
                                             <?php } ?>
                                         </tbody>
@@ -818,7 +818,7 @@
                                                     <td>&nbsp;</td>
                                                     <?php } ?>
                                                     <td><?php echo $result['CF'] ? $result['CF'] : "" ?></td>
-                                                    <td class="right-red"><?php echo $result['CF'] ? $result['CF'] : "" ?></td>
+                                                    <td class="right-red"></td>
                                                 </tr>
                                             <?php } ?>
                                         </tbody>
@@ -1068,6 +1068,5 @@
                 },
             });
         });
-        console.log("data: ", `<?php echo print_r($grading_subject_results, true); ?>`)
     });
 </script>

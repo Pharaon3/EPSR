@@ -420,6 +420,12 @@
     .subjectlabelth {
         min-width: 200px;
     }
+    #logo-table {
+        display: flex;
+        border: 1px solid black;
+        font-size: 12px;
+        padding: 3px;
+    }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -464,6 +470,32 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+                <div id="logo-table">
+                    <img src="<?php echo base_url('uploads/school_content/logo/rect-logo.png'); ?>" style="width: 80px;">
+                    <div style="padding: 2px;">
+                        <div style="font-size: 16px;"><b>Orden Agustinos Recoletos</b></div>
+                        <div>Lema del año: “¿Aspiras a lo grande? Comienza por lo pequeño” <br> Valor del año: Interioridad </div>
+                    </div>
+                </div>
+                <div id="logo-table" style="justify-content: space-around;">
+                    <div>
+                        <div style="width: 95%; height: 40px; border-bottom: 1px solid black;"></div>
+                        <div><b><?php echo $school_director; ?></b></div>
+                        <div>Director General</div>
+                    </div>
+                    <div>
+                        <div style="width: 95%; height: 40px; border-bottom: 1px solid black;"></div>
+                        <div><b><?php echo $Coordinadora; ?></b></div>
+                        <div> Coordinadora Nivel Secundario</div>
+                    </div>
+                    <div>
+                        <div style="width: 95%; height: 40px; border-bottom: 1px solid black;"></div>
+                        <div><b><?= $class_teacher ?></b></div>
+                        <div>Maestro Guía</div>
+                    </div>
+                </div>
             </div>
         </div>
         <div id="right-side">
