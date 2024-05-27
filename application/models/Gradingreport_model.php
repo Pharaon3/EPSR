@@ -804,6 +804,30 @@ class Gradingreport_model extends MY_model {
         return $query->generate('json');
     }
 
+    public  function getactiveteacherlist($level_id = 0)
+    {
+        $query = $this->datatables
+        ->select('CONCAT_WS(" ",staff.name,staff.surname) as name,staff_roles.id, staff_roles.staff_id, staff_roles.is_permission')
+        ->searchable('staff.name,staff.surname')
+        ->orderable('staff.name')
+        ->from('staff')
+        ->join("staff_roles", "staff_roles.staff_id = staff.id")
+        ->where('staff.is_active', 1);
+
+        ################################# -->
+        $query = $query->join("subject_timetable","subject_timetable.staff_id = staff.id", "left");
+        $query = $query->join("classes","classes.id = subject_timetable.class_id", "left");
+        $query = $query->join("level_class","level_class.class_id = classes.id", "left");
+        ################################# <--
+
+        $query = $query->where("staff_roles.role_id",2);
+        //$query = $query->where("staff.is_active",1);
+        if( !empty($level_id))		    
+            $query = $query->where("level_class.level_id", $level_id);
+        $query = $query->group_by("staff.id");    
+        return $query->generate('json');
+    }
+
     public function getLevelByClass($class_id) {
         $this->db->select('level_id');
         $this->db->from('level_class');

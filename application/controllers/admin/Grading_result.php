@@ -3439,7 +3439,7 @@ class Grading_result extends Admin_Controller
         
         
 
-        $result = $this->Gradingreport_model->getteacherlist($level_id);
+        $result = $this->Gradingreport_model->getactiveteacherlist($level_id);
         $m       = json_decode($result);
         $dt_data = array();
         if (!empty($m->data)) {
