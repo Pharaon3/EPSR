@@ -170,7 +170,6 @@
 
 </style>
 <?php
-    error_log("report view begin.");
     $totalpageNum = $this->session->userdata['pageNum'];
     $pageNum = 1;
 
@@ -240,7 +239,7 @@
   else if($class == "PRE-KINDER MATUTINO")
     {
         $class_t =  "PRE-KINDER";
-}
+    }
   else if($class == "PRE-KINDER VESPERTINO")
     {
         $class_t =  "PRE-KINDER";
@@ -301,7 +300,6 @@
         echo "</div>";
         echo '<div class="pagebreak"></div>';
     }
-    error_log("report view 304");
 ?>
 
 <div class="mark-container" style="position:relative;  border:solid 0px;height: 1500px;margin-top: 10px;">
@@ -487,7 +485,6 @@
 <div class="mark-container" style="position:relative; border:solid 0px;height: 1500px;margin-top: 10px;">
     <div style = "width:1000px;position:absolute;z-index: 1000;border:solid 0px;text-align: center;">
     <?php
-        error_log("report view 490");
         $pagesize = 1500;
         $currentpagesize = 0;
         echo
@@ -639,7 +636,6 @@
             }
             else
             {
-                error_log("report view 649");
                 $currentpagesize += 70;
                 echo '
                     <tr>
@@ -653,13 +649,11 @@
                                     </th>';
             }
 
-            error_log("report view 665");
             foreach ($valuescaleList as $valuescale)
             {
                 error_log("report view 665");
                 echo '<th valign="bottom" style="background-color: #afafc6;width:40px; font-size: 18px; text-align:center;padding: 5px">'.$valuescale["label"].'</th>';
             }
-            error_log("report view 671");
             echo  '
                                 </tr>
                                 </thead>
@@ -721,7 +715,6 @@
                         <td valign="top" style="padding: 5px 10px; font-size: 22px; text-align:left">'.$indicator["name"].'</td>';
                 foreach ($valuescaleList as $valuescale)
                 {
-                    error_log("report view 729");
                     echo '<td valign="top" style="padding: 5px 10px; font-size: 18px; text-align:center">';
                     if ($indicator['marks'] == $valuescale['marks'])
                     {
@@ -733,7 +726,6 @@
                 echo ' </tr>';
 
             }
-            error_log("report view 741");
             echo '
                                 </tbody>';
             echo '
@@ -750,7 +742,6 @@
 
         }
         $height = 1000;
-        error_log("report view 746");
         if($level == "NIVEL INICIAL")
             $height = 1100;
         if($currentpagesize >= $height || ((mb_strlen($observation) > 190 && $currentpagesize > 900) || (mb_strlen($observation) > 400 && $currentpagesize > 700)))
@@ -772,7 +763,6 @@
             echo "<table width='100%'>";
             echo '<tr><td><div style="height: 50px;"></td></tr>';
         }
-        error_log("report view 768");
         echo '
                 <tr>';
         echo '
@@ -860,35 +850,35 @@
                     </td>
                 </tr>';
         echo '</table>';
-        error_log("report view 857");
 
         echo '<div style="line-height:1.5; width:100%;text-align: left;">
             <div style="padding-top:10px;font-weight: bold; font-size: 30px;">Observaciones: </div>';
             $i = 0;
+            if ($observations_1) {
+                if ($period['label'] == "1") $observation = $observations_1;
+                if ($period['label'] == "2") $observation = $observations_2;
+                if ($period['label'] == "3") $observation = $observations_3;
+            }
             if(strlen($observation) >= 99)
             {
-                error_log("report view 864");
                 $str = substr($observation,$i,99);
                 $str = substr($str,0,strripos($str," "));
                 $i = strlen($str);
             } 
             else
             {
-                error_log("report view 871");
                 $str = $observation;
                 $i = strlen($observation);
             }
             
             if(strlen($str) == 0)
             {
-                error_log("report view 878");
                 echo '<div style="width:100%; height: 40px; top:45px; border-bottom: 1px solid black;"></div>';
                 echo '<div style="width:100%; height: 40px; top:45px; border-bottom: 1px solid black;"></div>';
                 echo '<div style="width:100%; height: 40px; top:45px; border-bottom: 1px solid black;"></div>';
             }
             else
             {
-                error_log("report view 885");
                 while(strlen($str) != 0)
                 {
                     echo '<div style="width:100%;font-size:25px; margin-top:10px; border-bottom: 1px solid black;">'.$str.'</div>';

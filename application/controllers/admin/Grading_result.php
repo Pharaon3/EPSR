@@ -713,11 +713,11 @@ class Grading_result extends Admin_Controller
                     $pt4 = 0;
 
                     for ($i = 0; $i < 4; $i++) {
-                        if ($period_rports[$i] < 70 ) $pc1 = $pc1 + $period_rportsRP[$i] / 4;
+                        if ($period_rports[$i] < 65 && $period_rportsRP[$i] ) $pc1 = $pc1 + $period_rportsRP[$i] / 4;
                         else $pc1 = $pc1 + $period_rports[$i] / 4;
-                        if ($period_rports[$i + 4] < 70 ) $pc2 = $pc2 + $period_rportsRP[$i + 4] / 4;
+                        if ($period_rports[$i + 4] < 65 && $period_rportsRP[$i + 4]) $pc2 = $pc2 + $period_rportsRP[$i + 4] / 4;
                         else $pc2 = $pc2 + $period_rports[$i + 4] / 4;
-                        if ($period_rports[$i + 8] < 70  ) $pc3 = $pc3 + $period_rportsRP[$i + 8] / 4;
+                        if ($period_rports[$i + 8] < 65 && $period_rportsRP[$i + 8]) $pc3 = $pc3 + $period_rportsRP[$i + 8] / 4;
                         else $pc3 = $pc3 + $period_rports[$i + 8] / 4;
                     }
                     if ($period_rports[0] == "" || $period_rports[1] == "" || $period_rports[2] == "" || $period_rports[3] == "") $pc_show1 = ""; else $pc_show1 = round($pc1);
@@ -728,11 +728,7 @@ class Grading_result extends Admin_Controller
                     $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $pc_show3 . "' data_column = 'pc3' data_stdID='" . $student->student_session_id . "' value='" . $pc_show3 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
                     $i = 0; $cnt = 0;
                     if ($pc_show1 == "" || $pc_show2 == "" || $pc_show3 == "") $CF = "";
-
-                    if($pc_show1 > 64 && $pc_show2 > 64 && $pc_show3 > 64) {
-
-                        $CF = ($pc1 + $pc2 + $pc3) / 3;
-                    }
+                    else $CF = ($pc1 + $pc2 + $pc3) / 3;
                     if (!empty($CF)) {
                         $CF = round($CF);
                     }
@@ -854,13 +850,13 @@ class Grading_result extends Admin_Controller
                     $pt4 = 0;
 
                     for ($i = 0; $i < 4; $i++) {
-                        if ($period_rports[$i] < 70 ) $pc1 = $pc1 + $period_rportsRP[$i] / 4;
+                        if ($period_rports[$i] < 70 && $period_rportsRP[$i]) $pc1 = $pc1 + $period_rportsRP[$i] / 4;
                         else $pc1 = $pc1 + $period_rports[$i] / 4;
-                        if ($period_rports[$i + 4] < 70 ) $pc2 = $pc2 + $period_rportsRP[$i + 4] / 4;
+                        if ($period_rports[$i + 4] < 70 && $period_rportsRP[$i + 4]) $pc2 = $pc2 + $period_rportsRP[$i + 4] / 4;
                         else $pc2 = $pc2 + $period_rports[$i + 4] / 4;
-                        if ($period_rports[$i + 8] < 70  ) $pc3 = $pc3 + $period_rportsRP[$i + 8] / 4;
+                        if ($period_rports[$i + 8] < 70 && $period_rportsRP[$i + 8]) $pc3 = $pc3 + $period_rportsRP[$i + 8] / 4;
                         else $pc3 = $pc3 + $period_rports[$i + 8] / 4;
-                        if ($period_rports[$i + 12] < 70) $pc4 = $pc4 + $period_rportsRP[$i + 12] / 4;
+                        if ($period_rports[$i + 12] < 70 && $period_rportsRP[$i + 12]) $pc4 = $pc4 + $period_rportsRP[$i + 12] / 4;
                         else $pc4 = $pc4 + $period_rports[$i + 12] / 4;
                     }
                     if ($period_rports[0] == "" || $period_rports[1] == "" || $period_rports[2] == "" || $period_rports[3] == "") $pc_show1 = ""; else $pc_show1 = round($pc1);
@@ -875,11 +871,7 @@ class Grading_result extends Admin_Controller
                     $i = 0; $cnt = 0;
                     
                     if ($pc_show1 == "" || $pc_show2 == "" || $pc_show3 == "" || $pc_show4 == "") $CF = "";
-
-                    if($pc_show1 > 69 && $pc_show2 > 69 && $pc_show3 > 69 && $pc_show4 > 69 ) {
-
-                        $CF = ($pc1 + $pc2 + $pc3 + $pc4) / 4;
-                    }
+                    else $CF = ($pc1 + $pc2 + $pc3 + $pc4) / 4;
                     if (!empty($CF)) {
                         $CF = round($CF);
                     }
@@ -1899,8 +1891,7 @@ class Grading_result extends Admin_Controller
             if (!$this->rbac->hasPrivilege('grading_report_results', 'can_view')) {
                 access_denied();
             }
-            $student = $this->student_model->get($id);
-            $data['student_id'] = $id;
+            $student         = $this->student_model->get($id);
             $data['student']  = $student;
             $student_session_id = $student['student_session_id'];
 
@@ -2974,6 +2965,12 @@ class Grading_result extends Admin_Controller
                     $data['class_id'] = $class_level['class_id'];
                     $data['class'] = $class_level['class'];
                     $data['level_id'] = $class_level['level_id'];
+                    if ($period_id == "") {
+                        $observations = $this->Gradingreport_model->getStudentObservations($student_session_id, "All");
+                        $data['observations_1'] = $observations['observation_1'];
+                        $data['observations_2'] = $observations['observation_2'];
+                        $data['observations_3'] = $observations['observation_3'];
+                    }
                     $data['observation'] = $this->Gradingreport_model->getStudentObservations($student_session_id);
                     $data['period_id'] = $period_id;
                     $data['level_coordinator'] = '';
@@ -3039,7 +3036,6 @@ class Grading_result extends Admin_Controller
                             }
                             $data['competenceList'][$period['id']] = $competences;
                         }
-                        error_log("print card 1753.");
                         $class_id = 0;
                         if ($data['level'] == "NIVEL INICIAL")
                             $class_id = 41;
@@ -3324,7 +3320,7 @@ class Grading_result extends Admin_Controller
                         $renderprintpage .= " " . $seconday_grading_report_cards . " ";
                     }
                 }
-                $array = array('status' => '1', 'error' => '', 'page' => $renderprintpage, 'students' => $studentList);
+                $array = array('status' => '1', 'error' => '', 'page' => $renderprintpage, 'students' => $studentList, 'data' => $data);
                 echo json_encode($array);
             }
         }

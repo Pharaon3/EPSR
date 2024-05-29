@@ -765,8 +765,20 @@ class Gradingreport_model extends MY_model {
         return 0;
     }
 
-    public function getStudentObservations($student_session_id) {
+    public function getStudentObservations($student_session_id, $observation_index = null) {
+        if ($observation_index == "All") {
+            $this->db->select('observations_1, observations_2, observations_3')
+                    ->from('student_session')
+                    ->where('student_session.id', $student_session_id);
+            $observation = $this->db->get()->row_array();
 
+            $observations = [
+                'observation_1' => $observation['observations_1'],
+                'observation_2' => $observation['observations_2'],
+                'observation_3' => $observation['observations_3']
+            ];
+            return $observations;
+        }
         $this->db->select('student_session.observation_index')->from('student_session');
         $this->db->where('student_session.id', $student_session_id);
         $observation = $this->db->get()->row_array();

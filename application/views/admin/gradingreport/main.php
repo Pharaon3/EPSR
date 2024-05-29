@@ -588,9 +588,29 @@
         });
 
         $(document).on('change', '#period_id', function(e) {
-            var id = $('#student_id').val();
-            var period_id = $('#period_id').val();
-            viewreport(id, period_id);
+            let selectedText = $('#period_id option:selected').text().trim();
+            if (selectedText == "1") {
+                $('#1er').prop('checked', true);
+            }
+            if (selectedText == "2") {
+                $('#2do').prop('checked', true);
+            }
+            if (selectedText == "3") {
+                $('#3er').prop('checked', true);
+            }
+            var index = selectedText == "All" ? "1" : selectedText ;
+            var student_session_id = $('input[name="student_session_id"]').val();
+            $.ajax({
+                type: "POST",
+                url: base_url + "admin/grading_result/changeObservation",
+                data: {
+                    student_session_id: student_session_id,
+                    index: index,
+                }, // serializes the form's elements.
+                success: function(data) {
+                    $('#std_observation').val(data);
+                },
+            });
         });
 
         $(document).on('click', '.td_subject', function(e) {

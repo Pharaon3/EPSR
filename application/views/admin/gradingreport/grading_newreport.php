@@ -588,7 +588,7 @@
 
                     <div class="table-responsive">
                         <form id="update_competence_report">
-                            <input type="hidden" name="student_session_id" value="<?php echo $student_id ?>">
+                            <input type="hidden" name="student_session_id" value="<?php echo $student_session_id ?>">
                             <table class="table table-striped table-bordered table-hover">
                                 <tbody>
                                     <?php foreach ($competenceList as $competence) { ?>
