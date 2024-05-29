@@ -1289,11 +1289,11 @@ class Grading_result extends Admin_Controller
                     $pc2 = 0;
                     $pc3 = 0;
                     for ($i = 0; $i < 4; $i++) {
-                        if ($period_rports[$i] < 70) $pc1 = $pc1 + $period_rportsRP[$i] / 4;
+                        if ($period_rports[$i] < 65 && $period_rportsRP[$i]) $pc1 = $pc1 + $period_rportsRP[$i] / 4;
                         else $pc1 = $pc1 + $period_rports[$i] / 4;
-                        if ($period_rports[$i + 4] < 70) $pc2 = $pc2 + $period_rportsRP[$i + 4] / 4;
+                        if ($period_rports[$i + 4] < 65 && $period_rportsRP[$i + 4]) $pc2 = $pc2 + $period_rportsRP[$i + 4] / 4;
                         else $pc2 = $pc2 + $period_rports[$i + 4] / 4;
-                        if ($period_rports[$i + 8] < 70) $pc3 = $pc3 + $period_rportsRP[$i + 8] / 4;
+                        if ($period_rports[$i + 8] < 65 && $period_rportsRP[$i + 8]) $pc3 = $pc3 + $period_rportsRP[$i + 8] / 4;
                         else $pc3 = $pc3 + $period_rports[$i + 8] / 4;
                     }
 
@@ -1396,13 +1396,13 @@ class Grading_result extends Admin_Controller
                     $pc3 = 0;
                     $pc4 = 0;
                     for ($i = 0; $i < 4; $i++) {
-                        if ($period_rports[$i] < 70) $pc1 = $pc1 + $period_rportsRP[$i] / 4;
+                        if ($period_rports[$i] < 70 && $period_rportsRP[$i]) $pc1 = $pc1 + $period_rportsRP[$i] / 4;
                         else $pc1 = $pc1 + $period_rports[$i] / 4;
-                        if ($period_rports[$i + 4] < 70) $pc2 = $pc2 + $period_rportsRP[$i + 4] / 4;
+                        if ($period_rports[$i + 4] < 70 && $period_rportsRP[$i + 4]) $pc2 = $pc2 + $period_rportsRP[$i + 4] / 4;
                         else $pc2 = $pc2 + $period_rports[$i + 4] / 4;
-                        if ($period_rports[$i + 8] < 70) $pc3 = $pc3 + $period_rportsRP[$i + 8] / 4;
+                        if ($period_rports[$i + 8] < 70 && $period_rportsRP[$i + 8]) $pc3 = $pc3 + $period_rportsRP[$i + 8] / 4;
                         else $pc3 = $pc3 + $period_rports[$i + 8] / 4;
-                        if ($period_rports[$i + 12] < 70) $pc4 = $pc4 + $period_rportsRP[$i + 12] / 4;
+                        if ($period_rports[$i + 12] < 70 && $period_rportsRP[$i + 12]) $pc4 = $pc4 + $period_rportsRP[$i + 12] / 4;
                         else $pc4 = $pc4 + $period_rports[$i + 12] / 4;
                     }
                     //teachers deliverable grading reports to coordinator;
