@@ -956,8 +956,8 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                     $('td:eq(' + (45 + period_count) + ')', nRow).addClass('lightpink');
                                 }
 
-                                if ($('.cf', nRow).html() * 1 < 70) {
-                                    $('.cf', nRow).addClass('red_text');
+                                if ($('td', nRow).html() * 1 < 70) {
+                                    $('td', nRow).addClass('red_text');
                                 }
 
                                 if ($('.cc', nRow).html() * 1 < 70) {
@@ -971,6 +971,10 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
 
                         });
 
+                        setTimeout(() => {
+                            makeLowGradeRed();
+                            console.log("sdfasdf");
+                        }, 500);
                         let printTableName = ".print-table-secondary";
                         if (class_id > 8 && class_id < 16) printTableName = ".print-table-primary"
                         if (class_id > 15 && class_id < 24) printTableName = ".print-table-primaryR"
@@ -1008,6 +1012,38 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                 }
             });
         });
+
+        function makeLowGradeRed() {
+            let classId = $("#searchclassid").val() * 1;
+            let compareValue = classId > 23 ? 70 : 65;
+            console.log("classId: ", classId);
+            let gradeTable;
+            if (classId > 23) {
+                gradeTable = $("#DataTables_Table_2");
+            } else if (classId > 15) {
+                gradeTable = $("#DataTables_Table_1");
+            } else {
+                gradeTable = $("#DataTables_Table_0");
+            }
+            // let gradeTable = classId > 23 ? $("#DataTables_Table_2") : classId > 15 ? $("#DataTables_Table_1") : $("#DataTables_Table_0");
+            console.log("gradeTable: ", gradeTable);
+            // Loop through each row in the table
+            gradeTable.find("tr").each(function() {
+                // Loop through each cell in the row, skipping the second column
+                $(this).find("td:not(:nth-child(2))").each(function() {
+                    // Check if the cell contains an input tag
+                    let cellValue = $(this).find("input").val();
+                    if (cellValue === undefined) {
+                        // If no input tag, get the text content of the cell
+                        cellValue = $(this).text();
+                    }
+                    // Check if the value is below 70 and set the color to red
+                    if (parseFloat(cellValue) < compareValue) {
+                        $(this).css("color", "red");
+                    }
+                });
+            });
+        }
 
 
         $(document).on('keydown', '.td-input', function(e) {

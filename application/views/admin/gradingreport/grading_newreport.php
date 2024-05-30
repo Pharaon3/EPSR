@@ -614,8 +614,8 @@
                                                         <div style="<?php if ($alledit) { ?>display:none;<?php } ?>" class="marklabel">
                                                             <?php echo $indicator['marks'] == $valuescale['marks'] ? $valuescale['symbol'] : ""; ?>
                                                         </div>
-                                                        <div class="markedit" data_innerhtml='<input type="radio" name="indicators_<?php echo $indicator['id'] ?>" <?php echo (empty($indicator['marks']) && $key == 1) || $indicator['marks'] == $valuescale['marks'] ? "checked" : ""; ?> value="<?php echo $valuescale['marks'] ?>">'>
-                                                            <?php if ($alledit) { ?><input type="radio" name="indicators_<?php echo $indicator['id'] ?>" <?php echo (empty($indicator['marks']) && $key == 1) || $indicator['marks'] == $valuescale['marks'] ? "checked" : ""; ?> value="<?php echo $valuescale['marks'] ?>"><?php } ?>
+                                                        <div class="markedit" data_innerhtml='<input type="radio" name="indicators_<?php echo $indicator['id'] ?>" <?php echo (empty($indicator['marks']) && $key == 0) || $indicator['marks'] == $valuescale['marks'] ? "checked" : ""; ?> value="<?php echo $valuescale['marks'] ?>">'>
+                                                            <?php if ($alledit) { ?><input type="radio" name="indicators_<?php echo $indicator['id'] ?>" <?php echo (empty($indicator['marks']) && $key == 0) || $indicator['marks'] == $valuescale['marks'] ? "checked" : ""; ?> value="<?php echo $valuescale['marks'] ?>"><?php } ?>
                                                         </div>
                                                     </td>
                                                 <?php } ?>
