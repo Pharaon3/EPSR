@@ -1289,14 +1289,13 @@ class Grading_result extends Admin_Controller
                     $pc2 = 0;
                     $pc3 = 0;
                     for ($i = 0; $i < 4; $i++) {
-                        if ($period_rports[$i] < 65 && $period_rportsRP[$i]) $pc1 = $pc1 + $period_rportsRP[$i] / 4;
+                        if ($period_rports[$i] < 65 && $period_rportsRP[$i] ) $pc1 = $pc1 + $period_rportsRP[$i] / 4;
                         else $pc1 = $pc1 + $period_rports[$i] / 4;
                         if ($period_rports[$i + 4] < 65 && $period_rportsRP[$i + 4]) $pc2 = $pc2 + $period_rportsRP[$i + 4] / 4;
                         else $pc2 = $pc2 + $period_rports[$i + 4] / 4;
                         if ($period_rports[$i + 8] < 65 && $period_rportsRP[$i + 8]) $pc3 = $pc3 + $period_rportsRP[$i + 8] / 4;
                         else $pc3 = $pc3 + $period_rports[$i + 8] / 4;
                     }
-
                     if ($period_rports[0] == "" || $period_rports[1] == "" || $period_rports[2] == "" || $period_rports[3] == "") $pc_show1 = ""; else $pc_show1 = round($pc1);
                     if ($period_rports[4] == "" || $period_rports[5] == "" || $period_rports[6] == "" || $period_rports[7] == "") $pc_show2 = ""; else $pc_show2 = round($pc2);
                     if ($period_rports[8] == "" || $period_rports[9] == "" || $period_rports[10] == "" || $period_rports[11] == "") $pc_show3 = ""; else $pc_show3 = round($pc3);
@@ -1310,7 +1309,7 @@ class Grading_result extends Admin_Controller
                         $CF = round($CF);
                     }
                     $row[] = "<div class='cf' data_org = '" . $CF . "' data_stdID='" . $student->student_session_id . "'>" . $CF . "</div>";
-                    $row[] = "<div class='cf' data_org = '" . $CF . "' data_stdID='" . $student->student_session_id . "'>" . $CF . "</div>";
+                    $row[] = "";
 
                     $dt_data[] = $row;
                 } else {
