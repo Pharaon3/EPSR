@@ -224,7 +224,7 @@
     padding: 5px;
     }
     #print-page table {
-        border-width: 2px;
+        border-width: 0px;
         border-style: solid;
         border-color: black;
     }
@@ -270,15 +270,16 @@
     gap: 10px;
     }
     .right-info {
-    padding: 20px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+        padding: 20px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        font-size: 12px;
     }
     #logo-table {
         display: flex;
-        border: 1px solid black;
+        /* border: 1px solid black; */
         font-size: 12px;
         padding: 3px;
     }
@@ -337,6 +338,7 @@
             <div id="logo-table">
                 <img src="<?php echo base_url('uploads/school_content/logo/rect-logo.png'); ?>" style="width: 80px;">
                 <div style="padding: 2px;">
+                    <div style="font-size: 18px;"><b>Escuela Parroquial Santa Rita</b></div>
                     <div style="font-size: 16px;"><b>Orden Agustinos Recoletos</b></div>
                     <div>Lema del año: “¿Aspiras a lo grande? Comienza por lo pequeño” <br> Valor del año: Interioridad </div>
                 </div>
@@ -361,13 +363,13 @@
         </div>
     </div>
     <div id="right-side">
-        <img src="<?php echo base_url('uploads/school_content/logo/logo.png'); ?>" style="width: 20%;">
+        <img src="<?php echo base_url('uploads/school_content/logo/logo.png'); ?>" style="width: 25%;">
         <div class="kanit-light" style="text-align: center; font-size: 12px;">Viceministro de Servicios Técnicos y Pedagógicos <br> Dirección General de Educación Secundaria</div>
         <!-- <div class="kanit-medium title-color" style="font-size: 24px;">INFORME DE APRENDIZAJE</div> -->
         <? $student['class'] ?>
-        <img src="<?php echo base_url('uploads/school_content/logo/primarylogo/' . $student['class']) . '.png';?>" style="width: 25%;">
-        <div class="kanit-light">
-            Año escolar: <?php echo $session ?></span>
+        <img src="<?php echo base_url('uploads/school_content/logo/primarylogo/' . $student['class']) . '.png';?>" style="width: 55%;">
+        <div class="kanit-bold">
+            <b>Año Escolar <?php echo $session ?></span></b>
         </div>
         <div class="kanit-light right-info">
             <div style="display: flex;justify-content: space-between;">
