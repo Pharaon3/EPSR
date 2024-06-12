@@ -224,7 +224,7 @@
     padding: 5px;
     }
     #print-page table {
-        border-width: 0px;
+        border-width: 1px;
         border-style: solid;
         border-color: black;
     }
@@ -283,6 +283,18 @@
         font-size: 12px;
         padding: 3px;
     }
+    .flex {
+        display: flex;
+    }
+    .nowrap {
+    text-wrap: nowrap;
+    }
+    .fullwidth {
+        width: 100%;
+    }
+    .bottom-border {
+        border-bottom: solid black 1px
+    }
 </style>
 <div id="print-page">
     <div id="left-table">
@@ -297,10 +309,10 @@
                 <tr>
                 <td>
                     <div class="kanit-regular" style="font-weight: bold;">Períodos de Reportes de Calificaciones</div>
-                    <div class="underlined-field kanit-light">Ago-Sept-Oct <span></span></div>
-                    <div class="underlined-field kanit-light">Nov-Dic-Ene <span></span></div>
-                    <div class="underlined-field kanit-light">Feb-Mar <span></span></div>
-                    <div class="underlined-field kanit-light">Abr-May-Jun <span></span></div>
+                    <div class="kanit-light flex"><span class="nowrap">Ago-Sept-Oct</span><span class="flex fullwidth bottom-border"></span></div>
+                    <div class="kanit-light flex"><span class="nowrap">Nov-Dic-Ene</span> <span class="flex fullwidth bottom-border"></span></div>
+                    <div class="kanit-light flex"><span class="nowrap">Feb-Mar</span> <span class="flex fullwidth bottom-border"></span></div>
+                    <div class="kanit-light flex"><span class="nowrap">Abr-May-Jun</span> <span class="flex fullwidth bottom-border"></span></div>
                 </td>
                 </tr>
             </tbody>
