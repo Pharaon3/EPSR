@@ -275,7 +275,7 @@
         display: flex;
         flex-direction: column;
         gap: 4px;
-        font-size: 12px;
+        font-size: 14px;
     }
     #logo-table {
         display: flex;
@@ -294,6 +294,9 @@
     }
     .bottom-border {
         border-bottom: solid black 1px
+    }
+    .text-center {
+        text-align: center;
     }
 </style>
 <div id="print-page">
@@ -356,17 +359,17 @@
                 </div>
             </div>
             <div id="logo-table" style="justify-content: space-between;">
-                <div>
+                <div class="text-center">
                     <div style="width: 95%; height: 40px; border-bottom: 1px solid black;"></div>
                     <div><b><?php echo $school_director; ?></b></div>
                     <div>Director General</div>
                 </div>
-                <div>
+                <div class="text-center">
                     <div style="width: 95%; height: 40px; border-bottom: 1px solid black;"></div>
                     <div><b><?php echo $Coordinadora; ?></b></div>
                     <div>Coordinadora Nivel Primario</div>
                 </div>
-                <div>
+                <div class="text-center">
                     <div style="width: 95%; height: 40px; border-bottom: 1px solid black;"></div>
                     <div><b><?= $class_teacher ?></b></div>
                     <div>Maestro Guía</div>
@@ -385,8 +388,8 @@
         </div>
         <div class="kanit-light right-info">
             <div style="display: flex;justify-content: space-between;">
-            <span style="width: 50%; display: flex;justify-content: space-between;"><span style="white-space: nowrap; padding-right: 10px;">Sección: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;"><?= $student['section'] ?></span> </span>
-            <span style="width: 50%; display: flex;justify-content: space-between;"><span style="white-space: nowrap; padding-right: 10px;">Número de orden: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;"><?php echo $order_number ?></span> </span>
+                <span style="width: 50%; display: flex;justify-content: space-between;"><span style="white-space: nowrap; padding-right: 10px;">Sección: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;"><?= $student['section'] ?></span> </span>
+                <span style="width: 50%; display: flex;justify-content: space-between;"><span style="white-space: nowrap; padding-right: 10px;">Número de orden: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;"><?php echo $order_number ?></span> </span>
             </div>
             <div style="display: flex;justify-content: space-between;">
                 <span style="white-space: nowrap; padding-right: 10px;">Nombre (s): </span>
