@@ -26,17 +26,17 @@
         box-sizing: border-box;
     }
     .title-color {
-        color: #1f9186 !important;
+        color: #f7941d !important;
     }
     .title-bgcolor {
-        background-color: #1f9186 !important;
+        background-color: #f7941d !important;
     }
     .table-color {
-        background-color: #8ad3d8 !important;
+        background-color: #fce1cb !important;
         color: black;
     }
     .table-light-color {
-        background-color: #c3e7eb !important;
+        background-color: #faf0e8 !important;
         color: black;
     }
 </style>
@@ -163,7 +163,11 @@
     gap: 20px;
     }
     table {
-        margin: 0px;
+        margin: 0px !important;
+        font-size: 12px !important;
+    }
+    .table>:not(caption)>*>* {
+        padding: 0.3rem 0.4rem !important;
     }
     #print-page> div {
     width: 50%;
@@ -172,7 +176,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
     }
     #left-table> div {
     width: 100%;
@@ -188,7 +192,7 @@
     padding: 5px;
     }
     #print-page table {
-        border-width: 2px;
+        border-width: 1px;
         border-style: solid;
         border-color: black;
     }
@@ -212,10 +216,14 @@
     padding: 10px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
     }
+
+    #print-page #Observaciones-table tbody tr td {
+        gap: 20px;
+    }
+
     .underlined-field {
-    min-height: 20px;
+    min-height: 0px;
     }
     .underlined-field span{
     display: flex;
@@ -230,11 +238,18 @@
     gap: 10px;
     }
     .right-info {
-    padding: 20px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+        padding: 20px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        font-size: 14px;
+    }
+    #logo-table {
+        display: flex;
+        /* border: 1px solid black; */
+        font-size: 12px;
+        padding: 3px;
     }
     .flex {
         display: flex;
@@ -247,6 +262,9 @@
     }
     .bottom-border {
         border-bottom: solid black 1px
+    }
+    .text-center {
+        text-align: center;
     }
 </style>
 <div id="print-page">
@@ -262,10 +280,10 @@
                 <tr>
                 <td>
                     <div class="kanit-regular" style="font-weight: bold;">Períodos de Reportes de Calificaciones</div>
-                    <div class="kanit-light flex"><span class="nowrap">Ago-Sept-Oct</span> <span class="flex fullwidth bottom-border"></span></div>
-                    <div class="underlined-field kanit-light">Nov-Dic-Ene <span></span></div>
-                    <div class="underlined-field kanit-light">Feb-Mar <span></span></div>
-                    <div class="underlined-field kanit-light">Abr-May-Jun <span></span></div>
+                    <div class="kanit-light flex"><span class="nowrap">Ago-Sept-Oct</span><span class="flex fullwidth bottom-border"></span></div>
+                    <div class="kanit-light flex"><span class="nowrap">Nov-Dic-Ene</span> <span class="flex fullwidth bottom-border"></span></div>
+                    <div class="kanit-light flex"><span class="nowrap">Feb-Mar</span> <span class="flex fullwidth bottom-border"></span></div>
+                    <div class="kanit-light flex"><span class="nowrap">Abr-May-Jun</span> <span class="flex fullwidth bottom-border"></span></div>
                 </td>
                 </tr>
             </tbody>
@@ -292,45 +310,64 @@
                     <div class="underlined-field kanit-light"><span></span></div>
                     <div class="underlined-field kanit-light"><span></span></div>
                     <div class="underlined-field kanit-light"><span></span></div>
+                    <div class="underlined-field kanit-light"><span></span></div>
+                    <div class="underlined-field kanit-light"><span></span></div>
                 </td>
                 </tr>
             </tbody>
             </table>
         </div>
-        <div class="situacion-title">
-            <div>
-            <div style="width: 100%; height: 1px; background-color: black;"></div>
-            <div><i>Maestro(a) encargado(a) del grado</i></div>
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+            <div id="logo-table">
+                <img src="http://localhost/uploads/school_content/logo/rect-logo.png" style="width: 80px;">
+                <div style="padding: 2px;">
+                    <div style="font-size: 18px;"><b>Escuela Parroquial Santa Rita</b></div>
+                    <div style="font-size: 16px;"><b>Orden Agustinos Recoletos</b></div>
+                    <div>Lema del año: “¿Aspiras a lo grande? Comienza por lo pequeño” <br> Valor del año: Interioridad </div>
+                </div>
             </div>
-            <div>
-            <div style="width: 100%; height: 1px; background-color: black;"></div>
-            <div><i>Director(a) del Centro Educativo</i></div>
+            <div id="logo-table" style="justify-content: space-between;">
+                <div class="text-center">
+                    <div style="width: 95%; height: 40px; border-bottom: 1px solid black;"></div>
+                    <div><b>P. Arturo Yax Pacheco, OAR</b></div>
+                    <div>Director General</div>
+                </div>
+                <div class="text-center">
+                    <div style="width: 95%; height: 40px; border-bottom: 1px solid black;"></div>
+                    <div><b>M.A. Alejandrina Mota de León</b></div>
+                    <div>Coordinadora Nivel Primario</div>
+                </div>
+                <div class="text-center">
+                    <div style="width: 95%; height: 40px; border-bottom: 1px solid black;"></div>
+                    <div><b>Lic. Leoneida Mercedes Beltré Candelario</b></div>
+                    <div>Maestro Guía</div>
+                </div>
             </div>
         </div>
     </div>
     <div id="right-side">
-        <img src="http://localhost/uploads/school_content/logo/logo.png" style="width: 20%;">
+        <img src="http://localhost/uploads/school_content/logo/logo.png" style="width: 25%;">
         <div class="kanit-light" style="text-align: center; font-size: 12px;">Viceministro de Servicios Técnicos y Pedagógicos <br> Dirección General de Educación Secundaria</div>
         <!-- <div class="kanit-medium title-color" style="font-size: 24px;">INFORME DE APRENDIZAJE</div> -->
         <? $student['class'] ?>
-        <img src="http://localhost/uploads/school_content/logo/primarylogo/3er Grado. Primer Ciclo Matutino.png" style="width: 25%;">
-        <div class="kanit-light">
-            Año escolar: 2023-2024</span>
+        <img src="http://localhost/uploads/school_content/logo/primarylogo/1er Grado. Primer Ciclo Matutino.png" style="width: 55%;">
+        <div class="kanit-bold">
+            <b>Año Escolar 2023-2024</span></b>
         </div>
         <div class="kanit-light right-info">
             <div style="display: flex;justify-content: space-between;">
-            <span style="width: 50%; display: flex;justify-content: space-between;"><span style="white-space: nowrap; padding-right: 10px;">Sección: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">A</span> </span>
-            <span style="width: 50%; display: flex;justify-content: space-between;"><span style="white-space: nowrap; padding-right: 10px;">Número de orden: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">1</span> </span>
+                <span style="width: 50%; display: flex;justify-content: space-between;"><span style="white-space: nowrap; padding-right: 10px;">Sección: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">A</span> </span>
+                <span style="width: 50%; display: flex;justify-content: space-between;"><span style="white-space: nowrap; padding-right: 10px;">Número de orden: </span><span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">1</span> </span>
             </div>
             <div style="display: flex;justify-content: space-between;">
                 <span style="white-space: nowrap; padding-right: 10px;">Nombre (s): </span>
                 <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
-                    Abdiel José                                                                                                         </span>
+                    Arantxa Mariet                </span>
             </div>
             <div style="display: flex;justify-content: space-between;">
                 <span style="white-space: nowrap; padding-right: 10px;">Apellido (s): </span>
                 <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
-                    Segura Herrera                </span>
+                    Cordero Solano                </span>
             </div>
             <div style="display: flex;justify-content: space-between;">
                 <span style="white-space: nowrap; padding-right: 10px;">ID estudiante (Número de identificación SIGERD): </span>
@@ -340,7 +377,7 @@
             <div style="display: flex;justify-content: space-between;">
                 <span style="white-space: nowrap; padding-right: 10px;">Docente: </span>
                 <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
-                    Lic. Ruth Sergis Batista Luna                </span>
+                    Lic. Leoneida Mercedes Beltré Candelario                </span>
             </div>
             <div style="display: flex;justify-content: space-between;">
                 <span style="white-space: nowrap; padding-right: 10px;">Centro educativo: </span>
@@ -430,7 +467,7 @@
     width: 100%;
     background-color: #00a09a;
     color: white;
-    font-size: 18px;
+    font-size: 16px;
     }
     .resumen-table thead tr th {
     text-align: center;
@@ -438,7 +475,7 @@
     .SITUACION {
     display: flex; 
     gap: 10px; 
-    width: 50%;
+    width: 70%;
     flex-direction: column;
     justify-content: space-between;
     }
@@ -449,12 +486,20 @@
     justify-content: space-between;
     margin-top: 20px;
     }
+    .table-hover thead tr th {
+        text-align: center;
+        align-content: center;
+    }
+    .table-hover tbody tr td {
+        text-align: center;
+        align-content: center;
+    }
 </style>
 <div class="pagebreak"></div>
 <div id="detail-page">
     <div class="kanit-medium CALIFICACIONES title-bgcolor"> DESEMPEÑO INDIVIDUAL DEL/LA ESTUDIANTE </div>
     <div>
-        <table class="table table-striped table-bordered table-hover" style="font-size: 10px;">
+        <table class="table table-striped table-bordered table-hover" style="font-size: 12px;">
             <thead>
                 <tr>
                     <th class="subjectlabelth table-color" colspan="2" rowspan="1">COMPETENCIAS FUNDAMENTALES</th>
@@ -462,8 +507,8 @@
                     <th class="table-color" colspan="4" rowspan="1">• Pensamiento Lógico, Creativo y Crítico • Resolución de Problemas • Científica y Tecnológica</th>
                     <th class="table-color" colspan="4" rowspan="1">• Ética y Ciudadana • Desarrollo Personal y Espiritual • Ambiental y de la Salud</th>
                     <th class="table-color" colspan="3" rowspan="1"> Calificación final por competencia</th>
-                    <th class="table-color vertical-lr rotated" colspan="1" rowspan="2">CALIFICACIÓN <br> FINAL DEL ÁREA</th>
-                    <th class="table-color vertical-lr rotated" colspan="1" rowspan="2">CALIFICACIÓN <br> RECUPERACIÓN <br> FINAL</th>
+                    <th class="table-color vertical-lr rotated" colspan="1" rowspan="2">Calificación <br> final del área</th>
+                    <th class="table-color vertical-lr rotated" colspan="1" rowspan="2">final <br> recuperación <br>Calificación </th>
                 </tr>
                 <tr>
                     <th class="table-light-color subjectlabelth" colspan="2" rowspan="1">PERÍODOS</th>
@@ -487,22 +532,22 @@
             <tbody>
                                     <tr>
                      <td rowspan="9" class="vertical-lr rotated table-color" style="text-align: center;">ÁREAS CURRICULARES</td>                         <td style="padding-left: 4px; padding-right: 4px;font-weight: 300; text-align: left;">LENGUA ESPAÑOLA</td>
-                                                    <td>100</td>
-                                                    <td>80</td>
-                                                    <td>90</td>
-                                                    <td>60</td>
-                                                    <td>40</td>
-                                                    <td>50</td>
-                                                    <td>70</td>
+                                                    <td>79</td>
                                                     <td>87</td>
-                                                    <td>90</td>
-                                                    <td>60</td>
-                                                    <td>75</td>
-                                                    <td>100</td>
-                                                    <td>90</td>
-                                                    <td>83</td>
-                                                    <td>66.3</td>
-                                                    <td class="rboder">80</td>
+                                                    <td>77</td>
+                                                    <td>88</td>
+                                                    <td>80</td>
+                                                    <td>26</td>
+                                                    <td>87</td>
+                                                    <td>99</td>
+                                                    <td>67</td>
+                                                    <td>62</td>
+                                                    <td>87</td>
+                                                    <td>78</td>
+                                                    <td>82.8</td>
+                                                    <td>73</td>
+                                                    <td>73.5</td>
+                                                    <td class="rboder">76</td>
                             <td class="rboder"> </td>
                     </tr>
                                     <tr>
@@ -566,7 +611,7 @@
                             <td class="rboder"> </td>
                     </tr>
                                     <tr>
-                                            <td style="padding-left: 4px; padding-right: 4px;font-weight: 300; text-align: left;">EDUCACION ARTISTICA</td>
+                                            <td style="padding-left: 4px; padding-right: 4px;font-weight: 300; text-align: left;">EDUCACIÓN ARTÍSTICA</td>
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
@@ -668,7 +713,7 @@
                             </tbody>
         </table>
     </div>
-    <table class="table table-striped table-bordered table-hover resumen-table" style="text-align: center; height: 100%; font-size: 10px;">
+    <table class="table table-striped table-bordered table-hover resumen-table" style="text-align: center; height: 100%; font-size: 12px;">
         <thead>
         </thead>
         <tbody>
@@ -693,118 +738,118 @@
             </tr>
         </tbody>
     </table>
-    <div style="display: flex; justify-content: space-between; gap: 20px;">
-    <div>
-        <table class="table table-striped table-bordered table-hover resumen-table" style="text-align: center; height: 100%; font-size: 10px;">
+    <div style="display: flex; justify-content: space-between; gap: 10px;">
+        <div>
+            <table class="table table-striped table-bordered table-hover resumen-table" style="text-align: center; height: 100%; font-size: 12px;">
+                <thead>
+                    <tr>
+                    <th class="table-color" colspan="5">RESUMEN DE ASISTENCIA DEL/LA ESTUDIANTE</th>
+                    </tr>
+                    <tr>
+                    <th class="table-light-color " rowspan="2">Períodos</th>
+                    <th class=" " rowspan="2">Asistencia</th>
+                    <th class=""  rowspan="2">Ausencia</th>
+                    <th colspan="2">% de Anual</th>
+                    </tr>
+                    <tr>
+                    <th>Asistencia</th>
+                    <th>Ausencia</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td class="table-light-color">P1</td>
+                    <td></td>
+                    <td></td>
+                    <td rowspan="4"></td>
+                    <td rowspan="4"></td>
+                    </tr>
+                    <tr>
+                    <td class="table-light-color">P2</td>
+                    <td></td>
+                    <td></td>
+                    </tr>
+                    <tr>
+                    <td class="table-light-color">P3</td>
+                    <td></td>
+                    <td></td>
+                    </tr>
+                    <tr>
+                    <td class="table-light-color">P4</td>
+                    <td></td>
+                    <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <table class="table table-striped table-bordered table-hover" style="height: 100%; font-size: 12px;">
             <thead>
                 <tr>
-                <th class="table-color" colspan="5">RESUMEN DE ASISTENCIA DEL/LA ESTUDIANTE</th>
-                </tr>
-                <tr>
-                <th class="table-light-color" rowspan="2">Períodos</th>
-                <th rowspan="2">Asistencia</th>
-                <th rowspan="2">Ausencia</th>
-                <th colspan="2">% de Anual</th>
-                </tr>
-                <tr>
-                <th>Asistencia</th>
-                <th>Ausencia</th>
+                <th class="table-color">LEYENDA:</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                <td class="table-light-color">P1</td>
-                <td></td>
-                <td></td>
-                <td rowspan="4"></td>
-                <td rowspan="4"></td>
-                </tr>
-                <tr>
-                <td class="table-light-color">P2</td>
-                <td></td>
-                <td></td>
-                </tr>
-                <tr>
-                <td class="table-light-color">P3</td>
-                <td></td>
-                <td></td>
-                </tr>
-                <tr>
-                <td class="table-light-color">P4</td>
-                <td></td>
-                <td></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div>
-        <table class="table table-striped table-bordered table-hover" style="height: 100%; font-size: 10px;">
-        <thead>
-            <tr>
-            <th class="table-color">LEYENDA:</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-            <td style="display: flex; gap: 10px; padding: 10px; height: 100%;">
-                <div>
-                <div>(P1)</div>
-                <div>(P2)</div>
-                <div>(P3)</div>
-                <div>(P4)</div>
-                <div style="height: 10px;"></div>
-                <div>(C1)</div>
-                <div>(C2)</div>
-                <div>(C3)</div>
-                </div>
-                <div>
-                <div>Período 1</div>
-                <div>Período 2</div>
-                <div>Período 3</div>
-                <div>Período 4</div>
-                <div style="height: 10px;"></div>
-                <div>Competencia 1</div>
-                <div>Competencia 2</div>
-                <div>Competencia 3</div>
-                </div>
-            </td>
-            </tr>
-        </tbody>
-        </table>
-    </div>
-    <div class="kanit-regular SITUACION">
-        <table class="table table-striped table-bordered table-hover resumen-table" style="text-align: left; height: 100%; font-size: 10px;">
-            <thead>
-                <tr>
-                <th class="table-color">Escala numérica</th>
-                <th class="table-color">Descripción</th>
-                </tr>
-            </thead>
-            <tbody style="font-size: 12px;">
-                <tr>
-                <td style="text-align: left; height: 100%;">89-100</td>
-                <td>Evidencia que el estudiante ha alcanzado un desempeño <b>destacado</b> con relación a los aspectos
-                    evaluados de las competencias de cada área, durante los períodos y al finalizar el año escolar.</td>
-                </tr>
-                <tr>
-                <td style="text-align: left; height: 100%;">77-88</td>
-                <td>Evidencia que el estudiante ha <b>logrado</b>, en general, los aprendizajes esperados con relación a los
-                    aspectos evaluados de las competencias de cada área, durante los períodos y al finalizar el año escolar.</td>
-                </tr>
-                <tr>
-                <td style="text-align: left; height: 100%;">65-76 </td>
-                <td>Evidencia que el estudiante aún se encuentra <b>en proceso</b> con relación a los aspectos evaluados de las
-                    competencias de cada área, durante los períodos y al finalizar el año escolar, mostrando un logro muy
-                    básico.</td>
-                </tr>
-                <tr>
-                <td style="text-align: left; height: 100%;">Menos de 65</td>
-                <td>Evidencia que el estudiante ha alcanzado un desempeño <b>insuficiente</b> con relación a los aspectos
-                    evaluados de las competencias de cada área, durante los períodos y al finalizar el año escolar.</td>
+                <td style="display: flex; gap: 10px; padding: 10px; height: 100%;">
+                    <div>
+                    <div>(P1)</div>
+                    <div>(P2)</div>
+                    <div>(P3)</div>
+                    <div>(P4)</div>
+                    <div style="height: 10px;"></div>
+                    <div>(C1)</div>
+                    <div>(C2)</div>
+                    <div>(C3)</div>
+                    </div>
+                    <div>
+                    <div>Período 1</div>
+                    <div>Período 2</div>
+                    <div>Período 3</div>
+                    <div>Período 4</div>
+                    <div style="height: 10px;"></div>
+                    <div style="white-space: nowrap;">Competencia 1</div>
+                    <div style="white-space: nowrap;">Competencia 2</div>
+                    <div style="white-space: nowrap;">Competencia 3</div>
+                    </div>
+                </td>
                 </tr>
             </tbody>
-        </table>
-    </div>
+            </table>
+        </div>
+        <div class="kanit-regular SITUACION">
+            <table class="table table-striped table-bordered table-hover resumen-table" style="text-align: left; height: 100%; font-size: 12px;">
+                <thead>
+                    <tr>
+                    <th class="table-color">Escala numérica</th>
+                    <th class="table-color">Descripción</th>
+                    </tr>
+                </thead>
+                <tbody style="font-size: 10px;">
+                    <tr>
+                    <td style="text-align: left; height: 100%;">89-100</td>
+                    <td>Evidencia que el estudiante ha alcanzado un desempeño <b>destacado</b> con relación a los aspectos
+                        evaluados de las competencias de cada área, durante los períodos y al finalizar el año escolar.</td>
+                    </tr>
+                    <tr>
+                    <td style="text-align: left; height: 100%;">77-88</td>
+                    <td>Evidencia que el estudiante ha <b>logrado</b>, en general, los aprendizajes esperados con relación a los
+                        aspectos evaluados de las competencias de cada área, durante los períodos y al finalizar el año escolar.</td>
+                    </tr>
+                    <tr>
+                    <td style="text-align: left; height: 100%;">65-76 </td>
+                    <td>Evidencia que el estudiante aún se encuentra <b>en proceso</b> con relación a los aspectos evaluados de las
+                        competencias de cada área, durante los períodos y al finalizar el año escolar, mostrando un logro muy
+                        básico.</td>
+                    </tr>
+                    <tr>
+                    <td style="text-align: left; height: 100%;">Menos de 65</td>
+                    <td>Evidencia que el estudiante ha alcanzado un desempeño <b>insuficiente</b> con relación a los aspectos
+                        evaluados de las competencias de cada área, durante los períodos y al finalizar el año escolar.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 <div class="pagebreak"></div> 

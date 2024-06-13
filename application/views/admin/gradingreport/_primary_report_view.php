@@ -503,7 +503,7 @@
     width: 100%;
     background-color: #00a09a;
     color: white;
-    font-size: 18px;
+    font-size: 14px;
     }
     .resumen-table thead tr th {
     text-align: center;
@@ -522,21 +522,70 @@
     justify-content: space-between;
     margin-top: 20px;
     }
+    .table-hover thead tr th {
+        text-align: center;
+        align-content: center;
+    }
+    .table-hover tbody tr td {
+        text-align: center;
+        align-content: center;
+    }
 </style>
 <div class="pagebreak"></div>
 <div id="detail-page">
     <div class="kanit-medium CALIFICACIONES title-bgcolor"> DESEMPEÑO INDIVIDUAL DEL/LA ESTUDIANTE </div>
     <div>
-        <table class="table table-striped table-bordered table-hover" style="font-size: 12px;">
+        <table class="table table-bordered table-hover" style="font-size: 11px;">
             <thead>
+                <?php if ($class_id > 15) {?>
+                <tr>
+                    <th class="subjectlabelth table-color" colspan="2" rowspan="1">COMPETENCIAS FUNDAMENTALES</th>
+                    <th class="table-color" colspan="8" rowspan="1">Comunicativa</th>
+                    <th class="table-color" colspan="8" rowspan="1">• Pensamiento Lógico, Creativo y Crítico • Resolución de Problemas • Científica y Tecnológica</th>
+                    <th class="table-color" colspan="8" rowspan="1">• Ética y Ciudadana • Desarrollo Personal y Espiritual • Ambiental y de la Salud</th>
+                    <th class="table-color" colspan="3" rowspan="1"> Calificación final por competencia</th>
+                    <th class="table-color vertical-lr rotated" colspan="1" rowspan="2">Calificación <br> final del área</th>
+                    <th class="table-color vertical-lr rotated" colspan="1" rowspan="2">final <br> recuperación <br>Calificación </th>
+                </tr>
+                <tr>
+                    <th class="table-light-color subjectlabelth" colspan="2" rowspan="1">PERÍODOS</th>
+                    <th class="table-light-color">P1</th>
+                    <th class="table-light-color">RP1</th>
+                    <th class="table-light-color">P2</th>
+                    <th class="table-light-color">RP2</th>
+                    <th class="table-light-color">P3</th>
+                    <th class="table-light-color">RP3</th>
+                    <th class="table-light-color">P4</th>
+                    <th class="table-light-color">RP4</th>
+                    <th class="table-light-color">P1</th>
+                    <th class="table-light-color">RP1</th>
+                    <th class="table-light-color">P2</th>
+                    <th class="table-light-color">RP2</th>
+                    <th class="table-light-color">P3</th>
+                    <th class="table-light-color">RP3</th>
+                    <th class="table-light-color">P4</th>
+                    <th class="table-light-color">RP4</th>
+                    <th class="table-light-color">P1</th>
+                    <th class="table-light-color">RP1</th>
+                    <th class="table-light-color">P2</th>
+                    <th class="table-light-color">RP2</th>
+                    <th class="table-light-color">P3</th>
+                    <th class="table-light-color">RP3</th>
+                    <th class="table-light-color">P4</th>
+                    <th class="table-light-color">RP4</th>
+                    <th class="table-light-color">C1</th>
+                    <th class="table-light-color">C2</th>
+                    <th class="table-light-color">C3</th>
+                </tr>
+                <?php } else {?>
                 <tr>
                     <th class="subjectlabelth table-color" colspan="2" rowspan="1">COMPETENCIAS FUNDAMENTALES</th>
                     <th class="table-color" colspan="4" rowspan="1">Comunicativa</th>
                     <th class="table-color" colspan="4" rowspan="1">• Pensamiento Lógico, Creativo y Crítico • Resolución de Problemas • Científica y Tecnológica</th>
                     <th class="table-color" colspan="4" rowspan="1">• Ética y Ciudadana • Desarrollo Personal y Espiritual • Ambiental y de la Salud</th>
                     <th class="table-color" colspan="3" rowspan="1"> Calificación final por competencia</th>
-                    <th class="table-color vertical-lr rotated" colspan="1" rowspan="2">CALIFICACIÓN <br> FINAL DEL ÁREA</th>
-                    <th class="table-color vertical-lr rotated" colspan="1" rowspan="2">CALIFICACIÓN <br> RECUPERACIÓN <br> FINAL</th>
+                    <th class="table-color vertical-lr rotated" colspan="1" rowspan="2">Calificación <br> final del área</th>
+                    <th class="table-color vertical-lr rotated" colspan="1" rowspan="2">final <br> recuperación <br>Calificación </th>
                 </tr>
                 <tr>
                     <th class="table-light-color subjectlabelth" colspan="2" rowspan="1">PERÍODOS</th>
@@ -556,6 +605,7 @@
                     <th class="table-light-color">C2</th>
                     <th class="table-light-color">C3</th>
                 </tr>
+                <?php } ?>
             </thead>
             <tbody>
                 <?php foreach ($grading_subject_results as $index => $result) { ?>
@@ -564,6 +614,9 @@
                         <td style="padding-left: 4px; padding-right: 4px;font-weight: 300; text-align: left;"><?php echo $result['subject'] ?></td>
                         <?php for ($i = 0; $i < count($periodList) * 3 + 3; $i++) { ?>
                             <td><?php echo $result['period_results'][$i] ? $result['period_results'][$i] : "" ?></td>
+                            <?php if ($class_id > 15 && $i < count($periodList) * 3) { ?>
+                                <td><?php echo $result['period_resultsRP'][$i] ? $result['period_resultsRP'][$i] : "" ?></td>
+                            <?php } ?>
                         <?php } ?>
                             <td class="rboder"><?php echo $result['CF'] ? $result['CF'] : "";  ?></td>
                             <td class="rboder"> </td>
@@ -572,7 +625,7 @@
             </tbody>
         </table>
     </div>
-    <table class="table table-striped table-bordered table-hover resumen-table" style="text-align: center; height: 100%; font-size: 12px;">
+    <table class="table table-bordered table-hover resumen-table" style="text-align: center; height: 100%; font-size: 11px;">
         <thead>
         </thead>
         <tbody>
@@ -599,7 +652,7 @@
     </table>
     <div style="display: flex; justify-content: space-between; gap: 10px;">
         <div>
-            <table class="table table-striped table-bordered table-hover resumen-table" style="text-align: center; height: 100%; font-size: 12px;">
+            <table class="table table-bordered table-hover resumen-table" style="text-align: center; height: 100%; font-size: 11px;">
                 <thead>
                     <tr>
                     <th class="table-color" colspan="5">RESUMEN DE ASISTENCIA DEL/LA ESTUDIANTE</th>
@@ -642,42 +695,42 @@
             </table>
         </div>
         <div>
-            <table class="table table-striped table-bordered table-hover" style="height: 100%; font-size: 12px;">
-            <thead>
-                <tr>
-                <th class="table-color">LEYENDA:</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                <td style="display: flex; gap: 10px; padding: 10px; height: 100%;">
-                    <div>
-                    <div>(P1)</div>
-                    <div>(P2)</div>
-                    <div>(P3)</div>
-                    <div>(P4)</div>
-                    <div style="height: 10px;"></div>
-                    <div>(C1)</div>
-                    <div>(C2)</div>
-                    <div>(C3)</div>
-                    </div>
-                    <div>
-                    <div>Período 1</div>
-                    <div>Período 2</div>
-                    <div>Período 3</div>
-                    <div>Período 4</div>
-                    <div style="height: 10px;"></div>
-                    <div style="white-space: nowrap;">Competencia 1</div>
-                    <div style="white-space: nowrap;">Competencia 2</div>
-                    <div style="white-space: nowrap;">Competencia 3</div>
-                    </div>
-                </td>
-                </tr>
-            </tbody>
+            <table class="table table-bordered table-hover" style="height: 100%; font-size: 11px;">
+                <thead>
+                    <tr>
+                    <th class="table-color">LEYENDA:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td style="display: flex; gap: 10px; padding: 10px; height: 100%;">
+                        <div>
+                        <div>(P1)</div>
+                        <div>(P2)</div>
+                        <div>(P3)</div>
+                        <div>(P4)</div>
+                        <div style="height: 10px;"></div>
+                        <div>(C1)</div>
+                        <div>(C2)</div>
+                        <div>(C3)</div>
+                        </div>
+                        <div>
+                        <div>Período 1</div>
+                        <div>Período 2</div>
+                        <div>Período 3</div>
+                        <div>Período 4</div>
+                        <div style="height: 10px;"></div>
+                        <div style="white-space: nowrap;">Competencia 1</div>
+                        <div style="white-space: nowrap;">Competencia 2</div>
+                        <div style="white-space: nowrap;">Competencia 3</div>
+                        </div>
+                    </td>
+                    </tr>
+                </tbody>
             </table>
         </div>
         <div class="kanit-regular SITUACION">
-            <table class="table table-striped table-bordered table-hover resumen-table" style="text-align: left; height: 100%; font-size: 12px;">
+            <table class="table table-bordered table-hover resumen-table" style="text-align: left; height: 100%; font-size: 11px;">
                 <thead>
                     <tr>
                     <th class="table-color">Escala numérica</th>
