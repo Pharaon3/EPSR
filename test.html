@@ -26,17 +26,17 @@
         box-sizing: border-box;
     }
     .title-color {
-        color: #f7941d !important;
+        color: #1f9186 !important;
     }
     .title-bgcolor {
-        background-color: #f7941d !important;
+        background-color: #1f9186 !important;
     }
     .table-color {
-        background-color: #fce1cb !important;
+        background-color: #8ad3d8 !important;
         color: black;
     }
     .table-light-color {
-        background-color: #faf0e8 !important;
+        background-color: #c3e7eb !important;
         color: black;
     }
 </style>
@@ -161,6 +161,7 @@
     display: flex;
     justify-content: space-between;
     gap: 20px;
+    height: 100vh;
     }
     table {
         margin: 0px !important;
@@ -171,12 +172,14 @@
     }
     #print-page> div {
     width: 50%;
+    height: 100vh;
     }
     #left-table {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    height: 100vh;
     }
     #left-table> div {
     width: 100%;
@@ -266,6 +269,33 @@
     .text-center {
         text-align: center;
     }
+    #print-page #Observaciones-table1 thead tr th {
+        display: table-cell;
+        border: solid black 1px;
+        text-align: center;
+    }
+
+    #print-page #Observaciones-table1 tbody tr td {
+        display: table-cell;
+        width: calc(100% / 3);
+        border: solid black 1px;
+    }
+
+    #print-page #Observaciones-table1, #print-page #Observaciones-table1 th, #print-page #Observaciones-table1 td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        text-align: center;
+    }
+
+
+    #print-page #Observaciones-table1 {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    #print-page #Observaciones-table1 thead tr, #print-page #Observaciones-table1 thead th {
+        width: 100%;
+    }
 </style>
 <div id="print-page">
     <div id="left-table">
@@ -289,35 +319,60 @@
             </tbody>
             </table>
         </div>
-        <div id="Observaciones">
-            <table id="Observaciones-table">
-            <thead>
-                <tr>
-                <th class="kanit-medium table-color" style="color: black;">Información sobre el nivel de avance de los aprendizajes y los apoyos
-                    que necesita para la mejora de sus aprendizajes. </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                <td style="padding-top: 20px;">
-                    <div class="underlined-field kanit-light"><span></span></div>
-                    <div class="underlined-field kanit-light"><span></span></div>
-                    <div class="underlined-field kanit-light"><span></span></div>
-                    <div class="underlined-field kanit-light"><span></span></div>
-                    <div class="underlined-field kanit-light"><span></span></div>
-                    <div class="underlined-field kanit-light"><span></span></div>
-                    <div class="underlined-field kanit-light"><span></span></div>
-                    <div class="underlined-field kanit-light"><span></span></div>
-                    <div class="underlined-field kanit-light"><span></span></div>
-                    <div class="underlined-field kanit-light"><span></span></div>
-                    <div class="underlined-field kanit-light"><span></span></div>
-                    <div class="underlined-field kanit-light"><span></span></div>
-                </td>
-                </tr>
-            </tbody>
+                <div>
+            <table id="Observaciones-table1">
+                <thead>
+                    <tr>
+                        <th class="kanit-medium table-color" style="color: black;" colspan="3">SITUACIÓN DEL/DE LA ESTUDIANTE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="kanit-light">
+                            Promovido/a
+                        </td>
+                        <td class="kanit-light">
+                            Aplazado/a
+                        </td>
+                        <td class="kanit-light">
+                            Repitente
+                        </td>
+                    </tr>
+                    <tr style="height: 50px;">
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 20px;">
+        <div id="Observaciones">
+            <table id="Observaciones-table">
+                <thead>
+                    <tr>
+                    <th class="kanit-medium table-color" style="color: black;">Observaciones: </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td style="padding-top: 20px;">
+                        <div class="underlined-field kanit-light"><span></span></div>
+                        <div class="underlined-field kanit-light"><span></span></div>
+                        <div class="underlined-field kanit-light"><span></span></div>
+                        <div class="underlined-field kanit-light"><span></span></div>
+                        <div class="underlined-field kanit-light"><span></span></div>
+                        <div class="underlined-field kanit-light"><span></span></div>
+                        <div class="underlined-field kanit-light"><span></span></div>
+                    </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+                <div style="display: flex; flex-direction: column; gap: 20px;">
             <div id="logo-table">
                 <img src="http://localhost/uploads/school_content/logo/rect-logo.png" style="width: 80px;">
                 <div style="padding: 2px;">
@@ -329,17 +384,17 @@
             <div id="logo-table" style="justify-content: space-between;">
                 <div class="text-center">
                     <div style="width: 95%; height: 40px; border-bottom: 1px solid black;"></div>
-                    <div><b>P. Arturo Yax Pacheco, OAR</b></div>
+                    <div class="kanit-semibold">P. Arturo Yax Pacheco, OAR</div>
                     <div>Director General</div>
                 </div>
                 <div class="text-center">
                     <div style="width: 95%; height: 40px; border-bottom: 1px solid black;"></div>
-                    <div><b>M.A. Alejandrina Mota de León</b></div>
+                    <div class="kanit-semibold">M.A. Alejandrina Mota de León</div>
                     <div>Coordinadora Nivel Primario</div>
                 </div>
                 <div class="text-center">
                     <div style="width: 95%; height: 40px; border-bottom: 1px solid black;"></div>
-                    <div><b>Lic. Leoneida Mercedes Beltré Candelario</b></div>
+                    <div class="kanit-semibold">Lic. Ruth Sergis Batista Luna</div>
                     <div>Maestro Guía</div>
                 </div>
             </div>
@@ -350,7 +405,7 @@
         <div class="kanit-light" style="text-align: center; font-size: 12px;">Viceministro de Servicios Técnicos y Pedagógicos <br> Dirección General de Educación Secundaria</div>
         <!-- <div class="kanit-medium title-color" style="font-size: 24px;">INFORME DE APRENDIZAJE</div> -->
         <? $student['class'] ?>
-        <img src="http://localhost/uploads/school_content/logo/primarylogo/1er Grado. Primer Ciclo Matutino.png" style="width: 55%;">
+        <img src="http://localhost/uploads/school_content/logo/primarylogo/3er Grado. Primer Ciclo Matutino.png" style="width: 55%;">
         <div class="kanit-bold">
             <b>Año Escolar 2023-2024</span></b>
         </div>
@@ -362,12 +417,12 @@
             <div style="display: flex;justify-content: space-between;">
                 <span style="white-space: nowrap; padding-right: 10px;">Nombre (s): </span>
                 <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
-                    Arantxa Mariet                </span>
+                    Abdiel José                                                                                                         </span>
             </div>
             <div style="display: flex;justify-content: space-between;">
                 <span style="white-space: nowrap; padding-right: 10px;">Apellido (s): </span>
                 <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
-                    Cordero Solano                </span>
+                    Segura Herrera                </span>
             </div>
             <div style="display: flex;justify-content: space-between;">
                 <span style="white-space: nowrap; padding-right: 10px;">ID estudiante (Número de identificación SIGERD): </span>
@@ -377,7 +432,7 @@
             <div style="display: flex;justify-content: space-between;">
                 <span style="white-space: nowrap; padding-right: 10px;">Docente: </span>
                 <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
-                    Lic. Leoneida Mercedes Beltré Candelario                </span>
+                    Lic. Ruth Sergis Batista Luna                </span>
             </div>
             <div style="display: flex;justify-content: space-between;">
                 <span style="white-space: nowrap; padding-right: 10px;">Centro educativo: </span>
@@ -467,7 +522,7 @@
     width: 100%;
     background-color: #00a09a;
     color: white;
-    font-size: 16px;
+    font-size: 14px;
     }
     .resumen-table thead tr th {
     text-align: center;
@@ -478,6 +533,9 @@
     width: 70%;
     flex-direction: column;
     justify-content: space-between;
+    }
+    .SITUACION *{
+    line-height: 1.5;
     }
     .situacion-title {
     display: flex;
@@ -499,13 +557,13 @@
 <div id="detail-page">
     <div class="kanit-medium CALIFICACIONES title-bgcolor"> DESEMPEÑO INDIVIDUAL DEL/LA ESTUDIANTE </div>
     <div>
-        <table class="table table-striped table-bordered table-hover" style="font-size: 12px;">
+        <table class="table table-bordered table-hover" style="font-size: 11px;">
             <thead>
-                <tr>
+                                <tr>
                     <th class="subjectlabelth table-color" colspan="2" rowspan="1">COMPETENCIAS FUNDAMENTALES</th>
-                    <th class="table-color" colspan="4" rowspan="1">Comunicativa</th>
-                    <th class="table-color" colspan="4" rowspan="1">• Pensamiento Lógico, Creativo y Crítico • Resolución de Problemas • Científica y Tecnológica</th>
-                    <th class="table-color" colspan="4" rowspan="1">• Ética y Ciudadana • Desarrollo Personal y Espiritual • Ambiental y de la Salud</th>
+                    <th class="table-color" colspan="8" rowspan="1">Comunicativa</th>
+                    <th class="table-color" colspan="8" rowspan="1">• Pensamiento Lógico, Creativo y Crítico • Resolución de Problemas • Científica y Tecnológica</th>
+                    <th class="table-color" colspan="8" rowspan="1">• Ética y Ciudadana • Desarrollo Personal y Espiritual • Ambiental y de la Salud</th>
                     <th class="table-color" colspan="3" rowspan="1"> Calificación final por competencia</th>
                     <th class="table-color vertical-lr rotated" colspan="1" rowspan="2">Calificación <br> final del área</th>
                     <th class="table-color vertical-lr rotated" colspan="1" rowspan="2">final <br> recuperación <br>Calificación </th>
@@ -513,234 +571,354 @@
                 <tr>
                     <th class="table-light-color subjectlabelth" colspan="2" rowspan="1">PERÍODOS</th>
                     <th class="table-light-color">P1</th>
+                    <th class="table-light-color">RP1</th>
                     <th class="table-light-color">P2</th>
+                    <th class="table-light-color">RP2</th>
                     <th class="table-light-color">P3</th>
+                    <th class="table-light-color">RP3</th>
                     <th class="table-light-color">P4</th>
+                    <th class="table-light-color">RP4</th>
                     <th class="table-light-color">P1</th>
+                    <th class="table-light-color">RP1</th>
                     <th class="table-light-color">P2</th>
+                    <th class="table-light-color">RP2</th>
                     <th class="table-light-color">P3</th>
+                    <th class="table-light-color">RP3</th>
                     <th class="table-light-color">P4</th>
+                    <th class="table-light-color">RP4</th>
                     <th class="table-light-color">P1</th>
+                    <th class="table-light-color">RP1</th>
                     <th class="table-light-color">P2</th>
+                    <th class="table-light-color">RP2</th>
                     <th class="table-light-color">P3</th>
+                    <th class="table-light-color">RP3</th>
                     <th class="table-light-color">P4</th>
+                    <th class="table-light-color">RP4</th>
                     <th class="table-light-color">C1</th>
                     <th class="table-light-color">C2</th>
                     <th class="table-light-color">C3</th>
                 </tr>
-            </thead>
+                            </thead>
             <tbody>
                                     <tr>
-                     <td rowspan="9" class="vertical-lr rotated table-color" style="text-align: center;">ÁREAS CURRICULARES</td>                         <td style="padding-left: 4px; padding-right: 4px;font-weight: 300; text-align: left;">LENGUA ESPAÑOLA</td>
-                                                    <td>79</td>
-                                                    <td>87</td>
-                                                    <td>77</td>
-                                                    <td>88</td>
-                                                    <td>80</td>
-                                                    <td>26</td>
-                                                    <td>87</td>
-                                                    <td>99</td>
-                                                    <td>67</td>
-                                                    <td>62</td>
-                                                    <td>87</td>
-                                                    <td>78</td>
-                                                    <td>82.8</td>
-                                                    <td>73</td>
-                                                    <td>73.5</td>
-                                                    <td class="rboder">76</td>
+                     <td rowspan="9" class="kanit-semibold vertical-lr rotated table-color" style="text-align: center;">ÁREAS CURRICULARES</td>                         <td class="kanit-semibold" style="padding-left: 4px; padding-right: 4px; text-align: left; line-height: 1;">LENGUA ESPAÑOLA</td>
+                                                    <td>100</td>
+                                                            <td></td>
+                                                                                <td>80</td>
+                                                            <td></td>
+                                                                                <td>90</td>
+                                                            <td></td>
+                                                                                <td>60</td>
+                                                            <td>90</td>
+                                                                                <td>40</td>
+                                                            <td>85</td>
+                                                                                <td>50</td>
+                                                            <td>90</td>
+                                                                                <td>70</td>
+                                                            <td></td>
+                                                                                <td>87</td>
+                                                            <td></td>
+                                                                                <td>90</td>
+                                                            <td></td>
+                                                                                <td>60</td>
+                                                            <td></td>
+                                                                                <td>75</td>
+                                                            <td></td>
+                                                                                <td>100</td>
+                                                            <td></td>
+                                                                                <td>90</td>
+                                                                                <td>83</td>
+                                                                                <td>81.3</td>
+                                                                                <td class="rboder">85</td>
                             <td class="rboder"> </td>
                     </tr>
                                     <tr>
-                                            <td style="padding-left: 4px; padding-right: 4px;font-weight: 300; text-align: left;">MATEMÁTICA</td>
+                                            <td class="kanit-semibold" style="padding-left: 4px; padding-right: 4px; text-align: left; line-height: 1;">MATEMÁTICA</td>
                                                     <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td class="rboder"></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td class="rboder"></td>
                             <td class="rboder"> </td>
                     </tr>
                                     <tr>
-                                            <td style="padding-left: 4px; padding-right: 4px;font-weight: 300; text-align: left;">CIENCIAS SOCIALES</td>
+                                            <td class="kanit-semibold" style="padding-left: 4px; padding-right: 4px; text-align: left; line-height: 1;">CIENCIAS SOCIALES</td>
                                                     <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td class="rboder"></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td class="rboder"></td>
                             <td class="rboder"> </td>
                     </tr>
                                     <tr>
-                                            <td style="padding-left: 4px; padding-right: 4px;font-weight: 300; text-align: left;">CIENCIAS NATURALES</td>
+                                            <td class="kanit-semibold" style="padding-left: 4px; padding-right: 4px; text-align: left; line-height: 1;">CIENCIAS NATURALES</td>
                                                     <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td class="rboder"></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td class="rboder"></td>
                             <td class="rboder"> </td>
                     </tr>
                                     <tr>
-                                            <td style="padding-left: 4px; padding-right: 4px;font-weight: 300; text-align: left;">EDUCACIÓN ARTÍSTICA</td>
+                                            <td class="kanit-semibold" style="padding-left: 4px; padding-right: 4px; text-align: left; line-height: 1;">EDUCACION ARTISTICA</td>
                                                     <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td class="rboder"></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td class="rboder"></td>
                             <td class="rboder"> </td>
                     </tr>
                                     <tr>
-                                            <td style="padding-left: 4px; padding-right: 4px;font-weight: 300; text-align: left;">EDUCACION FISICA</td>
+                                            <td class="kanit-semibold" style="padding-left: 4px; padding-right: 4px; text-align: left; line-height: 1;">EDUCACION FISICA</td>
                                                     <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td class="rboder"></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td class="rboder"></td>
                             <td class="rboder"> </td>
                     </tr>
                                     <tr>
-                                            <td style="padding-left: 4px; padding-right: 4px;font-weight: 300; text-align: left;">FORMACION INT.HUM. Y RELIGIOSA</td>
+                                            <td class="kanit-semibold" style="padding-left: 4px; padding-right: 4px; text-align: left; line-height: 1;">FORMACION INT.HUM. Y RELIGIOSA</td>
                                                     <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td class="rboder"></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td class="rboder"></td>
                             <td class="rboder"> </td>
                     </tr>
                                     <tr>
-                                            <td style="padding-left: 4px; padding-right: 4px;font-weight: 300; text-align: left;">INGLES</td>
+                                            <td class="kanit-semibold" style="padding-left: 4px; padding-right: 4px; text-align: left; line-height: 1;">INGLES</td>
                                                     <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td class="rboder"></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td class="rboder"></td>
                             <td class="rboder"> </td>
                     </tr>
                                     <tr>
-                                            <td style="padding-left: 4px; padding-right: 4px;font-weight: 300; text-align: left;">INFORMATICA</td>
+                                            <td class="kanit-semibold" style="padding-left: 4px; padding-right: 4px; text-align: left; line-height: 1;">INFORMATICA</td>
                                                     <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td class="rboder"></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                            <td></td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td class="rboder"></td>
                             <td class="rboder"> </td>
                     </tr>
                             </tbody>
         </table>
     </div>
-    <table class="table table-striped table-bordered table-hover resumen-table" style="text-align: center; height: 100%; font-size: 12px;">
+    <table class="table table-bordered table-hover resumen-table" style="text-align: center; height: 100%; font-size: 11px;">
         <thead>
         </thead>
         <tbody>
             <tr>
-            <td class="table-color vertical-lr rotated" rowspan="5">OBSERVACIONES</td>
+            <td class="kanit-semibold table-color vertical-lr rotated" rowspan="5">OBSERVACIONES</td>
             </tr>
             <tr>
-            <td class="table-light-color">P1</td>
+            <td class="kanit-semibold table-light-color">P1</td>
             <td style="width: 90%;"></td>
             </tr>
             <tr>
-            <td class="table-light-color">P2</td>
+            <td class="kanit-semibold table-light-color">P2</td>
             <td></td>
             </tr>
             <tr>
-            <td class="table-light-color">P3</td>
+            <td class="kanit-semibold table-light-color">P3</td>
             <td></td>
             </tr>
             <tr>
-            <td class="table-light-color">P4</td>
+            <td class="kanit-semibold table-light-color">P4</td>
             <td></td>
             </tr>
         </tbody>
     </table>
     <div style="display: flex; justify-content: space-between; gap: 10px;">
         <div>
-            <table class="table table-striped table-bordered table-hover resumen-table" style="text-align: center; height: 100%; font-size: 12px;">
+            <table class="table table-bordered table-hover resumen-table" style="text-align: center; height: 100%; font-size: 11px;">
                 <thead>
                     <tr>
                     <th class="table-color" colspan="5">RESUMEN DE ASISTENCIA DEL/LA ESTUDIANTE</th>
@@ -758,24 +936,24 @@
                 </thead>
                 <tbody>
                     <tr>
-                    <td class="table-light-color">P1</td>
+                    <td class="kanit-semibold table-light-color">P1</td>
                     <td></td>
                     <td></td>
                     <td rowspan="4"></td>
                     <td rowspan="4"></td>
                     </tr>
                     <tr>
-                    <td class="table-light-color">P2</td>
+                    <td class="kanit-semibold table-light-color">P2</td>
                     <td></td>
                     <td></td>
                     </tr>
                     <tr>
-                    <td class="table-light-color">P3</td>
+                    <td class="kanit-semibold table-light-color">P3</td>
                     <td></td>
                     <td></td>
                     </tr>
                     <tr>
-                    <td class="table-light-color">P4</td>
+                    <td class="kanit-semibold table-light-color">P4</td>
                     <td></td>
                     <td></td>
                     </tr>
@@ -783,42 +961,42 @@
             </table>
         </div>
         <div>
-            <table class="table table-striped table-bordered table-hover" style="height: 100%; font-size: 12px;">
-            <thead>
-                <tr>
-                <th class="table-color">LEYENDA:</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                <td style="display: flex; gap: 10px; padding: 10px; height: 100%;">
-                    <div>
-                    <div>(P1)</div>
-                    <div>(P2)</div>
-                    <div>(P3)</div>
-                    <div>(P4)</div>
-                    <div style="height: 10px;"></div>
-                    <div>(C1)</div>
-                    <div>(C2)</div>
-                    <div>(C3)</div>
-                    </div>
-                    <div>
-                    <div>Período 1</div>
-                    <div>Período 2</div>
-                    <div>Período 3</div>
-                    <div>Período 4</div>
-                    <div style="height: 10px;"></div>
-                    <div style="white-space: nowrap;">Competencia 1</div>
-                    <div style="white-space: nowrap;">Competencia 2</div>
-                    <div style="white-space: nowrap;">Competencia 3</div>
-                    </div>
-                </td>
-                </tr>
-            </tbody>
+            <table class="table table-bordered table-hover" style="height: 100%; font-size: 11px;">
+                <thead>
+                    <tr>
+                    <th class="table-color">LEYENDA:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td style="display: flex; gap: 10px; padding: 10px; height: 100%;">
+                        <div>
+                        <div>(P1)</div>
+                        <div>(P2)</div>
+                        <div>(P3)</div>
+                        <div>(P4)</div>
+                        <div style="height: 10px;"></div>
+                        <div>(C1)</div>
+                        <div>(C2)</div>
+                        <div>(C3)</div>
+                        </div>
+                        <div>
+                        <div>Período 1</div>
+                        <div>Período 2</div>
+                        <div>Período 3</div>
+                        <div>Período 4</div>
+                        <div style="height: 10px;"></div>
+                        <div style="white-space: nowrap;">Competencia 1</div>
+                        <div style="white-space: nowrap;">Competencia 2</div>
+                        <div style="white-space: nowrap;">Competencia 3</div>
+                        </div>
+                    </td>
+                    </tr>
+                </tbody>
             </table>
         </div>
         <div class="kanit-regular SITUACION">
-            <table class="table table-striped table-bordered table-hover resumen-table" style="text-align: left; height: 100%; font-size: 12px;">
+            <table class="table table-bordered table-hover resumen-table" style="text-align: left; height: 100%; font-size: 11px;">
                 <thead>
                     <tr>
                     <th class="table-color">Escala numérica</th>
@@ -827,24 +1005,24 @@
                 </thead>
                 <tbody style="font-size: 10px;">
                     <tr>
-                    <td style="text-align: left; height: 100%;">89-100</td>
-                    <td>Evidencia que el estudiante ha alcanzado un desempeño <b>destacado</b> con relación a los aspectos
+                    <td style="text-align: center; height: 100%;">89-100</td>
+                    <td style="text-align: left;">Evidencia que el estudiante ha alcanzado un desempeño <b>destacado</b> con relación a los aspectos
                         evaluados de las competencias de cada área, durante los períodos y al finalizar el año escolar.</td>
                     </tr>
                     <tr>
-                    <td style="text-align: left; height: 100%;">77-88</td>
-                    <td>Evidencia que el estudiante ha <b>logrado</b>, en general, los aprendizajes esperados con relación a los
+                    <td style="text-align: center; height: 100%;">77-88</td>
+                    <td style="text-align: left;">Evidencia que el estudiante ha <b>logrado</b>, en general, los aprendizajes esperados con relación a los
                         aspectos evaluados de las competencias de cada área, durante los períodos y al finalizar el año escolar.</td>
                     </tr>
                     <tr>
-                    <td style="text-align: left; height: 100%;">65-76 </td>
-                    <td>Evidencia que el estudiante aún se encuentra <b>en proceso</b> con relación a los aspectos evaluados de las
+                    <td style="text-align: center; height: 100%;">65-76 </td>
+                    <td style="text-align: left;">Evidencia que el estudiante aún se encuentra <b>en proceso</b> con relación a los aspectos evaluados de las
                         competencias de cada área, durante los períodos y al finalizar el año escolar, mostrando un logro muy
                         básico.</td>
                     </tr>
                     <tr>
-                    <td style="text-align: left; height: 100%;">Menos de 65</td>
-                    <td>Evidencia que el estudiante ha alcanzado un desempeño <b>insuficiente</b> con relación a los aspectos
+                    <td style="text-align: center; height: 100%;">Menos de 65</td>
+                    <td style="text-align: left;">Evidencia que el estudiante ha alcanzado un desempeño <b>insuficiente</b> con relación a los aspectos
                         evaluados de las competencias de cada área, durante los períodos y al finalizar el año escolar.</td>
                     </tr>
                 </tbody>

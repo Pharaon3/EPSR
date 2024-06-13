@@ -30,6 +30,7 @@
         z-index: 2;
         margin: 0 auto;
         /* padding: 80px 40px 50px 40px; */
+        height: 100vh;
     }
 
     .report-container {
@@ -217,10 +218,12 @@
         display: flex;
         justify-content: space-between;
         gap: 20px;
+        height: 100vh;
     }
 
     #print-page>div {
         width: 50%;
+        height: 100vh;
     }
 
     #left-table {
@@ -228,6 +231,7 @@
         flex-direction: column;
         align-items: center;
         gap: 20px;
+        height: 100vh;
     }
 
     #left-table>div {
@@ -422,9 +426,24 @@
     }
     #logo-table {
         display: flex;
-        border: 1px solid black;
+        /* border: 1px solid black; */
         font-size: 12px;
         padding: 3px;
+    }
+    .flex {
+        display: flex;
+    }
+    .nowrap {
+    text-wrap: nowrap;
+    }
+    .fullwidth {
+        width: 100%;
+    }
+    .bottom-border {
+        border-bottom: solid black 1px
+    }
+    .text-center {
+        text-align: center;
     }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -437,22 +456,22 @@
         <div id="left-table">
             <div id="FIRMA">
                 <table id="firma-table">
-                    <thead>
-                        <tr>
-                            <th class="kanit-medium title-bgcolor">FIRMA DEL PADRE, MADRE O TUTOR</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div class="kanit-regular" style="font-weight: bold;">Períodos de Reportes de Calificaciones</div>
-                                <div class="underlined-field kanit-light">Ago-Sept-Oct <span></span></div>
-                                <div class="underlined-field kanit-light">Nov-Dic-Ene <span></span></div>
-                                <div class="underlined-field kanit-light">Feb-Mar <span></span></div>
-                                <div class="underlined-field kanit-light">Abr-May-Jun <span></span></div>
-                            </td>
-                        </tr>
-                    </tbody>
+                <thead>
+                    <tr>
+                    <th class="kanit-medium title-bgcolor">FIRMA DEL PADRE, MADRE O TUTOR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td>
+                        <div class="kanit-regular" style="font-weight: bold;">Períodos de Reportes de Calificaciones</div>
+                        <div class="kanit-light flex"><span class="nowrap">Ago-Sept-Oct</span><span class="flex fullwidth bottom-border"></span></div>
+                        <div class="kanit-light flex"><span class="nowrap">Nov-Dic-Ene</span> <span class="flex fullwidth bottom-border"></span></div>
+                        <div class="kanit-light flex"><span class="nowrap">Feb-Mar</span> <span class="flex fullwidth bottom-border"></span></div>
+                        <div class="kanit-light flex"><span class="nowrap">Abr-May-Jun</span> <span class="flex fullwidth bottom-border"></span></div>
+                    </td>
+                    </tr>
+                </tbody>
                 </table>
             </div>
             <div id="Observaciones" style="height: 100%;">
@@ -475,24 +494,25 @@
                 <div id="logo-table">
                     <img src="<?php echo base_url('uploads/school_content/logo/rect-logo.png'); ?>" style="width: 80px;">
                     <div style="padding: 2px;">
+                        <div style="font-size: 18px;"><b>Escuela Parroquial Santa Rita</b></div>
                         <div style="font-size: 16px;"><b>Orden Agustinos Recoletos</b></div>
                         <div>Lema del año: “¿Aspiras a lo grande? Comienza por lo pequeño” <br> Valor del año: Interioridad </div>
                     </div>
                 </div>
-                <div id="logo-table" style="justify-content: space-around;">
-                    <div>
+                <div id="logo-table" style="justify-content: space-between;">
+                    <div class="text-center">
                         <div style="width: 95%; height: 40px; border-bottom: 1px solid black;"></div>
-                        <div><b><?php echo $school_director; ?></b></div>
+                        <div class="kanit-semibold"><?php echo $school_director; ?></div>
                         <div>Director General</div>
                     </div>
-                    <div>
+                    <div class="text-center">
                         <div style="width: 95%; height: 40px; border-bottom: 1px solid black;"></div>
-                        <div><b><?php echo $Coordinadora; ?></b></div>
-                        <div> Coordinadora Nivel Secundario</div>
+                        <div class="kanit-semibold"><?php echo $Coordinadora; ?></div>
+                        <div>Coordinadora Nivel Secundario</div>
                     </div>
-                    <div>
+                    <div class="text-center">
                         <div style="width: 95%; height: 40px; border-bottom: 1px solid black;"></div>
-                        <div><b><?= $class_teacher ?></b></div>
+                        <div class="kanit-semibold"><?= $class_teacher ?></div>
                         <div>Maestro Guía</div>
                     </div>
                 </div>

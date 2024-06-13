@@ -193,6 +193,7 @@
     display: flex;
     justify-content: space-between;
     gap: 20px;
+    height: 100%;
     }
     table {
         margin: 0px !important;
@@ -203,12 +204,15 @@
     }
     #print-page> div {
     width: 50%;
+    height: 100%;
     }
     #left-table {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
     gap: 20px;
+    height: 100%;
     }
     #left-table> div {
     width: 100%;
@@ -268,6 +272,8 @@
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    justify-content: space-between;
+    height: 100%;
     }
     .right-info {
         padding: 20px;
@@ -298,6 +304,33 @@
     .text-center {
         text-align: center;
     }
+    #print-page #Observaciones-table1 thead tr th {
+        display: table-cell;
+        border: solid black 1px;
+        text-align: center;
+    }
+
+    #print-page #Observaciones-table1 tbody tr td {
+        display: table-cell;
+        width: calc(100% / 3);
+        border: solid black 1px;
+    }
+
+    #print-page #Observaciones-table1, #print-page #Observaciones-table1 th, #print-page #Observaciones-table1 td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        text-align: center;
+    }
+
+
+    #print-page #Observaciones-table1 {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    #print-page #Observaciones-table1 thead tr, #print-page #Observaciones-table1 thead th {
+        width: 100%;
+    }
 </style>
 <div id="print-page">
     <div id="left-table">
@@ -321,6 +354,7 @@
             </tbody>
             </table>
         </div>
+        <?php if ($class_id < 16) {?> 
         <div id="Observaciones">
             <table id="Observaciones-table">
             <thead>
@@ -349,6 +383,66 @@
             </tbody>
             </table>
         </div>
+        <?php } else { ?>
+        <div>
+            <table id="Observaciones-table1">
+                <thead>
+                    <tr>
+                        <th class="kanit-medium table-color" style="color: black;" colspan="3">SITUACIÓN DEL/DE LA ESTUDIANTE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="kanit-light">
+                            Promovido/a
+                        </td>
+                        <td class="kanit-light">
+                            Aplazado/a
+                        </td>
+                        <td class="kanit-light">
+                            Repitente
+                        </td>
+                    </tr>
+                    <tr style="height: 50px;">
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="Observaciones">
+            <table id="Observaciones-table">
+                <thead>
+                    <tr>
+                    <th class="kanit-medium table-color" style="color: black;">Observaciones: </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td style="padding-top: 20px;">
+                        <div class="underlined-field kanit-light"><span></span></div>
+                        <div class="underlined-field kanit-light"><span></span></div>
+                        <div class="underlined-field kanit-light"><span></span></div>
+                        <div class="underlined-field kanit-light"><span></span></div>
+                        <div class="underlined-field kanit-light"><span></span></div>
+                        <div class="underlined-field kanit-light"><span></span></div>
+                        <div class="underlined-field kanit-light"><span></span></div>
+                        <div class="underlined-field kanit-light"><span></span></div>
+                        <div class="underlined-field kanit-light"><span></span></div>
+                        <div class="underlined-field kanit-light"><span></span></div>
+                        <div class="underlined-field kanit-light"><span></span></div>
+                        <div class="underlined-field kanit-light"><span></span></div>
+                    </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <?php } ?>
         <div style="display: flex; flex-direction: column; gap: 20px;">
             <div id="logo-table">
                 <img src="<?php echo base_url('uploads/school_content/logo/rect-logo.png'); ?>" style="width: 80px;">
@@ -361,17 +455,17 @@
             <div id="logo-table" style="justify-content: space-between;">
                 <div class="text-center">
                     <div style="width: 95%; height: 40px; border-bottom: 1px solid black;"></div>
-                    <div><b><?php echo $school_director; ?></b></div>
+                    <div class="kanit-semibold"><?php echo $school_director; ?></div>
                     <div>Director General</div>
                 </div>
                 <div class="text-center">
                     <div style="width: 95%; height: 40px; border-bottom: 1px solid black;"></div>
-                    <div><b><?php echo $Coordinadora; ?></b></div>
+                    <div class="kanit-semibold"><?php echo $Coordinadora; ?></div>
                     <div>Coordinadora Nivel Primario</div>
                 </div>
                 <div class="text-center">
                     <div style="width: 95%; height: 40px; border-bottom: 1px solid black;"></div>
-                    <div><b><?= $class_teacher ?></b></div>
+                    <div class="kanit-semibold"><?= $class_teacher ?></div>
                     <div>Maestro Guía</div>
                 </div>
             </div>
@@ -473,6 +567,8 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    height: 100%;
+    justify-content: space-between;
     }
     .vertical-lr {
     writing-mode: vertical-lr;
@@ -514,6 +610,9 @@
     width: 70%;
     flex-direction: column;
     justify-content: space-between;
+    }
+    .SITUACION *{
+    line-height: 1.5;
     }
     .situacion-title {
     display: flex;
@@ -610,15 +709,15 @@
             <tbody>
                 <?php foreach ($grading_subject_results as $index => $result) { ?>
                     <tr>
-                    <?php if ($index == 0) { ?> <td rowspan="<?php echo count($grading_subject_results); ?>" class="vertical-lr rotated table-color" style="text-align: center;">ÁREAS CURRICULARES</td> <?php } ?>
-                        <td style="padding-left: 4px; padding-right: 4px;font-weight: 300; text-align: left;"><?php echo $result['subject'] ?></td>
+                    <?php if ($index == 0) { ?> <td rowspan="<?php echo count($grading_subject_results); ?>" class="kanit-semibold vertical-lr rotated table-color" style="text-align: center;">ÁREAS CURRICULARES</td> <?php } ?>
+                        <td class="kanit-semibold" style="padding-left: 4px; padding-right: 4px; text-align: left; line-height: 1;"><?php echo $result['subject'] ?></td>
                         <?php for ($i = 0; $i < count($periodList) * 3 + 3; $i++) { ?>
                             <td><?php echo $result['period_results'][$i] ? $result['period_results'][$i] : "" ?></td>
                             <?php if ($class_id > 15 && $i < count($periodList) * 3) { ?>
                                 <td><?php echo $result['period_resultsRP'][$i] ? $result['period_resultsRP'][$i] : "" ?></td>
                             <?php } ?>
                         <?php } ?>
-                            <td class="rboder"><?php echo $result['CF'] ? $result['CF'] : "";  ?></td>
+                            <td class="rboder"><?php echo $result['CF'] ? $result['CF'] : ""; ?></td>
                             <td class="rboder"> </td>
                     </tr>
                 <?php } ?>
@@ -630,22 +729,22 @@
         </thead>
         <tbody>
             <tr>
-            <td class="table-color vertical-lr rotated" rowspan="5">OBSERVACIONES</td>
+            <td class="kanit-semibold table-color vertical-lr rotated" rowspan="5">OBSERVACIONES</td>
             </tr>
             <tr>
-            <td class="table-light-color">P1</td>
+            <td class="kanit-semibold table-light-color">P1</td>
             <td style="width: 90%;"></td>
             </tr>
             <tr>
-            <td class="table-light-color">P2</td>
+            <td class="kanit-semibold table-light-color">P2</td>
             <td></td>
             </tr>
             <tr>
-            <td class="table-light-color">P3</td>
+            <td class="kanit-semibold table-light-color">P3</td>
             <td></td>
             </tr>
             <tr>
-            <td class="table-light-color">P4</td>
+            <td class="kanit-semibold table-light-color">P4</td>
             <td></td>
             </tr>
         </tbody>
@@ -670,24 +769,24 @@
                 </thead>
                 <tbody>
                     <tr>
-                    <td class="table-light-color">P1</td>
+                    <td class="kanit-semibold table-light-color">P1</td>
                     <td></td>
                     <td></td>
                     <td rowspan="4"></td>
                     <td rowspan="4"></td>
                     </tr>
                     <tr>
-                    <td class="table-light-color">P2</td>
+                    <td class="kanit-semibold table-light-color">P2</td>
                     <td></td>
                     <td></td>
                     </tr>
                     <tr>
-                    <td class="table-light-color">P3</td>
+                    <td class="kanit-semibold table-light-color">P3</td>
                     <td></td>
                     <td></td>
                     </tr>
                     <tr>
-                    <td class="table-light-color">P4</td>
+                    <td class="kanit-semibold table-light-color">P4</td>
                     <td></td>
                     <td></td>
                     </tr>
@@ -739,24 +838,24 @@
                 </thead>
                 <tbody style="font-size: 10px;">
                     <tr>
-                    <td style="text-align: left; height: 100%;">89-100</td>
-                    <td>Evidencia que el estudiante ha alcanzado un desempeño <b>destacado</b> con relación a los aspectos
+                    <td style="text-align: center; height: 100%;">89-100</td>
+                    <td style="text-align: left;">Evidencia que el estudiante ha alcanzado un desempeño <b>destacado</b> con relación a los aspectos
                         evaluados de las competencias de cada área, durante los períodos y al finalizar el año escolar.</td>
                     </tr>
                     <tr>
-                    <td style="text-align: left; height: 100%;">77-88</td>
-                    <td>Evidencia que el estudiante ha <b>logrado</b>, en general, los aprendizajes esperados con relación a los
+                    <td style="text-align: center; height: 100%;">77-88</td>
+                    <td style="text-align: left;">Evidencia que el estudiante ha <b>logrado</b>, en general, los aprendizajes esperados con relación a los
                         aspectos evaluados de las competencias de cada área, durante los períodos y al finalizar el año escolar.</td>
                     </tr>
                     <tr>
-                    <td style="text-align: left; height: 100%;">65-76 </td>
-                    <td>Evidencia que el estudiante aún se encuentra <b>en proceso</b> con relación a los aspectos evaluados de las
+                    <td style="text-align: center; height: 100%;">65-76 </td>
+                    <td style="text-align: left;">Evidencia que el estudiante aún se encuentra <b>en proceso</b> con relación a los aspectos evaluados de las
                         competencias de cada área, durante los períodos y al finalizar el año escolar, mostrando un logro muy
                         básico.</td>
                     </tr>
                     <tr>
-                    <td style="text-align: left; height: 100%;">Menos de 65</td>
-                    <td>Evidencia que el estudiante ha alcanzado un desempeño <b>insuficiente</b> con relación a los aspectos
+                    <td style="text-align: center; height: 100%;">Menos de 65</td>
+                    <td style="text-align: left;">Evidencia que el estudiante ha alcanzado un desempeño <b>insuficiente</b> con relación a los aspectos
                         evaluados de las competencias de cada área, durante los períodos y al finalizar el año escolar.</td>
                     </tr>
                 </tbody>
