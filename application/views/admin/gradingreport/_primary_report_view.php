@@ -1,7 +1,7 @@
 <style type="text/css">
     @page {
         size: 11.0in 8.5in;
-        margin: 0;
+        margin: 0.05in;
     }
 
     @media print {
@@ -200,7 +200,7 @@
         font-size: 12px !important;
     }
     .table>:not(caption)>*>* {
-        padding: 0.3rem 0.4rem !important;
+        padding: 0.3rem 0.2rem !important;
     }
     #print-page> div {
     width: 50%;
@@ -226,6 +226,9 @@
     align-items: center;
     justify-content: center;
     padding: 5px;
+    }
+    table {
+        border-color: black !important;
     }
     #print-page table {
         border-width: 1px;
@@ -331,6 +334,10 @@
     #print-page #Observaciones-table1 thead tr, #print-page #Observaciones-table1 thead th {
         width: 100%;
     }
+    .grade-table {
+        padding: 0.2rem 0.2rem !important;
+        line-height: 1;
+    }
 </style>
 <div id="print-page">
     <div id="left-table">
@@ -366,6 +373,8 @@
             <tbody>
                 <tr>
                 <td style="padding-top: 20px;">
+                    <div class="underlined-field kanit-light"><span></span></div>
+                    <div class="underlined-field kanit-light"><span></span></div>
                     <div class="underlined-field kanit-light"><span></span></div>
                     <div class="underlined-field kanit-light"><span></span></div>
                     <div class="underlined-field kanit-light"><span></span></div>
@@ -433,17 +442,13 @@
                         <div class="underlined-field kanit-light"><span></span></div>
                         <div class="underlined-field kanit-light"><span></span></div>
                         <div class="underlined-field kanit-light"><span></span></div>
-                        <div class="underlined-field kanit-light"><span></span></div>
-                        <div class="underlined-field kanit-light"><span></span></div>
-                        <div class="underlined-field kanit-light"><span></span></div>
                     </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        
         <?php } ?>
-        <div style="display: flex; flex-direction: column; gap: 20px;">
+        <div style="display: flex; flex-direction: column; gap: 10px;">
             <div id="logo-table">
                 <img src="<?php echo base_url('uploads/school_content/logo/rect-logo.png'); ?>" style="width: 80px;">
                 <div style="padding: 2px;">
@@ -454,18 +459,18 @@
             </div>
             <div id="logo-table" style="justify-content: space-between;">
                 <div class="text-center">
-                    <div style="width: 95%; height: 40px; border-bottom: 1px solid black;"></div>
-                    <div class="kanit-semibold"><?php echo $school_director; ?></div>
+                    <div style="width: 95%; height: 30px; border-bottom: 1px solid black;"></div>
+                    <div class="kanit-semibold" style="font-size: 11px;"><?php echo $school_director; ?></div>
                     <div>Director General</div>
                 </div>
                 <div class="text-center">
-                    <div style="width: 95%; height: 40px; border-bottom: 1px solid black;"></div>
-                    <div class="kanit-semibold"><?php echo $Coordinadora; ?></div>
+                    <div style="width: 95%; height: 30px; border-bottom: 1px solid black;"></div>
+                    <div class="kanit-semibold" style="font-size: 11px;"><?php echo $Coordinadora; ?></div>
                     <div>Coordinadora Nivel Primario</div>
                 </div>
                 <div class="text-center">
-                    <div style="width: 95%; height: 40px; border-bottom: 1px solid black;"></div>
-                    <div class="kanit-semibold"><?= $class_teacher ?></div>
+                    <div style="width: 95%; height: 30px; border-bottom: 1px solid black;"></div>
+                    <div class="kanit-semibold" style="font-size: 11px;"><?= $class_teacher ?></div>
                     <div>Maestro Guía</div>
                 </div>
             </div>
@@ -478,7 +483,7 @@
         <? $student['class'] ?>
         <img src="<?php echo base_url('uploads/school_content/logo/primarylogo/' . $student['class']) . '.png';?>" style="width: 55%;">
         <div class="kanit-bold">
-            <b>Año Escolar <?php echo $session ?></span></b>
+            <b>Año Escolar <?php echo $session ?></b>
         </div>
         <div class="kanit-light right-info">
             <div style="display: flex;justify-content: space-between;">
@@ -629,25 +634,35 @@
         text-align: center;
         align-content: center;
     }
+    .right-border {
+        border-right: solid black 2px !important;
+    }
+    .left-border {
+        border-left: solid black 2px !important;
+    }
+    .grade-table thead tr th {
+        font-size: 10px !important;
+    }
 </style>
 <div class="pagebreak"></div>
 <div id="detail-page">
     <div class="kanit-medium CALIFICACIONES title-bgcolor"> DESEMPEÑO INDIVIDUAL DEL/LA ESTUDIANTE </div>
     <div>
-        <table class="table table-bordered table-hover" style="font-size: 11px;">
+        <table class="table table-bordered table-hover grade-table" style="font-size: 10px;">
             <thead>
                 <?php if ($class_id > 15) {?>
                 <tr>
-                    <th class="subjectlabelth table-color" colspan="2" rowspan="1">COMPETENCIAS FUNDAMENTALES</th>
-                    <th class="table-color" colspan="8" rowspan="1">Comunicativa</th>
-                    <th class="table-color" colspan="8" rowspan="1">• Pensamiento Lógico, Creativo y Crítico • Resolución de Problemas • Científica y Tecnológica</th>
-                    <th class="table-color" colspan="8" rowspan="1">• Ética y Ciudadana • Desarrollo Personal y Espiritual • Ambiental y de la Salud</th>
-                    <th class="table-color" colspan="3" rowspan="1"> Calificación final por competencia</th>
-                    <th class="table-color vertical-lr rotated" colspan="1" rowspan="2">Calificación <br> final del área</th>
-                    <th class="table-color vertical-lr rotated" colspan="1" rowspan="2">final <br> recuperación <br>Calificación </th>
+                    <th class="subjectlabelth table-color right-border" colspan="2" rowspan="1">COMPETENCIAS FUNDAMENTALES</th>
+                    <th class="table-color right-border" colspan="8" rowspan="1">Comunicativa</th>
+                    <th class="table-color right-border" colspan="8" rowspan="1">• Pensamiento Lógico, Creativo y Crítico • Resolución de Problemas • Científica y Tecnológica</th>
+                    <th class="table-color right-border" colspan="8" rowspan="1">• Ética y Ciudadana • Desarrollo Personal y Espiritual • Ambiental y de la Salud</th>
+                    <th class="table-color right-border" colspan="3" rowspan="1"> Calificación final por competencia</th>
+                    <th class="table-color vertical-lr rotated right-border left-border" colspan="1" rowspan="2"> final del área <br> Calificación </th>
+                    <th class="table-color vertical-lr rotated left-border" colspan="1" rowspan="2">final recuperación <br>Calificación </th>
+                    <th class="table-color vertical-lr rotated left-border" colspan="1" rowspan="2">especial recuperación <br>Calificación </th>
                 </tr>
                 <tr>
-                    <th class="table-light-color subjectlabelth" colspan="2" rowspan="1">PERÍODOS</th>
+                    <th class="table-light-color subjectlabelth right-border" colspan="2" rowspan="1">PERÍODOS</th>
                     <th class="table-light-color">P1</th>
                     <th class="table-light-color">RP1</th>
                     <th class="table-light-color">P2</th>
@@ -655,7 +670,7 @@
                     <th class="table-light-color">P3</th>
                     <th class="table-light-color">RP3</th>
                     <th class="table-light-color">P4</th>
-                    <th class="table-light-color">RP4</th>
+                    <th class="table-light-color right-border">RP4</th>
                     <th class="table-light-color">P1</th>
                     <th class="table-light-color">RP1</th>
                     <th class="table-light-color">P2</th>
@@ -663,7 +678,7 @@
                     <th class="table-light-color">P3</th>
                     <th class="table-light-color">RP3</th>
                     <th class="table-light-color">P4</th>
-                    <th class="table-light-color">RP4</th>
+                    <th class="table-light-color right-border">RP4</th>
                     <th class="table-light-color">P1</th>
                     <th class="table-light-color">RP1</th>
                     <th class="table-light-color">P2</th>
@@ -671,38 +686,38 @@
                     <th class="table-light-color">P3</th>
                     <th class="table-light-color">RP3</th>
                     <th class="table-light-color">P4</th>
-                    <th class="table-light-color">RP4</th>
+                    <th class="table-light-color right-border">RP4</th>
                     <th class="table-light-color">C1</th>
                     <th class="table-light-color">C2</th>
-                    <th class="table-light-color">C3</th>
+                    <th class="table-light-color right-border">C3</th>
                 </tr>
                 <?php } else {?>
                 <tr>
-                    <th class="subjectlabelth table-color" colspan="2" rowspan="1">COMPETENCIAS FUNDAMENTALES</th>
-                    <th class="table-color" colspan="4" rowspan="1">Comunicativa</th>
-                    <th class="table-color" colspan="4" rowspan="1">• Pensamiento Lógico, Creativo y Crítico • Resolución de Problemas • Científica y Tecnológica</th>
-                    <th class="table-color" colspan="4" rowspan="1">• Ética y Ciudadana • Desarrollo Personal y Espiritual • Ambiental y de la Salud</th>
-                    <th class="table-color" colspan="3" rowspan="1"> Calificación final por competencia</th>
-                    <th class="table-color vertical-lr rotated" colspan="1" rowspan="2">Calificación <br> final del área</th>
+                    <th class="subjectlabelth table-color right-border" colspan="2" rowspan="1">COMPETENCIAS FUNDAMENTALES</th>
+                    <th class="table-color right-border" colspan="4" rowspan="1">Comunicativa</th>
+                    <th class="table-color right-border" colspan="4" rowspan="1">• Pensamiento Lógico, Creativo y Crítico • Resolución de Problemas • Científica y Tecnológica</th>
+                    <th class="table-color right-border" colspan="4" rowspan="1">• Ética y Ciudadana • Desarrollo Personal y Espiritual • Ambiental y de la Salud</th>
+                    <th class="table-color right-border" colspan="3" rowspan="1"> Calificación final por competencia</th>
+                    <th class="table-color vertical-lr rotated right-border" colspan="1" rowspan="2"> final del área <br> Calificación </th>
                     <th class="table-color vertical-lr rotated" colspan="1" rowspan="2">final <br> recuperación <br>Calificación </th>
                 </tr>
                 <tr>
-                    <th class="table-light-color subjectlabelth" colspan="2" rowspan="1">PERÍODOS</th>
+                    <th class="table-light-color subjectlabelth right-border" colspan="2" rowspan="1">PERÍODOS</th>
                     <th class="table-light-color">P1</th>
                     <th class="table-light-color">P2</th>
                     <th class="table-light-color">P3</th>
-                    <th class="table-light-color">P4</th>
+                    <th class="table-light-color right-border">P4</th>
                     <th class="table-light-color">P1</th>
                     <th class="table-light-color">P2</th>
                     <th class="table-light-color">P3</th>
-                    <th class="table-light-color">P4</th>
+                    <th class="table-light-color right-border">P4</th>
                     <th class="table-light-color">P1</th>
                     <th class="table-light-color">P2</th>
                     <th class="table-light-color">P3</th>
-                    <th class="table-light-color">P4</th>
+                    <th class="table-light-color right-border">P4</th>
                     <th class="table-light-color">C1</th>
                     <th class="table-light-color">C2</th>
-                    <th class="table-light-color">C3</th>
+                    <th class="table-light-color right-border">C3</th>
                 </tr>
                 <?php } ?>
             </thead>
@@ -712,13 +727,14 @@
                     <?php if ($index == 0) { ?> <td rowspan="<?php echo count($grading_subject_results); ?>" class="kanit-semibold vertical-lr rotated table-color" style="text-align: center;">ÁREAS CURRICULARES</td> <?php } ?>
                         <td class="kanit-semibold" style="padding-left: 4px; padding-right: 4px; text-align: left; line-height: 1;"><?php echo $result['subject'] ?></td>
                         <?php for ($i = 0; $i < count($periodList) * 3 + 3; $i++) { ?>
-                            <td><?php echo $result['period_results'][$i] ? $result['period_results'][$i] : "" ?></td>
+                            <td class="<?php if ($i % count($periodList) == 0) echo 'left-border'; ?>"><?php echo $result['period_results'][$i] ? $result['period_results'][$i] : "" ?></td>
                             <?php if ($class_id > 15 && $i < count($periodList) * 3) { ?>
                                 <td><?php echo $result['period_resultsRP'][$i] ? $result['period_resultsRP'][$i] : "" ?></td>
                             <?php } ?>
                         <?php } ?>
-                            <td class="rboder"><?php echo $result['CF'] ? $result['CF'] : ""; ?></td>
-                            <td class="rboder"> </td>
+                            <td class="rboder left-border"><?php echo $result['CF'] ? $result['CF'] : ""; ?></td>
+                            <td class="rboder left-border"> </td>
+                            <?php if ($class_id > 15) { ?> <td class="rboder left-border"> </td><?php } ?>
                     </tr>
                 <?php } ?>
             </tbody>
