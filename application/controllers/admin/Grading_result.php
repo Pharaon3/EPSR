@@ -2268,7 +2268,7 @@ class Grading_result extends Admin_Controller
                     $row['edit_flag'] = $edit_flag;
                     $row['CF'] = 0;
                     $i = 0;
-                    if ($pc1 > 64 && $pc2 > 64 && $pc3 > 64 && $pc_show1 && $pc_show2 && $pc_show3) $row['CF'] = round(($pc1 + $pc2 + $pc3) / 3);
+                    if ($pc1 && $pc2 && $pc3 && $pc_show1 && $pc_show2 && $pc_show3) $row['CF'] = round(($pc1 + $pc2 + $pc3) / 3);
                     $grading_subject_results[] = $row;
                     $teacherCnt++;
                 }
@@ -3140,7 +3140,7 @@ class Grading_result extends Admin_Controller
                             $row['edit_flag'] = $edit_flag;
                             $row['CF'] = 0;
                             $i = 0;
-                            if ($pc1 > 64 && $pc2 > 64 && $pc3 > 64 && $pc_show1 && $pc_show2 && $pc_show3) $row['CF'] = round(($pc1 + $pc2 + $pc3) / 3);
+                            if ($pc1 && $pc2 && $pc3 && $pc_show1 && $pc_show2 && $pc_show3) $row['CF'] = round(($pc1 + $pc2 + $pc3) / 3);
                             if (!empty($row['CF']) && $i > 0) $row['CF'] = round($row['CF'] / $i);
                             $grading_subject_results[] = $row;
                         }
