@@ -2077,7 +2077,7 @@ class Grading_result extends Admin_Controller
                     //     }
                     //     $i++;
                     // }
-                    if ($pc1 > 69 && $pc2 > 69 && $pc3 > 69 && $pc4 > 69 && $pc_show1 && $pc_show2 && $pc_show3 && $pc_show4) $row['CF'] = round(($pc1 + $pc2 + $pc3 + $pc4) / 4);
+                    if ($pc1 && $pc2 && $pc3 && $pc4 && $pc_show1 && $pc_show2 && $pc_show3 && $pc_show4) $row['CF'] = round(($pc1 + $pc2 + $pc3 + $pc4) / 4);
                     $row['AA'] = '';
                     $row['50PCP'] = '';
                     $row['CPC'] = '';
@@ -3253,7 +3253,7 @@ class Grading_result extends Admin_Controller
                             $row['edit_flag'] = $edit_flag;
                             $row['CF'] = 0;
                             $i = 0;
-                            if ($pc1 > 69 && $pc2 > 69 && $pc3 > 69 && $pc4 > 69 && $pc_show1 && $pc_show2 && $pc_show3 && $pc_show4) $row['CF'] = round(($pc1 + $pc2 + $pc3 + $pc4) / 4);
+                            if ($pc1 && $pc2 && $pc3 && $pc4 && $pc_show1 && $pc_show2 && $pc_show3 && $pc_show4) $row['CF'] = round(($pc1 + $pc2 + $pc3 + $pc4) / 4);
                             if (!empty($row['CF']) && $i > 0) $row['CF'] = round($row['CF'] / $i);
                             $row['AA'] = '';
                             $row['50PCP'] = '';
