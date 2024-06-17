@@ -1,7 +1,7 @@
 <style type="text/css">
     @page {
         size: 11.0in 8.5in;
-        margin: 0;
+        margin: 0.05in;
     }
 
     @media print {
@@ -35,10 +35,12 @@
 
     .report-container {
         /* width: 11in; */
-        height: 8.5in;
+        /* height: 8.5in; */
         margin: 0 auto;
         /* padding: 60px 30px 50px 30px; */
         position: relative;
+        padding: 0.2in;
+        height: 100vh;
     }
 
     #gradingResultTB th {
@@ -95,10 +97,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 5px;
+        padding: 1px;
         width: 100%;
         color: white;
-        font-size: 18px;
+        font-size: 14px;
     }
 
     .kanit-thin {
@@ -218,12 +220,12 @@
         display: flex;
         justify-content: space-between;
         gap: 20px;
-        height: 100vh;
+        height: 95vh;
     }
 
     #print-page>div {
         width: 50%;
-        height: 100vh;
+        height: 95vh;
     }
 
     #left-table {
@@ -231,7 +233,7 @@
         flex-direction: column;
         align-items: center;
         gap: 20px;
-        height: 100vh;
+        height: 95vh;
     }
 
     #left-table>div {
@@ -293,6 +295,8 @@
         flex-direction: column;
         align-items: center;
         gap: 10px;
+        justify-content: space-around;
+        height: 100%;
     }
 
     .right-info {
@@ -301,6 +305,7 @@
         display: flex;
         flex-direction: column;
         gap: 8px;
+        font-size: 14px;
     }
 
     #detail-page {
@@ -309,6 +314,8 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
+        justify-content: space-around;
+        height: 100%;
     }
 
     .vertical-lr {
@@ -360,6 +367,7 @@
                 else if ($student['class'] == '6to. Grado') echo '#d8eefc';
                 else echo '#d4e4ae';
                  ?> !important;
+        color: black !important;
     }
     .table-light-color {
         background-color: <?php 
@@ -405,6 +413,11 @@
 
     .resumen-table thead tr th {
         text-align: center;
+        align-content: center;
+    }
+    .resumen-table tbody tr td {
+        text-align: center;
+        align-content: center;
     }
 
     .SITUACION {
@@ -445,6 +458,34 @@
     .text-center {
         text-align: center;
     }
+    table {
+        border-color: black !important;
+    }
+    .right-border {
+        border-right: solid black 2px !important;
+    }
+    .left-border {
+        border-left: solid black 2px !important;
+    }
+    /* #firma-table tbody tr td {
+        border: none;
+        border-top: solid black 2px;
+    } */
+    .grade-table thead tr th {
+        text-align: center;
+        align-content: center;
+        padding: 0.2rem 0.2rem !important;
+        /* line-height: 1; */
+    }
+    .grade-table tbody tr td {
+        padding: 0.2rem 0.2rem !important;
+    }
+    .condicion-table thead tr th {
+        padding: 0.2rem 0.2rem !important;
+    }
+    .condicion-table tbody tr td {
+        padding: 0.2rem 0.2rem !important;
+    }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -455,15 +496,15 @@
     <div id="print-page">
         <div id="left-table">
             <div id="FIRMA">
-                <table id="firma-table">
+                <table id="firma-table" style="font-size: 11px;">
                 <thead>
                     <tr>
-                    <th class="kanit-medium title-bgcolor">FIRMA DEL PADRE, MADRE O TUTOR</th>
+                    <th class="kanit-medium table-color">FIRMA DEL PADRE, MADRE O TUTOR</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                    <td>
+                    <td style="border: solid black 1px !important;">
                         <div class="kanit-regular" style="font-weight: bold;">Períodos de Reportes de Calificaciones</div>
                         <div class="kanit-light flex"><span class="nowrap">Ago-Sept-Oct</span><span class="flex fullwidth bottom-border"></span></div>
                         <div class="kanit-light flex"><span class="nowrap">Nov-Dic-Ene</span> <span class="flex fullwidth bottom-border"></span></div>
@@ -475,54 +516,46 @@
                 </table>
             </div>
             <div id="Observaciones" style="height: 100%;">
-                <table id="Observaciones-table" style="height: 100%;">
+                <table id="Observaciones-table" style="height: 100%; font-size: 11px;">
                     <thead>
                         <tr>
-                        <th class="kanit-medium title-bgcolor">Observaciones: </th>
+                        <th class="kanit-medium table-color">Observaciones: </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                        <td style="padding-top: 20px; height: 100%;">
-                        <?php echo $observation; ?>
+                        <td style="padding-top: 20px; height: 100%; border: solid black 1px !important;">
+                        <?php if ($observation) echo $observation; 
+                        else { ?>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                            <div class="underlined-field kanit-light"><span></span></div>
+                        <?php } ?>
                         </td>
                         </tr>
                     </tbody>
                 </table>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 20px;">
-                <div id="logo-table">
-                    <img src="<?php echo base_url('uploads/school_content/logo/rect-logo.png'); ?>" style="width: 80px;">
-                    <div style="padding: 2px;">
-                        <div style="font-size: 18px;"><b>Escuela Parroquial Santa Rita</b></div>
-                        <div style="font-size: 16px;"><b>Orden Agustinos Recoletos</b></div>
-                        <div>Lema del año: “¿Aspiras a lo grande? Comienza por lo pequeño” <br> Valor del año: Interioridad </div>
-                    </div>
-                </div>
-                <div id="logo-table" style="justify-content: space-between;">
-                    <div class="text-center">
-                        <div style="width: 95%; height: 40px; border-bottom: 1px solid black;"></div>
-                        <div class="kanit-semibold"><?php echo $school_director; ?></div>
-                        <div>Director General</div>
-                    </div>
-                    <div class="text-center">
-                        <div style="width: 95%; height: 40px; border-bottom: 1px solid black;"></div>
-                        <div class="kanit-semibold"><?php echo $Coordinadora; ?></div>
-                        <div>Coordinadora Nivel Secundario</div>
-                    </div>
-                    <div class="text-center">
-                        <div style="width: 95%; height: 40px; border-bottom: 1px solid black;"></div>
-                        <div class="kanit-semibold"><?= $class_teacher ?></div>
-                        <div>Maestro Guía</div>
-                    </div>
-                </div>
             </div>
         </div>
         <div id="right-side">
             <img src="<?php echo base_url('uploads/school_content/logo/logo.png'); ?>" style="width: 20%;">
             <div class="kanit-light" style="text-align: center; font-size: 12px;">Viceministro de Servicios Técnicos y Pedagógicos <br> Dirección General de Educación Secundaria</div>
             <div class="kanit-medium title-color" style="font-size: 24px;">BOLETÍN DE CALIFICACIONES </div>
-            <?php echo $student['class']; ?>
             <img src="<?php 
                 if ($student['class'] == '1er Grado') echo base_url('uploads/school_content/logo/1grado.png');
                 else if ($student['class'] == '2do Grado') echo base_url('uploads/school_content/logo/2grado.png');
@@ -532,9 +565,9 @@
                 else if ($student['class'] == '5to. Grado') echo base_url('uploads/school_content/logo/5grado.png');
                 else if ($student['class'] == '6to. Grado') echo base_url('uploads/school_content/logo/6grado.png');
                 else echo base_url('uploads/school_content/logo/4grado.png');
-                ?>" style="width: 25%;">
-            <div class="kanit-light">
-                Año escolar: <?php echo $session ?></span>
+                ?>" style="width: 30%;">
+            <div class="kanit-bold">
+                <b>Año Escolar <?php echo $session ?></b>
             </div>
             <div class="kanit-light right-info">
                 <div style="display: flex;justify-content: space-between;">
@@ -620,7 +653,7 @@
 <div class="pagebreak"></div>
 <div class="report-container">
     <div id="detail-page">
-        <div id="student-detail" class="kanit-medium">
+        <div id="student-detail" class="kanit-regular">
             <span class="nowrap">Nombre(s) y apellido (s): </span>
             <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
                 <?php echo $this->customlib->getFullName($student['firstname'], $student['middlename'], $student['lastname'], $sch_setting->middlename, $sch_setting->lastname); ?>
@@ -636,55 +669,55 @@
             CALIFICACIONES DE RENDIMIENTO
         </div>
         <div>
-            <table class="table table-striped table-bordered table-hover">
+            <table class="table-bordered table-hover grade-table" style="font-size: 11px;">
             <thead>
                 <tr>
-                    <th class="table-color subjectlabelth" colspan="2" rowspan="2">COMPETENCIAS FUNDAMENTALES</th>
-                    <th class="table-color" colspan="4" rowspan="2">Comunicativa</th>
-                    <th class="table-color" colspan="4" rowspan="2">• Pensamiento Lógico, Creativo <br> y Crítico <br> • Resolución de Problemas</th>
-                    <th class="table-color" colspan="4" rowspan="2">• Científica y Tecnológica <br> • Ambiental y de la Salud</th>
-                    <th class="table-color" colspan="4" rowspan="2">• Ética y Ciudadana <br> • Desarrollo Personal <br> y Espiritual</th>
-                    <th class="table-color" colspan="4" rowspan="2">PROMEDIO GRUPO <br> DE COMPETENCIAS <br> ESPECÍFICAS</th>
-                    <th class="table-light-color vertical-lr rotated" colspan="1" rowspan="3">CALIFICACIÓN <br> FINAL DEL ÁREA</th>
-                    <th class="table-color" colspan="4">CALIFICACIÓN <br> COMPLETIVA</th>
-                    <th class="table-color" colspan="4">CALIFICACIÓN <br> EXTRAORDINARIA</th>
-                    <th class="table-color" colspan="2">EVALUACIÓN <br> ESPECIAL</th>
-                    <th class="table-color" colspan="2" rowspan="2">SITUACIÓN <br> FINAL EN LA <br> ASIGNATURA</th>
+                    <th class="table-color subjectlabelth right-border" colspan="2" rowspan="2">COMPETENCIAS <br> FUNDAMENTALES</th>
+                    <th class="table-color right-border" colspan="4" rowspan="2" style="text-wrap: nowrap">• Comunicativa</th>
+                    <th class="table-color right-border" colspan="4" rowspan="2">• Pensamiento Lógico, Creativo y Crítico <br> • Resolución de Problemas</th>
+                    <th class="table-color right-border" colspan="4" rowspan="2">• Científica y Tecnológica <br> • Ambiental y de la Salud</th>
+                    <th class="table-color right-border" colspan="4" rowspan="2">• Ética y Ciudadana <br> • Desarrollo Personal y Espiritual</th>
+                    <th class="table-color right-border" colspan="4" rowspan="2">PROMEDIO GRUPO DE COMPETENCIAS ESPECÍFICAS</th>
+                    <th class="table-light-color vertical-lr rotated right-border" colspan="1" rowspan="3">CALIFICACIÓN <br> FINAL DEL ÁREA</th>
+                    <th class="table-color right-border" colspan="4">CALIFICACIÓN COMPLETIVA</th>
+                    <th class="table-color right-border" colspan="4">CALIFICACIÓN EXTRAORDINARIA</th>
+                    <th class="table-color right-border" colspan="2">EVALUACIÓN ESPECIAL</th>
+                    <th class="table-color" colspan="2" rowspan="2">SITUACIÓN FINAL EN LA ASIGNATURA</th>
                 </tr>
                 <tr>
-                    <th class="table-color vertical-lr rotated" rowspan="2">50% C. F.</th>
+                    <th class="table-color vertical-lr rotated right-border" rowspan="2">50% C. F.</th>
                     <th class="table-color vertical-lr rotated" rowspan="2">C.E.C.</th>
                     <th class="table-color vertical-lr rotated" rowspan="2">50% C.E.C.</th>
-                    <th class="table-light-color vertical-lr rotated" rowspan="2">C.C.F.</th>
-                    <th class="table-color vertical-lr rotated" rowspan="2">30% C.F.</th>
+                    <th class="table-light-color vertical-lr rotated left-border" rowspan="2">C.C.F.</th>
+                    <th class="table-color vertical-lr rotated right-border" rowspan="2">30% C.F.</th>
                     <th class="table-color vertical-lr rotated" rowspan="2">C.E. EX</th>
                     <th class="table-color vertical-lr rotated" rowspan="2">70% C.E. EX</th>
-                    <th class="table-light-color vertical-lr rotated" rowspan="2">C.EX.F.</th>
+                    <th class="table-light-color vertical-lr rotated left-border" rowspan="2">C.EX.F.</th>
                     <th class="table-color vertical-lr rotated" rowspan="2">C.F.</th>
-                    <th class="table-light-color vertical-lr rotated" rowspan="2">C.E.</th>
+                    <th class="table-light-color vertical-lr rotated left-border" rowspan="2">C.E.</th>
                 </tr>
                 <tr>
-                    <th class="table-light-color" colspan="2">PERÍODOS</th>
+                    <th class="table-light-color right-border" colspan="2">PERÍODOS</th>
                     <th class="table-light-color">P1</th>
                     <th class="table-light-color">P2</th>
                     <th class="table-light-color">P3</th>
-                    <th class="table-light-color">P4</th>
+                    <th class="table-light-color right-border">P4</th>
                     <th class="table-light-color">P1</th>
                     <th class="table-light-color">P2</th>
                     <th class="table-light-color">P3</th>
-                    <th class="table-light-color">P4</th>
+                    <th class="table-light-color right-border">P4</th>
                     <th class="table-light-color">P1</th>
                     <th class="table-light-color">P2</th>
                     <th class="table-light-color">P3</th>
-                    <th class="table-light-color">P4</th>
+                    <th class="table-light-color right-border">P4</th>
                     <th class="table-light-color">P1</th>
                     <th class="table-light-color">P2</th>
                     <th class="table-light-color">P3</th>
-                    <th class="table-light-color">P4</th>
+                    <th class="table-light-color right-border">P4</th>
                     <th class="table-light-color">PC1</th>
                     <th class="table-light-color">PC2</th>
                     <th class="table-light-color">PC3</th>
-                    <th class="table-light-color">PC4</th>
+                    <th class="table-light-color right-border">PC4</th>
                     <th class="table-color">A</th>
                     <th class="table-color">R</th>
                 </tr>
@@ -692,22 +725,22 @@
             <tbody>
                 <?php foreach ($grading_subject_results as $index => $result) { ?>
                     <tr>
-                    <?php if ($index == 0) { ?> <td rowspan="<?php echo count($grading_subject_results); ?>" class="vertical-lr rotated" style="text-align: center;">ÁREAS CURRICULARES</td> <?php } ?>
-                        <td style="padding-left: 4px; padding-right: 4px;font-weight: 300; text-align: left;"><?php echo $result['subject'] ?></td>
+                    <?php if ($index == 0) { ?> <td rowspan="<?php echo count($grading_subject_results); ?>" class="table-color kanit-semibold vertical-lr rotated right-border" style="text-align: center;">ÁREAS CURRICULARES</td> <?php } ?>
+                        <td class="kanit-semibold right-border" style="padding-left: 4px; padding-right: 4px; text-align: left;"><?php echo $result['subject'] ?></td>
                         <?php for ($i = 0; $i < count($periodList) * 5; $i++) { ?>
-                            <td><?php echo $result['period_results'][$i] ? $result['period_results'][$i] : "" ?></td>
+                            <td class="<?php if ($i % 4 == 3) echo 'right-border'; ?>"><?php echo $result['period_results'][$i] ? $result['period_results'][$i] : "" ?></td>
                         <?php } ?>
-                            <td class="rboder"><?php echo $result['CF'] ?></td>
+                            <td class="rboder right-border"><?php echo $result['CF'] ?></td>
                             <td><?php echo $result['50PCP'] ?></td>
                             <td><?php echo $result['CPC'] ?></td>
                             <td><?php echo $result['50CPC'] ?></td>
-                            <td class="rboder"><?php echo $result['CC'] ?></td>
+                            <td class="rboder right-border"><?php echo $result['CC'] ?></td>
                             <td><?php echo $result['30PCP'] ?></td>
                             <td><?php echo $result['CPEX'] ?></td>
                             <td><?php echo $result['70CPEX'] ?></td>
-                            <td class="rboder"><?php echo $result['CEX'] ?></td>
+                            <td class="rboder right-border"><?php echo $result['CEX'] ?></td>
                             <td><?php echo $result['O1'] ?></td>
-                            <td><?php echo $result['O2'] ?></td>
+                            <td class="rboder right-border"><?php echo $result['O2'] ?></td>
                             <td><?php echo $result['A'] ?></td>
                             <td><?php echo $result['R'] ?></td>
                     </tr>
@@ -717,134 +750,149 @@
         </div>
         <div style="display: flex; justify-content: space-between; gap: 20px;">
             <div>
-            <table class="table table-striped table-bordered table-hover resumen-table" style="text-align: center; height: 100%;">
-                <thead>
-                <tr>
-                    <th class="table-color" colspan="5">RESUMEN DE ASISTENCIA DEL/LA ESTUDIANTE</th>
-                </tr>
-                <tr>
-                    <th class="table-light-color" rowspan="2">Períodos</th>
-                    <th rowspan="2">Asistencia</th>
-                    <th rowspan="2">Ausencia</th>
-                    <th colspan="2">% de Anual</th>
-                </tr>
-                <tr>
-                    <th>Asistencia</th>
-                    <th>Ausencia</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td class="table-light-color">P1</td>
-                    <td></td>
-                    <td></td>
-                    <td rowspan="4"></td>
-                    <td rowspan="4"></td>
-                </tr>
-                <tr>
-                    <td class="table-light-color">P2</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="table-light-color">P3</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="table-light-color">P4</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                </tbody>
-            </table>
+                <table class="table table-bordered table-hover resumen-table kanit-semibold" style="text-align: center; height: 100%; font-size: 11px; align-content: center;">
+                    <thead>
+                    <tr>
+                        <th class="table-color" colspan="5">RESUMEN DE ASISTENCIA DEL/LA ESTUDIANTE</th>
+                    </tr>
+                    <tr>
+                        <th class="table-light-color" rowspan="2">Períodos</th>
+                        <th rowspan="2">Asistencia</th>
+                        <th rowspan="2">Ausencia</th>
+                        <th colspan="2">% de Anual</th>
+                    </tr>
+                    <tr>
+                        <th>Asistencia</th>
+                        <th>Ausencia</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="table-light-color">P1</td>
+                        <td></td>
+                        <td></td>
+                        <td rowspan="4"></td>
+                        <td rowspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-light-color">P2</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="table-light-color">P3</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="table-light-color">P4</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
             <div>
-            <table class="table table-striped table-bordered table-hover" style="height: 100%;">
-                <thead>
-                <tr>
-                    <th class="table-color">LEYENDA:</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td style="display: flex; gap: 10px; padding: 10px; height: 100%;">
-                        <div>
-                            <div>(P1)</div>
-                            <div>(P2)</div>
-                            <div>(P3)</div>
-                            <div>(P4)</div>
-                            <div>(PC)</div>
-                            <div>(C.F.)</div>
-                            <div>(C.E.C.)</div>
-                        </div>
-                        <div>
-                            <div>Período 1</div>
-                            <div>Período 2</div>
-                            <div>Período 3</div>
-                            <div>Período 4</div>
-                            <div>Promedio Grupo de Competencias Específicas</div>
-                            <div>Calificación Final</div>
-                            <div>Calificación Evaluación Completiva</div>
-                        </div>
-                        <div>
-                            <div>(C.C.F.)</div>
-                            <div>(C.E. EX)</div>
-                            <div>(C.EX.F.)</div>
-                            <div>(C.E.)</div>
-                            <div>(A)</div>
-                            <div>(R)</div>
-                        </div>
-                        <div>
-                            <div>Calificación Completiva Final</div>
-                            <div>Calificación Evaluación Extraordinaria</div>
-                            <div>Calificación Extraordinaria Final</div>
-                            <div>Calificación Especial</div>
-                            <div>Aprobado</div>
-                            <div>Reprobado</div>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                <table class="table table-bordered table-hover" style="height: 100%; font-size: 11px;">
+                    <thead>
+                    <tr>
+                        <th class="table-color" style="text-align: center;">LEYENDA:</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td style="display: flex; gap: 10px; padding: 10px; height: 100%;">
+                            <div class="kanit-semibold">
+                                <div>(P1)</div>
+                                <div>(P2)</div>
+                                <div>(P3)</div>
+                                <div>(P4)</div>
+                                <div>(PC)</div>
+                                <div>(C.F.)</div>
+                                <div>(C.E.C.)</div>
+                                <div>(C.C.F.)</div>
+                                <div>(C.E. EX)</div>
+                                <div>(C.EX.F.)</div>
+                                <div>(C.E.)</div>
+                                <div>(A)</div>
+                                <div>(R)</div>
+                            </div>
+                            <!-- <div>
+                            </div>
+                            <div>
+                            </div> -->
+                            <div>
+                                <div>Período 1</div>
+                                <div>Período 2</div>
+                                <div>Período 3</div>
+                                <div>Período 4</div>
+                                <div>Promedio Grupo de Competencias Específicas</div>
+                                <div>Calificación Final</div>
+                                <div>Calificación Evaluación Completiva</div>
+                                <div>Calificación Completiva Final</div>
+                                <div>Calificación Evaluación Extraordinaria</div>
+                                <div>Calificación Extraordinaria Final</div>
+                                <div>Calificación Especial</div>
+                                <div>Aprobado</div>
+                                <div>Reprobado</div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
             <div class="kanit-medium SITUACION">
-            <div class="situacion-title">
-                <div class="table-color kanit-bold" style="padding: 5px 30px; min-width: 300px; text-align: center;">SITUACIÓN DEL/DE LA ESTUDIANTE</div>
-                <div style="display: flex; gap: 5px;">
-                <div>Promovido/a</div>
-                <input type="radio">
+                <div class="situacion-title">
+                    <div class="table-color kanit-semibold" style="padding: 2px 30px; min-width: 300px; text-align: center; font-size: 12px;">SITUACIÓN DEL/DE LA ESTUDIANTE</div>
+                    <div style="display: flex; gap: 5px;">
+                    <div>Promovido/a</div>
+                    <input type="radio">
+                    </div>
+                    <div style="display: flex; gap: 5px;">
+                    <div>Repitente</div>
+                    <input type="radio">
+                    </div>
+                    <div></div>
                 </div>
-                <div style="display: flex; gap: 5px;">
-                <div>Repitente</div>
-                <input type="radio">
+                <table class="table table-bordered table-hover condicion-table" style="height: 100%; font-size: 11px; margin-bottom: 0px;">
+                    <thead>
+                    <tr>
+                        <th class="table-color" style="text-align: center;">CONDICIÓN FINAL DEL/DE LA ESTUDIANTE:</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td style="height: 100px;"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <div id="logo-table">
+                        <img src="<?php echo base_url('uploads/school_content/logo/rect-logo.png'); ?>" style="width: 70px;">
+                        <div style="padding: 2px;">
+                            <div style="font-size: 16px;"><b>Escuela Parroquial Santa Rita</b></div>
+                            <div style="font-size: 14px;"><b>Orden Agustinos Recoletos</b></div>
+                            <div>Lema del año: “¿Aspiras a lo grande? Comienza por lo pequeño” <br> Valor del año: Interioridad </div>
+                        </div>
+                    </div>
+                    <div id="logo-table" style="justify-content: space-between;">
+                        <div class="text-center">
+                            <div style="width: 95%; height: 30px; border-bottom: 1px solid black;"></div>
+                            <div class="kanit-semibold"><?php echo $school_director; ?></div>
+                            <div>Director General</div>
+                        </div>
+                        <div class="text-center">
+                            <div style="width: 95%; height: 30px; border-bottom: 1px solid black;"></div>
+                            <div class="kanit-semibold"><?php echo $Coordinadora; ?></div>
+                            <div>Coordinadora Nivel Secundario</div>
+                        </div>
+                        <div class="text-center">
+                            <div style="width: 95%; height: 30px; border-bottom: 1px solid black;"></div>
+                            <div class="kanit-semibold"><?= $class_teacher ?></div>
+                            <div>Maestro Guía</div>
+                        </div>
+                    </div>
                 </div>
-                <div></div>
-            </div>
-            <table class="table table-striped table-bordered table-hover" style="height: 100%;">
-                <thead>
-                <tr>
-                    <th class="table-color">CONDICIÓN FINAL DEL/DE LA ESTUDIANTE:</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td></td>
-                </tr>
-                </tbody>
-            </table>
-            <div class="situacion-title">
-                <div>
-                    <?= $class_teacher ?>
-                <div style="width: 100%; height: 1px; background-color: black;"></div>
-                <div><i>Maestro(a) encargado(a) del grado</i></div>
-                </div>
-                <div>
-                    <?= $school_director ?>
-                <div style="width: 100%; height: 1px; background-color: black;"></div>
-                <div><i>Director(a) del Centro Educativo</i></div>
-                </div>
-            </div>
             </div>
         </div>
     </div>
