@@ -571,7 +571,7 @@ class Grading_result extends Admin_Controller
             $level_id           = $this->Gradingreport_model->getLevelByClass($class);
             $class_list         = $this->Gradingreport_model->getClassByLevel($level_id);
         }
-		 // Fetch the list of periods enabled for the staff member
+		// Fetch the list of periods enabled for the staff member
         $staff_id = $userdata["id"];
         $period_list = $this->Gradingreport_model->getPeriodEnabledByStaffId($staff_id, $level_id);
 		
@@ -631,6 +631,9 @@ class Grading_result extends Admin_Controller
                     $update_date[] = $student->update_date_p1;
                     $update_date[] = $student->update_date_p2;
                     $update_date[] = $student->update_date_p3;
+
+                    $CF1 = $student->cf1;
+                    $CF2 = $student->cf2;
 
                     $i = 0;
                     if ($class < 16) {
@@ -733,7 +736,10 @@ class Grading_result extends Admin_Controller
                         $CF = round($CF);
                     }
                     $row[] = "<div class='cf' data_org = '" . $CF . "' data_stdID='" . $student->student_session_id . "'>" . $CF . "</div>";
-                    $row[] = "";
+                    // $row[] = "<div class='cf' data_org = '" . $CF1 . "' data_stdID='" . $student->student_session_id . "'>" . $CF1 . "</div>";
+                    // if ($class > 15) $row[] = "<div class='cf' data_org = '" . $CF2 . "' data_stdID='" . $student->student_session_id . "'>" . $CF2 . "</div>";
+                    $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $CF1 . "' data_column = 'cf1' data_stdID='" . $student->student_session_id . "' value='" . $CF1 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
+                    if ($class > 15) $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $CF2 . "' data_column = 'cf2' data_stdID='" . $student->student_session_id . "' value='" . $CF2 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
                     // Add the row to the data array
                     $dt_data[] = $row;
                 } else {
@@ -1250,6 +1256,8 @@ class Grading_result extends Admin_Controller
                     $update_date[] = $student->update_date_p3;
                     $update_date[] = $student->update_date_p4;
 
+                    $CF1 = $student->cf1;
+                    $CF2 = $student->cf2;
                     $i = 0;
 
                     if ($class < 16) {
@@ -1309,8 +1317,8 @@ class Grading_result extends Admin_Controller
                         $CF = round($CF);
                     }
                     $row[] = "<div class='cf' data_org = '" . $CF . "' data_stdID='" . $student->student_session_id . "'>" . $CF . "</div>";
-                    $row[] = "";
-
+                    $row[] = "<div class='cf' data_org = '" . $CF1 . "' data_stdID='" . $student->student_session_id . "'>" . $CF1 . "</div>";
+                    if ($class > 15) $row[] = "<div class='cf' data_org = '" . $CF2 . "' data_stdID='" . $student->student_session_id . "'>" . $CF2 . "</div>";
                     $dt_data[] = $row;
                 } else {
                     $addstep = 0;
@@ -2178,6 +2186,8 @@ class Grading_result extends Admin_Controller
                     $pc1 = 0;
                     $pc2 = 0;
                     $pc3 = 0;
+                    $row['CF1'] = 0;
+                    $row['CF2'] = 0;
                     if (!empty($result)) {
                         $row['reportId'] = $result['id'];
                         $update_date = [];
@@ -2211,6 +2221,8 @@ class Grading_result extends Admin_Controller
                         $row['period_resultsRP'][] = $result['rp33'];
                         $row['period_resultsRP'][] = $result['rp34'];
 
+                        $row['CF1'] = $result['cf1'];
+                        $row['CF2'] = $result['cf2'];
                         $flag1 = 0;
                         $flag2 = 0;
                         $flag3 = 0;
@@ -2477,7 +2489,7 @@ class Grading_result extends Admin_Controller
                                         'rp21','rp22','rp23','rp24',
                                         'rp31','rp32','rp33','rp34',
                                         'rp41','rp42','rp43','rp44',
-                                        'pc1','pc2','pc3','pc4']))
+                                        'pc1','pc2','pc3','pc4', 'cf1', 'cf2']))
                         $postData[$key] = empty($value) ? null : $value;
                     if(!in_array($key, ['p11','p12','p13','p14',
                                         'p21','p22','p23','p24',
@@ -2487,7 +2499,7 @@ class Grading_result extends Admin_Controller
                                         'rp21','rp22','rp23','rp24',
                                         'rp31','rp32','rp33','rp34',
                                         'rp41','rp42','rp43','rp44',
-                                        'pc1','pc2','pc3','pc4'])) continue;
+                                        'pc1','pc2','pc3','pc4', 'cf1', 'cf2'])) continue;
                     
                     if(empty($grading_marker) || $grading_marker[$key] != $postData[$key])
                         $postData["update_date_$key"] = date("Y-m-d");
@@ -3071,6 +3083,8 @@ class Grading_result extends Admin_Controller
                             $pc1 = 0;
                             $pc2 = 0;
                             $pc3 = 0;
+                            $row['CF1'] = 0;
+                            $row['CF2'] = 0;
                             if (!empty($result)) {
                                 $row['reportId'] = $result['id'];
                                 $update_date = [];
@@ -3104,6 +3118,8 @@ class Grading_result extends Admin_Controller
                                 $row['period_resultsRP'][] = $result['rp33'];
                                 $row['period_resultsRP'][] = $result['rp34'];
 
+                                $row['CF1'] = $result['cf1'];
+                                $row['CF2'] = $result['cf2'];
 
                                 // $pc1 =
 

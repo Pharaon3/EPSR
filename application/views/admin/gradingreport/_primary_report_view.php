@@ -740,8 +740,8 @@
                             <?php } ?>
                         <?php } ?>
                             <td class="rboder left-border"><?php echo $result['CF'] ? $result['CF'] : ""; ?></td>
-                            <td class="rboder left-border"> </td>
-                            <?php if ($class_id > 15) { ?> <td class="rboder left-border"> </td><?php } ?>
+                            <td class="rboder left-border"> <?php echo $result['CF1'] ? $result['CF1'] : ""; ?> </td>
+                            <?php if ($class_id > 15) { ?> <td class="rboder left-border"> <?php echo $result['CF2'] ? $result['CF2'] : ""; ?> </td><?php } ?>
                     </tr>
                 <?php } ?>
             </tbody>

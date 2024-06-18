@@ -342,6 +342,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                 <th class="pink" colspan="3" rowspan="1"> Calificación final <br> por competencia</th>
                                                 <th class="lightpink vertical-lr rotated" colspan="1" rowspan="2">CALIFICACIÓN <br> FINAL DEL ÁREA</th>
                                                 <th class="lightpink vertical-lr rotated" colspan="1" rowspan="2">CALIFICACIÓN <br> RECUPERACIÓN <br> FINAL</th>
+                                                <th class="lightpink vertical-lr rotated" colspan="1" rowspan="2">CALIFICACIÓN <br> RECUPERACIÓN <br> ESPECIA</th>
                                             </tr>
                                             <tr>
                                                 <th><?php echo $this->lang->line('roll_no'); ?></th>
@@ -543,6 +544,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                         <th class="pink" colspan="3" rowspan="1"> Calificación final <br> por competencia</th>
                         <th class="lightpink vertical-lr rotated" colspan="1" rowspan="2">CALIFICACIÓN <br> FINAL DEL ÁREA</th>
                         <th class="lightpink vertical-lr rotated" colspan="1" rowspan="2">Calificación <br> recuperación <br> final</th>
+                        <th class="lightpink vertical-lr rotated" colspan="1" rowspan="2">Calificación <br> recuperación <br> especial</th>
                     </tr>
                     <tr>
                         <th><?php echo $this->lang->line('roll_no'); ?></th>

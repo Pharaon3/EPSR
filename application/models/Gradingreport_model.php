@@ -692,6 +692,8 @@ class Gradingreport_model extends MY_model {
                         grading_subject_reports.ceex70,
                         grading_subject_reports.cexf,
                         grading_subject_reports.cf,
+                        grading_subject_reports.cf1,
+                        grading_subject_reports.cf2,
                         grading_subject_reports.ce,
                         grading_subject_reports.sfeaa,
                         grading_subject_reports.sfear,

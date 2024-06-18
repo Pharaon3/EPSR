@@ -728,7 +728,13 @@
                     <?php if ($index == 0) { ?> <td rowspan="<?php echo count($grading_subject_results); ?>" class="table-color kanit-semibold vertical-lr rotated right-border" style="text-align: center;">ÁREAS CURRICULARES</td> <?php } ?>
                         <td class="kanit-semibold right-border" style="padding-left: 4px; padding-right: 4px; text-align: left;"><?php echo $result['subject'] ?></td>
                         <?php for ($i = 0; $i < count($periodList) * 5; $i++) { ?>
-                            <td class="<?php if ($i % 4 == 3) echo 'right-border'; ?>"><?php echo $result['period_results'][$i] ? $result['period_results'][$i] : "" ?></td>
+                            <td class="<?php if ($i % 4 == 3) echo 'right-border'; ?>">
+                                <?php if ($result['period_resultsRP'][$i] && $result['period_results'][$i] < 70)
+                                    echo $result['period_resultsRP'][$i];
+                                    else echo $result['period_results'][$i] 
+                                        ? $result['period_results'][$i] 
+                                        : ""; ?>
+                            </td>
                         <?php } ?>
                             <td class="rboder right-border"><?php echo $result['CF'] ?></td>
                             <td><?php echo $result['50PCP'] ?></td>

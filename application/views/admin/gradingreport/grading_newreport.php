@@ -722,7 +722,9 @@
                                                     <td>&nbsp;</td>
                                                     <?php } ?>
                                                     <td><?php echo $result['CF'] ? $result['CF'] : "" ?></td>
-                                                    <td class="right-red"></td>
+                                                    <td class="td_subject right-red">
+                                                        <input type="number" min="0" max="100" class="td-input pr" style="width:60px;" name="secondaryreport_<?= $result['subjectId'] ?>_cf1" value="<?= $result['CF1'] == 0 ? "" : $result['CF1'] ?>" onfocus="style.background='LightYellow';" onblur="this.style.background='';">
+                                                    </td>
                                                 </tr>
                                             <?php } ?>
                                         </tbody>
@@ -739,6 +741,7 @@
                                                 <th class="pink" colspan="3" rowspan="1"> Calificación final <br> por competencia</th>
                                                 <th class="lightpink vertical-lr rotated" colspan="1" rowspan="2">CALIFICACIÓN <br> FINAL DEL ÁREA</th>
                                                 <th class="lightpink vertical-lr rotated" colspan="1" rowspan="2">CALIFICACIÓN <br> RECUPERACIÓN <br> FINAL</th>
+                                                <th class="lightpink vertical-lr rotated" colspan="1" rowspan="2">CALIFICACIÓN <br> RECUPERACIÓN <br> ESPECIA</th>
                                             </tr>
                                             <tr>
                                                 <th class="lightpink">P1</th>
@@ -818,7 +821,12 @@
                                                     <td>&nbsp;</td>
                                                     <?php } ?>
                                                     <td><?php echo $result['CF'] ? $result['CF'] : "" ?></td>
-                                                    <td class="right-red"></td>
+                                                    <td class="td_subject right-red">
+                                                        <input type="number" min="0" max="100" class="td-input pr" style="width:60px;" name="secondaryreport_<?= $result['subjectId'] ?>_cf1" value="<?= $result['CF1'] == 0 ? "" : $result['CF1'] ?>" onfocus="style.background='LightYellow';" onblur="this.style.background='';">
+                                                    </td>
+                                                    <td class="td_subject right-red">
+                                                        <input type="number" min="0" max="100" class="td-input pr" style="width:60px;" name="secondaryreport_<?= $result['subjectId'] ?>_cf2" value="<?= $result['CF2'] == 0 ? "" : $result['CF2'] ?>" onfocus="style.background='LightYellow';" onblur="this.style.background='';">
+                                                    </td>
                                                 </tr>
                                             <?php } ?>
                                         </tbody>
