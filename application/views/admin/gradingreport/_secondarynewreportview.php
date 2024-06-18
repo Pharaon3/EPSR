@@ -1,7 +1,7 @@
 <style type="text/css">
     @page {
-        size: 11.0in 8.5in;
-        margin: 0.05in;
+        size: 14.0in 8.5in;
+        margin: 0.01in;
     }
 
     @media print {
@@ -682,7 +682,7 @@
                     <th class="table-color right-border" colspan="4">CALIFICACIÓN COMPLETIVA</th>
                     <th class="table-color right-border" colspan="4">CALIFICACIÓN EXTRAORDINARIA</th>
                     <th class="table-color right-border" colspan="2">EVALUACIÓN ESPECIAL</th>
-                    <th class="table-color" colspan="2" rowspan="2">SITUACIÓN FINAL EN LA ASIGNATURA</th>
+                    <th class="table-color right-border" colspan="2" rowspan="2">SITUACIÓN FINAL EN LA ASIGNATURA</th>
                 </tr>
                 <tr>
                     <th class="table-color vertical-lr rotated right-border" rowspan="2">50% C. F.</th>
@@ -883,7 +883,7 @@
                         </div>
                         <div class="text-center">
                             <div style="width: 95%; height: 30px; border-bottom: 1px solid black;"></div>
-                            <div class="kanit-semibold"><?php echo $Coordinadora; ?></div>
+                            <div class="kanit-semibold"><?php echo $Coordinadora2; ?></div>
                             <div>Coordinadora Nivel Secundario</div>
                         </div>
                         <div class="text-center">

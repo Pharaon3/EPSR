@@ -1,7 +1,7 @@
 <style type="text/css">
     @page {
         size: 11.0in 8.5in;
-        margin: 0.05in;
+        margin: 0.1in;
     }
 
     @media print {
@@ -336,7 +336,7 @@
     }
     .grade-table {
         padding: 0.2rem 0.2rem !important;
-        line-height: 1;
+        line-height: 1
     }
 </style>
 <div id="print-page">
@@ -345,7 +345,7 @@
             <table id="firma-table">
             <thead>
                 <tr>
-                <th class="kanit-medium title-bgcolor">FIRMA DEL PADRE, MADRE O TUTOR</th>
+                <th class="kanit-medium table-color" style="color: black;">FIRMA DEL PADRE, MADRE O TUTOR</th>
                 </tr>
             </thead>
             <tbody>
@@ -453,24 +453,24 @@
                 <img src="<?php echo base_url('uploads/school_content/logo/rect-logo.png'); ?>" style="width: 80px;">
                 <div style="padding: 2px;">
                     <div style="font-size: 18px;"><b>Escuela Parroquial Santa Rita</b></div>
-                    <div style="font-size: 16px;"><b>Orden Agustinos Recoletos</b></div>
+                    <div style="font-size: 14px;"><b>Orden Agustinos Recoletos</b></div>
                     <div>Lema del año: “¿Aspiras a lo grande? Comienza por lo pequeño” <br> Valor del año: Interioridad </div>
                 </div>
             </div>
             <div id="logo-table" style="justify-content: space-between;">
                 <div class="text-center">
                     <div style="width: 95%; height: 30px; border-bottom: 1px solid black;"></div>
-                    <div class="kanit-semibold" style="font-size: 11px;"><?php echo $school_director; ?></div>
+                    <div class="kanit-semibold" style="font-size: 10px;"><?php echo $school_director; ?></div>
                     <div>Director General</div>
                 </div>
                 <div class="text-center">
                     <div style="width: 95%; height: 30px; border-bottom: 1px solid black;"></div>
-                    <div class="kanit-semibold" style="font-size: 11px;"><?php echo $Coordinadora; ?></div>
+                    <div class="kanit-semibold" style="font-size: 10px;"><?php echo $Coordinadora; ?></div>
                     <div>Coordinadora Nivel Primario</div>
                 </div>
                 <div class="text-center">
                     <div style="width: 95%; height: 30px; border-bottom: 1px solid black;"></div>
-                    <div class="kanit-semibold" style="font-size: 11px;"><?= $class_teacher ?></div>
+                    <div class="kanit-semibold" style="font-size: 10px;"><?= $class_teacher ?></div>
                     <div>Maestro Guía</div>
                 </div>
             </div>
@@ -478,7 +478,7 @@
     </div>
     <div id="right-side">
         <img src="<?php echo base_url('uploads/school_content/logo/logo.png'); ?>" style="width: 25%;">
-        <div class="kanit-light" style="text-align: center; font-size: 12px;">Viceministro de Servicios Técnicos y Pedagógicos <br> Dirección General de Educación Secundaria</div>
+        <div class="kanit-light" style="text-align: center; font-size: 12px;">Viceministro de Servicios Técnicos y Pedagógicos <br> Dirección General de Educación Primaria</div>
         <!-- <div class="kanit-medium title-color" style="font-size: 24px;">INFORME DE APRENDIZAJE</div> -->
         <? $student['class'] ?>
         <img src="<?php echo base_url('uploads/school_content/logo/primarylogo/' . $student['class']) . '.png';?>" style="width: 55%;">
@@ -525,11 +525,18 @@
                 <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
                     21002717
                 </span>
+				
             </div>
             <div style="display: flex;justify-content: space-between;">
                 <span style="white-space: nowrap; padding-right: 10px;">Tanda: </span>
                 <span style="font-family: sans-serif; border-bottom: solid 1px black; width: 100%; height: 20px; padding-left: 10px;">
-                    Matutina
+                <?php
+                if (in_array($class_id, [13, 15, 17, 19, 22, 23])) {
+                    echo "Vespertina";
+                } else {
+                    echo "Matutina";
+                }
+                ?>
                 </span>
             </div>
             <div style="display: flex;justify-content: space-between;">
@@ -646,7 +653,7 @@
 </style>
 <div class="pagebreak"></div>
 <div id="detail-page">
-    <div class="kanit-medium CALIFICACIONES title-bgcolor"> DESEMPEÑO INDIVIDUAL DEL/LA ESTUDIANTE </div>
+    <div class="kanit-medium table-color" style="color: black;text-align: center;"> DESEMPEÑO INDIVIDUAL DEL/LA ESTUDIANTE </div>
     <div>
         <table class="table table-bordered table-hover grade-table" style="font-size: 10px;">
             <thead>
@@ -658,8 +665,8 @@
                     <th class="table-color right-border" colspan="8" rowspan="1">• Ética y Ciudadana • Desarrollo Personal y Espiritual • Ambiental y de la Salud</th>
                     <th class="table-color right-border" colspan="3" rowspan="1"> Calificación final por competencia</th>
                     <th class="table-color vertical-lr rotated right-border left-border" colspan="1" rowspan="2"> final del área <br> Calificación </th>
-                    <th class="table-color vertical-lr rotated left-border" colspan="1" rowspan="2">final recuperación <br>Calificación </th>
-                    <th class="table-color vertical-lr rotated left-border" colspan="1" rowspan="2">especial recuperación <br>Calificación </th>
+                    <th class="table-color vertical-lr rotated right-border" colspan="1" rowspan="2">final recuperación <br>Calificación </th>
+                    <th class="table-color vertical-lr rotated right-border" colspan="1" rowspan="2">especial recuperación <br>Calificación </th>
                 </tr>
                 <tr>
                     <th class="table-light-color subjectlabelth right-border" colspan="2" rowspan="1">PERÍODOS</th>

@@ -859,10 +859,10 @@ class Grading_result extends Admin_Controller
                         if ($period_rports[$i + 12] < 70 && $period_rportsRP[$i + 12]) $pc4 = $pc4 + $period_rportsRP[$i + 12] / 4;
                         else $pc4 = $pc4 + $period_rports[$i + 12] / 4;
                     }
-                    if ($period_rports[0] == "" || $period_rports[1] == "" || $period_rports[2] == "" || $period_rports[3] == "") $pc_show1 = ""; else $pc_show1 = round($pc1);
-                    if ($period_rports[4] == "" || $period_rports[5] == "" || $period_rports[6] == "" || $period_rports[7] == "") $pc_show2 = ""; else $pc_show2 = round($pc2);
-                    if ($period_rports[8] == "" || $period_rports[9] == "" || $period_rports[10] == "" || $period_rports[11] == "") $pc_show3 = ""; else $pc_show3 = round($pc3);
-                    if ($period_rports[12] == "" || $period_rports[13] == "" || $period_rports[14] == "" || $period_rports[15] == "") $pc_show4 = ""; else $pc_show4 = round($pc4);
+                    if ($period_rports[0] == "" || $period_rports[1] == "" || $period_rports[2] == "" || $period_rports[3] == "") $pc_show1 = ""; else $pc_show1 = round($pc1,1);
+                    if ($period_rports[4] == "" || $period_rports[5] == "" || $period_rports[6] == "" || $period_rports[7] == "") $pc_show2 = ""; else $pc_show2 = round($pc2,1);
+                    if ($period_rports[8] == "" || $period_rports[9] == "" || $period_rports[10] == "" || $period_rports[11] == "") $pc_show3 = ""; else $pc_show3 = round($pc3,1);
+                    if ($period_rports[12] == "" || $period_rports[13] == "" || $period_rports[14] == "" || $period_rports[15] == "") $pc_show4 = ""; else $pc_show4 = round($pc4,1);
                     $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $pc_show1 . "' data_column = 'pc1' data_stdID='" . $student->student_session_id . "' value='" . $pc_show1 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
                     $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $pc_show2 . "' data_column = 'pc2' data_stdID='" . $student->student_session_id . "' value='" . $pc_show2 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
                     $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $pc_show3 . "' data_column = 'pc3' data_stdID='" . $student->student_session_id . "' value='" . $pc_show3 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
@@ -1406,10 +1406,10 @@ class Grading_result extends Admin_Controller
                     }
                     //teachers deliverable grading reports to coordinator;
 
-                    if ($period_rports[0] == "" || $period_rports[1] == "" || $period_rports[2] == "" || $period_rports[3] == "") $pc_show1 = ""; else $pc_show1 = round($pc1);
-                    if ($period_rports[4] == "" || $period_rports[5] == "" || $period_rports[6] == "" || $period_rports[7] == "") $pc_show2 = ""; else $pc_show2 = round($pc2);
-                    if ($period_rports[8] == "" || $period_rports[9] == "" || $period_rports[10] == "" || $period_rports[11] == "") $pc_show3 = ""; else $pc_show3 = round($pc3);
-                    if ($period_rports[12] == "" || $period_rports[13] == "" || $period_rports[14] == "" || $period_rports[15] == "") $pc_show4 = ""; else $pc_show4 = round($pc4);
+                    if ($period_rports[0] == "" || $period_rports[1] == "" || $period_rports[2] == "" || $period_rports[3] == "") $pc_show1 = ""; else $pc_show1 = round($pc1,1);
+                    if ($period_rports[4] == "" || $period_rports[5] == "" || $period_rports[6] == "" || $period_rports[7] == "") $pc_show2 = ""; else $pc_show2 = round($pc2,1);
+                    if ($period_rports[8] == "" || $period_rports[9] == "" || $period_rports[10] == "" || $period_rports[11] == "") $pc_show3 = ""; else $pc_show3 = round($pc3,1);
+                    if ($period_rports[12] == "" || $period_rports[13] == "" || $period_rports[14] == "" || $period_rports[15] == "") $pc_show4 = ""; else $pc_show4 = round($pc4,1);
                     $row[] = $pc_show1;
                     $row[] = $pc_show2;
                     $row[] = $pc_show3;
@@ -2225,13 +2225,13 @@ class Grading_result extends Admin_Controller
                             if (!$row['period_results'][$i + 4]) $flag2 = 1;
                             if (!$row['period_results'][$i + 8]) $flag3 = 1;
                         }
-
+                        // show pdf reports result for primary
                         if ($flag1 == 1) $pc_show1 = "";
-                        else $pc_show1 = round($pc1, 1);
+                        else $pc_show1 = round($pc1);
                         if ($flag2 == 1) $pc_show2 = "";
-                        else $pc_show2 = round($pc2, 1);
+                        else $pc_show2 = round($pc2);
                         if ($flag3 == 1) $pc_show3 = "";
-                        else $pc_show3 = round($pc3, 1);
+                        else $pc_show3 = round($pc3);
 
                         $row['period_results'][] = $pc_show1;
                         $row['period_results'][] = $pc_show2;
@@ -2990,6 +2990,12 @@ class Grading_result extends Admin_Controller
                     if (!empty($Coordinadora)) {
                         $data['Coordinadora'] = $Coordinadora[0]['name'] . " " . $Coordinadora[0]['surname'];
                     }
+					  $data['Coordinadora2'] = '';
+                    $Coordinadora2 = $this->staff_model->getStaffbyrole(52);
+                    if (!empty($Coordinadora2)) {
+                        $data['Coordinadora2'] = $Coordinadora2[0]['name'] . " " . $Coordinadora2[0]['surname'];
+                    }
+					
                     $data['class_teacher'] = '';
                     $classteachers = $this->classteacher_model->teacherByClassSection($data['class_id'], $student['section_id']);
                     if (!empty($classteachers)) {
@@ -3120,13 +3126,13 @@ class Grading_result extends Admin_Controller
                                     if (!$row['period_results'][$i + 4]) $flag2 = 1;
                                     if (!$row['period_results'][$i + 8]) $flag3 = 1;
                                 }
-
+                                // show grading results by students
                                 if ($flag1 == 1) $pc_show1 = "";
-                                else $pc_show1 = round($pc1, 1);
+                                else $pc_show1 = round($pc1);
                                 if ($flag2 == 1) $pc_show2 = "";
-                                else $pc_show2 = round($pc2, 1);
+                                else $pc_show2 = round($pc2);
                                 if ($flag3 == 1) $pc_show3 = "";
-                                else $pc_show3 = round($pc3, 1);
+                                else $pc_show3 = round($pc3);
                                 $row['period_results'][] = $pc_show1;
                                 $row['period_results'][] = $pc_show2;
                                 $row['period_results'][] = $pc_show3;
