@@ -174,10 +174,8 @@
                 <th id="no"><?php echo $this->lang->line('no'); ?></th>
                 <th><?php echo $this->lang->line('name'); ?></th>
                 <?php
-                 $subjectCount = 0;
                 foreach($subject_list as $key => $subject)
                 {
-                    $subjectCount++;
                 ?>
                 <th><?php echo $subject->name; ?></th>
                 <?php
@@ -210,10 +208,9 @@
                         ?></td>
                         <td><?php echo $studentlist[$i]['firstname']." ".$studentlist[$i]['lastname']; ?></td>
                         <?php
-                          $avarageTotal = 0;
+                        
                         for($j = count($subject_list) - 1;$j >= 0 ;$j--)
                         {
-                            $avarageTotal -=$studentlist[$i - $j][$mark];
                         ?>
                             <td><?php if(isset($studentlist[$i - $j][$mark])) echo $studentlist[$i - $j][$mark]; else echo '0';
                             ?></td>
@@ -221,9 +218,7 @@
                         }
                        
                         ?>
-                        <td><?php 
-                         $finalMarks = round (( $avarageTotal / $subjectCount),2); echo -$finalMarks; 
-                        /** echo round($studentlist[$i]['totalCF'] / count($subject_list),2); **/ ?></td>
+                        <td><?php echo round($studentlist[$i]['totalCF'] / count($subject_list),2); ?></td>
                     </tr>
                     <?php
                     if( $i < count($studentlist) && $number % 9 == 0)

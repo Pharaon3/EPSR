@@ -73,7 +73,7 @@
                     <div class="box-body">
 
                         <div class="box-header ptbnull"></div>
-                            <h4 class="box-title box-title"><?php echo $this->lang->line('Grading_Result'); ?></h4>
+                            <h4 class="box-title box-title"><?php echo $this->lang->line('Grading_Result lala'); ?></h4>
                         <div class="box-header ptbnull">
                             <button id="print_report_btn" onclick="print()" class="btn btn-primary btn-sm pull-right checkbox-toggle"><i class="fa fa-print"></i> <?php echo $this->lang->line('view'); ?></button>
                         </div>

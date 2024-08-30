@@ -94,7 +94,7 @@
                         <div class="box-body">
 
                             <div class="box-header ptbnull"></div>
-                            <h4 class="box-title box-title"><?php echo $this->lang->line('Grading_Result'); ?></h4>
+                            <h4 class="box-title box-title"><?php echo $this->lang->line('Grading'); ?></h4>
                             <div class="box-header ptbnull">
                                 <button id="print_report_btn" onclick="print()" class="btn btn-primary btn-sm pull-right checkbox-toggle"><i class="fa fa-print"></i> <?php echo $this->lang->line('view'); ?></button>
                             </div>
@@ -103,12 +103,14 @@
                                     <table class="table table-hover table-striped table-bordered example" id="subjects_table">
                                         <thead>
                                             <tr>
-                                                <th><?php echo $this->lang->line('CURSE') ?></th>
+                                                <th><?php echo $this->lang->line('Class') ?></th>
                                                 <!-- <th id="section"><?php echo $this->lang->line('section') ?></th> -->
                                                 <th id="no"><?php echo $this->lang->line('no'); ?></th>
                                                 <th><?php echo $this->lang->line('name'); ?></th>
                                                 <?php
+                                                $subjectCount = 0;
                                                 foreach ($subject_list as $key => $subject) {
+                                                    $subjectCount++;
                                                 ?>
                                                     <th><?php echo $subject->name; ?></th>
                                                 <?php
@@ -139,8 +141,12 @@
                                                             ?></td>
                                                         <td><?php echo $studentlist[$i]['firstname'] . " " . $studentlist[$i]['lastname']; ?></td>
                                                         <?php
+
+                                                       $avarageTotal = 0;
                                                         $averageCF = 1;
                                                         for ($j = count($subject_list) - 1; $j >= 0; $j--) { //print_r($studentlist[$i - $j]);
+
+                                                            $avarageTotal -=$studentlist[$i - $j][$mark];
                                                         ?>
                                                             <td><?php if (isset($studentlist[$i - $j][$mark])) echo $studentlist[$i - $j][$mark];
                                                                 else {
@@ -150,7 +156,7 @@
                                                         }
 
                                                         ?>
-                                                        <td><?php echo round($studentlist[$i]['totalCF'] / count($subject_list), 2); ?></td>
+                                                        <td><?php  $finalMarks = round (( $avarageTotal / $subjectCount),2); echo -$finalMarks; ?></td>
                                                     </tr>
                                             <?php
 

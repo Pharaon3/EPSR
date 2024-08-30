@@ -87,9 +87,11 @@ class Teacherpermission_model extends MY_Model {
         $this->db->from('periods');
         $this->db->join('teacher_permissions', 'teacher_permissions.period_id = periods.id', "LEFT");
         $this->db->join('levels', 'levels.id = periods.level_id', "LEFT");
+		$this->db->join('staff', 'teacher_permissions.staff_id = staff.id', "LEFT"); // Join the staff table
         $this->db->group_start(); //this will start grouping
-        $this->db->where('levels.is_active', 'yes');
-        $this->db->or_where("levels.is_active");
+        //$this->db->where('levels.is_active', 'yes');
+		$this->db->where('staff.is_active', 1); // Check for staff.is_active = 1
+       // $this->db->or_where("staff.is_active");
         $this->db->group_end(); //this will end grouping
         
         if(!empty($staff_id))
@@ -118,47 +120,49 @@ class Teacherpermission_model extends MY_Model {
         ksort($result);
         return $result;
     }
-    public function getPeriodPermissionArray($staff_id=0, $level_id=0) {
-        $this->db->select('staff.id as staff_id, period_id, periods.label, periods.level_id, levels.level,periods.start_month, periods.end_month, teacher_permissions.id, teacher_permissions.is_permit');
-        $this->db->from('staff');
-        $this->db->join('teacher_permissions', 'teacher_permissions.staff_id = staff.id', "left");
-        $this->db->join('periods', 'periods.id=teacher_permissions.period_id', "left");
-        $this->db->join('levels', 'levels.id = periods.level_id', "left");
-        if(!empty($staff_id))
-            $this->db->where('staff.id', $staff_id);
-        if(!empty($level_id))
-            $this->db->where('periods.level_id', $level_id);
-        $this->db->group_start(); //this will start grouping
-        $this->db->where('levels.is_active', 'yes');
-        $this->db->or_where("levels.is_active");
-        $this->db->group_end(); //this will end grouping
-        $this->db->order_by('periods.level_id');
-        $this->db->order_by('periods.label');
-        $this->db->group_by('staff.id');
-        $this->db->group_by('periods.id');
-        $query = $this->db->get();
-        #print($this->db->last_query()); die;
-        $section = $query->result_array();
+    public function getPeriodPermissionArray($staff_id = 0, $level_id = 0) {
+    $this->db->select('staff.id as staff_id, period_id, periods.label, periods.level_id, levels.level,periods.start_month, periods.end_month, teacher_permissions.id, teacher_permissions.is_permit');
+    $this->db->from('staff');
+    $this->db->join('teacher_permissions', 'teacher_permissions.staff_id = staff.id', "left");
+    $this->db->join('periods', 'periods.id=teacher_permissions.period_id', "left");
+    $this->db->join('levels', 'levels.id = periods.level_id', "left");
+    if(!empty($staff_id))
+        $this->db->where('staff.id', $staff_id);
+    if(!empty($level_id))
+        $this->db->where('periods.level_id', $level_id);
+    $this->db->group_start(); //this will start grouping
+    $this->db->where('levels.is_active', 'yes');
+    $this->db->or_where("levels.is_active", 1); // Check for is_active = 1
+    $this->db->group_end(); //this will end grouping
+    $this->db->where('staff.is_active', 1); // Check for staff.is_active = 1
+    $this->db->order_by('periods.level_id');
+    $this->db->order_by('periods.label');
+    $this->db->group_by('staff.id');
+    $this->db->group_by('periods.id');
+    $query = $this->db->get();
+    #print($this->db->last_query()); die;
+    $section = $query->result_array();
 
-        $i=0; $result = [];
-        foreach($section as $period_item)
-        {
-            $period_item['start'] = date('m', strtotime($period_item['start_month']));
-            $period_item['end'] = date('m', strtotime($period_item['end_month']));
-            $iMonth = $period_item['start'];
-            $result[$period_item['staff_id']][$period_item['level_id'] . "" . $iMonth] = $period_item;
-            $i++;
-        }
-        $staff_period_array = [];
-        foreach($result as $staff_id=>$staff_permit)
-        {
-            foreach($staff_permit as $key=>$staff_permit_period)
-            {
-                $staff_period_array[$staff_id][$staff_permit_period['period_id']] = $staff_permit_period;
-            }
-        }
-        return $staff_period_array;
+    $i = 0; $result = [];
+    foreach($section as $period_item)
+    {
+        $period_item['start'] = date('m', strtotime($period_item['start_month']));
+        $period_item['end'] = date('m', strtotime($period_item['end_month']));
+        $iMonth = $period_item['start'];
+        $result[$period_item['staff_id']][$period_item['level_id'] . "" . $iMonth] = $period_item;
+        $i++;
     }
+    $staff_period_array = [];
+    foreach($result as $staff_id=>$staff_permit)
+    {
+        foreach($staff_permit as $key=>$staff_permit_period)
+        {
+            $staff_period_array[$staff_id][$staff_permit_period['period_id']] = $staff_permit_period;
+        }
+    }
+    return $staff_period_array;
+}
+
 
     public function getStaffPeriodPermission($staff_id, $period_id) {
         $this->db->select('*');

@@ -56,10 +56,10 @@
                             </div>
                         </div>
                         <div class="box-body table-responsive" id="transfee">
-                            <table class="table table-hover teacher-list" id="headerTable" data-export-title="<?php echo $this->lang->line('teacher') . " " . $this->lang->line('list') ?>">
+                            <table class="table table-hover teacher-list" id="headerTable" data-export-title="<?php echo $this->lang->line('teacher') . " " . $this->lang->line('list') ?>" id="headerTable">
                                 <thead>
                                     <tr>
-									<th><?php echo $this->lang->line('name'); ?></th>
+									<th><?php echo $this->lang->line('level'); ?></th>
 									<?php for($i = 0; $i < count($levelperiod_list); $i ++) {
                                                $checkstr = $all_check_flag[$i]==1 ? "check" : "remove";
 											echo "<th>"."<div onclick='changeall(event, $i, 0)' curval='".$all_check_flag[$i]."' title='toggle all permissions' class='btn btn-default btn-xs'><i class='fa fa-" .$checkstr. " '></i></div>" .
@@ -87,8 +87,8 @@
             
         </div>
         <div class="row">
-            <!-- <div class="col-md-12">
-            </div> -->
+            <div class="col-md-12">
+            </div>
         </div>
     </section>
 
