@@ -1708,6 +1708,7 @@ $lang['grading_reports_by_student'] ="Informes por Estudiante";
 $lang['grading_results_by_subject'] ="Evaluar por Asignaturas";
 $lang['grading_reports_by_subject'] ="Informes por Asignaturas";
 $lang['grading_results_by_Grading'] ="Meritorios";
+$lang['grading_reports_by_Grading'] ="Informes de calificación por calificación";
 $lang['grading_results_by_Grading_CF'] ="Reprobados";
 $lang['value_scale'] ="Marcadores Reportes";
 $lang['code_already_exists'] = 'El código ya existe';

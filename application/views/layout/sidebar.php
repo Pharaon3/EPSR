@@ -434,6 +434,10 @@
                             <?php }
                             ?>
                             <?php if ($this->rbac->hasPrivilege('grading_report_results', 'can_view')) { ?>
+                                <li class="<?php echo set_Submenu('GradingReport/GradingReport'); ?>"><a href="<?php echo site_url('admin/grading_result/GradingReport'); ?>"><i class="fa fa-angle-double-right"></i> <?php echo $this->lang->line('grading_reports_by_Grading') ?></a></li>
+                            <?php }
+                            ?>
+                            <?php if ($this->rbac->hasPrivilege('grading_report_results', 'can_view')) { ?>
                                 <li class="<?php echo set_Submenu('GradingReport/GradingResult_CF'); ?>"><a href="<?php echo site_url('admin/grading_result/GradingResult_CF'); ?>"><i class="fa fa-angle-double-right"></i> <?php echo $this->lang->line('grading_results_by_Grading_CF') ?></a></li>
                             <?php }
                             ?>

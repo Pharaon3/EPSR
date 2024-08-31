@@ -1743,6 +1743,7 @@ $lang['grading_reports_by_student'] ="Grading Reports By Student";
 $lang['grading_results_by_subject'] ="Grading Results By Subject";
 $lang['grading_reports_by_subject'] ="Grading Reports By Subject";
 $lang['grading_results_by_Grading'] ="Grading Results By Grading";
+$lang['grading_reports_by_Grading'] ="Grading Reports By Grading";
 $lang['grading_results_by_Grading_CF'] ="Grading CF";
 $lang['indicators_achievement'] ="Achievement Indicators";
 $lang['value_scale'] ="Value Scale";

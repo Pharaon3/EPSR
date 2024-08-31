@@ -1,6 +1,9 @@
-<?php ?>
+<?php 
+    $url = $_SERVER["REQUEST_URI"];
+    $actionUrl = 'admin/grading_result/GradingResult';
+    if (str_contains($url, 'GradingReport')) $actionUrl = 'admin/grading_result/GradingReport';
+?>
 <div class="content-wrapper" style="min-height: 946px;">
-
     <!-- Main content -->
     <section class="content">
         <div class="row">
@@ -11,7 +14,7 @@
                     </div>
                     <div class="box-body">
 
-                        <form role="form" action="<?php echo site_url('admin/grading_result/GradingResult') ?>" method="post">
+                        <form role="form" action="<?php echo site_url($actionUrl) ?>" method="post">
 
                             <?php echo $this->customlib->getCSRF(); ?>
 
@@ -129,7 +132,6 @@
                                             ?>
                                                     <tr>
                                                         <td><?php echo substr($curse, 0, 1); ?></td>
-                                                        <!-- <td><?php echo $studentlist[$i]['section']; ?></td> -->
                                                         <td><?php
                                                             $index = 0;
                                                             while ($index < count($students)) {
@@ -177,13 +179,6 @@
         </div>
     </section>
 </div>
-
-
-
-
-
-
-
 
 <script type="text/javascript">
     function print() {

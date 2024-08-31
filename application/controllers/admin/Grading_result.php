@@ -158,9 +158,9 @@ class Grading_result extends Admin_Controller
         //print($level_id); die;
         $period_list = $this->Gradingreport_model->getPeriodEnabledByStaffId($staff_id, $level_id);   
         $data['role_id']        = $role_id;
-        $data['classlist']       = $class_list;
-        $data['sch_setting']     = $this->sch_setting_detail;
-        $data['periodList'] = $period_list;
+        $data['classlist']      = $class_list;
+        $data['sch_setting']    = $this->sch_setting_detail;
+        $data['periodList']     = $period_list;
         $this->load->view('layout/header', $data);
         $this->load->view('admin/gradingreport/newedit', $data);
         $this->load->view('layout/footer', $data);
@@ -973,12 +973,12 @@ class Grading_result extends Admin_Controller
         }
         // Prepare JSON response for the data table
         $json_data           = array(
-            "draw"                => intval($students->draw),
-            "recordsTotal"        => intval($students->recordsTotal),
-            "recordsFiltered"     => intval($students->recordsFiltered),
-            "data"                => $dt_data,
-            "students"            => $students,
-            "class_section_subject_id" => [$class, $section, $subject_id],
+            "draw"                      => intval($students->draw),
+            "recordsTotal"              => intval($students->recordsTotal),
+            "recordsFiltered"           => intval($students->recordsFiltered),
+            "data"                      => $dt_data,
+            "students"                  => $students,
+            "class_section_subject_id"  => [$class, $section, $subject_id],
         );
         // Output JSON response for the data table
         echo json_encode($json_data);
@@ -3576,6 +3576,51 @@ class Grading_result extends Admin_Controller
         $this->load->view('admin/gradingreport/grading', $data);
         $this->load->view('layout/footer', $data);
     }
+
+    public function GradingReport()
+    { 
+        if (!$this->rbac->hasPrivilege('grading_report_results', 'can_view')) {
+            access_denied();
+        }
+        $this->session->set_userdata('top_menu', 'GradingReport');
+        $this->session->set_userdata('sub_menu', 'GradingReport/GradingReport');
+        $userdata                   = $this->customlib->getUserData();
+        $role_id                    = $userdata["role_id"];
+        $staff_id                   = $userdata["id"];
+        $level_id                   = 43;
+        $class_list                 = $this->Gradingreport_model->getClassByLevel($level_id);
+        $data['classlist']          = $class_list;
+        $data['sectionlist']            = $this->section_model->get();
+        $data['period_list']        = $this->Gradingreport_model->getPeriodByLevel($level_id); 
+        $data['session_list']        = $this->Session_model->getAllSession(); 
+        $this->form_validation->set_rules('class_id', $this->lang->line('class'), 'trim|required|xss_clean');
+        $this->form_validation->set_rules('section_id', $this->lang->line('section'), 'trim|required|xss_clean');
+        $this->form_validation->set_rules('session_id', $this->lang->line('session'), 'trim|required|xss_clean');
+        
+        if ($this->form_validation->run() == false) {
+           
+        } 
+        else {
+            
+            $class_id                   = $_POST['class_id'];
+            $section_id                 = $_POST['section_id'];
+            $session_id                 = $_POST['session_id'];
+            $data["class_id"]           = $class_id;
+            $data["section_id"]         = $section_id;
+            $data["session_id"]         = $session_id;
+            $data['mark']               = 'CF';
+            $data['students']           = $this->student_model->getStudent_nameOrder($class_id,$section_id);
+            $data['curse']              = $this->Gradingreport_model->getclassname($class_id);
+            $data['subject_list']       = $this->subjectgroup_model->getsubjectByclassidAndPeriod($class_id);
+            $studentlist                = $this->student_model->getStudent_gradingreport_with_session($class_id,$section_id, false, 4, $session_id); 
+            error_log("Student List: " . print_r($studentlist, true));
+            $data['studentlist']        = $studentlist;    
+        }
+        $this->load->view('layout/header', $data);
+        $this->load->view('admin/gradingreport/grading', $data);
+        $this->load->view('layout/footer', $data);
+    }
+
     public function printGradingResult()
     {
         $class_id                       = $_POST['class_id'];

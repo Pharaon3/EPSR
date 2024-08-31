@@ -2144,6 +2144,51 @@ class Student_model extends MY_Model
     }
 
 
+    public function getStudent_gradingreport_with_session($class_id,$section_id,$reaproved = false,$period_id = 4, $session_id=null)
+    {
+        $str='';
+        $divider='';
+        if($reaproved == true)
+        {
+            $order = " students.firstname,students.lastname,subjects.name";
+        }
+        else
+        {
+            $order = " totalCF,students.firstname,subjects.name";
+        }
+        for($i = 1; $i <= $period_id;$i++)
+        {
+            $temp_sql = "IFNULL(pc$i,0)";
+            $divider .= "(case when (IFNULL(pc$i,0)) then 1 else 0 end)+";
+            $str .= $temp_sql."+";
+        }
+        
+        $query = "IF ((".substr($str,0,strlen($str) - 1) ." ) / $period_id < 69.5, 1,0 ) as display";
+        $str = "ROUND((".substr($str,0,strlen($str) - 1) ." ) / (".substr($divider,0,strlen($divider) - 1) ." ), 0)";
+  
+            $sql = "SELECT CONCAT(students.firstname,' ',students.lastname) as fullname,students.firstname,students.lastname,sections.section, subjects.name , student_session.session_id, $str AS CF,
+            $query,
+            (
+            SELECT
+            ROUND(SUM($str),0) 
+            FROM grading_subject_reports
+            WHERE student_session.class_id = '$class_id' 
+            AND student_session.id = grading_subject_reports.student_session_id 
+            AND students.id = student_session.student_id 
+            AND subjects.id = subject_group_subjects.subject_id 
+            ) AS totalCF
+            FROM grading_subject_reports 
+            INNER JOIN subject_group_subjects ON subject_group_subjects.id = grading_subject_reports.subject_group_subjects_id 
+            INNER JOIN student_session ON student_session.id = grading_subject_reports.student_session_id 
+            INNER JOIN students ON students.id = student_session.student_id 
+            INNER JOIN sections ON sections.id = student_session.section_id
+            INNER JOIN subjects ON subjects.id = subject_group_subjects.subject_id 
+            WHERE student_session.class_id = '$class_id' AND student_session.section_id = '$section_id' AND student_session.session_id = '$session_id'
+            ORDER BY $order";      
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+
     public function getStudent_nameOrder($class_id,$section_id)
     {
         $sql = "SELECT CONCAT(students.firstname,' ',students.lastname) as fullname FROM student_session
