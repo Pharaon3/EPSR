@@ -144,21 +144,27 @@
                                                         <td><?php echo $studentlist[$i]['firstname'] . " " . $studentlist[$i]['lastname']; ?></td>
                                                         <?php
 
-                                                       $avarageTotal = 0;
+                                                        $avarageTotal = 0;
                                                         $averageCF = 1;
-                                                        for ($j = count($subject_list) - 1; $j >= 0; $j--) { //print_r($studentlist[$i - $j]);
+                                                        
 
-                                                            $avarageTotal -=$studentlist[$i - $j][$mark];
+
+                                                        foreach ($subject_list as $key => $subject) {
                                                         ?>
-                                                            <td><?php if (isset($studentlist[$i - $j][$mark])) echo $studentlist[$i - $j][$mark];
-                                                                else {
-                                                                    echo '0';
-                                                                }                                                         ?></td>
+                                                            <th><?php 
+                                                            for ($j = count($subject_list) - 1; $j >= 0; $j--) {
+                                                                if ($studentlist[$i - $j]["name"] == $subject->name) {
+                                                                    $avarageTotal += $studentlist[$i - $j]["CF"];
+                                                                    echo $studentlist[$i - $j]["CF"];
+                                                                }
+                                                            }
+                                                            ?></th>
                                                         <?php
                                                         }
 
+
                                                         ?>
-                                                        <td><?php  $finalMarks = round (( $avarageTotal / $subjectCount),2); echo -$finalMarks; ?></td>
+                                                        <td><?php  echo round (( $avarageTotal / $subjectCount),2); ?></td>
                                                     </tr>
                                             <?php
 
@@ -186,9 +192,19 @@
         var section_id = $('#section_id').val();
         var class_id = $('#searchclassid').val();
         var session_id = $('#session_id').val();
+        let url = base_url + "admin/grading_result/printGradingResult";
+
+        var path = window.location.pathname;
+        var parts = path.split('/');
+        var lastPart = parts[parts.length - 1];
+        lastPart = lastPart.split('?')[0];
+        if (lastPart == "GradingReport") {
+            url = base_url + "admin/grading_result/printGradingReport";
+        }
+
         $.ajax({
             type: "POST",
-            url: base_url + "admin/grading_result/printGradingResult",
+            url: url,
             data: {
                 section_id: section_id,
                 class_id: class_id,
@@ -248,9 +264,10 @@
                 //{ "orderable": false, "targets": [2] },
                 {
                     "orderable": true,
-                    "targets": -1
+                    "targets": 12
                 }
-            ]
+            ],
+            order: [[12, 'desc']]
         });
     });
     $(document).ready(function() {
