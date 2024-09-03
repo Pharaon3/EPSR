@@ -2890,20 +2890,14 @@ class Grading_result extends Admin_Controller
                                 }
                             }
                         }
-                        error_log("print card 1869.");
                         $grading_subject_results[] = $row;
-                        error_log("print card 1871.");
                     }
-                    error_log("print card 1873.");
                     $data['pageNum'] = $this->session->userdata['pageNum'];
                     $data['grading_subject_results'] = $grading_subject_results;
                     $seconday_grading_report_cards = $this->load->view('admin/gradingreport/_secondaryreportview', $data, true);
                     $renderprintpage .= " ". $seconday_grading_report_cards. " ";
-                    error_log("print card 1878.");
                 }
-                error_log("print card 1880.");
             }
-            error_log("print card 1882.");
             $array = array('status' => '1', 'error' => '', 'page' => $renderprintpage);
             echo json_encode($array);
         }

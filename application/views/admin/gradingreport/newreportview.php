@@ -526,7 +526,6 @@
                                                 </thead>
                                                 <tbody>';
    
-        error_log("report view 542");
         echo'
 
                                                 </tbody>
@@ -545,15 +544,11 @@
         $n = 0;
         foreach ($competenceList[$period['id']] as $competence)
         {
-            error_log("report view 560: " . count($indicatorsList[$competence['id']]));
             if(count($indicatorsList[$competence['id']]) == 0) continue;
             $flag = false;
             $td_count = 33;
-            error_log("td_count " . gettype($td_count));
-            error_log("indicatorslist competence id " . gettype(count($indicatorsList[$competence['id']])));
             if(count($indicatorsList[$competence['id']]) < $td_count)
             {
-                error_log("report view 567");
                 foreach ($indicatorsList[$competence['id']] as $indicator)
                 {
                     if(strlen($indicator["name"]) > 100)
@@ -569,12 +564,10 @@
             }
             else
             {
-                error_log("report view 584");
                 $flag = true;
             }
             if($currentpagesize > $pagesize and $flag == false)
             {
-                error_log("report view 589");
                 $currentpagesize = 50;
                 echo "</table>";
                 echo '</div>';
@@ -594,7 +587,6 @@
                 echo '<tr><td> <div style="height: 70px;"></td><tr>';
                 if(count($indicatorsList[$competence['id']]) < $td_count)
                 {
-                    error_log("report view 607");
                     foreach ($indicatorsList[$competence['id']] as $indicator)
                     {
                         if(strlen($indicator["name"]) > 100)
@@ -610,13 +602,11 @@
                 }
                 else
                 {
-                    error_log("report view 623");
                     //$currentpagesize = (count($indicatorsList[$competence['id']]) - 33) * 46 + 50;
                 }
             }
             if($level != "NIVEL INICIAL")
             {
-                error_log("report view 629");
                 $currentpagesize += 110;
 
                 echo '
@@ -651,7 +641,6 @@
 
             foreach ($valuescaleList as $valuescale)
             {
-                error_log("report view 665");
                 echo '<th valign="bottom" style="background-color: #afafc6;width:40px; font-size: 18px; text-align:center;padding: 5px">'.$valuescale["label"].'</th>';
             }
             echo  '
@@ -661,7 +650,6 @@
             $n = 0;
             foreach ($indicatorsList[$competence['id']] as $indicator)
             {
-                error_log("report view 679");
                 
                 $n++;
                 if($n >= $td_count and $flag = true)
@@ -785,7 +773,6 @@
                                     <table class="bordertable" width="46%">';
         if($level == "NIVEL INICIAL")
         {
-            error_log("report view 794");
             echo '
                                             <thead>';
             echo '
@@ -814,7 +801,6 @@
         }
         else
         {
-            error_log("report view 821");
             echo '<thead>';
             echo '
                                             <tr style="background-color: #afafc6">
@@ -909,7 +895,5 @@
         }
         }
         $totalpageNum=$pageNum;
-        error_log("report view 916");
         $this->session->userdata['pageNum'] = $totalpageNum;
-        error_log("report view 918");
     ?>

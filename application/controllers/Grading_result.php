@@ -2817,20 +2817,14 @@ class Grading_result extends Admin_Controller
                                 }
                             }
                         }
-                        error_log("print card 1869.");
                         $grading_subject_results[] = $row;
-                        error_log("print card 1871.");
                     }
-                    error_log("print card 1873.");
                     $data['pageNum'] = $this->session->userdata['pageNum'];
                     $data['grading_subject_results'] = $grading_subject_results;
                     $seconday_grading_report_cards = $this->load->view('admin/gradingreport/_secondaryreportview', $data, true);
                     $renderprintpage .= " ". $seconday_grading_report_cards. " ";
-                    error_log("print card 1878.");
                 }
-                error_log("print card 1880.");
             }
-            error_log("print card 1882.");
             $array = array('status' => '1', 'error' => '', 'page' => $renderprintpage);
             echo json_encode($array);
         }
@@ -2845,7 +2839,6 @@ class Grading_result extends Admin_Controller
             $period_id = $this->input->post('period_id');
             $this->session->userdata['pageNum'] = 0;
             $order_number = 1;
-            error_log("print card init finished.");
             if (!empty($id)) {
                 $studentList = array();
                 if ($id == 'all') {
@@ -2891,11 +2884,9 @@ class Grading_result extends Admin_Controller
                     $studentList[] = $student;
                 }
 
-                error_log("print card 1671.");
                 $renderprintpage = '';
                 $Cnt = 0;
                 foreach ($studentList as $student) {
-                    error_log("student: " . print_r($student, true));
                     $Cnt++;
                     $data = array();
                     $data['student'] = $student;
@@ -2910,7 +2901,6 @@ class Grading_result extends Admin_Controller
                     $data['period_id'] = $period_id;
                     $data['level_coordinator'] = '';
                     $level = $this->Level_model->getLevelList($data['level_id']);
-                    error_log("print card 1690.");
                     if (!empty($level['coordinator_id'])) {
                         $level_coordinator = $this->staff_model->get_StaffNameById($level['coordinator_id']);
                         $data['level_coordinator'] = $level_coordinator['name'];
@@ -2927,7 +2917,6 @@ class Grading_result extends Admin_Controller
                     if (!empty($classteachers)) {
                         $data['class_teacher'] = $classteachers[0]['name'] . " " . $classteachers[0]['surname'];
                     }
-                    error_log("print card 1707.");
 
                     $data['level'] = $class_level['level'];
                     $data['session'] = $this->setting_model->getCurrentSessionName();
@@ -2951,15 +2940,12 @@ class Grading_result extends Admin_Controller
                     } else {
                         $data['monthlist'] = $monthlist;
                     }
-                    error_log("print card 1730.");
 
                     $data['sch_setting'] = $this->sch_setting_detail;
                     $data['isPrekender'] = $class_level['level_id'] != 43 ? true : false;
                     $data['is_primary'] = $class_level['level_id'] == 42 ? true : false;
 
-                    error_log("print card 1739.");
                     if ($data['isPrekender'] && !$data['is_primary']) {
-                        error_log("print card 1741.");
                         $data['competenceList'] = array();
                         $data['indicatorsList'] = array();
 
@@ -2971,22 +2957,17 @@ class Grading_result extends Admin_Controller
                             }
                             $data['competenceList'][$period['id']] = $competences;
                         }
-                        error_log("print card 1753.");
                         $class_id = 0;
                         if ($data['level'] == "NIVEL INICIAL")
                             $class_id = 41;
                         else
                             $class_id = 42;
-                        error_log("print card 1759." . $class_id);
                         $valuescale = $this->Gradingreport_model->getValuescaleByClass($class_id);
-                        error_log("print card 1761." . print_r($valuescale, true));
                         $data['valuescaleList'] = $valuescale;
                         $data['order_number'] = $order_number;
                         $student_admit_cards = $this->load->view('admin/gradingreport/newreportview', $data, true);
-                        error_log("student admit cards: " . $student_admit_cards);
                         $renderprintpage .= " " . $student_admit_cards . " ";
                         $order_number++;
-                        error_log("print card 1764.");
                     } else if ($data['is_primary']) {
                         $primary_data = array();
                         $primary_report_row = $this->NewGradingSubjectReports_model->get_by_student_session_id($student['id']);
@@ -3005,14 +2986,12 @@ class Grading_result extends Admin_Controller
                         $primary_grading_report_cards = $this->load->view('admin/gradingreport/_primary_report_view', $data, true);
                         $renderprintpage .= " " . $primary_grading_report_cards . " ";
                     } else {
-                        error_log("print card 1768.");
                         $subjects = array();
                         $subject_groups = $this->subjectgroup_model->getGroupByClassandSection($student['class_id'], $student['section_id']);
                         foreach ($subject_groups as $subject_group) {
                             $groupsubjects = $this->subjectgroup_model->getGroupsubjects($subject_group['subject_group_id']);
                             array_splice($subjects, count($subjects), 0, $groupsubjects);
                         }
-                        error_log("print card 1775.");
                         $grading_subject_results = array();
                         foreach ($subjects as $subject) {
                             $result = $this->Gradingreport_model->getNewReportByStudentAndSubject($student_session_id, $subject->id);
