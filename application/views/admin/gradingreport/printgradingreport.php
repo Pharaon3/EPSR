@@ -1,7 +1,7 @@
 <style type="text/css" media="print">
     @page
     {
-        size:  A4 landscape;   /* auto is the initial value */
+        size:  Letter portrait;   /* auto is the initial value */
         margin: 10mm;  /* this affects the margin in the printer settings */
     }
 
@@ -68,12 +68,13 @@
     }
 
     .tablemain {
+        padding: 20px;
         position: relative;
         margin-top: 50px;
         z-index: 2
     }
-    .tablemain td {
-        
+    .tablemain td, .tablemain th {
+        border: 1px solid black;
     }
     .tablemain td
     {
@@ -163,10 +164,14 @@
         content: counter(section) ": ";  /* Display counter value in default style (decimal) */
     }
 
+    .grading_table {
+        border-width: 0px;
+    }
 </style>
 
-<div id="grading_table">
-    <table id="subjects_table" cellpadding="0" cellspacing="0" width="100%" class="tablemain" border="1">
+<div id="grading_table" class="grading_table">
+    <div style="display: flex; margin-left: 20px; margin-top: 20px;"> Clase: <?php echo $class_name; ?> . Sección: <?php echo $section_name; ?> <?php echo $this->lang->line('session');?>: <?php echo $session_name; ?></div>
+    <table id="subjects_table" cellpadding="0" cellspacing="0" width="100%" class="tablemain">
         <thead>
             <tr>
                 <th><?php echo $this->lang->line('CURSE') ?></th>
@@ -232,15 +237,16 @@
 
                           ?>
                           <td><?php  echo round (( $avarageTotal / $subjectCount),2); ?></td>
-                      </tr>
+                    </tr>
                     <?php
-                    if( $i < count($studentlist) && $number % 9 == 0)
+                    if( $i < count($studentlist) && $number % 13 == 0)
                     {
                         echo "</tbody>";
                         echo "</table>";
                         echo '<div class="pagebreak"></div>';
                         echo '<div class="break"></div>';
-                        echo '<table cellpadding="0" cellspacing="0" width="100%" class="tablemain" style="margin-top:30px;" border="1">
+                        echo '<div style="display: flex; margin-left: 20px; margin-top: 20px;"> Clase: ' . $class_name . ' . Sección: ' . $section_name . ' ' . $this->lang->line('session') . ' : ' . $session_name . '</div>';
+                        echo '<table cellpadding="0" cellspacing="0" width="100%" class="tablemain" style="margin-top:30px;">
                         <thead>
                             <tr>
                                 <th>'. $this->lang->line('CURSE') .'</th>

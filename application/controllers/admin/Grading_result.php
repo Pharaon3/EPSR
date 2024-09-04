@@ -3753,7 +3753,25 @@ class Grading_result extends Admin_Controller
         $data['students']               = $this->student_model->getStudent_nameOrder($class_id,$section_id);
         $data['curse']                  = $this->Gradingreport_model->getclassname($class_id);
         $data['subject_list']           = $this->subjectgroup_model->getsubjectByclassidAndPeriod($class_id);
-        $studentlist                = $this->student_model->getStudent_gradingreport_with_session($class_id,$section_id, false, 4, $session_id); 
+        $studentlist                    = $this->student_model->getStudent_gradingreport_with_session($class_id,$section_id, false, 4, $session_id); 
+        $classlist                      = $this->class_model->get();
+        $sectionlist                    = $this->section_model->get();
+        $session_list                   = $this->Session_model->getAllSession(); 
+        foreach ($classlist as $class) {
+            if ($class['id'] == $class_id) {
+                $data["class_name"] = $class['class'];
+            }
+        }
+        foreach ($sectionlist as $section) {
+            if ($section['id'] == $section_id) {
+                $data["section_name"] = $section['section'];
+            }
+        }
+        foreach ($session_list as $session) {
+            if ($session['id'] == $session_id) {
+                $data["session_name"] = $session['session'];
+            }
+        }
         $studentData = [];
         $subject_index = 0;
         $student_total = [];
