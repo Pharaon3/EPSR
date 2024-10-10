@@ -134,48 +134,123 @@ class User extends Student_Controller
             $period_list = $this->Gradingreport_model->getPeriodByLevel($data['level_id']);
             $data['periodList'] = $period_list;
             $data['isPrekender'] = $class_level['level_id'] != 43 ? true : false;
-            if (!$data['isPrekender']) {
+            $data['is_primary'] = $class_level['level_id'] == 42 ? true : false;
+            
+            if (!$data['isPrekender'] && !$data['is_primary']) {
+
                 $subjects = array();
+
                 $subject_groups = $this->subjectgroup_model->getGroupByClassandSection($student['class_id'], $student['section_id']);
+
                 foreach ($subject_groups as $subject_group) {
+
                     $groupsubjects = $this->subjectgroup_model->getGroupsubjects($subject_group['subject_group_id']);
+
                     array_splice($subjects, count($subjects), 0, $groupsubjects);
                 }
+
                 $grading_subject_results = array();
                 $admin_session   = $this->session->userdata('admin');
                 $permission = $this->staff_model->get_permission($admin_session['id']);
                 $role = $this->customlib->getStaffRole();
+
                 $role_id = json_decode($role)->id;
+                //$permission_staff_ids = $this->staff_model->getpermission('Permission of Teachers');
                 $data['role_id'] = $role_id;
                 $addstep = 0;
                 $teacherCnt = 0;
                 foreach ($subjects as $subject) {
-                    $result = $this->Gradingreport_model->getReportByStudentAndSubject($student_session_id, $subject->id);
+                    $result = $this->Gradingreport_model->getNewReportByStudentAndSubject($student_session_id, $subject->id);
                     $row = array();
                     $row['subject'] = $subject->name;
                     $row['subjectId'] = $subject->id;
                     $row['period_results'] = array();
+                    $row['period_resultsRP'] = array();
                     $edit_flag = [];
                     if (!empty($result)) {
                         $row['reportId'] = $result['id'];
                         $update_date = [];
-                        $update_date[] = $result['update_date_p1'];
-                        $update_date[] = $result['update_date_p2'];
-                        $update_date[] = $result['update_date_p3'];
-                        $update_date[] = $result['update_date_p4'];
-                        $update_date[] = $result['update_date_5'];
-                        $row['period_results'][] = $result['p1'];
-                        $row['period_results'][] = $result['p2'];
-                        $row['period_results'][] = $result['p3'];
-                        $row['period_results'][] = $result['p4'];
-                        $row['period_results'][] = $result['p5'];
+                        $update_date[] = $result['update_date_p11'];
+                        $update_date[] = $result['update_date_p12'];
+                        $update_date[] = $result['update_date_p13'];
+                        $update_date[] = $result['update_date_p14'];
+                        $row['period_results'][] = $result['p11'];
+                        $row['period_results'][] = $result['p12'];
+                        $row['period_results'][] = $result['p13'];
+                        $row['period_results'][] = $result['p14'];
+                        $row['period_results'][] = $result['p21'];
+                        $row['period_results'][] = $result['p22'];
+                        $row['period_results'][] = $result['p23'];
+                        $row['period_results'][] = $result['p24'];
+                        $row['period_results'][] = $result['p31'];
+                        $row['period_results'][] = $result['p32'];
+                        $row['period_results'][] = $result['p33'];
+                        $row['period_results'][] = $result['p34'];
+                        $row['period_results'][] = $result['p41'];
+                        $row['period_results'][] = $result['p42'];
+                        $row['period_results'][] = $result['p43'];
+                        $row['period_results'][] = $result['p44'];
+
+                        $row['period_resultsRP'][] = $result['rp11'];
+                        $row['period_resultsRP'][] = $result['rp12'];
+                        $row['period_resultsRP'][] = $result['rp13'];
+                        $row['period_resultsRP'][] = $result['rp14'];
+                        $row['period_resultsRP'][] = $result['rp21'];
+                        $row['period_resultsRP'][] = $result['rp22'];
+                        $row['period_resultsRP'][] = $result['rp23'];
+                        $row['period_resultsRP'][] = $result['rp24'];
+                        $row['period_resultsRP'][] = $result['rp31'];
+                        $row['period_resultsRP'][] = $result['rp32'];
+                        $row['period_resultsRP'][] = $result['rp33'];
+                        $row['period_resultsRP'][] = $result['rp34'];
+                        $row['period_resultsRP'][] = $result['rp41'];
+                        $row['period_resultsRP'][] = $result['rp42'];
+                        $row['period_resultsRP'][] = $result['rp43'];
+                        $row['period_resultsRP'][] = $result['rp44'];
+
+                        $pc1 = 0;
+                        $pc2 = 0;
+                        $pc3 = 0;
+                        $pc4 = 0;
+                        $flag1 = 0;
+                        $flag2 = 0;
+                        $flag3 = 0;
+                        $flag4 = 0;
+                        for ($i = 0; $i < 4; $i++) {
+                            if ($row['period_results'][$i] < 70) $pc1 = $pc1 + $row['period_resultsRP'][$i] / 4;
+                            else $pc1 = $pc1 + $row['period_results'][$i] / 4;
+                            if ($row['period_results'][$i + 4] < 70) $pc2 = $pc2 + $row['period_resultsRP'][$i + 4] / 4;
+                            else $pc2 = $pc2 + $row['period_results'][$i + 4] / 4;
+                            if ($row['period_results'][$i + 8] < 70) $pc3 = $pc3 + $row['period_resultsRP'][$i + 8] / 4;
+                            else $pc3 = $pc3 + $row['period_results'][$i + 8] / 4;
+                            if ($row['period_results'][$i + 12] < 70) $pc4 = $pc4 + $row['period_resultsRP'][$i + 12] / 4;
+                            else $pc4 = $pc4 + $row['period_results'][$i + 12] / 4;
+                            if (!$row['period_resultsRP'][$i] && $row['period_results'][$i] < 70) $flag1 = 1;
+                            if (!$row['period_resultsRP'][$i + 4] && $row['period_results'][$i + 4] < 70) $flag2 = 1;
+                            if (!$row['period_resultsRP'][$i + 8] && $row['period_results'][$i + 8] < 70) $flag3 = 1;
+                            if (!$row['period_resultsRP'][$i + 12] && $row['period_results'][$i + 12] < 70) $flag4 = 1;
+                        }
+
+                        if ($flag1 == 1) $pc_show1 = "";
+                        else $pc_show1 = round($pc1, 1);
+                        if ($flag2 == 1) $pc_show2 = "";
+                        else $pc_show2 = round($pc2, 1);
+                        if ($flag3 == 1) $pc_show3 = "";
+                        else $pc_show3 = round($pc3, 1);
+                        if ($flag4 == 1) $pc_show4 = "";
+                        else $pc_show4 = round($pc4, 1);
+
+                        $row['period_results'][] = $pc_show1;
+                        $row['period_results'][] = $pc_show2;
+                        $row['period_results'][] = $pc_show3;
+                        $row['period_results'][] = $pc_show4;
                         $date = date("Y-m-d");
                         if($role_id == 2)   // if Teacher is,
                         {
                             for($i = 0; $i < count($update_date);$i++)
                             {
                                 $edit_flag[$i] = 0;
-                                if(strlen($permission) == 5 and substr($permission,$i,1) == 1)
+                                if(substr($permission,$i,1) == 1)
                                 {
                                     $edit_flag[$i] = 1;
                                     continue;
@@ -199,16 +274,9 @@ class User extends Student_Controller
                             $edit_flag[$i] = 1;
                     }
                     $row['edit_flag'] = $edit_flag;
-                    $row['CF'] = "";
-                    for ($i = 0; $i < count($period_list); $i++) {
-                        if (empty($row['period_results'][$i])) {
-                            $row['CF'] = '';
-                            break;
-                        } else {
-                            $row['CF'] += $row['period_results'][$i] / count($period_list);
-                        }
-                    }
-
+                    $row['CF'] = 0;
+                    $i = 0;
+                    if ($pc1 && $pc2 && $pc3 && $pc4 && $pc_show1 && $pc_show2 && $pc_show3 && $pc_show4) $row['CF'] = round(($pc1 + $pc2 + $pc3 + $pc4) / 4);
                     $row['AA'] = '';
                     $row['50PCP'] = '';
                     $row['CPC'] = '';
@@ -227,7 +295,7 @@ class User extends Student_Controller
                         $row['CF'] = '';
                     } else {
                         $row['CF'] = round($row['CF']);
-                        if ($row['CF'] > 70) {
+                        if ($row['CF'] >= 70) {
                             $row['A'] = 'A';
                             $row['R'] = '';
                         } else {
@@ -242,7 +310,7 @@ class User extends Student_Controller
                                 $row['CPC'] = $result['CPC'];
                                 $row['50CPC'] = round($result['CPC'] / 2);
                                 $row['CC'] = $row['50PCP'] + $row['50CPC'];
-                                if ($row['CC'] > 70) {
+                                if ($row['CC'] >= 70) {
                                     $row['A'] = 'A';
                                     $row['R'] = '';
                                 } else {
@@ -253,7 +321,7 @@ class User extends Student_Controller
                                         $row['CPEX'] = $result['CPEX'];
                                         $row['70CPEX'] = round($result['CPEX'] * 0.7);
                                         $row['CEX'] = $row['30PCP'] + $row['70CPEX'];
-                                        if ($row['CEX'] > 70) {
+                                        if ($row['CEX'] >= 70) {
                                             $row['A'] = 'A';
                                             $row['R'] = '';
                                         } else {
@@ -270,25 +338,163 @@ class User extends Student_Controller
                 }
                 $data['addstep'] = $addstep;
                 $data['grading_subject_results'] = $grading_subject_results;
-            } else {
+
+            }
+            else if($data['is_primary']){
+
+                $subjects = array();
+
+                $subject_groups = $this->subjectgroup_model->getGroupByClassandSection($student['class_id'], $student['section_id']);
+
+                foreach ($subject_groups as $subject_group) {
+
+                    $groupsubjects = $this->subjectgroup_model->getGroupsubjects($subject_group['subject_group_id']);
+
+                    array_splice($subjects, count($subjects), 0, $groupsubjects);
+                }
+
+                $grading_subject_results = array();
+                $admin_session   = $this->session->userdata('admin');
+                $permission = $this->staff_model->get_permission($admin_session['id']);
+                $role = $this->customlib->getStaffRole();
+
+                $role_id = json_decode($role)->id;
+                //$permission_staff_ids = $this->staff_model->getpermission('Permission of Teachers');
+                $data['role_id'] = $role_id;
+                $addstep = 0;
+                $teacherCnt = 0;
+                $pc1 = 0;
+                $pc2 = 0;
+                $pc3 = 0;
+                foreach ($subjects as $subject) {
+                    $result = $this->Gradingreport_model->getNewReportByStudentAndSubject($student_session_id, $subject->id);
+                    $row = array();
+                    $row['subject'] = $subject->name;
+                    $row['subjectId'] = $subject->id;
+                    $row['period_results'] = array();
+                    $row['period_resultsRP'] = array();
+                    $edit_flag = [];
+                    $pc1 = 0;
+                    $pc2 = 0;
+                    $pc3 = 0;
+                    $row['CF1'] = 0;
+                    $row['CF2'] = 0;
+                    if (!empty($result)) {
+                        $row['reportId'] = $result['id'];
+                        $update_date = [];
+                        $update_date[] = $result['update_date_p11'];
+                        $update_date[] = $result['update_date_p12'];
+                        $update_date[] = $result['update_date_p13'];
+                        $update_date[] = $result['update_date_p14'];
+                        $row['period_results'][] = $result['p11'];
+                        $row['period_results'][] = $result['p12'];
+                        $row['period_results'][] = $result['p13'];
+                        $row['period_results'][] = $result['p14'];
+                        $row['period_results'][] = $result['p21'];
+                        $row['period_results'][] = $result['p22'];
+                        $row['period_results'][] = $result['p23'];
+                        $row['period_results'][] = $result['p24'];
+                        $row['period_results'][] = $result['p31'];
+                        $row['period_results'][] = $result['p32'];
+                        $row['period_results'][] = $result['p33'];
+                        $row['period_results'][] = $result['p34'];
+
+                        $row['period_resultsRP'][] = $result['rp11'];
+                        $row['period_resultsRP'][] = $result['rp12'];
+                        $row['period_resultsRP'][] = $result['rp13'];
+                        $row['period_resultsRP'][] = $result['rp14'];
+                        $row['period_resultsRP'][] = $result['rp21'];
+                        $row['period_resultsRP'][] = $result['rp22'];
+                        $row['period_resultsRP'][] = $result['rp23'];
+                        $row['period_resultsRP'][] = $result['rp24'];
+                        $row['period_resultsRP'][] = $result['rp31'];
+                        $row['period_resultsRP'][] = $result['rp32'];
+                        $row['period_resultsRP'][] = $result['rp33'];
+                        $row['period_resultsRP'][] = $result['rp34'];
+
+                        $row['CF1'] = $result['cf1'];
+                        $row['CF2'] = $result['cf2'];
+                        $flag1 = 0;
+                        $flag2 = 0;
+                        $flag3 = 0;
+                        for ($i = 0; $i < 4; $i++) {
+                            if ($row['period_results'][$i] < 65 && $row['period_resultsRP'][$i]) $pc1 = $pc1 + $row['period_resultsRP'][$i] / 4;
+                            else $pc1 = $pc1 + $row['period_results'][$i] / 4;
+                            if ($row['period_results'][$i + 4] < 65 && $row['period_resultsRP'][$i + 4]) $pc2 = $pc2 + $row['period_resultsRP'][$i + 4] / 4;
+                            else $pc2 = $pc2 + $row['period_results'][$i + 4] / 4;
+                            if ($row['period_results'][$i + 8] < 65 && $row['period_resultsRP'][$i + 8]) $pc3 = $pc3 + $row['period_resultsRP'][$i + 8] / 4;
+                            else $pc3 = $pc3 + $row['period_results'][$i + 8] / 4;
+                            if (!$row['period_results'][$i]) $flag1 = 1;
+                            if (!$row['period_results'][$i + 4]) $flag2 = 1;
+                            if (!$row['period_results'][$i + 8]) $flag3 = 1;
+                        }
+                        // show pdf reports result for primary
+                        if ($flag1 == 1) $pc_show1 = "";
+                        else $pc_show1 = round($pc1);
+                        if ($flag2 == 1) $pc_show2 = "";
+                        else $pc_show2 = round($pc2);
+                        if ($flag3 == 1) $pc_show3 = "";
+                        else $pc_show3 = round($pc3);
+
+                        $row['period_results'][] = $pc_show1;
+                        $row['period_results'][] = $pc_show2;
+                        $row['period_results'][] = $pc_show3;
+                        $date = date("Y-m-d");
+                        if($role_id == 2)   // if Teacher is,
+                        {
+                            for($i = 0; $i < count($update_date);$i++)
+                            {
+                                $edit_flag[$i] = 0;
+                                if(substr($permission,$i,1) == 1)
+                                {
+                                    $edit_flag[$i] = 1;
+                                    continue;
+                                }
+                                if(substr($student['class'],0,1) == ($i + 1))
+                                {
+                                    if($update_date[$i] == $date or $update_date[$i] == null)
+                                        $edit_flag[$i] = 1;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            for($i = 0; $i < count($update_date);$i++)
+                                $edit_flag[$i] = 1;
+                        }
+                    } else {
+                        $row['reportId'] = null;
+                        $row['period_results'] = [null, null, null, null, null];
+                        for($i = 0; $i < 5;$i++)
+                            $edit_flag[$i] = 1;
+                    }
+                    $row['edit_flag'] = $edit_flag;
+                    $row['CF'] = 0;
+                    $i = 0;
+                    if ($pc1 && $pc2 && $pc3 && $pc_show1 && $pc_show2 && $pc_show3) $row['CF'] = round(($pc1 + $pc2 + $pc3) / 3);
+                    $grading_subject_results[] = $row;
+                    $teacherCnt++;
+                }
+                $data['addstep'] = $addstep;
+                $data['grading_subject_results'] = $grading_subject_results;
+            }
+            else {
                 if (!empty($data['class_id'])) {
 
                     $data['period_id'] = '';
                     if (!empty($period_id)) {
                         $data['period_id'] = $period_id;
-
                     }
+
                     $competences = $this->Gradingreport_model->getCompetences($this->sch_current_session, $data['class_id'], $period_id);
                     $data['competenceList'] = array();
                     foreach ($competences as $competence) {
                         $reportdata = $this->Gradingreport_model->getCompetenceReport($competence['id'], $student_session_id);
                         $competence['data'] = $reportdata;
                         $data['competenceList'][] = $competence;
-
                     }
                     $valuescale = $this->Gradingreport_model->getValuescaleByClass($data['level_id']);
                     $data['valuescaleList'] = $valuescale;
-
                 }
             }
 

@@ -357,7 +357,15 @@ if($this->studentmodule_lib->hasActive('multi_class')){
                             <li class="treeview <?php echo set_Topmenu('Attendence'); ?>"><a href="<?php echo base_url(); ?>user/attendence"><i class="fa fa-calendar-check-o ftlayer"></i> <span><?php echo $this->lang->line('attendance'); ?></span></a></li>
                             <?php
                         }
-                      
+
+                        if ($this->studentmodule_lib->hasActive('grading_report')) {
+                            ?>
+                            <li class="treeview <?php echo set_Topmenu('GradingReport'); ?>">
+                                <a href="<?php echo site_url('user/grading_result'); ?>"><i class="fa fa-angle-double-right"></i> <?php echo $this->lang->line('grading_results_by_subject') ?></a>
+                            </li>
+                        <?php
+                        }
+
                         if ($this->studentmodule_lib->hasActive('examinations')) {
                             ?>
                         <li class="treeview <?php echo set_Topmenu('Examinations'); ?>">
