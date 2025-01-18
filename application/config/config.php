@@ -2,6 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+define('ENVIRONMENT', 'development');
 /*
   |--------------------------------------------------------------------------
   | Base Site URL
@@ -24,7 +25,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   | a PHP script and you can easily do that on your own.
   |
  */
-$config['base_url'] = 'https://epsrenlinea.com/';	//$config['base_url'] = '';
+// $config['base_url'] = 'https://epsrenlinea.com/';	//$config['base_url'] = '';
+$config['base_url'] = 'http://localhost/';	//$config['base_url'] = '';
 
 
 /*
