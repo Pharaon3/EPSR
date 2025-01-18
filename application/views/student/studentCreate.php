@@ -35,9 +35,9 @@
                                         <?php if (1) { ?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('admission_no'); ?></label> <small class="req"> *</small>
-                                                    <input autofocus="" id="admission_no" name="admission_no" placeholder="" type="text" class="form-control"  value="<?php echo $admission_no; ?>" />
-                                                    <span class="text-danger"><?php echo form_error('admission_no'); ?></span>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('roll_no'); ?></label> <small class="req"> *</small>
+                                                    <input autofocus="" id="roll_no" name="roll_no" placeholder="" type="text" class="form-control"  value="<?php echo $roll_no; ?>" />
+                                                    <span class="text-danger"><?php echo form_error('roll_no'); ?></span>
                                                 </div>
                                             </div>
                                         <?php } ?>

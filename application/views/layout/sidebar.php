@@ -414,16 +414,16 @@
                             <?php }
                             ?>
                             <?php if ($this->rbac->hasPrivilege('grading_report_results', 'can_view')) { ?>
-                                <li class="<?php echo set_Submenu('GradingReport/Results'); ?>"><a href="<?php echo site_url('admin/grading_result'); ?>"><i class="fa fa-angle-double-right"></i> <?php echo $this->lang->line('grading_results_by_student') ?></a></li>
+                               <li class="<?php echo set_Submenu('GradingReport/Results'); ?>"><a href="<?php echo site_url('admin/grading_result'); ?>"><i class="fa fa-angle-double-right"></i> <?php echo $this->lang->line('grading_results_by_student') ?></a></li> 
                             <?php }
                             ?>
                             <?php if ($this->rbac->hasPrivilege('grading_report_results', 'can_view')) { ?>
                                 <li class="<?php echo set_Submenu('GradingReport/Reports'); ?>"><a href="<?php echo site_url('admin/grading_result/newreport'); ?>"><i class="fa fa-angle-double-right"></i> <?php echo $this->lang->line('grading_reports_by_student') ?></a></li>
                             <?php }
                             ?>
-                            <?php if ($this->rbac->hasPrivilege('grading_report_results', 'can_view')) { ?>
-                                <li class="<?php echo set_Submenu('GradingReport/BySubject'); ?>"><a href="<?php echo site_url('admin/grading_result/edit'); ?>"><i class="fa fa-angle-double-right"></i> <?php echo $this->lang->line('grading_results_by_subject') ?></a></li>
-                            <?php }
+                            <?php //if ($this->rbac->hasPrivilege('grading_report_results', 'can_view')) { ?>
+                               <!-- <li class="<?php echo set_Submenu('GradingReport/BySubject'); ?>"><a href="<?php echo site_url('admin/grading_result/edit'); ?>"><i class="fa fa-angle-double-right"></i> <?php echo $this->lang->line('grading_results_by_subject') ?></a></li> -->
+                            <?php //}
                             ?>
                             <?php if ($this->rbac->hasPrivilege('grading_report_results', 'can_view')) { ?>
                                 <li class="<?php echo set_Submenu('GradingReport/ReportBySubject'); ?>"><a href="<?php echo site_url('admin/grading_result/newedit'); ?>"><i class="fa fa-angle-double-right"></i> <?php echo $this->lang->line('grading_reports_by_subject') ?></a></li>
@@ -431,10 +431,6 @@
                             ?>
                             <?php if ($this->rbac->hasPrivilege('grading_report_results', 'can_view')) { ?>
                                 <li class="<?php echo set_Submenu('GradingReport/GradingResult'); ?>"><a href="<?php echo site_url('admin/grading_result/GradingResult'); ?>"><i class="fa fa-angle-double-right"></i> <?php echo $this->lang->line('grading_results_by_Grading') ?></a></li>
-                            <?php }
-                            ?>
-                            <?php if ($this->rbac->hasPrivilege('grading_report_results', 'can_view')) { ?>
-                                <li class="<?php echo set_Submenu('GradingReport/GradingReport'); ?>"><a href="<?php echo site_url('admin/grading_result/GradingReport'); ?>"><i class="fa fa-angle-double-right"></i> <?php echo $this->lang->line('grading_reports_by_Grading') ?></a></li>
                             <?php }
                             ?>
                             <?php if ($this->rbac->hasPrivilege('grading_report_results', 'can_view')) { ?>

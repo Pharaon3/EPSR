@@ -18,9 +18,9 @@
             size: A4;
             counter-increment: page;
             counter-reset: page 1;
-            @top-right {
+          /*  @top-right {
                 content: "Page " counter(page) " of " counter(pages);
-            }
+            }*/
         }
     }
     @media print {
@@ -357,7 +357,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="width : 31%;font-size: 21px;padding:5px;"  colspan="2"><b>&nbsp;No. Matrícula:</b> <?php echo $student['admission_no'] ?></td>
+                        <td style="width : 31%;font-size: 21px;padding:5px;"  colspan="2"><b>&nbsp;SIGERD:</b> <?php echo $student['roll_no'] ?></td>
                         <td style="width : 38%;font-size: 21px;padding:5px;" colspan="2"><b>&nbsp;Curso: </b><?php echo $class ?> </td>
                         <td style="padding:5px;width : <?php if($student['level'] == "NIVEL INICIAL") echo "30";else echo "13"; ?>%;font-size: 21px;" colspan="1"><b>&nbsp;Sección: </b> <?php echo $student['section'] ?></td>
                     </tr>
@@ -516,26 +516,26 @@
                                         {
                                             echo "QUINTO PERÍODO";
                                         }
+										
+										
                                         echo "(".$monthlist[$period["start_month"]]."-". $monthlist[$period["end_month"]].")";
                                         echo '
-                                    </td>
+                                   </td>
                                     <td valign="top" style="font-weight: bold; font-size: 20px; text-align:center">
                                         <table class="bordertable" width="100%"> 
                                             <thead>
-                                                <tr>
-                                                    <th colspan="2" style="font-size: 20px;background-color: #afafc6">Escala de valores</th>
-                                                </tr>
+                                            
                                                 </thead>
-                                                <tbody>';
+                                                <tbody>'; 
 
-        foreach ($valuescaleList as $valuescale)
+      /*  foreach ($valuescaleList as $valuescale)
         {
             echo '
                                                         <tr>
                                                             <td valign="top" style="font-size: 16px; text-align:center;">'. $valuescale["symbol"] . '</td>
                                                             <td valign="top" style="font-size: 17px; text-align:left; padding-left: 1px;">'.$valuescale["label"].'</td>
                                                         </tr>';
-        }
+        }*/
         echo'
 
                                                 </tbody>
@@ -650,7 +650,7 @@
 
             foreach ($valuescaleList as $valuescale)
             {
-                echo '<th valign="bottom" style="background-color: #afafc6;width:40px; font-size: 18px; text-align:center">'.$valuescale["symbol"].'</th>';
+                echo '<th valign="bottom" style="background-color: #afafc6;width:40px; font-size: 18px; text-align:center;padding: 5px">'.$valuescale["label"].'</th>';
             }
             echo  '
                                 </tr>
@@ -686,21 +686,17 @@
                     $currentpagesize += 80;
                     echo '
                     <tr>
-                        <td style="width:70%;font-weight: bold; font-size: 25px; text-align:left">AREA: '.$competence["name"].'</td>
-                    </tr>';
-                    echo '
-                    <tr>
                         <td valign="top" style="font-size: 24px; text-align:center">
                             <table class="bordertable" width="100%">
                                 <thead>
                                 <tr>
                                     <th valign="bottom" style="background-color: #afafc6; height: 40px;font-size: 24px; text-align:left; padding-left:10px">';
-                    echo "INDICADORES DE LOGRO";
+                echo $competence["name"];
                     echo '
                                     </th>';
                     foreach ($valuescaleList as $valuescale)
                     {
-                        echo '<th valign="bottom" style="background-color: #afafc6;width:40px; font-size: 18px; text-align:center">'.$valuescale["symbol"].'</th>';
+                        echo '<th valign="bottom" style="background-color: #afafc6;width:40px; font-size: 18px; text-align:center">'.$valuescale["label"].'</th>';
                     }
                     echo  '
                                 </tr>

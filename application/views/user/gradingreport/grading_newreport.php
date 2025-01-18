@@ -584,8 +584,6 @@
                     </div>
                 <?php } ?>
                 <?php if (!$is_primary && $isPrekender) { ?>
-
-
                     <div class="table-responsive">
                         <form id="update_competence_report">
                             <input type="hidden" name="student_session_id" value="<?php echo $student_session_id ?>">

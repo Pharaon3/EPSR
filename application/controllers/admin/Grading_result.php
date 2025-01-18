@@ -29,6 +29,7 @@ class Grading_result extends Admin_Controller
             access_denied();
         }
         $this->session->set_userdata('top_menu', 'GradingReport');
+	//	$this->session->set_userdata('sub_menu', 'GradingReport/Reports');
         $this->session->set_userdata('sub_menu', 'GradingReport/Results');
         $userdata = $this->customlib->getUserData();
         $role_id = $userdata["role_id"];
@@ -172,6 +173,7 @@ class Grading_result extends Admin_Controller
         if (!$this->rbac->hasPrivilege('grading_report_results', 'can_view')) {
             access_denied();
         }
+
         $this->session->set_userdata('top_menu', 'GradingReport');
         $this->session->set_userdata('sub_menu', 'GradingReport/Reports');
         $userdata   = $this->customlib->getUserData();
@@ -2769,7 +2771,10 @@ class Grading_result extends Admin_Controller
                     $month['November'] = "Noviembre";
                     $month['December'] = "Diciembre";
                     $data['monthlist'] = $month;
-                }
+                
+				 } else {
+                        $data['monthlist'] = $monthlist;
+                    }
 
                 $data['sch_setting'] = $this->sch_setting_detail;
                 $data['isPrekender'] = $class_level['level_id'] != 43 ? true : false;
@@ -2787,7 +2792,8 @@ class Grading_result extends Admin_Controller
                     }
                     $class_id = 0;
                     if($data['level'] == "NIVEL INICIAL")
-                        $class_id = 3;
+//anteriormente era = 3; para 2022 y anterior.             
+		 $class_id = 41;
                     else
                         $class_id = 42;
                     $valuescale = $this->Gradingreport_model->getValuescaleByClass($class_id);

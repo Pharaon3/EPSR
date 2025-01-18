@@ -158,9 +158,9 @@ class Grading_result extends Admin_Controller
         //print($level_id); die;
         $period_list = $this->Gradingreport_model->getPeriodEnabledByStaffId($staff_id, $level_id);   
         $data['role_id']        = $role_id;
-        $data['classlist']       = $class_list;
-        $data['sch_setting']     = $this->sch_setting_detail;
-        $data['periodList'] = $period_list;
+        $data['classlist']      = $class_list;
+        $data['sch_setting']    = $this->sch_setting_detail;
+        $data['periodList']     = $period_list;
         $this->load->view('layout/header', $data);
         $this->load->view('admin/gradingreport/newedit', $data);
         $this->load->view('layout/footer', $data);
@@ -571,7 +571,7 @@ class Grading_result extends Admin_Controller
             $level_id           = $this->Gradingreport_model->getLevelByClass($class);
             $class_list         = $this->Gradingreport_model->getClassByLevel($level_id);
         }
-		 // Fetch the list of periods enabled for the staff member
+		// Fetch the list of periods enabled for the staff member
         $staff_id = $userdata["id"];
         $period_list = $this->Gradingreport_model->getPeriodEnabledByStaffId($staff_id, $level_id);
 		
@@ -631,6 +631,9 @@ class Grading_result extends Admin_Controller
                     $update_date[] = $student->update_date_p1;
                     $update_date[] = $student->update_date_p2;
                     $update_date[] = $student->update_date_p3;
+
+                    $CF1 = $student->cf1;
+                    $CF2 = $student->cf2;
 
                     $i = 0;
                     if ($class < 16) {
@@ -733,7 +736,10 @@ class Grading_result extends Admin_Controller
                         $CF = round($CF);
                     }
                     $row[] = "<div class='cf' data_org = '" . $CF . "' data_stdID='" . $student->student_session_id . "'>" . $CF . "</div>";
-                    $row[] = "";
+                    // $row[] = "<div class='cf' data_org = '" . $CF1 . "' data_stdID='" . $student->student_session_id . "'>" . $CF1 . "</div>";
+                    // if ($class > 15) $row[] = "<div class='cf' data_org = '" . $CF2 . "' data_stdID='" . $student->student_session_id . "'>" . $CF2 . "</div>";
+                    $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $CF1 . "' data_column = 'cf1' data_stdID='" . $student->student_session_id . "' value='" . $CF1 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
+                    if ($class > 15) $row[] = "<input type='number' min='0' max='100' class='td-input pr' data_org = '" . $CF2 . "' data_column = 'cf2' data_stdID='" . $student->student_session_id . "' value='" . $CF2 . "' onfocus=\"style.background='LightYellow'; \" onblur=\"this.style.background='';  \">";
                     // Add the row to the data array
                     $dt_data[] = $row;
                 } else {
@@ -967,12 +973,12 @@ class Grading_result extends Admin_Controller
         }
         // Prepare JSON response for the data table
         $json_data           = array(
-            "draw"                => intval($students->draw),
-            "recordsTotal"        => intval($students->recordsTotal),
-            "recordsFiltered"     => intval($students->recordsFiltered),
-            "data"                => $dt_data,
-            "students"            => $students,
-            "class_section_subject_id" => [$class, $section, $subject_id],
+            "draw"                      => intval($students->draw),
+            "recordsTotal"              => intval($students->recordsTotal),
+            "recordsFiltered"           => intval($students->recordsFiltered),
+            "data"                      => $dt_data,
+            "students"                  => $students,
+            "class_section_subject_id"  => [$class, $section, $subject_id],
         );
         // Output JSON response for the data table
         echo json_encode($json_data);
@@ -1250,6 +1256,8 @@ class Grading_result extends Admin_Controller
                     $update_date[] = $student->update_date_p3;
                     $update_date[] = $student->update_date_p4;
 
+                    $CF1 = $student->cf1;
+                    $CF2 = $student->cf2;
                     $i = 0;
 
                     if ($class < 16) {
@@ -1309,8 +1317,8 @@ class Grading_result extends Admin_Controller
                         $CF = round($CF);
                     }
                     $row[] = "<div class='cf' data_org = '" . $CF . "' data_stdID='" . $student->student_session_id . "'>" . $CF . "</div>";
-                    $row[] = "";
-
+                    $row[] = "<div class='cf' data_org = '" . $CF1 . "' data_stdID='" . $student->student_session_id . "'>" . $CF1 . "</div>";
+                    if ($class > 15) $row[] = "<div class='cf' data_org = '" . $CF2 . "' data_stdID='" . $student->student_session_id . "'>" . $CF2 . "</div>";
                     $dt_data[] = $row;
                 } else {
                     $addstep = 0;
@@ -2178,6 +2186,8 @@ class Grading_result extends Admin_Controller
                     $pc1 = 0;
                     $pc2 = 0;
                     $pc3 = 0;
+                    $row['CF1'] = 0;
+                    $row['CF2'] = 0;
                     if (!empty($result)) {
                         $row['reportId'] = $result['id'];
                         $update_date = [];
@@ -2211,6 +2221,8 @@ class Grading_result extends Admin_Controller
                         $row['period_resultsRP'][] = $result['rp33'];
                         $row['period_resultsRP'][] = $result['rp34'];
 
+                        $row['CF1'] = $result['cf1'];
+                        $row['CF2'] = $result['cf2'];
                         $flag1 = 0;
                         $flag2 = 0;
                         $flag3 = 0;
@@ -2225,7 +2237,7 @@ class Grading_result extends Admin_Controller
                             if (!$row['period_results'][$i + 4]) $flag2 = 1;
                             if (!$row['period_results'][$i + 8]) $flag3 = 1;
                         }
-// show pdf reports result for primary
+                        // show pdf reports result for primary
                         if ($flag1 == 1) $pc_show1 = "";
                         else $pc_show1 = round($pc1);
                         if ($flag2 == 1) $pc_show2 = "";
@@ -2477,7 +2489,7 @@ class Grading_result extends Admin_Controller
                                         'rp21','rp22','rp23','rp24',
                                         'rp31','rp32','rp33','rp34',
                                         'rp41','rp42','rp43','rp44',
-                                        'pc1','pc2','pc3','pc4']))
+                                        'pc1','pc2','pc3','pc4', 'cf1', 'cf2']))
                         $postData[$key] = empty($value) ? null : $value;
                     if(!in_array($key, ['p11','p12','p13','p14',
                                         'p21','p22','p23','p24',
@@ -2487,7 +2499,7 @@ class Grading_result extends Admin_Controller
                                         'rp21','rp22','rp23','rp24',
                                         'rp31','rp32','rp33','rp34',
                                         'rp41','rp42','rp43','rp44',
-                                        'pc1','pc2','pc3','pc4'])) continue;
+                                        'pc1','pc2','pc3','pc4', 'cf1', 'cf2'])) continue;
                     
                     if(empty($grading_marker) || $grading_marker[$key] != $postData[$key])
                         $postData["update_date_$key"] = date("Y-m-d");
@@ -2878,14 +2890,20 @@ class Grading_result extends Admin_Controller
                                 }
                             }
                         }
+                        error_log("print card 1869.");
                         $grading_subject_results[] = $row;
+                        error_log("print card 1871.");
                     }
+                    error_log("print card 1873.");
                     $data['pageNum'] = $this->session->userdata['pageNum'];
                     $data['grading_subject_results'] = $grading_subject_results;
                     $seconday_grading_report_cards = $this->load->view('admin/gradingreport/_secondaryreportview', $data, true);
                     $renderprintpage .= " ". $seconday_grading_report_cards. " ";
+                    error_log("print card 1878.");
                 }
+                error_log("print card 1880.");
             }
+            error_log("print card 1882.");
             $array = array('status' => '1', 'error' => '', 'page' => $renderprintpage);
             echo json_encode($array);
         }
@@ -3065,6 +3083,8 @@ class Grading_result extends Admin_Controller
                             $pc1 = 0;
                             $pc2 = 0;
                             $pc3 = 0;
+                            $row['CF1'] = 0;
+                            $row['CF2'] = 0;
                             if (!empty($result)) {
                                 $row['reportId'] = $result['id'];
                                 $update_date = [];
@@ -3098,6 +3118,8 @@ class Grading_result extends Admin_Controller
                                 $row['period_resultsRP'][] = $result['rp33'];
                                 $row['period_resultsRP'][] = $result['rp34'];
 
+                                $row['CF1'] = $result['cf1'];
+                                $row['CF2'] = $result['cf2'];
 
                                 // $pc1 =
 
@@ -3120,7 +3142,7 @@ class Grading_result extends Admin_Controller
                                     if (!$row['period_results'][$i + 4]) $flag2 = 1;
                                     if (!$row['period_results'][$i + 8]) $flag3 = 1;
                                 }
-// show grading results by students
+                                // show grading results by students
                                 if ($flag1 == 1) $pc_show1 = "";
                                 else $pc_show1 = round($pc1);
                                 if ($flag2 == 1) $pc_show2 = "";
@@ -3554,6 +3576,158 @@ class Grading_result extends Admin_Controller
         $this->load->view('admin/gradingreport/grading', $data);
         $this->load->view('layout/footer', $data);
     }
+
+    public function GradingReport()
+    { 
+        if (!$this->rbac->hasPrivilege('grading_report_results', 'can_view')) {
+            access_denied();
+        }
+        $this->session->set_userdata('top_menu', 'GradingReport');
+        $this->session->set_userdata('sub_menu', 'GradingReport/GradingReport');
+        $userdata                   = $this->customlib->getUserData();
+        $role_id                    = $userdata["role_id"];
+        $staff_id                   = $userdata["id"];
+        $level_id                   = 43;
+        $class_list                 = $this->Gradingreport_model->getClassByLevel($level_id);
+        $data['classlist']          = $class_list;
+        $data['sectionlist']            = $this->section_model->get();
+        $data['period_list']        = $this->Gradingreport_model->getPeriodByLevel($level_id); 
+        $data['session_list']        = $this->Session_model->getAllSession(); 
+        $this->form_validation->set_rules('class_id', $this->lang->line('class'), 'trim|required|xss_clean');
+        $this->form_validation->set_rules('section_id', $this->lang->line('section'), 'trim|required|xss_clean');
+        $this->form_validation->set_rules('session_id', $this->lang->line('session'), 'trim|required|xss_clean');
+        
+        if ($this->form_validation->run() == false) {
+           
+        } 
+        else {
+            
+            $class_id                   = $_POST['class_id'];
+            $section_id                 = $_POST['section_id'];
+            $session_id                 = $_POST['session_id'];
+            $data["class_id"]           = $class_id;
+            $data["section_id"]         = $section_id;
+            $data["session_id"]         = $session_id;
+            $data['mark']               = 'CF';
+            $data['students']           = $this->student_model->getStudent_nameOrder($class_id,$section_id);
+            $data['curse']              = $this->Gradingreport_model->getclassname($class_id);
+            $data['subject_list']       = $this->subjectgroup_model->getsubjectByclassidAndPeriod($class_id);
+            $studentlist                = $this->student_model->getStudent_gradingreport_with_session($class_id,$section_id, false, 4, $session_id); 
+            $studentData = [];
+            $subject_index = 0;
+            $student_total = [];
+            $student_CF_total = 0;
+            foreach ($studentlist as $student) {
+                
+                $pc1 = 0;
+                $pc2 = 0;
+                $pc3 = 0;
+                $pc4 = 0;
+
+                $CF = 0;
+
+                $period_rports = [];
+                $period_rports[] = $student["p11"];
+                $period_rports[] = $student["p12"];
+                $period_rports[] = $student["p13"];
+                $period_rports[] = $student["p14"];
+                $period_rports[] = $student["p21"];
+                $period_rports[] = $student["p22"];
+                $period_rports[] = $student["p23"];
+                $period_rports[] = $student["p24"];
+                $period_rports[] = $student["p31"];
+                $period_rports[] = $student["p32"];
+                $period_rports[] = $student["p33"];
+                $period_rports[] = $student["p34"];
+                $period_rports[] = $student["p41"];
+                $period_rports[] = $student["p42"];
+                $period_rports[] = $student["p43"];
+                $period_rports[] = $student["p44"];
+
+                $period_rportsRP = [];
+                $period_rportsRP[] = $student["rp11"];
+                $period_rportsRP[] = $student["rp12"];
+                $period_rportsRP[] = $student["rp13"];
+                $period_rportsRP[] = $student["rp14"];
+                $period_rportsRP[] = $student["rp21"];
+                $period_rportsRP[] = $student["rp22"];
+                $period_rportsRP[] = $student["rp23"];
+                $period_rportsRP[] = $student["rp24"];
+                $period_rportsRP[] = $student["rp31"];
+                $period_rportsRP[] = $student["rp32"];
+                $period_rportsRP[] = $student["rp33"];
+                $period_rportsRP[] = $student["rp34"];
+                $period_rportsRP[] = $student["rp41"];
+                $period_rportsRP[] = $student["rp42"];
+                $period_rportsRP[] = $student["rp43"];
+                $period_rportsRP[] = $student["rp44"];
+                
+                for ($i = 0; $i < 4; $i++) {
+                    if ($period_rports[$i] < 70 && $period_rportsRP[$i]) $pc1 = $pc1 + $period_rportsRP[$i] / 4;
+                    else $pc1 = $pc1 + $period_rports[$i] / 4;
+                    if ($period_rports[$i + 4] < 70 && $period_rportsRP[$i + 4]) $pc2 = $pc2 + $period_rportsRP[$i + 4] / 4;
+                    else $pc2 = $pc2 + $period_rports[$i + 4] / 4;
+                    if ($period_rports[$i + 8] < 70 && $period_rportsRP[$i + 8]) $pc3 = $pc3 + $period_rportsRP[$i + 8] / 4;
+                    else $pc3 = $pc3 + $period_rports[$i + 8] / 4;
+                    if ($period_rports[$i + 12] < 70 && $period_rportsRP[$i + 12]) $pc4 = $pc4 + $period_rportsRP[$i + 12] / 4;
+                    else $pc4 = $pc4 + $period_rports[$i + 12] / 4;
+                }
+                if ($period_rports[0] == "" || $period_rports[1] == "" || $period_rports[2] == "" || $period_rports[3] == "") $pc_show1 = ""; else $pc_show1 = round($pc1,1);
+                if ($period_rports[4] == "" || $period_rports[5] == "" || $period_rports[6] == "" || $period_rports[7] == "") $pc_show2 = ""; else $pc_show2 = round($pc2,1);
+                if ($period_rports[8] == "" || $period_rports[9] == "" || $period_rports[10] == "" || $period_rports[11] == "") $pc_show3 = ""; else $pc_show3 = round($pc3,1);
+                if ($period_rports[12] == "" || $period_rports[13] == "" || $period_rports[14] == "" || $period_rports[15] == "") $pc_show4 = ""; else $pc_show4 = round($pc4,1);
+                
+                if ($pc_show1 == "" || $pc_show2 == "" || $pc_show3 == "" || $pc_show4 == "") $CF = "";
+                else $CF = ROUND(($pc1 + $pc2 + $pc3 + $pc4) / 4, 0);
+                $subject_index ++;
+                $student_CF_total += $CF;
+                if ($subject_index >= count($data['subject_list'])) {
+                    $student_total[]= $student_CF_total;
+                    $subject_index = 0;
+                    $student_CF_total = 0;
+                }
+                $studentData[] = array_merge(
+                    $student,
+                    ["CF" => $CF]
+                );
+            }
+
+            $studentlist = $studentData;
+            $studentData = [];
+            $student_index = 0;
+            $subject_index = 0;
+            foreach ($studentlist as $student) {
+                $subject_index ++;
+                $studentData[] = array_merge(
+                    $student,
+                    ["TotalCF" => $student_total[$student_index]]
+                );
+                if ($subject_index >= count($data['subject_list'])) {
+                    $subject_index = 0;
+                    $student_index ++;
+                }
+            }
+            $count = count($studentData);
+    
+            // Bubble Sort algorithm
+            for ($i = 0; $i < $count - 1; $i++) {
+                for ($j = 0; $j < $count - $i - 1; $j++) {
+                    // Compare ages
+                    if ($studentData[$j]['TotalCF'] < $studentData[$j + 1]['TotalCF']) {
+                        // Swap the objects
+                        $temp = $studentData[$j];
+                        $studentData[$j] = $studentData[$j + 1];
+                        $studentData[$j + 1] = $temp;
+                    }
+                }
+            }
+            $data['studentlist']        = $studentData;    
+        }
+        $this->load->view('layout/header', $data);
+        $this->load->view('admin/gradingreport/grading', $data);
+        $this->load->view('layout/footer', $data);
+    }
+
     public function printGradingResult()
     {
         $class_id                       = $_POST['class_id'];
@@ -3569,6 +3743,133 @@ class Grading_result extends Admin_Controller
         $studentlist                    = $this->student_model->getStudent_gradingresult_with_session($class_id,$section_id, false, 4, $session_id); 
         $data['studentlist']            = $studentlist;
         $renderprintpage                = $this->load->view('admin/gradingreport/printgradingresult', $data, true);
+        $array = array('status' => '1', 'error' => '', 'page' => $renderprintpage);
+        echo json_encode($array);
+    }
+
+    public function printGradingReport()
+    {
+        $class_id                       = $_POST['class_id'];
+        $data["class_id"]               = $class_id;
+        $section_id                     = $_POST['section_id'];
+        $data["section_id"]             = $section_id;
+        $session_id                     = $_POST['session_id']; 
+        $data["session_id"]             = $session_id;
+        $data['mark']                   = 'CF';
+        $data['students']               = $this->student_model->getStudent_nameOrder($class_id,$section_id);
+        $data['curse']                  = $this->Gradingreport_model->getclassname($class_id);
+        $data['subject_list']           = $this->subjectgroup_model->getsubjectByclassidAndPeriod($class_id);
+        $studentlist                = $this->student_model->getStudent_gradingreport_with_session($class_id,$section_id, false, 4, $session_id); 
+        $studentData = [];
+        $subject_index = 0;
+        $student_total = [];
+        $student_CF_total = 0;
+        foreach ($studentlist as $student) {
+            
+            $pc1 = 0;
+            $pc2 = 0;
+            $pc3 = 0;
+            $pc4 = 0;
+
+            $CF = 0;
+
+            $period_rports = [];
+            $period_rports[] = $student["p11"];
+            $period_rports[] = $student["p12"];
+            $period_rports[] = $student["p13"];
+            $period_rports[] = $student["p14"];
+            $period_rports[] = $student["p21"];
+            $period_rports[] = $student["p22"];
+            $period_rports[] = $student["p23"];
+            $period_rports[] = $student["p24"];
+            $period_rports[] = $student["p31"];
+            $period_rports[] = $student["p32"];
+            $period_rports[] = $student["p33"];
+            $period_rports[] = $student["p34"];
+            $period_rports[] = $student["p41"];
+            $period_rports[] = $student["p42"];
+            $period_rports[] = $student["p43"];
+            $period_rports[] = $student["p44"];
+
+            $period_rportsRP = [];
+            $period_rportsRP[] = $student["rp11"];
+            $period_rportsRP[] = $student["rp12"];
+            $period_rportsRP[] = $student["rp13"];
+            $period_rportsRP[] = $student["rp14"];
+            $period_rportsRP[] = $student["rp21"];
+            $period_rportsRP[] = $student["rp22"];
+            $period_rportsRP[] = $student["rp23"];
+            $period_rportsRP[] = $student["rp24"];
+            $period_rportsRP[] = $student["rp31"];
+            $period_rportsRP[] = $student["rp32"];
+            $period_rportsRP[] = $student["rp33"];
+            $period_rportsRP[] = $student["rp34"];
+            $period_rportsRP[] = $student["rp41"];
+            $period_rportsRP[] = $student["rp42"];
+            $period_rportsRP[] = $student["rp43"];
+            $period_rportsRP[] = $student["rp44"];
+            
+            for ($i = 0; $i < 4; $i++) {
+                if ($period_rports[$i] < 70 && $period_rportsRP[$i]) $pc1 = $pc1 + $period_rportsRP[$i] / 4;
+                else $pc1 = $pc1 + $period_rports[$i] / 4;
+                if ($period_rports[$i + 4] < 70 && $period_rportsRP[$i + 4]) $pc2 = $pc2 + $period_rportsRP[$i + 4] / 4;
+                else $pc2 = $pc2 + $period_rports[$i + 4] / 4;
+                if ($period_rports[$i + 8] < 70 && $period_rportsRP[$i + 8]) $pc3 = $pc3 + $period_rportsRP[$i + 8] / 4;
+                else $pc3 = $pc3 + $period_rports[$i + 8] / 4;
+                if ($period_rports[$i + 12] < 70 && $period_rportsRP[$i + 12]) $pc4 = $pc4 + $period_rportsRP[$i + 12] / 4;
+                else $pc4 = $pc4 + $period_rports[$i + 12] / 4;
+            }
+            if ($period_rports[0] == "" || $period_rports[1] == "" || $period_rports[2] == "" || $period_rports[3] == "") $pc_show1 = ""; else $pc_show1 = round($pc1,1);
+            if ($period_rports[4] == "" || $period_rports[5] == "" || $period_rports[6] == "" || $period_rports[7] == "") $pc_show2 = ""; else $pc_show2 = round($pc2,1);
+            if ($period_rports[8] == "" || $period_rports[9] == "" || $period_rports[10] == "" || $period_rports[11] == "") $pc_show3 = ""; else $pc_show3 = round($pc3,1);
+            if ($period_rports[12] == "" || $period_rports[13] == "" || $period_rports[14] == "" || $period_rports[15] == "") $pc_show4 = ""; else $pc_show4 = round($pc4,1);
+            
+            if ($pc_show1 == "" || $pc_show2 == "" || $pc_show3 == "" || $pc_show4 == "") $CF = "";
+            else $CF = ROUND(($pc1 + $pc2 + $pc3 + $pc4) / 4, 0);
+            $subject_index ++;
+            $student_CF_total += $CF;
+            if ($subject_index >= count($data['subject_list'])) {
+                $student_total[]= $student_CF_total;
+                $subject_index = 0;
+                $student_CF_total = 0;
+            }
+            $studentData[] = array_merge(
+                $student,
+                ["CF" => $CF]
+            );
+        }
+        $studentlist = $studentData;
+        $studentData = [];
+        $student_index = 0;
+        $subject_index = 0;
+        foreach ($studentlist as $student) {
+            $subject_index ++;
+            $studentData[] = array_merge(
+                $student,
+                ["TotalCF" => $student_total[$student_index]]
+            );
+            if ($subject_index >= count($data['subject_list'])) {
+                $subject_index = 0;
+                $student_index ++;
+            }
+        }
+        $count = count($studentData);
+
+        // Bubble Sort algorithm
+        for ($i = 0; $i < $count - 1; $i++) {
+            for ($j = 0; $j < $count - $i - 1; $j++) {
+                // Compare ages
+                if ($studentData[$j]['TotalCF'] > $studentData[$j + 1]['TotalCF']) {
+                    // Swap the objects
+                    $temp = $studentData[$j];
+                    $studentData[$j] = $studentData[$j + 1];
+                    $studentData[$j + 1] = $temp;
+                }
+            }
+        }
+
+        $data['studentlist']        = $studentData;
+        $renderprintpage                = $this->load->view('admin/gradingreport/printgradingreport', $data, true);
         $array = array('status' => '1', 'error' => '', 'page' => $renderprintpage);
         echo json_encode($array);
     }

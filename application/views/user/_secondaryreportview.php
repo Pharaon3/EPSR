@@ -13,10 +13,9 @@
     }
 
     @media print {
-
         #gradingResultTB th,
         .final_condition {
-            background-color: #e3e3e3 !important;
+            !background-color: #e6e6ed !important;
             -webkit-print-color-adjust: exact;
         }
 
@@ -62,7 +61,7 @@
         font-size: 16px;
         vertical-align: bottom;
         text-align:center;
-        height:24px; 
+        height:24px;
     }
 
     #gradingResultTB .rboder {
@@ -95,7 +94,6 @@
     }
 </style>
 
-<?php $pageNumber = $this->session->userdata['pageNumber'];?>
 <div class="front-container">
 
     <table cellpadding="0" cellspacing="0" width="100%">
@@ -103,117 +101,133 @@
             <td width="50%" valign="top" style="padding-top: 30px; padding-right:80px; font-style: oblique;">
                 <div style="text-align:center; font-size:22px; font-weight:800; font-family: 'Arial Black',arial-black;">VISIÓN</div>
                 <div style="text-align: justify; text-justify: inter-word; font-size: 17px; margin-bottom:40px;">
-                    “La Escuela Parroquial Santa Rita, siendo un centro educativo de alta calidad de San Cristóbal, se propone formar de manera integral a sus alumnos y a su comunidad educativa, desde una dimensión cristiana de la vida, basada en los valores agustinianos de la interioridad, verdad, solidaridad, amistad y libertad; desarrollando el trabajo en equipo, la disciplina y la excelencia académica, dispuestos a participar, con competencia, libertad y responsabilidad, en la configuración de una sociedad nueva, más fraterna y solidaria.”
+                    Educamos decididos a participar con capacidad, libertad y responsabilidad en la configuración de una nueva sociedad compuesta por personas más felices, fraternas y solidarias.
                 </div>
-                <div style="text-align:center; font-size:22px; font-weight:800; font-family: 'Arial Black',arial-black;">MISIÓN</div>
+                <div style="text-align:center; font-size:22px; font-weight:0; font-family: 'Arial black',arial-black;">MISIÓN</div>
                 <div style="text-align: justify; text-justify: inter-word; font-size: 17px; margin-bottom:60px;">
-                    “Somos un centro educativo católico y agustiniano, que se caracteriza por una búsqueda inquieta de la verdad a través de la interioridad, camino de la trascendencia, mediante un proceso educativo y pedagógico de calidad, basado en el amor, la solidaridad, la fraternidad y el compromiso con la justicia y la paz, al servicio de la comunidad de San Cristóbal”
+                    Somos un centro educativo católico y agustiniano que forma personas de manera integral para impactar positivamente en la sociedad
                 </div>
-                <div style="font-size: 17px; margin-bottom:40px;">
-                    <strong>Salida Optativa del centro:</strong> Humanidades y Ciencias Sociales
-                </div>
-                <div style="font-size: 16px;">
-                    <strong>Considero que soy uno de esos que escriben mientras aprenden y aprenden mientras escriben.</strong> <span style="font-style:normal">San Agustín.</span>
-                </div>
-            </td>
-            <td width="50%" valign="top" style="padding-left:50px">
-                <div style="text-align:center; font-size:16px; margin-bottom:20px;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
-                    <strong style="font-size: 22px;">ESCUELA PARROQUIAL SANTA RITA</strong>
-                    <p>AGUSTINOS RECOLETOS</p>
-                </div>
-                <div style="text-align:center; margin-bottom:20px">
-                    <img src="<?php echo base_url('uploads/school_content/logo/' . $sch_setting->image); ?>" width="280" height="280">
-                </div>
+                <div style="text-align:center; font-size:22px; font-weight:0; font-family: 'Arial black',arial-black;">VALORES</div>
+                <div style="text-align: justify; text-justify: inter-word; font-size: 17px; margin-bottom:5px;">
+                    • Interioridad  </div>
+                <div style="text-align: justify; text-justify: inter-word; font-size: 17px; margin-bottom:5px;">
+                    • Solidaridad  </div>
+                <div style="text-align: justify; text-justify: inter-word; font-size: 17px; margin-bottom:5px;">
+                    • Libertad  </div>
+                <div style="text-align: justify; text-justify: inter-word; font-size: 17px; margin-bottom:5px;">
+                    • Verdad  </div>
+                <div style="text-align: justify; text-justify: inter-word; font-size: 17px; margin-bottom:5px;">
+                    • Responsabilidad  </div>
+                <div style="text-align: justify; text-justify: inter-word; font-size: 17px; margin-bottom:40px;">
+                    • Amistad  </div>
 
-                <div style="text-align:center; font-size:22px; margin-bottom:45px;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
-                    <strong>REPORTE DE CALIFICACIONES<br>
-                        <?php if (trim($student['class'])[0] * 1 > 3) {
-                            echo 'SEGUNDO';
-                        } else {
-                            echo 'PRIMER';
-                        } ?> CICLO NIVEL SECUNDARIO<br>
-                        <?= $student['class'] ?>. Sección <?= $student['section'] ?><br>
-                        <br>
-                        Año Escolar <?php echo $session ?>
-                    </strong>
-                </div>
-                <div style="font-size: 17px;">
-                    <strong>Nombres y Apellidos: </strong><?php echo $this->customlib->getFullName($student['firstname'], $student['middlename'], $student['lastname'], $sch_setting->middlename, $sch_setting->lastname); ?><br>
-                    <strong>NO. de Orden:</strong> <?php echo $order_number ?><br>
-                    <strong>Matricula:</strong> <?php echo $student['admission_no'] ?><br>
-                    <strong>Curso y Sección:</strong> <?= $student['class'] ?>. Sección <?= $student['section'] ?><br>
-                    <strong>Dirección del centro:</strong> Av. Libertad No. 31, San Cristóbal.<br>
-                    <strong>Distrito Educativo:</strong> 02 de San Cristóbal Norte<br>
-                    <strong>Dirección Regional de Educación:</strong> 04 de San Cristóbal<br>
-                </div>
-            </td>
-        </tr>
-    </table>
+
+</div>
+<div style="font-size: 17px; margin-bottom:40px;">
+    <strong>Salida Optativa del centro:</strong> Humanidades y Ciencias Sociales
+</div>
+<div style="font-size: 16px;">
+    <strong>"Considero que soy uno de esos que escriben mientras aprenden y aprenden mientras escriben".</strong> <span style="font-style:normal">San Agustín.</span>
+</div>
+</td>
+<td width="50%" valign="top" style="padding-left:50px">
+    <!-- <div style="text-align:center; font-size:16px; margin-bottom:20px;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+          <strong style="font-size: 22px;">ESCUELA PARROQUIAL SANTA RITA</strong>
+          <p>AGUSTINOS RECOLETOS</p>
+      </div>-->
+    <div style="text-align:center; margin-bottom:70px">
+        <img src="<?php echo base_url('uploads/school_content/logo/' . $sch_setting->image); ?>" width="260" height="260">
+    </div>
+
+    <div style="text-align:center; font-size:22px; margin-bottom:50px;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+        <strong>REPORTE DE CALIFICACIONES<br>
+            <?php if (trim($student['class'])[0] * 1 > 3) {
+                echo 'SEGUNDO';
+            } else {
+                echo 'PRIMER';
+            } ?> CICLO NIVEL SECUNDARIO<br>
+            <?= $student['class'] ?>. Sección <?= $student['section'] ?><br>
+            <br>
+            Año Escolar <?php echo $session ?>
+        </strong>
+    </div>
+    <div style="font-size: 17px;">
+        <strong>Nombres y Apellidos: </strong><?php echo $this->customlib->getFullName($student['firstname'], $student['middlename'], $student['lastname'], $sch_setting->middlename, $sch_setting->lastname); ?><br>
+        <strong>No. de Orden:</strong> <?php echo $order_number ?><br>
+        <strong>Matrícula:</strong> <?php echo $student['admission_no'] ?><br>
+        <strong>Curso y Sección:</strong> <?= $student['class'] ?>. Sección <?= $student['section'] ?><br>
+        <strong>Dirección del centro:</strong> Av. Libertad No. 31, San Cristóbal.<br>
+        <strong>Distrito Educativo:</strong> 02 de San Cristóbal Norte<br>
+        <strong>Dirección Regional de Educación:</strong> 04 de San Cristóbal<br>
+    </div>
+</td>
+</tr>
+</table>
 </div>
 <div class="pagebreak"></div>
 <div class="report-container">
     <div class="table-responsive" id="gradingResultTB">
-        <div style="text-transform: uppercase; text-align:center; font-size:24px; margin-bottom:10px; font-weight:300;font-family: 'Arial Narrow', arial-narrow;">CALIFICACIONES DE RENDIMIENTO DE <?= $student['class'] ?>. Sección <?= $student['section'] ?></div>
+        <div style="text-transform: uppercase; text-align:center; font-size:24px; margin-bottom:10px; font-weight:bold;font-family: 'Arial Narrow', arial-narrow;">CALIFICACIONES DE RENDIMIENTO DE <?= $student['class'] ?>. Sección <?= $student['section'] ?></div>
         <strong>No.&nbsp;&nbsp;&nbsp;&nbsp;</strong> <?php echo $order_number ?><br>
         <strong>Alumno:</strong><?php echo $this->customlib->getFullName($student['firstname'], $student['middlename'], $student['lastname'], $sch_setting->middlename, $sch_setting->lastname); ?>
         <div style="width:100%; border:1px solid; padding:2px; margin-top:6px;">
             <table style="width:100%; border-collapse: collapse;font-family: 'Arial Narrow', arial-narrow;">
                 <thead>
-                    <tr>
-                        <th rowspan="3" style="min-width:200px; font-size:20px">ASIGNATURAS</th>
-                        <th colspan="<?php echo count($periodList) + 1 ?>" class="rboder">CALIFICACIONES DEL AÑO ESCOLAR</th>
-                        <th rowspan="3">% A.A</th>
-                        <th colspan="4" class="rboder">CALIFICACIÓN COMPLETIVA</th>
-                        <th colspan="4" class="rboder">CALIFICACIÓN EXTRAORDINARIA</th>
-                        <th colspan="2">SITUACIÓN FINAL</th>
-                        <th colspan="2">C.A.P.</th>
-                    </tr>
-                    <tr>
-                        <th colspan="<?php echo count($periodList) ?>">Calificaciones Parciales</th>
-                        <th rowspan="2" class="rboder">C.F.</th>
-                        <th rowspan="2">50% P.C.P.</th>
-                        <th rowspan="2">C.P.C.</th>
-                        <th rowspan="2">50% C.P.C.</th>
-                        <th rowspan="2" class="rboder">C.C.</th>
-                        <th rowspan="2">30% P.C.P.</th>
-                        <th rowspan="2">C.P.EX.</th>
-                        <th rowspan="2">70% C.P.EX.</th>
-                        <th rowspan="2" class="rboder">C.EX.</th>
-                        <th rowspan="2">A</th>
-                        <th rowspan="2">R</th>
-                        <th colspan="2">OPORTUNIDAD</th>
-                    </tr>
-                    <tr>
-                        <?php for ($i = 0; $i < count($periodList); $i++) { ?>
-                            <th><?= "p".substr($periodList[$i]['label'],0,1); ?></th>
-                        <?php } ?>
-                        <th>1</th>
-                        <th>2</th>
-                    </tr>
+                <tr>
+                    <th rowspan="3" style="min-width:200px; font-size:20px">ASIGNATURAS</th>
+                    <th colspan="<?php echo count($periodList) + 1 ?>" class="rboder">CALIFICACIONES DEL AÑO ESCOLAR</th>
+                    <th rowspan="3">% A.A</th>
+                    <th colspan="4" class="rboder">CALIFICACIÓN COMPLETIVA</th>
+                    <th colspan="4" class="rboder">CALIFICACIÓN EXTRAORDINARIA</th>
+                    <th colspan="2">SITUACIÓN FINAL</th>
+                    <th colspan="2">C.A.P.</th>
+                </tr>
+                <tr>
+                    <th colspan="<?php echo count($periodList) ?>">Calificaciones Parciales</th>
+                    <th rowspan="2" class="rboder">C.F.</th>
+                    <th rowspan="2">50% P.C.P.</th>
+                    <th rowspan="2">C.P.C.</th>
+                    <th rowspan="2">50% C.P.C.</th>
+                    <th rowspan="2" class="rboder">C.C.</th>
+                    <th rowspan="2">30% P.C.P.</th>
+                    <th rowspan="2">C.P.EX.</th>
+                    <th rowspan="2">70% C.P.EX.</th>
+                    <th rowspan="2" class="rboder">C.EX.</th>
+                    <th rowspan="2">A</th>
+                    <th rowspan="2">R</th>
+                    <th colspan="2">OPORTUNIDAD</th>
+                </tr>
+                <tr>
+                    <?php for ($i = 0; $i < count($periodList); $i++) { ?>
+                        <th><?= "P".substr($periodList[$i]['label'],0,1); ?></th>
+                    <?php } ?>
+                    <th>1</th>
+                    <th>2</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($grading_subject_results as $result) { ?>
-                        <tr>
-                            <td style="padding-left: 4px; padding-right: 4px;font-weight: 300; text-align: left;"><?php echo $result['subject'] ?></td>
-                            <?php for ($i = 0; $i < count($periodList); $i++) { ?>
-                                <td><?php echo $result['period_results'][$i] ?></td>
-                            <?php } ?>
-                                <td class="rboder"><?php echo $result['CF'] ?></td>
-                                <td><?php echo $result['AA'] ?></td>
-                                <td><?php echo $result['50PCP'] ?></td>
-                                <td><?php echo $result['CPC'] ?></td>
-                                <td><?php echo $result['50CPC'] ?></td>
-                                <td class="rboder"><?php echo $result['CC'] ?></td>
-                                <td><?php echo $result['30PCP'] ?></td>
-                                <td><?php echo $result['CPEX'] ?></td>
-                                <td><?php echo $result['70CPEX'] ?></td>
-                                <td class="rboder"><?php echo $result['CEX'] ?></td>
-                                <td><?php echo $result['A'] ?></td>
-                                <td><?php echo $result['R'] ?></td>
-                                <td><?php echo $result['O1'] ?></td>
-                                <td><?php echo $result['O2'] ?></td>
-                        </tr>
-                    <?php } ?>
+                <?php foreach ($grading_subject_results as $result) { ?>
+                    <tr>
+                        <td style="padding-left: 4px; padding-right: 4px;font-weight: 300; text-align: left;"><?php echo $result['subject'] ?></td>
+                        <?php for ($i = 0; $i < count($periodList); $i++) { ?>
+                            <td><?php echo $result['period_results'][$i] ?></td>
+                        <?php } ?>
+                        <td class="rboder"><?php echo $result['CF'] ?></td>
+                        <td><?php echo $result['AA'] ?></td>
+                        <td><?php echo $result['50PCP'] ?></td>
+                        <td><?php echo $result['CPC'] ?></td>
+                        <td><?php echo $result['50CPC'] ?></td>
+                        <td class="rboder"><?php echo $result['CC'] ?></td>
+                        <td><?php echo $result['30PCP'] ?></td>
+                        <td><?php echo $result['CPEX'] ?></td>
+                        <td><?php echo $result['70CPEX'] ?></td>
+                        <td class="rboder"><?php echo $result['CEX'] ?></td>
+                        <td><?php echo $result['A'] ?></td>
+                        <td><?php echo $result['R'] ?></td>
+                        <td><?php echo $result['O1'] ?></td>
+                        <td><?php echo $result['O2'] ?></td>
+                    </tr>
+                <?php } ?>
                 </tbody>
             </table>
         </div>
@@ -239,9 +253,9 @@
                 <td class="border-left-2 pb-2"><strong>C.A.P.</strong>= Calificación Asignaturas Pendientes</td>
             </tr>
         </table>
-        <div style="font-weight: bolder; color:black; margin-bottom:15px;">
+        <!-- <div style="font-weight: bolder; color:black; margin-bottom:15px;">
             <span class="final_condition" style="font-family: 'arial';padding:1px 20px 1px 10px; border:solid 1px black">CONDICIÓN FINAL:</span> &nbsp;&nbsp;&nbsp;&nbsp; Promovido &nbsp;<span style="padding:1px 15px; border:solid 1px black"></span> &nbsp;&nbsp;&nbsp;&nbsp; Reprobado &nbsp;<span style="padding:1px 15px; border:solid 1px black"></span> &nbsp;&nbsp;&nbsp;&nbsp; Promovido con asignaturas pendientes &nbsp;<span style="padding:1px 15px; border:solid 1px black"></span>
-        </div>
+        </div> -->
 
         <div style="line-height:1.5; margin-bottom:20px; width:100%; position: relative">
             <strong>Observaciones:</strong> <br>
@@ -253,22 +267,21 @@
             <tr>
                 <td width="33%">
                     <strong>_______________________________</strong><br>
-                    <span style="font-family:'Palatino Linotype';font-style: oblique;"><?= $class_teacher ?></span><br>
-                    Profesor Guía
-                </td>
-                <td width="33%">
-                    <strong>_______________________________</strong><br>
-                    <span style="font-family:'Palatino Linotype';font-style: oblique;"><?= $school_director ?></span><br>
+                    <span style="font-family:'Palatino Linotype';font-style: oblique; font-size:14px"><?= $school_director ?></span><br>
                     Director General
                 </td>
                 <td width="33%">
                     <strong>_______________________________</strong><br>
-                    <span style="font-family:'Palatino Linotype';font-style: oblique;"><?= $level_coordinator ?></span><br>
-                    Coordinador de Secundaria
+                    <span style="font-family:'Palatino Linotype';font-style: oblique; font-size:14px"><?= $level_coordinator ?></span><br>
+                    Coordinadora de Secundaria
+                </td>
+                <td width="33%">
+                    <strong>_______________________________</strong><br>
+                    <span style="font-family:'Palatino Linotype';font-style: oblique; font-size:14px"><?= $class_teacher ?></span><br>
+                    Maestro Guía
                 </td>
             </tr>
         </table>
     </div>
 </div>
 <div class="pagebreak"> </div>
-<?php $this->session->userdata['pageNumber'] = $pageNumber; ?>

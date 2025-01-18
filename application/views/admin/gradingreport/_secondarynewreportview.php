@@ -807,7 +807,25 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td style="display: flex; gap: 10px; padding: 10px; height: 100%;">
+					
+					<td style="padding: 10px;">
+                <div style="display: grid; grid-template-columns: auto auto; row-gap: 5px; column-gap: 20px;">
+                    <div><strong>(P1)</strong></div><div>Período 1</div>
+                    <div><strong>(P2)</strong></div><div>Período 2</div>
+                    <div><strong>(P3)</strong></div><div>Período 3</div>
+                    <div><strong>(P4)</strong></div><div>Período 4</div>
+                    <div><strong>(PC)</strong></div><div>Promedio Grupo de Competencias Específicas</div>
+                    <div><strong>(C.F.)</strong></div><div>Calificación Final</div>
+                    <div><strong>(C.E.C.)</strong></div><div>Calificación Evaluación Completiva</div>
+                    <div><strong>(C.C.F.)</strong></div><div>Calificación Completiva Final</div>
+                    <div><strong>(C.E. EX)</strong></div><div>Calificación Evaluación Extraordinaria</div>
+                    <div><strong>(C.EX.F.)</strong></div><div>Calificación Extraordinaria Final</div>
+                    <div><strong>(C.E.)</strong></div><div>Calificación Especial</div>
+                    <div><strong>(A)</strong></div><div>Aprobado</div>
+                    <div><strong>(R)</strong></div><div>Reprobado</div>
+                </div>
+            </td>
+                <!--        <td style="display: flex; gap: 15px; padding: 10px; height: 100%;">
                             <div class="kanit-semibold">
                                 <div>(P1)</div>
                                 <div>(P2)</div>
@@ -827,7 +845,7 @@
                             </div>
                             <div>
                             </div> -->
-                            <div>
+                        <!--    <div>
                                 <div>Período 1</div>
                                 <div>Período 2</div>
                                 <div>Período 3</div>
@@ -842,7 +860,7 @@
                                 <div>Aprobado</div>
                                 <div>Reprobado</div>
                             </div>
-                        </td>
+                        </td> -->
                     </tr>
                     </tbody>
                 </table>
@@ -860,7 +878,7 @@
                     </div>
                     <div></div>
                 </div>
-                <table class="table table-bordered table-hover condicion-table" style="height: 100%; font-size: 11px; margin-bottom: 0px;">
+             <!--   <table class="table table-bordered table-hover condicion-table" style="height: 100%; font-size: 11px; margin-bottom: 0px;">
                     <thead>
                     <tr>
                         <th class="table-color" style="text-align: center;">CONDICIÓN FINAL DEL/DE LA ESTUDIANTE:</th>
@@ -871,7 +889,7 @@
                         <td style="height: 100px;"></td>
                     </tr>
                     </tbody>
-                </table>
+                </table> -->
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div id="logo-table">
                         <img src="<?php echo base_url('uploads/school_content/logo/rect-logo.png'); ?>" style="width: 70px;">

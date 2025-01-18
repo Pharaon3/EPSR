@@ -1,2 +1,0 @@
-UPDATE `newschool`.`permission_category` SET `enable_add` = '1' , `enable_edit` = '1' , `enable_delete` = '1' WHERE `id` = '250'; 
-UPDATE `newschool`.`permission_category` SET `enable_add` = '1' , `enable_edit` = '1' , `enable_delete` = '1' WHERE `id` = '251'; 

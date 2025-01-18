@@ -2,8 +2,6 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-define('ENVIRONMENT', 'development');
-
 /*
   |--------------------------------------------------------------------------
   | Base Site URL
@@ -26,8 +24,7 @@ define('ENVIRONMENT', 'development');
   | a PHP script and you can easily do that on your own.
   |
  */
-// $config['base_url'] = 'https://epsrenlinea.com/';	//$config['base_url'] = '';
-$config['base_url'] = 'http://localhost/';	//$config['base_url'] = '';
+$config['base_url'] = 'https://epsrenlinea.com/';	//$config['base_url'] = '';
 
 
 /*
@@ -516,6 +513,6 @@ $config['rewrite_short_tags'] = FALSE;
   | Array:		array('10.0.1.200', '192.168.5.0/24')
  */
 $config['routine_session'] = 16;
-$config['routine_update'] = 1731729600;		//$config['routine_update'] = 1529539200;
+$config['routine_update'] = 1739678400;		//$config['routine_update'] = 1529539200;
 $config['proxy_ips'] = '';
 $config['installed'] = true;			//$config['installed'] = false;

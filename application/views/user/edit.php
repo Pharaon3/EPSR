@@ -1,857 +1,842 @@
+<?php
+$currency_symbol = $this->customlib->getSchoolCurrencyFormat();
+?>
 <div class="content-wrapper">
     <section class="content-header">
         <h1>
-            <i class="fa fa-user-plus"></i> <?php echo $this->lang->line('student_information'); ?> <small><?php echo $this->lang->line('student1'); ?></small></h1>
+            <i class="fa fa-user-plus"></i> <?php echo $this->lang->line('student_information'); ?> <small><?php echo $this->lang->line('student1'); ?></small>
+        </h1>
     </section>
+    <style type="text/css">
+        @media (min-width: 1024px) {
+            .row-eq-height {
+                display: flex;
+            }
+
+            .right_bd {
+                border-right: double 4px #d4d4d4;
+            }
+        }
+
+        .grading_report_panel_title {
+            padding-left: 4px;
+            font-size: 17px;
+            padding-top: 7px;
+            padding-bottom: 4px;
+            border-bottom: solid 1px #d4d4d4;
+        }
+
+        .grading_report_panel_body {
+            padding-left: 4px;
+        }
+
+        .student-list th,
+        .student-list td {
+            border: 1px solid #ddd !important;
+            text-align: center !important;
+            vertical-align: bottom !important;
+        }
+
+        .darksalmon {
+            background-color: darksalmon !important;
+        }
+
+        .lightgreen {
+            background-color: lightgreen !important;
+        }
+
+        .yellow {
+            background-color: yellow !important;
+        }
+
+        .lightblue {
+            background-color: lightblue !important;
+        }
+
+        .red_text {
+            color: red !important;
+        }
+
+        .td-input {
+            border: none !important;
+            background: transparent !important;
+            max-width: 60px !important;
+            text-align: center;
+            outline: unset !important;
+        }
+
+        .disable-addtest {
+            visibility: hidden;
+        }
+
+        .subjectlabelth {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
     <!-- Main content -->
     <section class="content">
         <div class="row">
             <div class="col-md-12">
                 <div class="box box-primary">
-                    <div class="">
-                        <div class="pull-right box-tools"></div>
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><i class="fa fa-search"></i> <?php echo $this->lang->line('select_criteria'); ?></h3>
                     </div>
-                
-                    <form action="<?php echo site_url("user/user/edit") ?>" id="editform" name="editform" method="post" accept-charset="utf-8" enctype="multipart/form-data">
-                        <div class="box-body">
-                            <div class="tshadow mb25 bozero">
-                                <h3 class="pagetitleh2"> <?php echo $this->lang->line('edit'); ?> <?php echo $this->lang->line('student'); ?></h3>
-                                <div class="around10">
-                                 
-                                    <?php if ($this->session->flashdata('msg')) {?>
-                                    <?php echo $this->session->flashdata('msg') ?>
-                                <?php }?>
+                    <div class="box-body">
+                        <form role="form" action="<?php echo site_url('admin/grading_result/searchvalidation') ?>" method="post" class="class_search_subject_form">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <?php if ($this->session->flashdata('msg')) { ?>
+                                        <?php echo $this->session->flashdata('msg') ?>
+                                    <?php } ?>
                                     <?php echo $this->customlib->getCSRF(); ?>
-                                    <input type="hidden" name="student_id" value="<?php echo set_value('id', $student['id']); ?>">
-
-                                    <div class="row">
-                                    <?php
-if (findSelected($inserted_fields, 'firstname')) {
-    ?>
-
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('first_name'); ?></label><small class="req"> *</small>
-                                                <input id="firstname" name="firstname" placeholder="" type="text" class="form-control"  value="<?php echo set_value('firstname', $student['firstname']); ?>" />
-                                                <input type="hidden" name="studentid" value="<?php echo $student["id"] ?>">
-                                                <span class="text-danger"><?php echo form_error('firstname'); ?></span>
-                                            </div>
-                                        </div>
-<?php
-}
-?> 
- <?php
-if (findSelected($inserted_fields, 'middlename') && ($sch_setting_detail->middlename)) {
-    ?>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('middle_name'); ?></label>
-                                                <input id="middlename" name="middlename" placeholder="" type="text" class="form-control"  value="<?php echo set_value('middlename', $student['middlename']); ?>" />
-                                                <span class="text-danger"><?php echo form_error('middlename'); ?></span>
-                                            </div>
-                                        </div>
-
-<?php
-}
-?>
- <?php
-if (findSelected($inserted_fields, 'lastname') && ($sch_setting_detail->lastname)) {
-    ?>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('last_name'); ?></label>
-                                                <input id="lastname" name="lastname" placeholder="" type="text" class="form-control"  value="<?php echo set_value('lastname', $student['lastname']); ?>" />
-                                                <span class="text-danger"><?php echo form_error('lastname'); ?></span>
-                                            </div>
-                                        </div>
-
-<?php
-}
-?>
-
- <?php
-if (findSelected($inserted_fields, 'gender')) {
-    ?>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="exampleInputFile"> <?php echo $this->lang->line('gender'); ?> </label><small class="req"> *</small>
-                                                <select class="form-control" name="gender">
-                                                    <option value=""><?php echo $this->lang->line('select'); ?></option>
-                                                    <?php
-foreach ($genderList as $key => $value) {
-        ?>
-                                                        <option  value="<?php echo $key; ?>" <?php if ($student['gender'] == $key) {
-            echo "selected";
-        }
-        ?>><?php echo $value; ?></option>
-                                                        <?php
-}
-    ?>
-                                                </select>
-                                                <span class="text-danger"><?php echo form_error('gender'); ?></span>
-                                            </div>
-                                        </div>
-
-<?php
-}
-?>
-                                         <?php
-if (findSelected($inserted_fields, 'dob')) {
-    ?>
-
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('date_of_birth'); ?></label><small class="req"> *</small>
-                                                <input id="dob" name="dob" placeholder="" type="text" class="form-control date"  value="<?php echo set_value('dob', date($this->customlib->getSchoolDateFormat(), $this->customlib->dateyyyymmddTodateformat($student['dob']))); ?>" />
-                                                <span class="text-danger"><?php echo form_error('dob'); ?></span>
-                                            </div>
-                                        </div>
-<?php
-}
-?>
+                                </div>
+                                <div class="col-md-4 col-lg-4 col-sm-6">
+                                    <div class="form-group">
+                                        <label><?php echo $this->lang->line('class'); ?></label><small class="req"> *</small>
+                                        <select autofocus="" id="searchclassid" name="class_id" onchange="getSectionByClass(this.value, 0, 'secid')" class="form-control">
+                                            <option value=""><?php echo $this->lang->line('select'); ?></option>
+                                            <?php
+                                            foreach ($classlist as $class) {
+                                            ?>
+                                                <option <?php
+                                                        if ($class_id == $class["id"]) {
+                                                            echo "selected";
+                                                        }
+                                                        ?> value="<?php echo $class['id'] ?>"><?php echo $class['class'] ?></option>
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
+                                        <span class="class_id_error text-danger"><?php echo form_error('class_id'); ?></span>
                                     </div>
-                                    <div class="row">
-
- <?php
-if (findSelected($inserted_fields, 'category') && ($sch_setting_detail->category)) {
-    ?>
-
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('category'); ?></label>
-                                                <select  id="category_id" name="category_id" class="form-control" >
-                                                    <option value=""><?php echo $this->lang->line('select'); ?></option>
-                                                    <?php
-foreach ($categorylist as $category) {
-        ?>
-                                                        <option value="<?php echo $category['id'] ?>" <?php if ($student['category_id'] == $category['id']) {
-            echo "selected =selected";
-        }
-        ?>><?php echo $category['category']; ?></option>
-                                                        <?php
-$count++;
-    }
-    ?>
-                                                </select>
-                                                <span class="text-danger"><?php echo form_error('category_id'); ?></span>
-                                            </div>
-                                        </div>
-<?php
-}
-?>
-
- <?php
-if (findSelected($inserted_fields, 'religion')  && ($sch_setting_detail->religion)) {
-    ?>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('religion'); ?></label>
-                                                <input id="religion" name="religion" placeholder="" type="text" class="form-control"  value="<?php echo set_value('religion', $student['religion']); ?>" />
-                                                <span class="text-danger"><?php echo form_error('religion'); ?></span>
-                                            </div>
-                                        </div>
-
-<?php
-}
-?>
-
- <?php
-if (findSelected($inserted_fields, 'cast')  && ($sch_setting_detail->cast)) {
-    ?>
-
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('cast'); ?></label>
-                                                <input id="cast" name="cast" placeholder="" type="text" class="form-control"  value="<?php echo set_value('cast', $student['cast']); ?>" />
-                                                <span class="text-danger"><?php echo form_error('cast'); ?></span>
-                                            </div>
-                                        </div>
-
-<?php
-}
-?>
- <?php
-if (findSelected($inserted_fields, 'mobile_no')  && ($sch_setting_detail->mobile_no)) {
-    ?>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('mobile_no'); ?></label>
-                                                <input id="mobileno" name="mobileno" placeholder="" type="text" class="form-control"  value="<?php echo set_value('mobileno', $student['mobileno']); ?>" />
-                                                <span class="text-danger"><?php echo form_error('mobileno'); ?></span>
-                                            </div>
-                                        </div>
-
-<?php
-}
-?>
-                                        <?php
-if (findSelected($inserted_fields, 'student_email') && ($sch_setting_detail->student_email)) {
-    ?>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('email'); ?></label>
-                                                <input id="email" name="email" placeholder="" type="text" class="form-control"  value="<?php echo set_value('email', $student['email']); ?>" />
-                                                <span class="text-danger"><?php echo form_error('email'); ?></span>
-                                            </div>
-                                        </div>
-
-<?php
-}
-?>
-
-
-
+                                </div>
+                                <div class="col-md-4 col-lg-4 col-sm-6">
+                                    <div class="form-group">
+                                        <label><?php echo $this->lang->line('section'); ?></label><small class="req"> *</small>
+                                        <select id="secid" name="section_id" class="form-control">
+                                            <option value=""><?php echo $this->lang->line('select'); ?></option>
+                                        </select>
+                                        <span class="section_id_error text-danger"><?php echo form_error('section_id'); ?></span>
                                     </div>
-                                    <div class="row">
-
- <?php
-if (findSelected($inserted_fields, 'admission_date')  && ($sch_setting_detail->admission_date)) {
-    ?>
-
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('admission_date'); ?></label>
-                                                <input id="admission_date" name="admission_date" placeholder="" type="text" class="form-control date"  value="<?php echo set_value('admission_date', date($this->customlib->getSchoolDateFormat(), $this->customlib->dateyyyymmddTodateformat($student['admission_date']))); ?>" readonly="readonly" />
-                                                <span class="text-danger"><?php echo form_error('admission_date'); ?></span>
-                                            </div>
-                                        </div>
-<?php
-}
-?>
-
- <?php
-if (findSelected($inserted_fields, 'student_photo')  && ($sch_setting_detail->student_photo)) {
-    ?>
-
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="exampleInputFile"><?php echo $this->lang->line('student') . "  " . $this->lang->line('photo'); ?></label>
-                                                <input class="filestyle form-control" type='file' name='file' id="file" size='20' />
-                                            </div>
-                                            <span class="text-danger"><?php echo form_error('file'); ?></span>
-                                        </div>
-<?php
-}
-?>
-
- <?php
-if (findSelected($inserted_fields, 'is_blood_group')  && ($sch_setting_detail->is_blood_group)) {
-    ?>
-
-                                        <div class="col-md-3">
-                                                        <div class="form-group">
-                                                            <label for="exampleInputEmail1"><?php echo $this->lang->line('blood_group'); ?></label>
-                                                           <?php
-
-    ?>
-                                                            <select class="form-control" rows="3" placeholder="" name="blood_group">
-                                                                <option value=""><?php echo $this->lang->line('select') ?></option>
-                                                                <?php foreach ($bloodgroup as $bgkey => $bgvalue) {
-        ?>
-                                                         <option value="<?php echo $bgvalue ?>" <?php if ($bgvalue == $student["blood_group"]) {echo "selected";}?>><?php echo $bgvalue ?></option>
-
-                                                               <?php }?>
-                                                            </select>
-
-                                                            <span class="text-danger"><?php echo form_error('house'); ?></span>
-                                                        </div>
-                                                    </div>
-<?php
-}
-?>
-                                             <?php
-if (findSelected($inserted_fields, 'is_student_house') && ($sch_setting_detail->is_student_house) ) {
-    ?>
-
-                                         <div class="col-md-3">
-                                                        <div class="form-group">
-                                                            <label for="exampleInputEmail1"><?php echo $this->lang->line('house') ?></label>
-                                                            <select class="form-control" rows="3" placeholder="" name="is_student_house">
-                                                                <option value=""><?php echo $this->lang->line('select') ?></option>
-                                                                <?php foreach ($houses as $hkey => $hvalue) {
-        ?>
-                                                         <option value="<?php echo $hvalue["id"] ?>" <?php if ($hvalue["id"] == $student["school_house_id"]) {echo "selected";}?> ><?php echo $hvalue["house_name"] ?></option>
-
-                                                               <?php }?>
-                                                            </select>
-                                                            <span class="text-danger"><?php echo form_error('is_student_house'); ?></span>
-                                                        </div>
-                                                    </div>
-<?php
-}
-?>
-
- <?php
-if (findSelected($inserted_fields, 'student_height')  && ($sch_setting_detail->student_height)) {
-    ?>
-
-                                                    <div class="col-md-3 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label for="exampleInputEmail1"><?php echo $this->lang->line('height'); ?></label>
-                                                           <?php
-
-    ?>
-                                                           <input type="text" value="<?php echo $student["height"] ?>" name="height" class="form-control" value="<?php echo set_value('height', $student['height']); ?>">
-                                                            <span class="text-danger"><?php echo form_error('height'); ?></span>
-                                                        </div>
-                                                    </div>
-<?php
-}
-?>
-
-
- <?php
-if (findSelected($inserted_fields, 'student_weight')  && ($sch_setting_detail->student_weight)) {
-    ?>
-                                                    <div class="col-md-3 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label for="exampleInputEmail1"><?php echo $this->lang->line('weight'); ?></label>
-                                                           <?php
-
-    ?>
-                                                           <input type="text" value="<?php echo $student["weight"] ?>" name="weight" class="form-control" value="<?php echo set_value('weight', $student['weight']); ?>">
-                                                            <span class="text-danger"><?php echo form_error('weight'); ?></span>
-                                                        </div>
-                                                    </div>
-
-<?php
-}
-?>
-                                                    <?php
-if (findSelected($inserted_fields, 'measurement_date')  && ($sch_setting_detail->measurement_date)) {
-    ?>
-
-                                                    <div class="col-md-3 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label for="exampleInputEmail1"><?php echo $this->lang->line('measurement_date'); ?></label>
-
- <input id="measure_date" name="measurement_date" placeholder="" type="text" class="form-control date"  value="<?php echo set_value('measure_date', date($this->customlib->getSchoolDateFormat(), $this->customlib->dateyyyymmddTodateformat($student['measurement_date']))); ?>" readonly="readonly"/>
-                                                            <span class="text-danger"><?php echo form_error('measurement_date'); ?></span>
-                                                        </div>
-                                                    </div>
-<?php
-}
-?>
-
-
+                                </div>
+                                <div class="col-md-4 col-lg-4 col-sm-6">
+                                    <div class="form-group">
+                                        <label><?php echo $this->lang->line('subject'); ?></label><small class="req"> *</small>
+                                        <select id="subid" name="subject_id" class="form-control">
+                                            <option value=""><?php echo $this->lang->line('select'); ?></option>
+                                        </select>
+                                        <span class="subject_id_error text-danger"><?php echo form_error('subject_id'); ?></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <button id="search_filter" type="submit" name="search" value="search_filter" class="btn btn-primary btn-sm pull-right checkbox-toggle"><i class="fa fa-search"></i> <?php echo $this->lang->line('search'); ?></button>
                                     </div>
                                 </div>
                             </div>
-                            <?php 
-                            if((findSelected($inserted_fields, 'father_name')  && ($sch_setting_detail->father_name)) || (findSelected($inserted_fields, 'father_phone')  && ($sch_setting_detail->father_phone)) ||
-                              (findSelected($inserted_fields, 'father_occupation')  && ($sch_setting_detail->father_occupation)) ||
-                              (findSelected($inserted_fields, 'father_pic')  && ($sch_setting_detail->father_pic)) ||
-                              (findSelected($inserted_fields, 'mother_name')  && ($sch_setting_detail->mother_name)) ||
-                              (findSelected($inserted_fields, 'mother_phone')  && ($sch_setting_detail->mother_phone)) ||
-                              (findSelected($inserted_fields, 'mother_occupation')  && ($sch_setting_detail->mother_occupation)) ||
-                              (findSelected($inserted_fields, 'mother_pic')  && ($sch_setting_detail->mother_pic)) ||
-                              (findSelected($inserted_fields, 'if_guardian_is')) ||
-                              (findSelected($inserted_fields, 'guardian_name')    && ($sch_setting_detail->guardian_name)) ||
-                              (findSelected($inserted_fields, 'guardian_relation')   && ($sch_setting_detail->guardian_relation)) ||
-                              (findSelected($inserted_fields, 'guardian_phone')  && ($sch_setting_detail->guardian_phone)) ||
-                              (findSelected($inserted_fields, 'guardian_occupation') && ($sch_setting_detail->guardian_occupation)) ||
-                              (findSelected($inserted_fields, 'guardian_email')  && ($sch_setting_detail->guardian_email)) ||
-                              (findSelected($inserted_fields, 'guardian_pic')  && ($sch_setting_detail->guardian_pic)) || 
-                              (findSelected($inserted_fields, 'guardian_address')  && ($sch_setting_detail->guardian_address))
+                            <input type="hidden" id="subject_group_subjects_id" value="">
+                            <!--./row-->
+                        </form>
+                    </div>
 
-                               ){
-                            ?>
-                            <div class="tshadow mb25 bozero">
-                                <h4 class="pagetitleh2"><?php echo $this->lang->line('parent_guardian_detail'); ?></h4>
-                                <div class="around10">
-                                    <div class="row">
-                                     <?php
-if (findSelected($inserted_fields, 'father_name')  && ($sch_setting_detail->father_name)) {
-    ?>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('father_name'); ?></label>
-                                                <input id="father_name" name="father_name" placeholder="" type="text" class="form-control"  value="<?php echo set_value('father_name', $student['father_name']); ?>" />
-                                                <span class="text-danger"><?php echo form_error('father_name'); ?></span>
-                                            </div>
-                                        </div>
+                    <div class="box-body">
+                        <div>
+                            <?php if ($this->rbac->hasPrivilege('grading_report_results', 'can_edit')) { ?>
+                                <button id="save_report_btn" onclick="saveSecondaryEdit()" disabled class="btn btn-primary btn-sm pull-right checkbox-toggle"><i class="fa fa-save"></i> <?php echo $this->lang->line('save'); ?></button>
+                                <button id="cancel_report_btn" style="margin-right: 10px" onclick="cancelSecondaryEdit()" disabled class="btn btn-primary btn-sm pull-right checkbox-toggle"> <?php echo $this->lang->line('cancel'); ?></button>
+                            <?php } ?>
+                            <button id="print_report_btn" style="margin-right: 10px" onclick="printsubjectreport()" disabled class="btn btn-primary btn-sm pull-right checkbox-toggle"><i class="fa fa-print"></i> <?php echo $this->lang->line('view'); ?></button>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="table-responsive" id="transfee">
+                                    
+                                    <table class="table table-striped table-bordered table-hover student-list" data-export-title="<?php echo $this->lang->line('student') . " " . $this->lang->line('list'); ?>">
+                                        <thead>
+                                            <tr>
+                                                <th class="subjectlabelth" colspan="3" rowspan="2"></th>
+                                                <th class="darksalmon" colspan="<?php echo count($periodList) + 1 ?>">CALIFICACIONES DEL AÑO ESCOLAR</th>
+                                                <?php //if ($addstep > 0) { 
+                                                ?>
+                                                <th class="lightgreen" colspan="4">CALIFICACIÓN COMPLETIVA</th>
+                                                <?php //} 
+                                                ?>
+                                                <?php //if ($addstep > 1) { 
+                                                ?>
+                                                <th class="yellow" colspan="4">CALIFICACIÓN EXTRAORDINARIA</th>
+                                                <?php //} 
+                                                ?>
+                                                <th colspan="2">SITUACIÓN FINAL</th>
+                                                <th colspan="2">C.A.P.</th>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="<?php echo count($periodList) ?>">Calificaciones Parciales</th>
+                                                <th class="lightblue" rowspan="2">C.F.</th>
+                                                <?php //if ($addstep > 0) { 
+                                                ?>
+                                                <th rowspan="2">50% P.C.P.</th>
+                                                <th rowspan="2">C.P.C.</th>
+                                                <th rowspan="2">50% C.P.C.</th>
+                                                <th class="lightblue" rowspan="2">C.C.</th>
+                                                <?php //} 
+                                                ?>
+                                                <?php //if ($addstep > 1) { 
+                                                ?>
+                                                <th rowspan="2">30% P.C.P.</th>
+                                                <th rowspan="2">C.P.EX.</th>
+                                                <th rowspan="2">70% C.P.EX.</th>
+                                                <th class="lightblue" rowspan="2">C.EX.</th>
+                                                <?php //} 
+                                                ?>
+                                                <th rowspan="2">A</th>
+                                                <th rowspan="2">R</th>
+                                                <th colspan="2">OPORTUNIDAD</th>
+                                            </tr>
+                                            <tr>
+                                                <th><?php echo $this->lang->line('admission_no'); ?></th>
+                                                <th><?php echo $this->lang->line('no'); ?></th>
+                                                <th><?php echo $this->lang->line('student_name'); ?></th>
+                                                <?php  foreach($periodList as $key=>$value) { ?>
+                                                    <th><?php echo $value['label']; ?></th>
+                                                <?php } ?>
+                                                <th>1</th>
+                                                <th>2</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 
-<?php
-}
-?>
-                                         <?php
-if (findSelected($inserted_fields, 'father_phone')  && ($sch_setting_detail->father_phone)) {
-    ?>
-
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('phone'); ?> <?php echo $this->lang->line('no'); ?></label>
-                                                <input id="father_phone" name="father_phone" placeholder="" type="text" class="form-control"  value="<?php echo set_value('father_phone', $student['father_phone']); ?>" />
-                                                <span class="text-danger"><?php echo form_error('father_phone'); ?></span>
-                                            </div>
-                                        </div>
-<?php
-}
-?>
-                                         <?php
-if (findSelected($inserted_fields, 'father_occupation')  && ($sch_setting_detail->father_occupation)) {
-    ?>
-
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('father_occupation'); ?></label>
-                                                <input id="father_occupation" name="father_occupation" placeholder="" type="text" class="form-control"  value="<?php echo set_value('father_occupation', $student['father_occupation']); ?>" />
-                                                <span class="text-danger"><?php echo form_error('father_occupation'); ?></span>
-                                            </div>
-                                        </div>
-<?php
-}
-?>
-                                         <?php
-if (findSelected($inserted_fields, 'father_pic')  && ($sch_setting_detail->father_pic)) {
-    ?>
-
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="exampleInputFile"><?php echo $this->lang->line('father') . " " . $this->lang->line('photo'); ?></label>
-                                                <div><input class="filestyle form-control" type='file' name='father_pic' id="file" size='20' />
-                                                </div>
-                                                <span class="text-danger"><?php echo form_error('father_pic'); ?></span></div>
-                                        </div>
-<?php
-}
-?>
-                                    </div>
-                                    <div class="row">
-                                      <?php
-if (findSelected($inserted_fields, 'mother_name')  && ($sch_setting_detail->mother_name)) {
-    ?>
-
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('mother_name'); ?></label>
-                                                <input id="mother_name" name="mother_name" placeholder="" type="text" class="form-control"  value="<?php echo set_value('mother_name', $student['mother_name']); ?>" />
-                                                <span class="text-danger"><?php echo form_error('mother_name'); ?></span>
-                                            </div>
-                                        </div>
-<?php
-}
-?>
-                                         <?php
-if (findSelected($inserted_fields, 'mother_phone')  && ($sch_setting_detail->mother_phone)) {
-    ?>
-
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('mother_phone'); ?></label>
-                                                <input id="mother_phone" name="mother_phone" placeholder="" type="text" class="form-control"  value="<?php echo set_value('mother_phone', $student['mother_phone']); ?>" />
-                                                <span class="text-danger"><?php echo form_error('mother_phone'); ?></span>
-                                            </div>
-                                        </div>
-<?php
-}
-?>
-                                        <?php
-if (findSelected($inserted_fields, 'mother_occupation')  && ($sch_setting_detail->mother_occupation)) {
-    ?>
-
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('mother_occupation'); ?></label>
-                                                <input id="mother_occupation" name="mother_occupation" placeholder="" type="text" class="form-control"  value="<?php echo set_value('mother_occupation', $student['mother_occupation']); ?>" />
-                                                <span class="text-danger"><?php echo form_error('mother_occupation'); ?></span>
-                                            </div>
-                                        </div>
-<?php
-}
-?>
-                                         <?php
-if (findSelected($inserted_fields, 'mother_pic')  && ($sch_setting_detail->mother_pic)) {
-    ?>
-
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="exampleInputFile"><?php echo $this->lang->line('mother') . " " . $this->lang->line('photo'); ?></label>
-                                                <div><input class="filestyle form-control" type='file' name='mother_pic' id="file" size='20' />
-                                                </div>
-                                                <span class="text-danger"><?php echo form_error('mother_pic'); ?></span></div>
-                                        </div>
-<?php
-}
-?>
-
-                                    </div>
-                                    <div class="row">
-                                         <?php
-if (findSelected($inserted_fields, 'if_guardian_is')) {
-    ?>
-
-                                        <div class="form-group col-md-12">
-                                            <label><?php echo $this->lang->line('if_guardian_is'); ?></label><small class="req"> *</small>&nbsp;&nbsp;&nbsp;
-                                            <label class="radio-inline">
-                                                <input type="radio" name="guardian_is"  <?php if ($student['guardian_is'] == "father") {
-        echo "checked";
-    }
-    ?> value="father" > <?php echo $this->lang->line('father'); ?>
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="guardian_is" <?php if ($student['guardian_is'] == "mother") {
-        echo "checked";
-    }
-    ?> value="mother"> <?php echo $this->lang->line('mother'); ?>
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="guardian_is" <?php if ($student['guardian_is'] == "other") {
-        echo "checked";
-    }
-    ?> value="other"> <?php echo $this->lang->line('other'); ?>
-                                            </label>
-                                              <span class="text-danger"><?php echo form_error('guardian_is'); ?></span>
-                                        </div>
-<?php
-}
-?>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="row">
-                                                 <?php
-                                          
-if (findSelected($inserted_fields, 'guardian_name')    && ($sch_setting_detail->guardian_name)) {
-    ?>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="exampleInputEmail1"><?php echo $this->lang->line('guardian_name'); ?></label><small class="req"> *</small>
-                                                        <input id="guardian_name" name="guardian_name" placeholder="" type="text" class="form-control"  value="<?php echo set_value('guardian_name', $student['guardian_name']); ?>" />
-                                                        <span class="text-danger"><?php echo form_error('guardian_name'); ?></span>
-                                                    </div>
-                                                </div>
-
-<?php
-}
-?>
-                                             <?php
-if (findSelected($inserted_fields, 'guardian_relation')   && ($sch_setting_detail->guardian_relation)) {
-    ?>
-
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="exampleInputEmail1"><?php echo $this->lang->line('guardian_relation'); ?></label>
-                                                        <input id="guardian_relation" name="guardian_relation" placeholder="" type="text" class="form-control"  value="<?php echo set_value('guardian_relation', $student['guardian_relation']); ?>" />
-                                                        <span class="text-danger"><?php echo form_error('guardian_relation'); ?></span>
-                                                    </div>
-                                                </div>
-<?php
-}
-?>
-
-                                            </div>
-                                            <div class="row">
-                                                 <?php
-if (findSelected($inserted_fields, 'guardian_phone')  && ($sch_setting_detail->guardian_phone)) {
-    ?>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="exampleInputEmail1"><?php echo $this->lang->line('guardian_phone'); ?></label><small class="req"> *</small>
-                                                        <input id="guardian_phone" name="guardian_phone" placeholder="" type="text" class="form-control"  value="<?php echo set_value('guardian_phone', $student['guardian_phone']); ?>" />
-                                                        <span class="text-danger"><?php echo form_error('guardian_phone'); ?></span>
-                                                    </div>
-                                                </div>
-
-<?php
-}
-?>
-                                                 <?php
-if (findSelected($inserted_fields, 'guardian_occupation') && ($sch_setting_detail->guardian_occupation)) {
-    ?>
-
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="exampleInputEmail1"><?php echo $this->lang->line('guardian_occupation'); ?></label>
-                                                        <input id="guardian_occupation" name="guardian_occupation" placeholder="" type="text" class="form-control"  value="<?php echo set_value('guardian_occupation', $student['guardian_occupation']); ?>" />
-                                                        <span class="text-danger"><?php echo form_error('guardian_occupation'); ?></span>
-                                                    </div>
-                                                </div>
-<?php
-}
-?>
-                                            </div>
-                                        </div>
-                                        <?php
-if (findSelected($inserted_fields, 'guardian_email')  && ($sch_setting_detail->guardian_email)) {
-    ?>
-
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('guardian_email'); ?></label>
-                                                <input id="guardian_email" name="guardian_email" placeholder="" type="text" class="form-control"  value="<?php echo set_value('guardian_email', $student['guardian_email']); ?>" />
-                                                <span class="text-danger"><?php echo form_error('guardian_email'); ?></span>
-                                            </div>
-
-                                        </div>
-<?php
-}
-?>
-                                       <?php
-if (findSelected($inserted_fields, 'guardian_pic')  && ($sch_setting_detail->guardian_pic)) {
-    ?>
-
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="exampleInputFile"><?php echo $this->lang->line('guardian') . " " . $this->lang->line('photo'); ?></label>
-                                                <div><input class="filestyle form-control" type='file' name='guardian_pic' id="file" size='20' />
-                                                </div>
-                                                <span class="text-danger"><?php echo form_error('guardian_pic'); ?></span>
-                                            </div>
-                                        </div>
-<?php
-}
-?>
-                                        <?php
-if (findSelected($inserted_fields, 'guardian_address')  && ($sch_setting_detail->guardian_address)) {
-    ?>
-                                        <div class="col-md-6">
-                                            <label for="exampleInputEmail1"><?php echo $this->lang->line('guardian_address'); ?></label>
-                                            <textarea id="guardian_address" name="guardian_address" placeholder="" class="form-control" rows="4"><?php echo set_value('guardian_address', $student['guardian_address']); ?></textarea>
-                                            <span class="text-danger"><?php echo form_error('guardian_address'); ?></span>
-                                        </div>
-
-<?php
-}
-?>
-
-                                    </div>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
-                        <?php } ?>
-                            <div class="tshadow mb25 bozero">
-                                <h3 class="pagetitleh2"><?php echo $this->lang->line('address_details'); ?></h3>
-                                <div class="around10">
-                                    <div class="row">
-                                     <?php
-if (findSelected($inserted_fields, 'current_address')  && ($sch_setting_detail->current_address)) {
-    ?>
-
-                                        <div class="col-md-6">
-                                            <label>
-                                                <input type="checkbox" id="autofill_current_address" onclick="return auto_fill_guardian_address();">
-                                                <?php echo $this->lang->line('if_guardian_address_is_current_address'); ?>
-                                            </label>
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('current_address'); ?></label>
-                                                <textarea id="current_address" name="current_address" placeholder=""  class="form-control" ><?php echo set_value('current_address', $student['current_address']); ?></textarea>
-                                                <span class="text-danger"><?php echo form_error('current_address'); ?></span>
-                                            </div>
-                                            <div class="checkbox">
-                                            </div>
-                                        </div>
-<?php
-}
-?>
-                                      <?php
-if (findSelected($inserted_fields, 'permanent_address')  && ($sch_setting_detail->permanent_address)) {
-    ?>
-
-                                        <div class="col-md-6">
-                                            <label>
-                                                <input type="checkbox" id="autofill_address"onclick="return auto_fill_address();">
-                                                <?php echo $this->lang->line('if_permanent_address_is_current_address'); ?>
-                                            </label>
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('permanent_address'); ?></label>
-                                                <textarea id="permanent_address" name="permanent_address" placeholder="" class="form-control"><?php echo set_value('permanent_address', $student['permanent_address']) ?></textarea>
-                                                <span class="text-danger"><?php echo form_error('permanent_address', $student['permanent_address']); ?></span>
-                                            </div>
-                                        </div>
-<?php
-}
-?>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tshadow bozero">
-                                <h3 class="pagetitleh2"><?php echo $this->lang->line('miscellaneous_details'); ?></h3>
-                                <div class="around10">
-
-                                    <div class="row">
-                                         <?php
-if (findSelected($inserted_fields, 'bank_account_no')  && ($sch_setting_detail->bank_account_no)) {
-    ?>
-
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('bank_account_no'); ?></label>
-                                                <input id="bank_account_no" name="bank_account_no" placeholder="" type="text" class="form-control"  value="<?php echo set_value('bank_account_no', $student['bank_account_no']); ?>" />
-                                                <span class="text-danger"><?php echo form_error('bank_account_no'); ?></span>
-                                            </div>
-                                        </div>
-<?php
-}
-?>
-                                         <?php
-if (findSelected($inserted_fields, 'bank_name')  && ($sch_setting_detail->bank_name)) {
-    ?>
-
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('bank_name'); ?></label>
-                                                <input id="bank_name" name="bank_name" placeholder="" type="text" class="form-control"  value="<?php echo set_value('bank_name', $student['bank_name']); ?>" />
-                                                <span class="text-danger"><?php echo form_error('bank_name'); ?></span>
-                                            </div>
-                                        </div>
-<?php
-}
-?>
-                                         <?php
-if (findSelected($inserted_fields, 'ifsc_code')  && ($sch_setting_detail->ifsc_code)) {
-    ?>
-
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('ifsc_code'); ?></label>
-                                                <input id="ifsc_code" name="ifsc_code" placeholder="" type="text" class="form-control"  value="<?php echo set_value('ifsc_code', $student['ifsc_code']); ?>" />
-                                                <span class="text-danger"><?php echo form_error('ifsc_code'); ?></span>
-                                            </div>
-                                        </div>
-<?php
-}
-?>
-                                    </div>
-
-                                    <div class="row">
-                                         <?php
-
-if (findSelected($inserted_fields, 'national_identification_no')  && ($sch_setting_detail->national_identification_no)) {
-    ?>
-
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">
-                                                    <?php echo $this->lang->line('national_identification_no'); ?>
-                                                </label>
-                                                <input id="national_identification_no" name="adhar_no" placeholder="" type="text" class="form-control"  value="<?php echo set_value('adhar_no', $student['adhar_no']); ?>" />
-                                                <span class="text-danger"><?php echo form_error('adhar_no'); ?></span>
-                                            </div>
-                                        </div>
-<?php
-}
-?>
-                                        <?php
-if (findSelected($inserted_fields, 'local_identification_no')  && ($sch_setting_detail->local_identification_no)) {
-    ?>
-
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">
-                                                    <?php echo $this->lang->line('local_identification_no'); ?>
-                                                </label>
-                                                <input id="local_identification_no" name="samagra_id" placeholder="" type="text" class="form-control"  value="<?php echo set_value('samagra_id', $student['samagra_id']); ?>" />
-                                                <span class="text-danger"><?php echo form_error('samagra_id'); ?></span>
-                                            </div>
-                                        </div>
-<?php
-}
-?>
-                                         <?php
-if (findSelected($inserted_fields, 'rte')  && ($sch_setting_detail->rte)) {
-    ?>
-
-                                        <div class="col-md-4">
-                                            <label><?php echo $this->lang->line('rte'); ?></label>
-                                            <div class="radio" style="margin-top: 2px;">
-                                                <label><input class="radio-inline" type="radio" name="rte" value="Yes"  <?php
-echo set_value('rte', $student['rte']) == "Yes" ? "checked" : "";
-    ?>  ><?php echo $this->lang->line('yes'); ?></label>
-                                                <label><input class="radio-inline" type="radio" name="rte" value="No" <?php
-echo set_value('rte', $student['rte']) == "No" ? "checked" : "";
-    ?>  ><?php echo $this->lang->line('no'); ?></label>
-                                            </div>
-                                            <span class="text-danger"><?php echo form_error('rte'); ?></span>
-                                        </div>
-<?php
-}
-?>
-
- 
-                                    </div>
-                                    <div class="row">
-                                        <?php
-if (findSelected($inserted_fields, 'previous_school_details')  && ($sch_setting_detail->previous_school_details)) {
-    ?>
-
-
-
-                                        <div class="col-md-12">
-                                         <div class="form-group">
-                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('previous_school_details'); ?></label>
-                                                <textarea class="form-control" rows="3" placeholder="" name="previous_school"><?php echo set_value('previous_school', $student['previous_school']); ?></textarea>
-                                                <span class="text-danger"><?php echo form_error('previous_school'); ?></span>
-                                            </div>
-                                        </div>
-<?php
-}
-?> 
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="box-footer">
-
-                              <button type="submit" class="btn btn-info pull-right"><?php echo $this->lang->line('save'); ?></button>
-                            </div>
-                    </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="forprintlayout" style="display: none;">
+            <strong>Curso y Sección:</strong> <span id="classnameforprint"></span>. Sección <span id="sectionnameforprint"></span><br>
+            <strong><?php echo $this->lang->line('subject');?>:</strong> <span id="subjectnameforprint"></span><br>
+            <strong><?php echo $this->lang->line('teacher');?>:</strong> <?php echo $this->customlib->getUserData()['name'] . " " . $this->customlib->getUserData()['surname']; ?><br>
+            <style type="text/css">
+                .print-table{
+                    width: 100% !important;
+                    border-collapse: collapse;
+                }
+                .print-table th, .print-table td{
+                    border: 1px solid #ddd !important;
+                    text-align: center !important;
+                    vertical-align: bottom !important;
+                    padding: 5px;
+                }
+            </style>
+            <table class="print-table" data-export-title="<?php echo $this->lang->line('student') . " " . $this->lang->line('list'); ?>">
+                <thead>
+                    <tr>
+                        <th class="subjectlabelth" colspan="3" rowspan="2"></th>
+                        <th class="darksalmon" colspan="<?php echo count($periodList) + 1 ?>">CALIFICACIONES DEL AÑO ESCOLAR</th>
+                        <?php //if ($addstep > 0) { 
+                        ?>
+                        <th class="lightgreen" colspan="4">CALIFICACIÓN COMPLETIVA</th>
+                        <?php //} 
+                        ?>
+                        <?php //if ($addstep > 1) { 
+                        ?>
+                        <th class="yellow" colspan="4">CALIFICACIÓN EXTRAORDINARIA</th>
+                        <?php //} 
+                        ?>
+                        <th colspan="2">SITUACIÓN FINAL</th>
+                        <th colspan="2">C.A.P.</th>
+                    </tr>
+                    <tr>
+                        <th colspan="<?php echo count($periodList) ?>">Calificaciones Parciales</th>
+                        <th class="lightblue" rowspan="2">C.F.</th>
+                        <?php //if ($addstep > 0) { 
+                        ?>
+                        <th rowspan="2">50% P.C.P.</th>
+                        <th rowspan="2">C.P.C.</th>
+                        <th rowspan="2">50% C.P.C.</th>
+                        <th class="lightblue" rowspan="2">C.C.</th>
+                        <?php //} 
+                        ?>
+                        <?php //if ($addstep > 1) { 
+                        ?>
+                        <th rowspan="2">30% P.C.P.</th>
+                        <th rowspan="2">C.P.EX.</th>
+                        <th rowspan="2">70% C.P.EX.</th>
+                        <th class="lightblue" rowspan="2">C.EX.</th>
+                        <?php //} 
+                        ?>
+                        <th rowspan="2">A</th>
+                        <th rowspan="2">R</th>
+                        <th colspan="2">OPORTUNIDAD</th>
+                    </tr>
+                    <tr>
+                        <th><?php echo $this->lang->line('admission_no'); ?></th>
+                        <th><?php echo $this->lang->line('no'); ?></th>
+                        <th><?php echo $this->lang->line('student_name'); ?></th>
+                        <?php  foreach($periodList as $key=>$value) { ?>
+                            <th><?php echo $value['label']; ?></th>
+                        <?php } ?>
+                        <th>1</th>
+                        <th>2</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </section>
 </div>
-</section>
-</div>
-<?php
-
-function findSelected($inserted_fields, $find)
-{
-    foreach ($inserted_fields as $inserted_key => $inserted_value) {
-        if ($find == $inserted_value->name && $inserted_value->status) {
-            return true;
-        }
-
-    }
-    return false;
-
-}
-
-?>
 
 <script type="text/javascript">
-    function auto_fill_guardian_address() {
-        if ($("#autofill_current_address").is(':checked'))
-        {
-            $('#current_address').val($('#guardian_address').val());
-        }
+    function printsubjectreport() {
+        //console.log($('.forprintlayout').html());
+        Popup($('.forprintlayout').html());
+        //Popup($('#transfee').html())
     }
-    function auto_fill_address() {
-        if ($("#autofill_address").is(':checked'))
-        {
-            $('#permanent_address').val($('#current_address').val());
-        }
+
+    function Popup(data) {
+
+        var frame1 = $('<iframe />');
+        frame1[0].name = "frame1";
+
+        $("body").append(frame1);
+        var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+        frameDoc.document.open();
+        //Create a new HTML document.
+        frameDoc.document.write('<html>');
+        frameDoc.document.write('<head>');
+        frameDoc.document.write('<title></title>');
+        // frameDoc.document.write('<link rel="stylesheet" href="' + base_url + 'backend/dist/css/idcard.css">');
+        frameDoc.document.write('</head>');
+        frameDoc.document.write('<body>');
+        frameDoc.document.write(data);
+        frameDoc.document.write('</body>');
+        frameDoc.document.write('</html>');
+        frameDoc.document.close();
+        setTimeout(function() {
+            window.frames["frame1"].focus();
+            window.frames["frame1"].print();
+            frame1.remove();
+        }, 500);
+        return true;
     }
-    $('input:radio[name="guardian_is"]').change(
-            function () {
-                if ($(this).is(':checked')) {
-                    var value = $(this).val();
-                    if (value == "father") {
-                        $('#guardian_name').val($('#father_name').val());
-                        $('#guardian_phone').val($('#father_phone').val());
-                        $('#guardian_occupation').val($('#father_occupation').val());
-                        $('#guardian_relation').val("Father")
-                    } else if (value == "mother") {
-                        $('#guardian_name').val($('#mother_name').val());
-                        $('#guardian_phone').val($('#mother_phone').val());
-                        $('#guardian_occupation').val($('#mother_occupation').val());
-                        $('#guardian_relation').val("Mother")
-                    } else {
-                        $('#guardian_name').val("");
-                        $('#guardian_phone').val("");
-                        $('#guardian_occupation').val("");
-                        $('#guardian_relation').val("")
-                    }
+
+    function getSectionByClass(class_id, section_id, select_control) {
+        if (class_id != "") {
+            $('#' + select_control).html("");
+            var base_url = '<?php echo base_url() ?>';
+            var div_data = '<option value=""><?php echo $this->lang->line('select'); ?></option>';
+            $.ajax({
+                type: "GET",
+                url: base_url + "sections/getByClass",
+                data: {
+                    'class_id': class_id
+                },
+                dataType: "json",
+                beforeSend: function() {
+                    $('#' + select_control).addClass('dropdownloading');
+                },
+                success: function(data) {
+                    $.each(data, function(i, obj) {
+                        var sel = "";
+                        if (section_id == obj.section_id) {
+                            sel = "selected";
+                        }
+                        div_data += "<option value=" + obj.section_id + " " + sel + ">" + obj.section + "</option>";
+                    });
+                    $('#' + select_control).append(div_data);
+                },
+                complete: function() {
+                    $('#' + select_control).removeClass('dropdownloading');
                 }
             });
+        }
+    }
+    $(document).on('change', '#secid', function() {
+        var class_id = $('#searchclassid').val();
+        var section_id = $(this).val();
+        getSubjectGroup(class_id, section_id, 0, 'subid');
+    });
 
+    function getSubjectGroup(class_id, section_id, subjectgroup_id, subject_id_target) {
+        if (class_id != "" && section_id != "") {
+
+            var div_data = '<option value=""><?php echo $this->lang->line('select'); ?></option>';
+
+            $.ajax({
+                type: 'POST',
+                url: base_url + 'admin/subjectgroup/getGroupByClassandSection',
+                data: {
+                    'class_id': class_id,
+                    'section_id': section_id
+                },
+                dataType: 'JSON',
+                beforeSend: function() {
+                    // setting a timeout
+                    $('#' + subject_id_target).html("");
+                },
+                success: function(data) {
+                    if (data.length > 0) {
+                        getsubjectBySubjectGroup(class_id, section_id, data[0].subject_group_id, 0, 'subid');
+                    } else {
+                        errorMsg("No subject attached");
+                    }
+                },
+                error: function(xhr) { // if error occured
+                    alert("Error occured.please try again");
+                },
+            });
+        }
+
+    }
+
+    function getsubjectBySubjectGroup(class_id, section_id, subject_group_id, subject_group_subject_id, subject_target) {
+        if (class_id != "" && section_id != "" && subject_group_id != "") {
+
+            var div_data = '<option value=""><?php echo $this->lang->line('select'); ?></option>';
+
+            $.ajax({
+                type: 'POST',
+                url: base_url + 'admin/subjectgroup/getGroupsubjects',
+                data: {
+                    'subject_group_id': subject_group_id
+                },
+                dataType: 'JSON',
+                beforeSend: function() {
+                    // setting a timeout
+                    $('#' + subject_target).html("").addClass('dropdownloading');
+                },
+                success: function(data) {
+                    $.each(data, function(i, obj) {
+                        var sel = "";
+                        if (subject_group_subject_id == obj.id) {
+                            sel = "selected";
+                        }
+                        div_data += "<option value=" + obj.id + " " + sel + ">" + obj.name + "</option>";
+                    });
+                    $('#' + subject_target).append(div_data);
+                },
+                error: function(xhr) { // if error occured
+                    alert("Error occured.please try again");
+
+                },
+                complete: function() {
+                    $('#' + subject_target).removeClass('dropdownloading');
+                }
+            });
+        }
+    }
+
+    function cancelSecondaryEdit() {
+        setoriginvalue('a');
+        setoriginvalue('r');
+        setoriginvalue('50pcp');
+        setoriginvalue('50cpc');
+        setoriginvalue('cc');
+        setoriginvalue('30pcp');
+        setoriginvalue('70cpex');
+        setoriginvalue('cex');
+        setoriginvalue('cf');
+        setoriginvalue('pr');
+        setoriginvalue('cpc');
+        setoriginvalue('cpex');
+        $('#save_report_btn').prop('disabled', true);
+        $('#cancel_report_btn').prop('disabled', true);
+    }
+
+    function setoriginvalue(classname) {
+        $('.' + classname).each(function() {
+            if (classname == 'pr') {
+                $(this).val($(this).attr('data_org'));
+            } else if (classname == 'cpc' || classname == 'cpex') {
+                $(this).find('input').addClass($(this).attr('data_org'));
+                $(this).find('input').val($(this).find('input').attr('data_org'));
+            } else {
+                $(this).text($(this).attr('data_org'));
+                if (classname == 'cf' || classname == 'cc' || classname == 'cex') {
+                    var avg = $(this).text() * 1;
+                    if (avg >= 70) {
+                        $(this).removeClass('red_text');
+                    } else {
+                        $(this).addClass('red_text');
+                    }
+                }
+            }
+        });
+    }
+
+    function saveSecondaryEdit() {
+        var data = [];
+        $('.student-list tbody tr').each(function() {
+            var student_session_id = $(this).find('.td-input').attr('data_stdID');
+            student_report = {
+                student_session_id: student_session_id,
+                report: []
+            };
+            $(this).find('.td-input').each(function() {
+                var name = $(this).attr('data_column');
+                var value = $(this).hasClass('disable-addtest') ? '' : $(this).val();
+                student_report.report.push({
+                    name: name,
+                    value: value
+                })
+            })
+
+            data.push(student_report);
+        });
+        var subject_group_subjects_id = $('#subject_group_subjects_id').val();
+
+       
+        var $this = $('#save_report_btn');
+        $.ajax({
+            type: "POST",
+            url: base_url + "admin/grading_result/updatemultistudentsreport",
+            data: {
+                subject_group_subjects_id: subject_group_subjects_id,
+                data: data
+            }, // serializes the form's elements.
+            dataType: "JSON", // serializes the form's elements.
+            beforeSend: function() {
+                $this.button('loading');
+            },
+            success: function(response) {
+                if (response.success) {
+                    if ($.fn.DataTable.isDataTable('.print-table')) { // if exist datatable it will destrory first
+                        $('.print-table').DataTable().destroy();
+                    }
+                    
+                    var data =
+                    {
+                        "class_id":$('#searchclassid').val(), 
+                        "section_id":$('#secid').val(),
+                        "subject_id":$('#subid').val(),
+                    };
+                ptable = $('.print-table').DataTable({
+                    // "scrollX": true,
+                    dom: 'Bfrtip',
+                    buttons: [],
+                    "language": {
+                        processing: '<i class="fa fa-spinner fa-spin fa-1x fa-fw"></i><span class="sr-only">Loading...</span> '
+                    },
+                    "paging": false,
+                    "ordering": false,
+                    "searching": false,
+                    "info":     false,
+                    "processing": true,
+                    "serverSide": true,
+                    "ajax": {
+                        "url": baseurl + "admin/grading_result/dteditstudentlistforprint",
+                        "dataSrc": 'data',
+                        "type": "POST",
+                        'data': data,
+                    }
+
+                });
+                    successMsg(response.msg);
+                } else {
+                    errorMsg(response.msg);
+                }
+                $this.button('reset');
+            },
+            error: function(xhr) { // if error occured
+                alert("Error occured.please try again");
+            }
+        });
+        
+    }
+
+
+    $(document).ready(function() {
+
+        emptyDatatable('student-list', 'data');
+
+        $(document).on('submit', '.class_search_subject_form', function(e) {
+            e.preventDefault(); // avoid to execute the actual submit of the form.
+            var $this = $(this).find("button[type=submit]:focus");
+            var form = $(this);
+            var url = form.attr('action');
+            var form_data = form.serializeArray();
+            form_data.push({
+                name: 'search_type',
+                value: 'search_edit'
+            });
+            $.ajax({
+                url: url,
+                type: "POST",
+                dataType: 'JSON',
+                data: form_data, // serializes the form's elements.
+                beforeSend: function() {
+                    $('#print_report_btn').prop('disabled', true);
+                    $('[id^=error]').html("");
+                    $this.button('loading');
+                },
+                success: function(response) { // your success handler
+
+                    if (!response.status) {
+                        $.each(response.error, function(key, value) {
+                            $('.' + key + '_error').html(value);
+                        });
+                    } else {
+                        $('#classnameforprint').html($('#searchclassid option[value="' + $('#searchclassid').val() + '"]').html());
+                        $('#sectionnameforprint').html($('#secid option[value="' + $('#secid').val() + '"]').html());
+                        $('#subjectnameforprint').html($('#subid option[value="' + $('#subid').val() + '"]').html());
+
+
+                        $('#print_report_btn').prop('disabled', false);
+                        $('#subject_group_subjects_id').val($('#subid').val());
+
+                        $('.subjectlabelth').text($('#subid option[value="' + $('#subid').val() + '"]').html());
+
+                        if ($.fn.DataTable.isDataTable('.student-list')) { // if exist datatable it will destrory first
+                            $('.student-list').DataTable().destroy();
+                        }
+                        table = $('.student-list').DataTable({
+                            // "scrollX": true,
+                            dom: 'Bfrtip',
+                            buttons: [],
+                            "language": {
+                                processing: '<i class="fa fa-spinner fa-spin fa-1x fa-fw"></i><span class="sr-only">Loading...</span> '
+                            },
+                            "pageLength": 100,
+                            "ordering": false,
+                            "searching": false,
+                            "processing": true,
+                            "serverSide": true,
+                            "ajax": {
+                                "url": baseurl + "admin/grading_result/dteditstudentlist",
+                                "dataSrc": 'data',
+                                "type": "POST",
+                                'data': response.params,
+                            },
+                            "rowCallback": function(nRow, aData, iDisplayIndex) {
+                                /* Append the grade to the default row class name */
+                                $('td:eq(1)', nRow).html(iDisplayIndex + 1)
+                                var period_count = <?= count($periodList) ?> * 1;
+                                $('td:eq(' + (3 + period_count) + ')', nRow).addClass('lightblue');
+                                $('td:eq(' + (7 + period_count) + ')', nRow).addClass('lightblue');
+                                $('td:eq(' + (11 + period_count) + ')', nRow).addClass('lightblue');
+
+                                if ($('.cf', nRow).html() * 1 < 70) {
+                                    $('.cf', nRow).addClass('red_text');
+                                }
+
+                                if ($('.cc', nRow).html() * 1 < 70) {
+                                    $('.cc', nRow).addClass('red_text');
+                                }
+
+                                if ($('.cex', nRow).html() * 1 < 70) {
+                                    $('.cex', nRow).addClass('red_text');
+                                }
+                            },
+
+                        });
+
+                        
+                        if ($.fn.DataTable.isDataTable('.print-table')) { // if exist datatable it will destrory first
+                            $('.print-table').DataTable().destroy();
+                        }
+                        ptable = $('.print-table').DataTable({
+                            // "scrollX": true,
+                            dom: 'Bfrtip',
+                            buttons: [],
+                            "language": {
+                                processing: '<i class="fa fa-spinner fa-spin fa-1x fa-fw"></i><span class="sr-only">Loading...</span> '
+                            },
+                            "paging": false,
+                            "ordering": false,
+                            "searching": false,
+                            "info":     false,
+                            "processing": true,
+                            "serverSide": true,
+                            "ajax": {
+                                "url": baseurl + "admin/grading_result/dteditstudentlistforprint",
+                                "dataSrc": 'data',
+                                "type": "POST",
+                                'data': response.params,
+                            }
+
+                        });
+                    }
+                },
+                error: function() { // your error handler
+                    $this.button('reset');
+                },
+                complete: function() {
+                    $this.button('reset');
+                }
+            });
+        });
+
+
+        $(document).on('keydown', '.td-input', function(e) {
+
+            var key = e.which;
+            var $this = $(this);
+
+            if (e.which === 38 || e.which === 40) {
+                e.preventDefault();
+            }
+
+            if (key == 13 || key == 38 || key == 40) // the enter key code
+            {
+                $this.trigger('blur');
+                var column = $(this).attr('data_column');
+                var index = $('.td-input[data_column="' + column + '"]').index(this);
+                if (key == 38) {
+                    index = index - 2;
+                }
+                var next = $('.td-input[data_column="' + column + '"]').eq(index + 1);
+                if (next.length > 0) {
+                    var strLength = next.val().length * 2;
+                    next.focus();
+                    next.attr('type', 'text');
+                    next[0].setSelectionRange(strLength, strLength);
+                    next.attr('type', 'number');
+                }
+            }
+        });
+
+        $(document).on('change', '.td-input', function(e) {
+            $('#save_report_btn').prop('disabled', false);
+            $('#cancel_report_btn').prop('disabled', false);
+
+            var std_id = $(this).attr('data_stdID');
+            var validate = true;
+            var cf = 0;
+            var periods = $('.pr[data_stdID="' + std_id + '"]').length;
+            $('.pr[data_stdID="' + std_id + '"]').each(function(e) {
+                if (!$(this).val()) {
+                    validate = false;
+                }
+                cf += $(this).val() / periods;
+            });
+
+            cf = Math.round(cf)
+
+            if (validate) {
+                $('.cf[data_stdID="' + std_id + '"]').text(cf);
+                if (cf >= 70) {
+                    $('.cf[data_stdID="' + std_id + '"]').removeClass('red_text')
+                    $('.a[data_stdID="' + std_id + '"]').text('A');
+                    $('.r[data_stdID="' + std_id + '"]').text('');
+                    $('.cpc[data_stdID="' + std_id + '"] input').addClass('disable-addtest');
+                    $('.cpex[data_stdID="' + std_id + '"] input').addClass('disable-addtest');
+
+                    $('.50pcp[data_stdID="' + std_id + '"]').text('');
+                    $('.50cpc[data_stdID="' + std_id + '"]').text('');
+                    $('.cc[data_stdID="' + std_id + '"]').text('');
+
+                    $('.30pcp[data_stdID="' + std_id + '"]').text('');
+                    $('.70cpex[data_stdID="' + std_id + '"]').text('');
+                    $('.cex[data_stdID="' + std_id + '"]').text('');
+                } else {
+                    $('.cf[data_stdID="' + std_id + '"]').addClass('red_text')
+                    $('.a[data_stdID="' + std_id + '"]').text('');
+                    $('.r[data_stdID="' + std_id + '"]').text('R');
+                    if (cf >= 40) {
+
+                        $('.30pcp[data_stdID="' + std_id + '"]').text('');
+                        $('.50cpc[data_stdID="' + std_id + '"]').text('');
+                        $('.cex[data_stdID="' + std_id + '"]').text('');
+
+
+                        $('.50pcp[data_stdID="' + std_id + '"]').text(Math.round(cf / 2));
+                        $('.cpc[data_stdID="' + std_id + '"] input').removeClass('disable-addtest');
+                        $('.cpex[data_stdID="' + std_id + '"] input').addClass('disable-addtest');
+                        var cpc = $('.cpc[data_stdID="' + std_id + '"] input').val() * 1;
+                        var cc = Math.round(cf / 2) + Math.round(cpc / 2);
+
+                        if (cpc) {
+                            $('.50cpc[data_stdID="' + std_id + '"]').text(Math.round(cpc / 2));
+                            $('.cc[data_stdID="' + std_id + '"]').text(Math.round(cc));
+
+                            if (cc >= 70) {
+                                $('.cc[data_stdID="' + std_id + '"]').removeClass('red_text')
+                                $('.a[data_stdID="' + std_id + '"]').text('A');
+                                $('.r[data_stdID="' + std_id + '"]').text('');
+                            } else {
+                                $('.cc[data_stdID="' + std_id + '"]').addClass('red_text')
+                                $('.30pcp[data_stdID="' + std_id + '"]').text(Math.round(cf * 0.3));
+                                $('.cpc[data_stdID="' + std_id + '"] input').removeClass('disable-addtest');
+                                $('.cpex[data_stdID="' + std_id + '"] input').removeClass('disable-addtest');
+                                var cpex = $('.cpex[data_stdID="' + std_id + '"] input').val() * 1;
+                                var cex = Math.round(cf * 0.3) + Math.round(cpex * 0.7);
+
+                                if (cpex) {
+                                    $('.70cpex[data_stdID="' + std_id + '"]').text(Math.round(cpex * 0.7));
+                                    $('.cex[data_stdID="' + std_id + '"]').text(Math.round(cex));
+                                    $('.cex[data_stdID="' + std_id + '"]').addClass('red_text')
+                                    if (cex >= 70) {
+                                        $('.cex[data_stdID="' + std_id + '"]').removeClass('red_text')
+                                        $('.a[data_stdID="' + std_id + '"]').text('A');
+                                        $('.r[data_stdID="' + std_id + '"]').text('');
+                                    }
+                                } else {
+                                    $('.70cpex[data_stdID="' + std_id + '"]').text('');
+                                    $('.cex[data_stdID="' + std_id + '"]').text('');
+                                }
+                            }
+                        } else {
+                            $('.50cpc[data_stdID="' + std_id + '"]').text('');
+                            $('.cc[data_stdID="' + std_id + '"]').text('');
+                        }
+                    } else {
+                        $('.cpc[data_stdID="' + std_id + '"] input').addClass('disable-addtest');
+                        $('.cpex[data_stdID="' + std_id + '"] input').removeClass('disable-addtest');
+                        $('.50pcp[data_stdID="' + std_id + '"]').text('');
+                        $('.50cpc[data_stdID="' + std_id + '"]').text('');
+                        $('.cc[data_stdID="' + std_id + '"]').text('');
+
+                        $('.30pcp[data_stdID="' + std_id + '"]').text(Math.round(cf * 0.3));
+                        var cpex = $('.cpex[data_stdID="' + std_id + '"] input').val() * 1;
+                        var cex = Math.round(cf * 0.3) + Math.round(cpex * 0.7);
+
+                        if (cpex) {
+                            $('.70cpex[data_stdID="' + std_id + '"]').text(Math.round(cpex * 0.7));;
+                            $('.cex[data_stdID="' + std_id + '"]').text(Math.round(cex));
+                            $('.cex[data_stdID="' + std_id + '"]').addClass('red_text')
+                            if (cex >= 70) {
+                                $('.cex[data_stdID="' + std_id + '"]').removeClass('red_text')
+                                $('.a[data_stdID="' + std_id + '"]').text('A');
+                                $('.r[data_stdID="' + std_id + '"]').text('');
+                            }
+                        } else {
+                            $('.70cpex[data_stdID="' + std_id + '"]').text('');
+                            $('.cex[data_stdID="' + std_id + '"]').text('');
+                        }
+                    }
+                }
+            } else {
+                $('.a[data_stdID="' + std_id + '"]').text('');
+                $('.r[data_stdID="' + std_id + '"]').text('');
+                $('.cpc[data_stdID="' + std_id + '"] input').addClass('disable-addtest');
+                $('.cpex[data_stdID="' + std_id + '"] input').addClass('disable-addtest');
+
+                $('.50pcp[data_stdID="' + std_id + '"]').text('');
+                $('.50cpc[data_stdID="' + std_id + '"]').text('');
+                $('.cc[data_stdID="' + std_id + '"]').text('');
+
+                $('.30pcp[data_stdID="' + std_id + '"]').text('');
+                $('.70cpex[data_stdID="' + std_id + '"]').text('');
+                $('.cex[data_stdID="' + std_id + '"]').text('');
+            }
+        });
+
+
+    });
 </script>

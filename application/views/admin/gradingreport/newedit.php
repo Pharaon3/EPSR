@@ -867,10 +867,12 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                 name: 'search_type',
                 value: 'search_edit'
             });
+            console.log("form_data: ", form_data);
             let class_id = 0;
             for (let i = 0; i < form_data.length; i ++) {
                 if (form_data[i]['name'] == "class_id") class_id = form_data[i]["value"];
             }
+            console.log("class id: ", class_id);
             if (class_id > 8 && class_id < 16) {
                 $(".student-list-primary").css("display", "");
                 $(".student-list-primaryR").css("display", "none");
@@ -913,8 +915,11 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                         $('#classnameforprint').html($('#searchclassid option[value="' + $('#searchclassid').val() + '"]').html());
                         $('#sectionnameforprint').html($('#secid option[value="' + $('#secid').val() + '"]').html());
                         $('#subjectnameforprint').html($('#subid option[value="' + $('#subid').val() + '"]').html());
+
+
                         $('#print_report_btn').prop('disabled', false);
                         $('#subject_group_subjects_id').val($('#subid').val());
+
                         $('.subjectlabelth').text($('#subid option[value="' + $('#subid').val() + '"]').html());
 
                         let tableClass = ".student-list-secondary";
@@ -965,10 +970,12 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                     $('.cex', nRow).addClass('red_text');
                                 }
                             },
+
                         });
 
                         setTimeout(() => {
                             makeLowGradeRed();
+                            console.log("sdfasdf");
                         }, 500);
                         let printTableName = ".print-table-secondary";
                         if (class_id > 8 && class_id < 16) printTableName = ".print-table-primary"
@@ -1194,6 +1201,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                 $('.cex[data_stdID="' + std_id + '"]').text('');
             }
         });
+
 
     });
 </script>

@@ -1,7 +1,7 @@
 <?php 
     $url = $_SERVER["REQUEST_URI"];
-    $actionUrl = 'admin/grading_result/GradingResult';
-    if (str_contains($url, 'GradingReport')) $actionUrl = 'admin/grading_result/GradingReport';
+       $actionUrl = 'admin/grading_result/GradingReport';
+  //  if (str_contains($url, 'GradingReport')) $actionUrl = 'admin/grading_result/GradingReport';
 ?>
 <div class="content-wrapper" style="min-height: 946px;">
     <!-- Main content -->
