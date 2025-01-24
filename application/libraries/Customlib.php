@@ -368,17 +368,20 @@ class Customlib
 
     public function getSchoolDateFormat($date_only = true, $time = false)
     {
-
         $setting_result     = $this->CI->setting_model->get();
         return $date_format = $setting_result[0]['date_format'];        
     }
 
+    public function getSchoolMonthFormat($date_only = true, $time = false)
+    {
+        return 'm/Y';        
+    }
     public function getTimeZone()
     {
         $setting_result = $this->CI->setting_model->getSchoolDetail();
         return $setting_result->timezone;       
     }
-        public function getStartWeek()
+    public function getStartWeek()
     {      
         $admin = $this->CI->session->userdata('admin');
       

@@ -202,6 +202,7 @@ if ($this->session->flashdata('success_msg')) {
     var datetime_format = '<?php echo $result = strtr($this->customlib->getSchoolDateFormat(true, true), ['d' => 'DD', 'm' => 'MM', 'Y' => 'YYYY', 'H' => 'hh', 'i' => 'mm']) ?>';
 
     var date_format = '<?php echo $result = strtr($this->customlib->getSchoolDateFormat(), ['d' => 'dd', 'm' => 'mm', 'Y' => 'yyyy', 'M' => 'M']) ?>';
+    var month_format = 'mm/yyyy';
 
 
     function savedata(eventData) {
@@ -226,10 +227,10 @@ if ($this->session->flashdata('success_msg')) {
     d = today.getDate();
     var viewtitle = 'month';
     var pagetitle = "<?php
-if (isset($title)) {
-    echo $title;
-}
-?>";
+                        if (isset($title)) {
+                            echo $title;
+                        }
+                    ?>";
 
     if (pagetitle == "Dashboard") {
 
@@ -290,7 +291,7 @@ if (isset($title)) {
            console.log('Clicked on the entire day: ' + date.format());
 
 
-<?php if ($this->rbac->hasPrivilege('calendar_to_do_list', 'can_add')) {?>
+            <?php if ($this->rbac->hasPrivilege('calendar_to_do_list', 'can_add')) {?>
                 var newEventModal= $('#newEventModal');
                 $("#input-field").val('');
                 $("#desc-field").text('');
@@ -300,8 +301,8 @@ if (isset($title)) {
                 $('.event_to',newEventModal).data("DateTimePicker").date(event_start_from);
                 $('#newEventModal').modal('show');
 
-<?php
-}?>
+            <?php
+            }?>
             return false;
         }
 
@@ -482,6 +483,18 @@ if (isset($title)) {
                 autoclose: true,
                 weekStart : start_week,
                 language: '<?php echo $language_name ?>'
+            });
+        });
+
+        $("body").delegate(".month", "focusin", function () {
+            $(this).datepicker({
+                todayHighlight: false,
+                format: month_format,
+                autoclose: true,
+                weekStart: start_week,
+                language: '<?php echo $language_name ?>',
+                startView: "months", // Start with the month view
+                minViewMode: "months" // Only allow month selection
             });
         });
 

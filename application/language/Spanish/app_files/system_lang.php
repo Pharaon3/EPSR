@@ -572,6 +572,7 @@ $lang['stripe_publishable_key'] = "Clave publicable de banda";
 $lang['student'] = "Estudiante";
 $lang['student_admission'] = "Admisión de estudiantes";
 $lang['student_attendance'] = "Asistencia del estudiante";
+$lang['student_attendance_by_month'] = "Asistencia de estudiantes por mes";
 $lang['student_categories'] = "Categorías de estudiantes";
 $lang['student_detail'] = "Detalle del estudiante";
 $lang['student_details'] = "Detalles del estudiante";

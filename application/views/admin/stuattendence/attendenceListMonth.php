@@ -1,4 +1,3 @@
-
 <style type="text/css">
     .radio {
         padding-left: 20px;}
@@ -92,11 +91,10 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="box box-primary">
-
                     <div class="box-header with-border">
                         <h3 class="box-title"><i class="fa fa-search"></i> <?php echo $this->lang->line('select_criteria'); ?></h3>
                     </div>
-                    <form id='form1' action="<?php echo site_url('admin/stuattendence/index') ?>"  method="post" accept-charset="utf-8">
+                    <form id='form1' action="<?php echo site_url('admin/stuattendence/attendencebyMonth') ?>"  method="post" accept-charset="utf-8">
                         <div class="box-body">
                             <?php
                             if ($this->session->flashdata('msg')) {
@@ -141,9 +139,9 @@
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">
                                             <?php echo $this->lang->line('attendance'); ?>
-                                            <?php echo $this->lang->line('date'); ?>
+                                            <?php echo $this->lang->line('month'); ?>
                                         </label>
-                                        <input id="date" name="date" placeholder="" type="text" class="form-control date"  value="<?php echo set_value('date', date($this->customlib->getSchoolDateFormat())); ?>" readonly="readonly"/>
+                                        <input id="month" name="month" placeholder="" type="text" class="form-control month"  value="<?php echo set_value('month', date($this->customlib->getSchoolMonthFormat())); ?>" readonly="readonly"/>
                                         <span class="text-danger"><?php echo form_error('date'); ?></span>
                                     </div>
                                 </div>
@@ -195,17 +193,18 @@
                                         <?php
                                     }
                                     ?>
-                                    <form action="<?php echo site_url('admin/stuattendence/index') ?>" method="post" class="form_attendence">
+                                    <form action="<?php echo site_url('admin/stuattendence/attendencebyMonth') ?>" method="post" class="form_attendence">
                                         <?php echo $this->customlib->getCSRF(); ?>
-                                        <div class="mailbox-controls">
-                                            <span class="button-checkbox">
-                                                <?php if ($this->rbac->hasPrivilege('student_attendance', 'can_add')) { ?>
-                                                    <button type="button" class="btn btn-sm btn-primary" data-color="primary"><?php echo $this->lang->line('mark_as_holiday'); ?></button>
-                                                    <input type="checkbox" id="checkbox1" class="hidden" name="holiday" value="checked" <?php echo $checked; ?>/>
-                                                </span>
-                                                <div class="pull-right">
-                                                    <?php
-                                                }
+                                        <div class="mailbox-controls" style="display: flex; justify-content: space-between;">                                        
+                                            <select id="attendencetype" name="attendencetype" class="form-control" style="width: 100px;">
+                                                <option value="" selected="selected">-</option>
+                                                <option value="1">P</option>
+                                                <option value="3">L</option>
+                                                <option value="4">A</option>
+                                                <option value="6">H</option>
+                                            </select>
+                                            <div class="pull-right">
+                                                <?php
                                                 if ($can_edit == 1) {
                                                     if ($this->rbac->hasPrivilege('student_attendance', 'can_add')) {
                                                         ?>
@@ -217,7 +216,7 @@
                                         </div>
                                         <input type="hidden" name="class_id" value="<?php echo $class_id; ?>">
                                         <input type="hidden" name="section_id" value="<?php echo $section_id; ?>">
-                                        <input type="hidden" name="date" value="<?php echo $date; ?>">
+                                        <input type="hidden" name="month" value="<?php echo $month; ?>">
                                         <div class="table-responsive ptt10">
                                             <table class="table table-hover table-striped example"> 
                                                 <thead>
@@ -234,13 +233,17 @@
                                                         <th><?php echo $this->lang->line('roll_no'); ?></th>
                                                         <th><?php echo $this->lang->line('name'); ?></th>
                                                         <th class=""><?php echo $this->lang->line('attendance'); ?></th>
+                                                        <?php foreach ($dates as $eachDate) {
+                                                            ?><th class=""><?php echo($eachDate); ?></th>
+                                                        <?php
+                                                        } ?>
                                                         <th class="noteinput"><?php echo $this->lang->line('note'); ?></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
                                                     $row_count = 1;
-                                                    foreach ($resultlist as $key => $value) {
+                                                    foreach ($stuattendanceList as $key => $value) {
 
                                                         ?>
                                                         <tr>
@@ -270,58 +273,63 @@
                                                                 <?php echo $value['roll_no']; ?>
                                                             </td>
 
-                                                            <td>
+                                                            <td style="white-space: nowrap">
                                                                 <?php 
                                                                 echo $this->customlib->getFullName($value['firstname'],$value['middlename'],$value['lastname'],$sch_setting->middlename,$sch_setting->lastname);  ?>
                                                             </td>
                                                             <td>
-                                                                <?php
-                                                                $c = 1;
-                                                                $count = 0;
-                                                                foreach ($attendencetypeslist as $key => $type) {
-                                                                    if ($type['key_value'] != "H") {
-                                                                        $att_type = str_replace(" ", "_", strtolower($type['type']));
-                                                                        if ($value['date'] != "xxx") {
-                                                                            ?>
-                                                                            <div class="radio radio-info radio-inline">
-                                                                                <input <?php if ($value['attendence_type_id'] == $type['id']) echo "checked"; ?> type="radio" id="attendencetype<?php echo $value['student_session_id'] . "-" . $count; ?>" value="<?php echo $type['id'] ?>" name="attendencetype<?php echo $value['student_session_id']; ?>" >
-
-                                                                                <label for="attendencetype<?php echo $value['student_session_id'] . "-" . $count; ?>">
-                                                                                    <?php echo $this->lang->line($att_type); ?> 
-                                                                                </label>
-
-                                                                            </div>
-                                                                            <?php
-                                                                        }else {
-                                                                            ?>
-                                                                            <div class="radio radio-info radio-inline">
-                                                                                <?php
-                                                                                if ($sch_setting->biometric) {
-                                                                                    ?>
-                                                                                    <input <?php if ($att_type == "absent") echo "checked"; ?> type="radio" id="attendencetype<?php echo $value['student_session_id'] . "-" . $count; ?>" value="<?php echo $type['id'] ?>" name="attendencetype<?php echo $value['student_session_id']; ?>" >
-                                                                                    <?php
-                                                                                }else {
-                                                                                    ?>
-                                                                                    <input <?php if ($c == 1) echo "checked"; ?> type="radio" id="attendencetype<?php echo $value['student_session_id'] . "-" . $count; ?>" value="<?php echo $type['id'] ?>" name="attendencetype<?php echo $value['student_session_id']; ?>" >
-                                                                                    <?php
-                                                                                }
-                                                                                ?>
-
-
-                                                                                <label for="attendencetype<?php echo $value['student_session_id'] . "-" . $count; ?>"> 
-                                                                                    <?php echo $this->lang->line($att_type); ?> 
-                                                                                </label>
-                                                                            </div>
-                                                                            <?php
-                                                                        }
-                                                                        $c++;
-                                                                        $count++;
-                                                                    }
-                                                                }
-                                                                ?>
-
+                                                                <select id="attendencetype<?php echo $value['student_session_id']; ?>" name="attendencetype<?php echo $value['student_session_id']; ?>" class="form-control">
+                                                                    <option value="" selected="selected">-</option>
+                                                                    <option value="1">P</option>
+                                                                    <option value="3">L</option>
+                                                                    <option value="4">A</option>
+                                                                    <option value="6">H</option>
+                                                                </select>
                                                             </td>
-                                                            <?php if ($date == 'xxx') { ?> 
+                                                            <?php foreach ($dates as $eachDate) {
+                                                                list($dateString1, $dateString) = explode('/', $eachDate);
+                                                                ?><td class="">
+                                                                    <?php 
+                                                                        if ($value['attendence_type_id_' . $dateString]) { ?>
+                                                                            <input  type="hidden" value="<?php echo $value['attendence_id_' . $dateString]; ?>"  name="attendendence_id<?php echo $value['student_session_id'] . '_' . $dateString; ?>">
+                                                                        <?php }  else { ?>
+                                                                        <?php }
+                                                                    ?>
+                                                                    <select style="width: 59px;" id="<?php echo('studentattendanceselection_' . $value['student_session_id'] . '_' . $dateString); ?>" name="<?php echo('studentattendanceselection_' . $value['student_session_id'] . '_' . $dateString); ?>" class="form-control">
+                                                                        <?php 
+                                                                            if ($value['attendence_type_id_' . $dateString] == 1) {
+                                                                                echo '<option value="1" selected="selected">P</option>
+                                                                                        <option value="3">L</option>
+                                                                                        <option value="4">A</option>
+                                                                                        <option value="6">H</option>';
+                                                                            } elseif ($value['attendence_type_id_' . $dateString] == 3) {
+                                                                                echo '<option value="1">P</option>
+                                                                                        <option value="3" selected="selected">L</option>
+                                                                                        <option value="4">A</option>
+                                                                                        <option value="6">H</option>';
+                                                                            } elseif ($value['attendence_type_id_' . $dateString] == 4) {
+                                                                                echo '<option value="1">P</option>
+                                                                                        <option value="3">L</option>
+                                                                                        <option value="4" selected="selected">A</option>
+                                                                                        <option value="6">H</option>';
+                                                                            } elseif ($value['attendence_type_id_' . $dateString] == 6) {
+                                                                                echo '<option value="1">P</option>
+                                                                                        <option value="3">L</option>
+                                                                                        <option value="4">A</option>
+                                                                                        <option value="6" selected="selected">H</option>';
+                                                                            } else {
+                                                                                echo '<option value="1">P</option>
+                                                                                        <option value="3">L</option>
+                                                                                        <option value="4">A</option>
+                                                                                        <option value="6">H</option>';
+                                                                            }
+                                                                        ?>
+                                                                    </select>
+                                                                </td>
+                                                            <?php
+                                                            } ?>
+                                                            </td>
+                                                            <?php if ($month == 'xxx') { ?> 
                                                                 <td class="text-right"><input type="text" class="noteinput" name="remark<?php echo $value["student_session_id"] ?>" ></td>
                                                                     <?php } else { ?>
                                                                 <td class="text-right"><input type="text" class="noteinput" name="remark<?php echo $value["student_session_id"] ?>" value="<?php echo $value["remark"]; ?>" ></td>
@@ -344,157 +352,157 @@
                                 ?>
                             </div>
                         </div>
-                    </div> 
-                    <?php
-                }
-                ?>
-                </section>
+                    <?php } ?>
+                </div>
             </div>
-            <script type="text/javascript">
+        </div> 
+    </section>
+</div>
+<script type="text/javascript">
 
-                $(document).ready(function () {
-                    $.extend($.fn.dataTable.defaults, {
-                        searching: false,
-                        ordering: true,
-                        paging: false,
-                        retrieve: true,
-                        destroy: true,
-                        info: false
+    $(document).ready(function () {
+        $.extend($.fn.dataTable.defaults, {
+            searching: false,
+            ordering: true,
+            paging: false,
+            retrieve: true,
+            destroy: true,
+            info: false
+        });
+        var table = $('.example').DataTable();
+        table.buttons('.export').remove();
+        var section_id_post = '<?php echo $section_id; ?>';
+        var class_id_post = '<?php echo $class_id; ?>';
+        populateSection(section_id_post, class_id_post);
+        function populateSection(section_id_post, class_id_post) {
+            $('#section_id').html("");
+            var base_url = '<?php echo base_url() ?>';
+            var div_data = '<option value=""><?php echo $this->lang->line('select'); ?></option>';
+            $.ajax({
+                type: "GET",
+                url: base_url + "sections/getByClass",
+                data: {'class_id': class_id_post, 'day_wise': 'yes'},
+                dataType: "json",
+                success: function (data) {
+                    $.each(data, function (i, obj)
+                    {
+                        var select = "";
+                        if (section_id_post == obj.section_id) {
+                            var select = "selected=selected";
+                        }
+                        div_data += "<option value=" + obj.section_id + " " + select + ">" + obj.section + "</option>";
                     });
-                    var table = $('.example').DataTable();
-                    table.buttons('.export').remove();
-                    var section_id_post = '<?php echo $section_id; ?>';
-                    var class_id_post = '<?php echo $class_id; ?>';
-                    populateSection(section_id_post, class_id_post);
-                    function populateSection(section_id_post, class_id_post) {
-                        $('#section_id').html("");
-                        var base_url = '<?php echo base_url() ?>';
-                        var div_data = '<option value=""><?php echo $this->lang->line('select'); ?></option>';
-                        $.ajax({
-                            type: "GET",
-                            url: base_url + "sections/getByClass",
-                            data: {'class_id': class_id_post, 'day_wise': 'yes'},
-                            dataType: "json",
-                            success: function (data) {
-                                $.each(data, function (i, obj)
-                                {
-                                    var select = "";
-                                    if (section_id_post == obj.section_id) {
-                                        var select = "selected=selected";
-                                    }
-                                    div_data += "<option value=" + obj.section_id + " " + select + ">" + obj.section + "</option>";
-                                });
-                                $('#section_id').append(div_data);
-                            }
-                        });
-                    }
-
-                    $(document).on('change', '#class_id', function (e) {
-                        $('#section_id').html("");
-                        var class_id = $(this).val();
-                        var base_url = '<?php echo base_url() ?>';
-                        var div_data = '<option value=""><?php echo $this->lang->line('select'); ?></option>';
-                        var url = "<?php
-                $userdata = $this->customlib->getUserData();
-                if (($userdata["role_id"] == 2)) {
-                    echo "getClassTeacherSection";
-                } else {
-                    echo "getByClass";
+                    $('#section_id').append(div_data);
                 }
-                ?>";
-                        $.ajax({
-                            type: "GET",
-                            url: base_url + "sections/getByClass",
-                            data: {'class_id': class_id, 'day_wise': 'yes'},
-                            dataType: "json",
-                            success: function (data) {
-                                $.each(data, function (i, obj)
-                                {
-                                    div_data += "<option value=" + obj.section_id + ">" + obj.section + "</option>";
-                                });
-                                $('#section_id').append(div_data);
-                            }
-                        });
-                    });
+            });
+        }
 
-                });
-            </script>
-            <script type="text/javascript">
-                $(function () {
-                    $('.button-checkbox').each(function () {
-                        var $widget = $(this),
-                                $button = $widget.find('button'),
-                                $checkbox = $widget.find('input:checkbox'),
-                                color = $button.data('color'),
-                                settings = {
-                                    on: {
-                                        icon: 'glyphicon glyphicon-check'
-                                    },
-                                    off: {
-                                        icon: 'glyphicon glyphicon-unchecked'
-                                    }
-                                };
-                        $button.on('click', function () {
-                            $checkbox.prop('checked', !$checkbox.is(':checked'));
-                            $checkbox.triggerHandler('change');
-                            updateDisplay();
-                        });
-                        $checkbox.on('change', function () {
-                            updateDisplay();
-                        });
-
-                        function updateDisplay() {
-                            var isChecked = $checkbox.is(':checked');
-                            $button.data('state', (isChecked) ? "on" : "off");
-                            $button.find('.state-icon')
-                                    .removeClass()
-                                    .addClass('state-icon ' + settings[$button.data('state')].icon);
-                            if (isChecked) {
-                                $button
-                                        .removeClass('btn-success')
-                                        .addClass('btn-' + color + ' active');
-                            } else {
-                                $button
-                                        .removeClass('btn-' + color + ' active')
-                                        .addClass('btn-primary');
-                            }
+        $(document).on('change', '#class_id', function (e) {
+            $('#section_id').html("");
+            var class_id = $(this).val();
+            var base_url = '<?php echo base_url() ?>';
+            var div_data = '<option value=""><?php echo $this->lang->line('select'); ?></option>';
+            var url = "<?php
+                        $userdata = $this->customlib->getUserData();
+                        if (($userdata["role_id"] == 2)) {
+                            echo "getClassTeacherSection";
+                        } else {
+                            echo "getByClass";
                         }
+                        ?>";
+            $.ajax({
+                type: "GET",
+                url: base_url + "sections/getByClass",
+                data: {'class_id': class_id, 'day_wise': 'yes'},
+                dataType: "json",
+                success: function (data) {
+                    $.each(data, function (i, obj)
+                    {
+                        div_data += "<option value=" + obj.section_id + ">" + obj.section + "</option>";
+                    });
+                    $('#section_id').append(div_data);
+                }
+            });
+        });
 
-                        function init() {
-                            updateDisplay();
-                            if ($button.find('.state-icon').length == 0) {
-                                $button.prepend('<i class="state-icon ' + settings[$button.data('state')].icon + '"></i> ');
-                            }
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('.button-checkbox').each(function () {
+            var $widget = $(this),
+                    $button = $widget.find('button'),
+                    $checkbox = $widget.find('input:checkbox'),
+                    color = $button.data('color'),
+                    settings = {
+                        on: {
+                            icon: 'glyphicon glyphicon-check'
+                        },
+                        off: {
+                            icon: 'glyphicon glyphicon-unchecked'
                         }
-                        init();
-                    });
-                });
- 
-                $('#checkbox1').change(function () {
+                    };
+            $button.on('click', function () {
+                $checkbox.prop('checked', !$checkbox.is(':checked'));
+                $checkbox.triggerHandler('change');
+                updateDisplay();
+            });
+            $checkbox.on('change', function () {
+                updateDisplay();
+            });
 
-                    if (this.checked) {
-                        var returnVal = confirm("<?php echo $this->lang->line('are_you_sure'); ?>");
-                        $(this).prop("checked", returnVal);
+            function updateDisplay() {
+                var isChecked = $checkbox.is(':checked');
+                $button.data('state', (isChecked) ? "on" : "off");
+                $button.find('.state-icon')
+                        .removeClass()
+                        .addClass('state-icon ' + settings[$button.data('state')].icon);
+                if (isChecked) {
+                    $button
+                            .removeClass('btn-success')
+                            .addClass('btn-' + color + ' active');
+                } else {
+                    $button
+                            .removeClass('btn-' + color + ' active')
+                            .addClass('btn-primary');
+                }
+            }
 
-                        $("input[type=radio]").attr('disabled', true);
+            function init() {
+                updateDisplay();
+                if ($button.find('.state-icon').length == 0) {
+                    $button.prepend('<i class="state-icon ' + settings[$button.data('state')].icon + '"></i> ');
+                }
+            }
+            init();
+        });
+    });
+
+    $('#checkbox1').change(function () {
+
+        if (this.checked) {
+            var returnVal = confirm("<?php echo $this->lang->line('are_you_sure'); ?>");
+            $(this).prop("checked", returnVal);
+
+            $("input[type=radio]").attr('disabled', true);
 
 
-                    } else {
-                        $("input[type=radio]").attr('disabled', false);
-                        $("input[type=radio][value='1']").attr("checked", "checked");
+        } else {
+            $("input[type=radio]").attr('disabled', false);
+            $("input[type=radio][value='1']").attr("checked", "checked");
 
-                    }
+        }
 
-                });
+    });
 
 
-                $('form.form_attendence').on('submit', function (e) {
+    $('form.form_attendence').on('submit', function (e) {
 
-                    $(this).submit(function () {
-                        return false;
-                    });
-                    return true;
+        $(this).submit(function () {
+            return false;
+        });
+        return true;
 
-                });
+    });
 
-            </script>
+</script>

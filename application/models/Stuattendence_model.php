@@ -81,6 +81,64 @@ class Stuattendence_model extends MY_Model {
         return $query->result_array();
     }
 
+    public function searchAttendenceClassSectionByMonth($class_id, $section_id, $month_year) {
+        // Extract month and year from the input
+        list($year, $month) = explode('-', $month_year);
+        $sql = "SELECT 
+                    student_sessions.attendence_id,
+                    student_sessions.attendence_dt,
+                    students.firstname,
+                    students.middlename,
+                    students.lastname,
+                    student_sessions.date,
+                    student_sessions.remark,
+                    student_sessions.biometric_attendence,
+                    students.roll_no,
+                    students.admission_no,
+                    students.id AS std_id,
+                    student_sessions.attendence_type_id,
+                    student_sessions.id AS student_session_id,
+                    attendence_type.type AS att_type,
+                    attendence_type.key_value AS 'key'
+                FROM 
+                    students
+                JOIN 
+                    (
+                        SELECT 
+                            student_session.id,
+                            student_session.student_id,
+                            IFNULL(student_attendences.date, 'xxx') AS date,
+                            IFNULL(student_attendences.created_at, 'xxx') AS attendence_dt,
+                            student_attendences.remark,
+                            student_attendences.biometric_attendence,
+                            IFNULL(student_attendences.id, 0) AS attendence_id,
+                            student_attendences.attendence_type_id
+                        FROM 
+                            student_session
+                        LEFT JOIN 
+                            student_attendences 
+                        ON 
+                            student_attendences.student_session_id = student_session.id 
+                            AND MONTH(student_attendences.date) = " . (int)$month . " 
+                            AND YEAR(student_attendences.date) = " . (int)$year . "
+                        WHERE 
+                            student_session.session_id = " . $this->db->escape($this->current_session) . " 
+                            AND student_session.class_id = " . $this->db->escape($class_id) . " 
+                            AND student_session.section_id = " . $this->db->escape($section_id) . "
+                    ) AS student_sessions 
+                LEFT JOIN 
+                    attendence_type 
+                ON 
+                    attendence_type.id = student_sessions.attendence_type_id 
+                WHERE 
+                    student_sessions.student_id = students.id 
+                    AND students.is_active = 'yes' 
+                ORDER BY 
+                    students.id DESC;";
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+    
     public function searchAttendenceReport($class_id, $section_id, $date) {
 
         $sql = "select student_sessions.attendence_id,students.firstname,students.middlename,student_sessions.date,student_sessions.remark,students.roll_no,students.admission_no,students.lastname,student_sessions.attendence_type_id,student_sessions.id as student_session_id, attendence_type.type as `att_type`,attendence_type.key_value as `key` from students ,(SELECT student_session.id,student_session.student_id ,IFNULL(student_attendences.date, 'xxx') as date,student_attendences.remark, IFNULL(student_attendences.id, 0) as attendence_id,student_attendences.attendence_type_id FROM `student_session` LEFT JOIN student_attendences ON student_attendences.student_session_id=student_session.id  and student_attendences.date=" . $this->db->escape($date) . " where  student_session.session_id=" . $this->db->escape($this->current_session) . " and student_session.class_id=" . $this->db->escape($class_id) . " and student_session.section_id=" . $this->db->escape($section_id) . ") as student_sessions   LEFT JOIN attendence_type ON attendence_type.id=student_sessions.attendence_type_id where student_sessions.student_id=students.id  and students.is_active = 'yes' ";

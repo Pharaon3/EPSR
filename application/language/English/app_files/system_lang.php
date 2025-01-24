@@ -570,6 +570,7 @@ $lang['stripe_publishable_key'] = 'Stripe Publishable Key';
 $lang['student'] = 'Student';
 $lang['student_admission'] = 'Student Admission';
 $lang['student_attendance'] = 'Student Attendance';
+$lang['student_attendance_by_month'] = 'Student Attendance By Month';
 $lang['student_categories'] = 'Student Categories';
 $lang['student_detail'] = 'Student Detail';
 $lang['student_details'] = 'Student Details';
